@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="apexofficeprint-python",
+    name="apexofficeprint",
     version="0.0.1", # TODO
     author="United Codes",
     author_email="info@united-codes.com",
