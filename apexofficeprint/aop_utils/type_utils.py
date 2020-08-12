@@ -1,5 +1,13 @@
 import mimetypes
 
+supported_resource_types = [
+    "txt",
+    "md",
+    "html",
+    "docx",
+    "xlsx",
+    "pptx",
+]
 
 def extension_to_mimetype(ext):
     """

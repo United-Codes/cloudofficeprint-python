@@ -6,16 +6,6 @@ from urllib.parse import urlparse
 from enum import Enum
 
 
-_supported_resource_types = [
-    "txt",
-    "md",
-    "html",
-    "docx",
-    "xlsx",
-    "pptx",
-]
-
-
 class DataType(Enum):
     """
     An enum for data types.
@@ -226,4 +216,4 @@ class AOPResource:
 
     @staticmethod
     def is_supported_resource_type(type_):
-        return type_ in _supported_resource_types
+        return type_ in type_utils.supported_resource_types
