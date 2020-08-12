@@ -1,2 +1,2 @@
-from .aop_resource import AOPResource
+from .resource import Resource
 from .aop_error import AOPError

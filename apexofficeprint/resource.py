@@ -17,7 +17,7 @@ class DataType(Enum):
     HTML = 5
 
 
-class AOPResource:
+class Resource:
     def __init__(self, datatype=None, data=None, filetype=None, orientation=None):
         """
         This constructor is not meant to be used directly.
