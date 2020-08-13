@@ -4,7 +4,7 @@ from apexofficeprint.aop_utils import type_utils
 from os import path
 from urllib.parse import urlparse
 from enum import Enum
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
 class Resource():
