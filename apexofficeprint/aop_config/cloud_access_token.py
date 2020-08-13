@@ -1,4 +1,5 @@
 from typing import List
+from abc import abstractmethod
 import json
 
 SERVICES = [
@@ -42,6 +43,7 @@ class CloudAccessToken:
         self._service = value
 
     @property
+    @abstractmethod
     def as_dict(self) -> dict:
         """The cloud access token as a dict, for building the json.
 
@@ -51,7 +53,7 @@ class CloudAccessToken:
         Returns:
             dict: dict representation of this cloud access token
         """
-        raise NotImplementedError
+        pass
 
     @property
     def json(self) -> str:
