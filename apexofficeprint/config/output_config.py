@@ -53,6 +53,8 @@ class OutputConfig:
             result["output_directory"] = self._server_directory
         if self._pdf_options is not None:
             result.update(self._pdf_options)
+        
+        return result
 
     @property
     def filetype(self) -> str:
