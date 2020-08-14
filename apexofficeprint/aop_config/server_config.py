@@ -1,7 +1,7 @@
 import requests
 import logging
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 
 class ServerConfig:
@@ -49,7 +49,7 @@ class ServerConfig:
         Args:
             value (str): server URL
         """
-        if (re.search(r":\/\/", value) is None):
+        if (urlparse(value).scheme == ''):
             self._server_url = "http://" + value
             logging.warning(
                 f'No scheme found in "{value}", assuming "{self._server_url}".')
