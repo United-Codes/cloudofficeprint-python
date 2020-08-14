@@ -119,7 +119,7 @@ class OutputConfig:
     def cloud_access_token(self) -> CloudAccessToken:
         """Access token used to access various cloud services for output storage.
 
-        It should be an instance of apexofficeprint.CloudAccessToken.
+        It should be an instance of apexofficeprint.config.CloudAccessToken.
 
         Returns:
             CloudAccessToken: access token
@@ -159,7 +159,7 @@ class OutputConfig:
     def pdf_options(self) -> PDFOptions:
         """Optional PDF options.
 
-        Should be an instance of apexofficeprint.PDFOptions
+        Should be an instance of apexofficeprint.config.PDFOptions
 
         Returns:
             PDFOptions: PDF options
