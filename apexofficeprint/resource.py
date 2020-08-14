@@ -1,7 +1,6 @@
 import base64
 import json
 from apexofficeprint.utils import type_utils
-from os import path
 from urllib.parse import urlparse
 from enum import Enum
 from abc import abstractmethod
@@ -131,7 +130,8 @@ class Resource():
         f = open(local_path, "rb")
         file_content = f.read()
         f.close()
-        return RawResource(file_content, path.splitext(local_path)[1])
+        # [1] for the extension with leading ".", [1:] to cut off the dot
+        return RawResource(file_content, type_utils.path_to_extension(local_path))
 
     @staticmethod
     def from_server_path(path: str) -> 'ServerPathResource':
@@ -234,7 +234,7 @@ class Base64Resource(Resource):
 
 class ServerPathResource(Resource):
     def __init__(self, server_path):
-        super().__init__(path, path.splitext(server_path)[1])
+        super().__init__(server_path, type_utils.path_to_extension(server_path))
 
     @property
     def path(self):
