@@ -116,22 +116,22 @@ class Resource():
         return RawResource(raw_data, filetype)
 
     @staticmethod
-    def from_local_file(path: str) -> 'RawResource':
+    def from_local_file(local_path: str) -> 'RawResource':
         """Create a RawResource with the contents of a local file.
 
         Throws IOError if it can't read the file.
         The filetype is determined by the extension of the file.
 
         Args:
-            path (str): path to local file
+            local_path (str): path to local file
 
         Returns:
             RawResource: the created Resource
         """
-        f = open(path, "rb")
+        f = open(local_path, "rb")
         file_content = f.read()
         f.close()
-        return RawResource(file_content, path.splitext(path)[1])
+        return RawResource(file_content, path.splitext(local_path)[1])
 
     @staticmethod
     def from_server_path(path: str) -> 'ServerPathResource':
