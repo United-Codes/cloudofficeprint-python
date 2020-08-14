@@ -1,5 +1,5 @@
 import json
-from .aop_config import ServerConfig, OutputConfig
+from .config import ServerConfig, OutputConfig
 
 STATIC_OPTS = {
     "tool": "python",
