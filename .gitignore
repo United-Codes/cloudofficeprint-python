@@ -1,4 +1,7 @@
-/test.*
+docs/html/
+
+# test files
+/test.py
 *.docx
 *.xlsx
 *.pptx
