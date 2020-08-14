@@ -1,9 +1,12 @@
 import json
+import requests
 from .config import ServerConfig, OutputConfig
+from .error import AOPError
+from .resource import Resource
 
 STATIC_OPTS = {
-    "tool": "python",
-    "version": "18.2"
+    "tool": "python"
+    # "version": "18.2" # optional
 }
 
 # TODO: somewhere, this class should check whether its templates are compatible and whether they are in turn compatible with the output file type
@@ -11,10 +14,21 @@ STATIC_OPTS = {
 
 class PrintJob:
     def __init__(self,
+                 template: Resource,
                  server_config: ServerConfig,
-                 output_config: OutputConfig):
+                 output_config: OutputConfig = None):
         self._server_config = server_config
-        self._output_config = output_config
+        self._output_config = output_config if output_config else OutputConfig()
+        self._template = template
+
+    def execute(self):  # -> Union[Response, AOPError]: # TODO
+        if not self.server_config.is_reachable():
+            raise ConnectionError(
+                f"Could not reach server at {self.server_config.server_url}")
+        r = requests.post(self.server_config.server_url, data=self.json)
+        if r.status_code != 200:
+            raise AOPError(r.text)
+        return r  # TODO
 
     @property
     def json(self) -> str:
@@ -42,7 +56,9 @@ class PrintJob:
 
         result["output"] = self.output_config.as_dict
 
-        # add more stuff to result here
+        result["template"] = self.template.template_dict
+
+        # TODO: add more stuff to result here
 
         return result
 
@@ -50,7 +66,7 @@ class PrintJob:
     def server_config(self) -> ServerConfig:
         """Server configuration to be used for this print job.
 
-        Should be an instance of apexofficeprint.ServerConfig
+        Should be an instance of apexofficeprint.config.ServerConfig
 
         Returns:
             ServerConfig: server configuration
@@ -83,3 +99,23 @@ class PrintJob:
             value (OutputConfig): output_config
         """
         self._output_config = value
+
+    @property
+    def template(self) -> Resource:
+        """Template to use for this print job.
+
+        Should be an instance of apexofficeprint.Resource
+
+        Returns:
+            Resource: resource to use as template
+        """
+        return self._template
+
+    @template.setter
+    def template(self, resource: Resource):
+        """Set template
+
+        Args:
+            resource (Resource): template
+        """
+        self._template = resource
