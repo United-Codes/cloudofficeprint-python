@@ -1,4 +1,6 @@
 class AOPError(Exception):
+    """# TODO: document
+    """
     def __init__(self, full_message):
         (self._user_message,
          self._contact_support_message,

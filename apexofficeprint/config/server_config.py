@@ -5,6 +5,8 @@ from urllib.parse import urljoin, urlparse
 
 
 class ServerConfig:
+    """# TODO: document
+    """
     def __init__(self, server_url: str, api_key: str = None):
         """Constructor for ServerConfig
 

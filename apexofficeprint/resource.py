@@ -7,6 +7,8 @@ from abc import abstractmethod
 
 
 class Resource():
+    """# TODO: document
+    """
     def __init__(self, data=None, filetype=None, orientation=None):
         """This constructor is not meant to be used directly."""
         self._data = data

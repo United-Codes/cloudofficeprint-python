@@ -13,6 +13,8 @@ STATIC_OPTS = {
 
 
 class PrintJob:
+    """# TODO: document
+    """
     def __init__(self,
                  template: Resource,
                  server_config: ServerConfig,
