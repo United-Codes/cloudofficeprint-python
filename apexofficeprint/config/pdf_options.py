@@ -92,11 +92,6 @@ class PDFOptions:
 
     @even_page.setter
     def even_page(self, value: bool):
-        """Set even_page
-
-        Args:
-            value (bool): even_page
-        """
         # set to None instead of False to omit from the json
         self._even_page = True if value else None
 
@@ -111,11 +106,6 @@ class PDFOptions:
 
     @merge_making_even.setter
     def merge_making_even(self, value: bool):
-        """Set merge_making_even
-
-        Args:
-            value (bool): merge_making_even
-        """
         self._merge_making_even = True if value else None
 
     @property
@@ -129,11 +119,6 @@ class PDFOptions:
 
     @read_password.setter
     def read_password(self, value: str):
-        """Set read_password
-
-        Args:
-            value (str): read_password
-        """
         self._read_password = value
 
     @property
@@ -147,11 +132,6 @@ class PDFOptions:
 
     @modify_password.setter
     def modify_password(self, value: str):
-        """Set modify_password
-
-        Args:
-            value (str): modify_password
-        """
         self._modify_password = value
 
     @property
@@ -167,11 +147,6 @@ class PDFOptions:
 
     @password_protection_flag.setter
     def password_protection_flag(self, value: int):
-        """Set password_protection_flag
-
-        Args:
-            value (int): password_protection_flag
-        """
         self._password_protection_flag = int(value)
 
     @property
@@ -185,11 +160,6 @@ class PDFOptions:
 
     @watermark.setter
     def watermark(self, value: str):
-        """Set watermark
-
-        Args:
-            value (str): watermark
-        """
         self._watermark = value
 
     @property
@@ -203,11 +173,6 @@ class PDFOptions:
 
     @lock_form.setter
     def lock_form(self, value: bool):
-        """Set lock_form
-
-        Args:
-            value (bool): lock_form
-        """
         self._lock_form = True if value else None
 
     @property
@@ -221,11 +186,6 @@ class PDFOptions:
 
     @copies.setter
     def copies(self, value: int):
-        """Set copies
-
-        Args:
-            value (int): copies
-        """
         self._copies = int(value)
 
     @property
@@ -246,11 +206,11 @@ class PDFOptions:
         """
         return self._page_margin
 
-    @page_margin.setter
-    def page_margin(self, value: int, position: str = None):
+    def set_page_margin_at(self, value: int, position: str = None):
         """Set page_margin
 
-        Either set the position for all margin positions or set a specific one.
+        Either set the position for all margin positions (if position is None) or set a specific one.
+        The setter for the page_margin property sets the margin for all positions.
 
         Args:
             value (int): page margin
@@ -278,6 +238,10 @@ class PDFOptions:
         else:
             self._page_margin = value
 
+    @page_margin.setter
+    def page_margin(self, value: int):
+        self.set_page_margin_at(value, position = None)
+
     @property
     def page_orientation(self) -> str:
         """The page orientation, portrait or landscape.
@@ -289,11 +253,6 @@ class PDFOptions:
 
     @page_orientation.setter
     def page_orientation(self, value: str):
-        """Set page_orientation
-
-        Args:
-            value (str): page_orientation ("portrait" or "landscape")
-        """
         self._landscape = True if value is "landscape" else False
 
     @property
@@ -307,11 +266,6 @@ class PDFOptions:
 
     @page_width.setter
     def page_width(self, value: Union[str, int]):
-        """Set page_width
-
-        Args:
-            value (Union[str, int]): page_width
-        """
         self._page_width = value
 
     @property
@@ -325,11 +279,6 @@ class PDFOptions:
 
     @page_height.setter
     def page_height(self, value: Union[str, int]):
-        """Set page_height
-
-        Args:
-            value (Union[str, int]): page_height
-        """
         self._page_height = value
 
     @property
@@ -343,11 +292,6 @@ class PDFOptions:
 
     @page_format.setter
     def page_format(self, value: str):
-        """Set page_format
-
-        Args:
-            value (str): page_format
-        """
         self._page_format = value
 
     @property
@@ -361,9 +305,5 @@ class PDFOptions:
 
     @merge.setter
     def merge(self, value: bool):
-        """Set merge
 
-        Args:
-            value (bool): merge
-        """
         self._merge = value

@@ -67,11 +67,6 @@ class OutputConfig:
 
     @filetype.setter
     def filetype(self, value: str):
-        """Set filetype
-
-        Args:
-            value (str): filetype
-        """
         self._filetype = value
 
     @property
@@ -85,11 +80,6 @@ class OutputConfig:
 
     @encoding.setter
     def encoding(self, value: str):
-        """Set encoding.
-
-        Args:
-            value (str): encoding
-        """
         if not (value == "raw" or value == "base64"):
             raise ValueError(f'Encoding must be either "raw" or "base64", was "{value}".')
         self._encoding = value
@@ -108,11 +98,6 @@ class OutputConfig:
 
     @converter.setter
     def converter(self, value: str):
-        """Set converter
-
-        Args:
-            value (str): PDF converter name
-        """
         self._converter = value
 
     @property
@@ -128,11 +113,6 @@ class OutputConfig:
 
     @cloud_access_token.setter
     def cloud_access_token(self, value: CloudAccessToken):
-        """Set cloud_access_token
-
-        Args:
-            value (CloudAccessToken): cloud_access_token
-        """
         self._cloud_access_token = value
 
     @property
@@ -148,11 +128,6 @@ class OutputConfig:
 
     @server_directory.setter
     def server_directory(self, value: str):
-        """Set server_directory
-
-        Args:
-            value (str): server_directory
-        """
         self._server_directory = value
 
     @property
@@ -168,9 +143,4 @@ class OutputConfig:
 
     @pdf_options.setter
     def pdf_options(self, value: PDFOptions):
-        """Set pdf_options
-
-        Args:
-            value (PDFOptions): pdf_options
-        """
         self._pdf_options = value

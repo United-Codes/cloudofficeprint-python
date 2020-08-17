@@ -1,6 +1,6 @@
 import base64
 import json
-from apexofficeprint.utils import type_utils
+from ._utils import type_utils
 from urllib.parse import urlparse
 from enum import Enum
 from abc import abstractmethod

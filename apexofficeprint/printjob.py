@@ -75,11 +75,6 @@ class PrintJob:
 
     @server_config.setter
     def server_config(self, value: ServerConfig):
-        """Set server_config
-
-        Args:
-            value (ServerConfig): server_config
-        """
         self._server_config = value
 
     @property
@@ -93,11 +88,6 @@ class PrintJob:
 
     @output_config.setter
     def output_config(self, value: OutputConfig):
-        """Set output_config
-
-        Args:
-            value (OutputConfig): output_config
-        """
         self._output_config = value
 
     @property
@@ -113,9 +103,4 @@ class PrintJob:
 
     @template.setter
     def template(self, resource: Resource):
-        """Set template
-
-        Args:
-            resource (Resource): template
-        """
         self._template = resource

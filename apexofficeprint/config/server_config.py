@@ -26,11 +26,6 @@ class ServerConfig:
 
     @api_key.setter
     def api_key(self, value: str):
-        """Set api_key
-
-        Args:
-            value (str): api key
-        """
         self._api_key = value
 
     @property
@@ -44,11 +39,6 @@ class ServerConfig:
 
     @server_url.setter
     def server_url(self, value: str):
-        """Set server_url
-
-        Args:
-            value (str): server URL
-        """
         if (urlparse(value).scheme == ''):
             self._server_url = "http://" + value
             logging.warning(
