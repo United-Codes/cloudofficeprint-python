@@ -1,5 +1,5 @@
 """
-This Python package provides a programmatic interface with an APEX Office print server.
+This Python package provides a programmatic interface with an [APEX Office Print](https://www.apexofficeprint.com) server.
 
 ## Example
 ```python
