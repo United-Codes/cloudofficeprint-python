@@ -1,7 +1,9 @@
 """Custom exceptions for apexofficeprint."""
 
 class AOPError(Exception):
-    """# TODO: document
+    """The error that is thrown when the AOP server itself returns an error instead of a result.
+
+    It contains a user message and an encoded message to be handed to AOP support if they are contacted.
     """
     def __init__(self, full_message):
         (self._user_message,

@@ -1,5 +1,13 @@
 """
 Module containing the Resource class and its subclasses, which is also exposed at package level.
+
+Every resource contains or points to a file to be used as a template or to be included as an append/prepend document (in case of pdf output).
+
+## Resource creation
+
+The `Resource` constructor is not meant to be used directly.
+The recommended way of obtaining a `Resource` is through the static from_... methods (e.g. `Resource.from_local_file`),
+alternatively, the `Resource` subclasses can be constructed to form a valid `Resource`.
 """
 
 import json
@@ -9,11 +17,8 @@ from abc import abstractmethod
 
 
 class Resource():
-    """# TODO: document
-    """
-
+    """The base class for the resources."""
     def __init__(self, data=None, filetype=None, orientation=None):
-        """This constructor is not meant to be used directly."""
         self._data = data
         self.filetype = filetype  # use the setter
 
@@ -193,6 +198,7 @@ class Resource():
 
 
 class RawResource(Resource):
+    """A Resource containing raw binary data."""
     def __init__(self, raw_data, filetype):
         super().__init__(raw_data, filetype)
 
@@ -217,6 +223,7 @@ class RawResource(Resource):
 
 
 class Base64Resource(Resource):
+    """A Resource containing base64 data."""
     def __init__(self, base64string, filetype):
         super().__init__(base64string, filetype)
 
@@ -237,6 +244,7 @@ class Base64Resource(Resource):
 
 
 class ServerPathResource(Resource):
+    """A Resource targeting a file on the server."""
     def __init__(self, server_path):
         super().__init__(server_path, type_utils.path_to_extension(server_path))
 
@@ -261,6 +269,7 @@ class ServerPathResource(Resource):
 
 
 class URLResource(Resource):
+    """A Resource targeting a file at an URL."""
     def __init__(self, url, filetype):
         super().__init__(url, filetype)
 
@@ -281,6 +290,7 @@ class URLResource(Resource):
 
 
 class HTMLResource(Resource):
+    """A Resource containing HTML data in plain text."""
     def __init__(self, htmlstring: str, landscape: bool = False):
         super().__init__(htmlstring, "html")
         self._landscape = landscape

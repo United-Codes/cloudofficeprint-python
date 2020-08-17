@@ -1,7 +1,7 @@
 """
 This Python package provides a programmatic interface with an APEX Office print server.
 
-# Example
+## Example
 ```python
 # TODO: the example should go here
 ```

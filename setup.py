@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="apexofficeprint",
-    version="0.0.1", # TODO
+    version="0.0.1",
     author="United Codes",
     author_email="info@united-codes.com",
     description="python interface for apexofficeprint",

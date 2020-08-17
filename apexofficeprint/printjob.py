@@ -4,9 +4,10 @@ Module containing the PrintJob class, which is also exposed at package level.
 
 import requests
 import json
-from .config import OutputConfig
+from .config import OutputConfig, ServerConfig
 from .exceptions import AOPError
 from .response import Response
+from .resource import Resource
 from typing import Union
 
 STATIC_OPTS = {
@@ -14,22 +15,25 @@ STATIC_OPTS = {
     # "version": "18.2" # optional
 }
 
-# TODO: somewhere, this class should check whether its templates are compatible and whether they are in turn compatible with the output file type
-
 
 class PrintJob:
-    """# TODO: document
+    """A print job for a AOP server.
+
+    This class contains all configuration options, resources, render elements ...
+    and the `PrintJob.execute` method to combine all these and send a request to the AOP server.
     """
 
     def __init__(self,
-                 template: 'Resource',
-                 server_config: 'ServerConfig',
+                 template: Resource,
+                 server_config: ServerConfig,
                  output_config: OutputConfig = None):
         self._server_config = server_config
         self._output_config = output_config if output_config else OutputConfig()
         self._template = template
 
-    def execute(self) -> Union['Response', AOPError]:
+    def execute(self) -> Union[Response, AOPError]:
+        """# TODO: document (auto generate args etc.) when finished
+        """
         if not self.server_config.is_reachable():
             raise ConnectionError(
                 f"Could not reach server at {self.server_config.server_url}")
@@ -71,15 +75,15 @@ class PrintJob:
 
         # TODO: this is test data, should be handled with render elements
         result["files"] = [
-            json.loads('{"data":{"chartData":{"title":"aop chart title","xAxis":{"title":"aop x ax title","data":["string",2,3,4,5]},"yAxis":{"title":"aop y ax title","series":[{"name":"yseries1","data":[5,4,7,8,6]},{"name":"yseries2","data":[4,8,7,6,3]},{"name":"yseries3","data":[2,4,4,1,6]}]}},"secondAxesData":{"title":"aop chart title","xAxis":{"title":"aop x ax title","data":["string",2,3,4,5]},"x2Axis":{"title":"aop x2 ax title"},"yAxis":{"title":"aop y ax title","series":[{"name":"yseries1","data":[5,4,7,8,6]},{"name":"yseries2","data":[4,8,7,6,3]},{"name":"y2series","data":[2,4,4,1,6]}]},"y2Axis":{"title":"aop y2 ax title"}},"stockChartData":{"title":"aop stock chart title","xAxis":{"title":"aop x ax title","date":{"format":"d/m/yyyy","unit":"days","step":"1"},"data":["1999-05-16","1999-05-17","1999-05-18","1999-05-19","1999-05-20"]},"yAxis":{"title":"aop y ax title","series":[{"name":"volume","data":[148,135,150,120,70]},{"name":"open","data":[34,50,38,25,44]},{"name":"high","data":[58,58,57,57,55]},{"name":"low","data":[25,11,13,12,11]},{"name":"close","data":[43,35,50,38,25]}]}}}}')
+            json.loads('{"data":{"testVar": "HELLO!"}}')
         ]
         return result
 
     @property
-    def server_config(self) -> 'ServerConfig':
+    def server_config(self) -> ServerConfig:
         """Server configuration to be used for this print job.
 
-        Should be an instance of `apexofficeprint.config.ServerConfig`
+        Should be an instance of `ServerConfig`
 
         Returns:
             ServerConfig: server configuration
@@ -87,7 +91,7 @@ class PrintJob:
         return self._server_config
 
     @server_config.setter
-    def server_config(self, value: 'ServerConfig'):
+    def server_config(self, value: ServerConfig):
         self._server_config = value
 
     @property
@@ -104,7 +108,7 @@ class PrintJob:
         self._output_config = value
 
     @property
-    def template(self) -> 'Resource':
+    def template(self) -> Resource:
         """Template to use for this print job.
 
         Should be an instance of `Resource`
@@ -115,5 +119,5 @@ class PrintJob:
         return self._template
 
     @template.setter
-    def template(self, resource: 'Resource'):
+    def template(self, resource: Resource):
         self._template = resource
