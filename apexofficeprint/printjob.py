@@ -1,8 +1,10 @@
 import json
 import requests
+from typing import Union
 from .config import ServerConfig, OutputConfig
 from .exceptions import AOPError
 from .resource import Resource
+from .response import Response
 
 STATIC_OPTS = {
     "tool": "python"
@@ -23,14 +25,17 @@ class PrintJob:
         self._output_config = output_config if output_config else OutputConfig()
         self._template = template
 
-    def execute(self):  # -> Union[Response, AOPError]: # TODO
+    def execute(self) -> Union[Response, AOPError]:
         if not self.server_config.is_reachable():
             raise ConnectionError(
                 f"Could not reach server at {self.server_config.server_url}")
-        r = requests.post(self.server_config.server_url, data=self.json)
-        if r.status_code != 200:
-            raise AOPError(r.text)
-        return r  # TODO
+
+        res = requests.post(self.server_config.server_url, json=self.as_dict)
+
+        if res.status_code != 200:
+            raise AOPError(res.text)
+        else:
+            return Response(res)
 
     @property
     def json(self) -> str:
@@ -60,8 +65,10 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
-        # TODO: add more stuff to result here
-
+        # TODO: this is test data, should be handled with render elements
+        result["files"] = [
+            json.loads('{"data":{"chartData":{"title":"aop chart title","xAxis":{"title":"aop x ax title","data":["string",2,3,4,5]},"yAxis":{"title":"aop y ax title","series":[{"name":"yseries1","data":[5,4,7,8,6]},{"name":"yseries2","data":[4,8,7,6,3]},{"name":"yseries3","data":[2,4,4,1,6]}]}},"secondAxesData":{"title":"aop chart title","xAxis":{"title":"aop x ax title","data":["string",2,3,4,5]},"x2Axis":{"title":"aop x2 ax title"},"yAxis":{"title":"aop y ax title","series":[{"name":"yseries1","data":[5,4,7,8,6]},{"name":"yseries2","data":[4,8,7,6,3]},{"name":"y2series","data":[2,4,4,1,6]}]},"y2Axis":{"title":"aop y2 ax title"}},"stockChartData":{"title":"aop stock chart title","xAxis":{"title":"aop x ax title","date":{"format":"d/m/yyyy","unit":"days","step":"1"},"data":["1999-05-16","1999-05-17","1999-05-18","1999-05-19","1999-05-20"]},"yAxis":{"title":"aop y ax title","series":[{"name":"volume","data":[148,135,150,120,70]},{"name":"open","data":[34,50,38,25,44]},{"name":"high","data":[58,58,57,57,55]},{"name":"low","data":[25,11,13,12,11]},{"name":"close","data":[43,35,50,38,25]}]}}}}')
+        ]
         return result
 
     @property

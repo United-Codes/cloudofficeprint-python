@@ -1,3 +1,5 @@
+"""# TODO: document this"""
+
 class AOPError(Exception):
     """# TODO: document
     """

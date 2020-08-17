@@ -10,11 +10,13 @@ TODO: include test.py as an example (as example.py)?
 # For example, we want apexofficeprint.PrintJob instead of apexofficeprint.printjob.PrintJob.
 from .resource import Resource
 from .printjob import PrintJob
+from .response import Response
 
 # Add exceptions for pdoc to those modules whose content is exposed here.
 __pdoc__ = {
     "printjob": False,
     "resource": False,
+    "response": False
 }
 
 # specify what is imported on "from apexofficeprint import *"
@@ -22,6 +24,7 @@ __pdoc__ = {
 __all__ = [
     "Resource",
     "PrintJob",
+    "Response",
     "exceptions",
     "config"
 ]
