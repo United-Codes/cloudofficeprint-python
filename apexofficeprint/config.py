@@ -703,7 +703,7 @@ class PDFOptions:
 
     @page_orientation.setter
     def page_orientation(self, value: str):
-        self._landscape = True if value is "landscape" else False
+        self._landscape = True if value == "landscape" else False
 
     @property
     def page_width(self) -> Union[str, int]:
