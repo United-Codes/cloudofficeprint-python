@@ -1,14 +1,17 @@
-import base64
+"""
+Module containing the Resource class and its subclasses, which is also exposed at package level.
+"""
+
 import json
+import base64
 from ._utils import type_utils
-from urllib.parse import urlparse
-from enum import Enum
 from abc import abstractmethod
 
 
 class Resource():
     """# TODO: document
     """
+
     def __init__(self, data=None, filetype=None, orientation=None):
         """This constructor is not meant to be used directly."""
         self._data = data
@@ -107,8 +110,7 @@ class Resource():
         """Create a RawResource from raw file data and a file type (extension).
 
         Args:
-            raw_data: raw data as a bytes-like object
-                      (https://docs.python.org/3/glossary.html#term-bytes-like-object)
+            raw_data: raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object)
             filetype (str): file type (extension)
 
         Returns:

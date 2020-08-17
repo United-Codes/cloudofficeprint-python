@@ -1,12 +1,17 @@
+"""
+Module containing the Response class, which is also exposed at package level.
+"""
+
 import requests
 from ._utils import type_utils
 from os.path import splitext
 
 class Response():
     """The Response class serves as a container for and interface with the AOP server's response to a printjob request.
-    
+
     The AOP server can also throw an error, in which case you will be dealing with an apexofficeprint.exceptions.AOPError instead of this class.
     """
+
     def __init__(self, response: requests.Response):
         """You should never need to construct a Response manually.
 
@@ -33,7 +38,7 @@ class Response():
             str: file type
         """
         return type_utils.mimetype_to_extension(self.mimetype)
-    
+
     @property
     def binary(self) -> bytes:
         """Binary representation of the output file.

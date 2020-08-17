@@ -1,10 +1,13 @@
-import json
+"""
+Module containing the PrintJob class, which is also exposed at package level.
+"""
+
 import requests
-from typing import Union
-from .config import ServerConfig, OutputConfig
+import json
+from .config import OutputConfig
 from .exceptions import AOPError
-from .resource import Resource
 from .response import Response
+from typing import Union
 
 STATIC_OPTS = {
     "tool": "python"
@@ -17,15 +20,16 @@ STATIC_OPTS = {
 class PrintJob:
     """# TODO: document
     """
+
     def __init__(self,
-                 template: Resource,
-                 server_config: ServerConfig,
+                 template: 'Resource',
+                 server_config: 'ServerConfig',
                  output_config: OutputConfig = None):
         self._server_config = server_config
         self._output_config = output_config if output_config else OutputConfig()
         self._template = template
 
-    def execute(self) -> Union[Response, AOPError]:
+    def execute(self) -> Union['Response', AOPError]:
         if not self.server_config.is_reachable():
             raise ConnectionError(
                 f"Could not reach server at {self.server_config.server_url}")
@@ -72,10 +76,10 @@ class PrintJob:
         return result
 
     @property
-    def server_config(self) -> ServerConfig:
+    def server_config(self) -> 'ServerConfig':
         """Server configuration to be used for this print job.
 
-        Should be an instance of apexofficeprint.config.ServerConfig
+        Should be an instance of `apexofficeprint.config.ServerConfig`
 
         Returns:
             ServerConfig: server configuration
@@ -83,7 +87,7 @@ class PrintJob:
         return self._server_config
 
     @server_config.setter
-    def server_config(self, value: ServerConfig):
+    def server_config(self, value: 'ServerConfig'):
         self._server_config = value
 
     @property
@@ -100,10 +104,10 @@ class PrintJob:
         self._output_config = value
 
     @property
-    def template(self) -> Resource:
+    def template(self) -> 'Resource':
         """Template to use for this print job.
 
-        Should be an instance of apexofficeprint.Resource
+        Should be an instance of `Resource`
 
         Returns:
             Resource: resource to use as template
@@ -111,5 +115,5 @@ class PrintJob:
         return self._template
 
     @template.setter
-    def template(self, resource: Resource):
+    def template(self, resource: 'Resource'):
         self._template = resource

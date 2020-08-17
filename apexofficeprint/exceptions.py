@@ -1,4 +1,4 @@
-"""# TODO: document this"""
+"""Custom exceptions for apexofficeprint."""
 
 class AOPError(Exception):
     """# TODO: document
