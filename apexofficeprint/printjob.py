@@ -59,7 +59,7 @@ class PrintJob:
         """dict representation of this print job.
 
         This representation is isomorphic to the json representation
-        to send to the server.
+        (`PrintJob.json`).
 
         Returns:
             dict: dict representation of this print job

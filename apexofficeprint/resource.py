@@ -65,7 +65,7 @@ class Resource():
         """Convert this Resource object to a dict object for use as a template.
 
         Should be overridden by all subclasses.
-        This dict and the template json representation are isomorphic.
+        This dict and the template json representation (`Resource.template_json`) are isomorphic.
 
         Returns:
             dict: template dict representation of this Resource
@@ -87,7 +87,7 @@ class Resource():
         """Convert this Resource object to a dict object for use as a prepend or append file.
 
         Should be overridden by all subclasses.
-        This dict and the "concat file" json representation are isomorphic.
+        This dict and the "concat file" json representation (`Resource.concatfile_json`) are isomorphic.
 
         Returns:
             dict: prepend/append representation of this Resource
