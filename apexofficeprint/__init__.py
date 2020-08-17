@@ -22,6 +22,6 @@ __pdoc__ = {
 __all__ = [
     "Resource",
     "PrintJob",
-    "error",
+    "exceptions",
     "config"
 ]

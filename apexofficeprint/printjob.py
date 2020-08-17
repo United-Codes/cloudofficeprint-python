@@ -1,7 +1,7 @@
 import json
 import requests
 from .config import ServerConfig, OutputConfig
-from .error import AOPError
+from .exceptions import AOPError
 from .resource import Resource
 
 STATIC_OPTS = {
