@@ -1,5 +1,5 @@
 # apexofficeprint-python
-This project provides a Python interface for apexofficeprint.
+This project provides a Python interface for APEX Office Print.
 
 ## Contributing
 
