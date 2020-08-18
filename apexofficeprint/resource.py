@@ -12,12 +12,12 @@ alternatively, the `Resource` subclasses can be constructed to form a valid `Res
 
 import json
 import base64
-from ._utils import type_utils
-from abc import abstractmethod
+from ._utils import type_utils, file_utils
+from abc import abstractmethod, ABC
 
 
-class Resource():
-    """The base class for the resources."""
+class Resource(ABC):
+    """The abstract base class for the resources."""
 
     def __init__(self, data=None, filetype=None):
         self._data = data
@@ -206,7 +206,7 @@ class RawResource(Resource):
 
     @property
     def base64(self):
-        return base64.b64encode(self.data).decode("ascii")
+        return file_utils.raw_to_base64(self.data)
 
     @property
     def template_dict(self) -> dict:
