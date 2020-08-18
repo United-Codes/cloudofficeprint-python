@@ -27,9 +27,18 @@ class PrintJob:
                  template: Resource,
                  server_config: ServerConfig,
                  output_config: OutputConfig = None):
-        self._server_config = server_config
-        self._output_config = output_config if output_config else OutputConfig()
-        self._template = template
+        """
+        Args:
+            template (apexofficeprint.resource.Resource): Template to use for this print job.
+            server_config (apexofficeprint.config.ServerConfig): Server configuration to be used for this print job.
+            output_config (apexofficeprint.config.OutputConfig, optional): Output configuration to be used for this print job. Defaults to `apexofficeprint.config.ServerConfig`().
+        """
+        self.server_config: ServerConfig = server_config
+        """Server configuration to be used for this print job."""
+        self.output_config: OutputConfig = output_config if output_config else OutputConfig()
+        """Output configuration to be used for this print job."""
+        self.template: Resource = template
+        """Template to use for this print job."""
 
     def execute(self) -> Union[Response, AOPError]:
         """# TODO: document (auto generate args etc.) when finished
@@ -47,11 +56,7 @@ class PrintJob:
 
     @property
     def json(self) -> str:
-        """json equivalent of the dict representation of this print job.
-
-        Returns:
-            str: json representation of this print job
-        """
+        """json equivalent of the dict representation of this print job."""
         return json.dumps(self.as_dict)
 
     @property
@@ -59,11 +64,7 @@ class PrintJob:
         """dict representation of this print job.
 
         This representation is isomorphic to the json representation
-        (`PrintJob.json`).
-
-        Returns:
-            dict: dict representation of this print job
-        """
+        (`PrintJob.json`)."""
         result = STATIC_OPTS
 
         if self.server_config.api_key is not None:
@@ -78,46 +79,3 @@ class PrintJob:
             json.loads('{"data":{"testVar": "HELLO!"}}')
         ]
         return result
-
-    @property
-    def server_config(self) -> ServerConfig:
-        """Server configuration to be used for this print job.
-
-        Should be an instance of `ServerConfig`
-
-        Returns:
-            ServerConfig: server configuration
-        """
-        return self._server_config
-
-    @server_config.setter
-    def server_config(self, value: ServerConfig):
-        self._server_config = value
-
-    @property
-    def output_config(self) -> OutputConfig:
-        """Output configuration to be used for this print job.
-
-        Returns:
-            OutputConfig: output configuration
-        """
-        return self._output_config
-
-    @output_config.setter
-    def output_config(self, value: OutputConfig):
-        self._output_config = value
-
-    @property
-    def template(self) -> Resource:
-        """Template to use for this print job.
-
-        Should be an instance of `Resource`
-
-        Returns:
-            Resource: resource to use as template
-        """
-        return self._template
-
-    @template.setter
-    def template(self, resource: Resource):
-        self._template = resource

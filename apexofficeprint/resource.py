@@ -19,9 +19,9 @@ from abc import abstractmethod, ABC
 class Resource(ABC):
     """The abstract base class for the resources."""
 
-    def __init__(self, data=None, filetype=None):
+    def __init__(self, data=None, filetype: str = None):
         self._data = data
-        self.filetype = filetype  # use the setter
+        self.filetype = filetype
 
     @property
     def mimetype(self) -> str:
@@ -30,16 +30,15 @@ class Resource(ABC):
 
     @property
     def filetype(self) -> str:
-        """Resource type as an extension (e.g. "docx")."""
+        """Resource type as an extension (e.g. "docx").
+        
+        Raises:
+            TypeError: the given type is not a supported resource type.
+        """
         return self._filetype
 
     @filetype.setter
     def filetype(self, value: str):
-        """Setter for filetype, checks if the type is supported.
-
-        Raises:
-            TypeError: the given type is not a supported resource type.
-        """
         if self.is_supported_resource_type(value):
             self._filetype = value
         else:
@@ -52,46 +51,28 @@ class Resource(ABC):
 
     @property
     def template_json(self) -> str:
-        """Get the json representation when used as a template.
-
-        Returns:
-            str: json string
-        """
+        """Get the json representation when used as a template."""
         return json.dumps(self.template_dict)
 
     @property
     @abstractmethod
     def template_dict(self) -> dict:
-        """Convert this Resource object to a dict object for use as a template.
+        """This Resource object as a dict object for use as a template.
 
-        Should be overridden by all subclasses.
-        This dict and the template json representation (`Resource.template_json`) are isomorphic.
-
-        Returns:
-            dict: template dict representation of this Resource
-        """
+        This dict and the template json representation (`Resource.template_json`) are isomorphic."""
         pass
 
     @property
     def concatfile_json(self) -> str:
-        """Get the json representation for use as a prepend or append file.
-
-        Returns:
-            str: json string
-        """
+        """The json representation for use as a prepend or append file."""
         return json.dumps(self.concatfile_dict)
 
     @property
     @abstractmethod
     def concatfile_dict(self) -> dict:
-        """Convert this Resource object to a dict object for use as a prepend or append file.
+        """This Resource object as a dict object for use as a prepend or append file.
 
-        Should be overridden by all subclasses.
-        This dict and the "concat file" json representation (`Resource.concatfile_json`) are isomorphic.
-
-        Returns:
-            dict: prepend/append representation of this Resource
-        """
+        This dict and the "concat file" json representation (`Resource.concatfile_json`) are isomorphic."""
         pass
 
     def __str__(self):
@@ -199,13 +180,19 @@ class Resource(ABC):
 
 
 class RawResource(Resource):
-    """A Resource containing raw binary data."""
+    """A `Resource` containing raw binary data."""
 
-    def __init__(self, raw_data, filetype):
+    def __init__(self, raw_data, filetype: str):
+        """
+        Args:
+            raw_data: raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object)
+            filetype (str): file type (extension)
+        """
         super().__init__(raw_data, filetype)
 
     @property
     def base64(self):
+        """Base64 representation of the raw data in `RawResource.data`."""
         return file_utils.raw_to_base64(self.data)
 
     @property
@@ -225,9 +212,14 @@ class RawResource(Resource):
 
 
 class Base64Resource(Resource):
-    """A Resource containing base64 data."""
+    """A `Resource` containing base64 data."""
 
-    def __init__(self, base64string, filetype):
+    def __init__(self, base64string: str, filetype: str):
+        """
+        Args:
+            base64string (str): base64 encoded file
+            filetype (str): file type (extension)
+        """
         super().__init__(base64string, filetype)
 
     @property
@@ -247,14 +239,14 @@ class Base64Resource(Resource):
 
 
 class ServerPathResource(Resource):
-    """A Resource targeting a file on the server."""
+    """A `Resource` targeting a file on the server."""
 
-    def __init__(self, server_path):
+    def __init__(self, server_path: str):
+        """
+        Args:
+            server_path (str): path on the server to target
+        """
         super().__init__(server_path, type_utils.path_to_extension(server_path))
-
-    @property
-    def path(self):
-        return self.data
 
     @property
     def template_dict(self) -> dict:
@@ -273,9 +265,14 @@ class ServerPathResource(Resource):
 
 
 class URLResource(Resource):
-    """A Resource targeting a file at an URL."""
+    """A `Resource` targeting a file at a URL."""
 
-    def __init__(self, url, filetype):
+    def __init__(self, url: str, filetype: str):
+        """
+        Args:
+            url (str): URL location of the file
+            filetype (str): file type (extension)
+        """
         super().__init__(url, filetype)
 
     @property
@@ -298,24 +295,25 @@ class HTMLResource(Resource):
     """A Resource containing HTML data in plain text."""
 
     def __init__(self, htmlstring: str, landscape: bool = False):
+        """
+        Args:
+            htmlstring (str): HTML input in plain text
+            landscape (bool, optional): Whether the HTML should be rendered as landscape-oriented page. Defaults to False.
+        """
         super().__init__(htmlstring, "html")
-        self._landscape = landscape
+        self.landscape: bool = landscape
 
     @property
     def orientation(self) -> str:
-        """Either None or "landscape", as is passed in the json.
+        """Either None or `"landscape"`, as is passed in the json.
 
+        If `"landscape"`, the HTML is rendered as landscape-oriented page.
         Orientation is not supported for prepend/append sources, only for template resources.
 
         Returns:
             str: orientation
         """
-        return None if not self._landscape else "landscape"
-
-    @property
-    def landscape(self):
-        """Whether this HTMLResource should be passed with the landscape option."""
-        return self._landscape
+        return None if not self.landscape else "landscape"
 
     @property
     def template_dict(self) -> dict:

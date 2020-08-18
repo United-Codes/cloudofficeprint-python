@@ -6,7 +6,7 @@ They are to be used with `job.PrintJob`.
 """
 
 from typing import List, Union
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 import json
 import requests
 import logging
@@ -23,32 +23,19 @@ SERVICES = [
 ]
 
 
-class CloudAccessToken:
-    """Class used to specify cloud access information for outputting to a cloud service."""
+class CloudAccessToken(ABC):
+    """Abstract base class for classes used to specify cloud access information for outputting to a cloud service."""
 
     def __init__(self, service: str):
-        """This constructor is not meant for direct use, use one of the subclasses instead."""
         self._service = service
 
     @property
     def service(self) -> str:
-        """Which cloud service is being used.
-
-        Returns:
-            str: service
-        """
+        """Which cloud service is being used."""
         return self._service
 
     @service.setter
     def service(self, value: str):
-        """Setter for service
-
-        Args:
-            value (str): cloud service to use
-
-        Raises:
-            ValueError: value does not correspond to a known/supported service
-        """
         if not self.is_valid_service(value):
             raise ValueError(f'Unsupported cloud service "{value}".')
         self._service = value
@@ -56,23 +43,12 @@ class CloudAccessToken:
     @property
     @abstractmethod
     def as_dict(self) -> dict:
-        """The cloud access token as a dict, for building the json.
-
-        Raises:
-            NotImplementedError: all subclasses override this method
-
-        Returns:
-            dict: dict representation of this cloud access token
-        """
+        """The cloud access token as a dict, for building the json."""
         pass
 
     @property
     def json(self) -> str:
-        """The cloud access token as AOP-compatible json data.
-
-        Returns:
-            str: json string
-        """
+        """The cloud access token as AOP-compatible json data."""
         return json.dumps(self.as_dict)
 
     @staticmethod
@@ -162,30 +138,20 @@ class CloudAccessToken:
 
 
 class OAuthToken(CloudAccessToken):
-    """Inherits from CloudAccessToken, to be used for OAuth tokens"""
+    """`CloudAccessToken` to be used for OAuth tokens"""
 
     def __init__(self, service: str, token: str):
-        """Constructor for OAuthToken
-
+        """
         Args:
             service (str): service to use (e.g. Dropbox)
             token (str): OAuth token
         """
         super().__init__(service)
-        self._token = token
-
-    @property
-    def token(self) -> str:
-        """The OAuth token as a string.
-
-        Returns:
-            str: OAuth token
-        """
-        return self._token
+        self.token: str = token
+        """OAuth token"""
 
     @property
     def as_dict(self):
-        """Override the CloudAccessToken method."""
         return {
             "output_location": self.service,
             "cloud_access_token": self.token
@@ -193,34 +159,22 @@ class OAuthToken(CloudAccessToken):
 
 
 class AWSToken(CloudAccessToken):
-    """Inherits from CloudAccessToken, to be used for AWS tokens"""
+    """`CloudAccessToken` to be used for AWS tokens"""
 
     def __init__(self, key_id: str, secret_key: str):
+        """
+        Args:
+            key_id (str): AWS access key ID
+            secret_key (str): AWS secret key
+        """
         super().__init__("aws_s3")
-        self._key_id = key_id
-        self._secret_key = secret_key
-
-    @property
-    def key_id(self) -> str:
-        """AWS access key ID
-
-        Returns:
-            str: key ID
-        """
-        return self._key_id
-
-    @property
-    def secret_key(self) -> str:
-        """AWS secret key
-
-        Returns:
-            str: secret key
-        """
-        return self._secret_key
+        self.key_id: str = key_id
+        """AWS access key ID"""
+        self.secret_key: str = secret_key
+        """AWS secret key"""
 
     @property
     def as_dict(self):
-        """Override the CloudAccessToken method."""
         return {
             "output_location": self.service,
             "cloud_access_token": {
@@ -231,65 +185,29 @@ class AWSToken(CloudAccessToken):
 
 
 class FTPToken(CloudAccessToken):
-    """Inherits from CloudAccessToken, to be used for FTP/SFTP tokens"""
+    """`CloudAccessToken` to be used for FTP/SFTP tokens"""
 
     def __init__(self, host: str, sftp: bool = False, port: int = None, user: str = None, password: str = None):
-        """Constructor for FTPToken
-
-        This class is used for both FTP and SFTP.
-
+        """
         Args:
             host (str): host name or IP address
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
             port (int, optional): port number. Defaults to None.
             user (str, optional): user name for the FTP/SFTP server. Defaults to None.
-            password (str, optional): password for the FTP/SFTP. Defaults to None.
+            password (str, optional): password for the FTP/SFTP server. Defaults to None.
         """
         super().__init__("sftp" if sftp else "ftp")
-        self._host = host
-        self._port = port
-        self._user = user
-        self._password = password
-
-    @property
-    def host(self) -> str:
-        """host name or IP address
-
-        Returns:
-            str: host name or IP address
-        """
-        return self._host
-
-    @property
-    def port(self) -> str:
-        """port number
-
-        Returns:
-            str: port number
-        """
-        return self._port
-
-    @property
-    def user(self) -> str:
-        """user name
-
-        Returns:
-            str: user name
-        """
-        return self._user
-
-    @property
-    def password(self) -> str:
-        """password
-
-        Returns:
-            str: password
-        """
-        return self._password
+        self.host: str = host
+        """Host name or IP address of the FTP/SFTP server."""
+        self.port: int = port
+        """Port number of the FTP/SFTP server."""
+        self.user: str = user
+        """User name for the FTP/SFTP server."""
+        self.password: str = password
+        """Password for `FTPToken.user`."""
 
     @property
     def as_dict(self):
-        """Override the CloudAccessToken method."""
         cloud_access_token = {
             "host": self.host
         }
@@ -319,66 +237,66 @@ class OutputConfig:
                  cloud_access_token: 'CloudAccessToken' = None,
                  server_directory: str = None,
                  pdf_options: 'PDFOptions' = None):
-        self._filetype = filetype
-        self._encoding = encoding
-        self._converter = converter
-        self._cloud_access_token = cloud_access_token
-        self._server_directory = server_directory
-        self._pdf_options = pdf_options
+        """
+        Args:
+            filetype (str, optional): File type (as extension). Defaults to None.
+            encoding (str, optional): Encoding. Defaults to "raw".
+            converter (str, optional): Converter. Defaults to "libreoffice".
+            cloud_access_token (CloudAccessToken, optional): Cloud access token. Defaults to None.
+            server_directory (str, optional): Server directory. Defaults to None.
+            pdf_options (PDFOptions, optional): PDF options. Defaults to None.
+        """
+        self.filetype: str = filetype
+        """The file type (as extension) to use for the output."""
+        self.converter: str = converter
+        """The pdf converter to use.
+
+        Can be "libreoffice", "officetopdf" or any custom defined converter.
+        Custom converters are configurated in the AOP server's `aop_config.json` file.
+        """
+        self._cloud_access_token: CloudAccessToken = cloud_access_token
+        """Access token used to access various cloud services for output storage."""
+        self.server_directory: str = server_directory
+        """Base directory to save output files into.
+
+        Can only be used if the server allows to save on disk.
+        The specific output path for each file is appended to the base path.
+        """
+        self.pdf_options: PDFOptions = pdf_options
+        """Optional PDF options."""
+
+        self.encoding = encoding
 
     @property
     def json(self) -> str:
         """The json representation of this output config.
 
         This is the json serialization of the dict representation.
-
-        Returns:
-            str: json representation
         """
         return json.dumps(self.as_dict)
 
     @property
     def as_dict(self) -> dict:
-        """The dict representation of this output config.
-
-        Returns:
-            dict: dict representation
-        """
+        """The dict representation of this output config."""
         result = {
             "output_encoding": self._encoding,
-            "output_converter": self._converter
+            "output_converter": self.converter
         }
-        if self._filetype is not None:
-            result["output_type"] = self._filetype
+
+        if self.filetype is not None:
+            result["output_type"] = self.filetype
         if self._cloud_access_token is not None:
             result.update(self._cloud_access_token.as_dict)
-        if self._server_directory is not None:
-            result["output_directory"] = self._server_directory
-        if self._pdf_options is not None:
-            result.update(self._pdf_options)
+        if self.server_directory is not None:
+            result["output_directory"] = self.server_directory
+        if self.pdf_options is not None:
+            result.update(self.pdf_options)
 
         return result
 
     @property
-    def filetype(self) -> str:
-        """The file type (as extension) to use for the output.
-
-        Returns:
-            str: filetype
-        """
-        return self._filetype
-
-    @filetype.setter
-    def filetype(self, value: str):
-        self._filetype = value
-
-    @property
     def encoding(self) -> str:
-        """The encoding to use, either "raw" or "base64".
-
-        Returns:
-            str: encoding
-        """
+        """The encoding to use, either "raw" or "base64"."""
         return self._encoding
 
     @encoding.setter
@@ -387,67 +305,6 @@ class OutputConfig:
             raise ValueError(
                 f'Encoding must be either "raw" or "base64", was "{value}".')
         self._encoding = value
-
-    @property
-    def converter(self) -> str:
-        """The pdf converter to use.
-
-        Can be "libreoffice", "officetopdf" or any custom defined converter.
-        Custom converters are configurated in the AOP server's `aop_config.json` file.
-
-        Returns:
-            str: PDF converter name
-        """
-        return self._converter
-
-    @converter.setter
-    def converter(self, value: str):
-        self._converter = value
-
-    @property
-    def cloud_access_token(self) -> 'CloudAccessToken':
-        """Access token used to access various cloud services for output storage.
-
-        It should be an instance of `CloudAccessToken`.
-
-        Returns:
-            CloudAccessToken: access token
-        """
-        return self._cloud_access_token
-
-    @cloud_access_token.setter
-    def cloud_access_token(self, value: 'CloudAccessToken'):
-        self._cloud_access_token = value
-
-    @property
-    def server_directory(self) -> str:
-        """Base directory to save output files into if the server allows save on disk.
-
-        The specific output path for each file is appended to the base path.
-
-        Returns:
-            str: path to the base directory on the server
-        """
-        return self._server_directory
-
-    @server_directory.setter
-    def server_directory(self, value: str):
-        self._server_directory = value
-
-    @property
-    def pdf_options(self) -> 'PDFOptions':
-        """Optional PDF options.
-
-        Should be an instance of `PDFOptions`
-
-        Returns:
-            PDFOptions: PDF options
-        """
-        return self._pdf_options
-
-    @pdf_options.setter
-    def pdf_options(self, value: 'PDFOptions'):
-        self._pdf_options = value
 
 
 class PDFOptions:
@@ -460,18 +317,23 @@ class PDFOptions:
     These default values are not passed to the json or dict representation of the object and thus not explicitly sent to the AOP server.
     """
 
+    read_password: str = None
+    """The password needed to open the PDF."""
+    watermark: str = None
+    """Setting this generates a diagonal custom watermark on every page in the PDF file"""
+    page_width: Union[str, int] = None
+    """Page width in px, mm, cm, in. No unit means px."""
+    page_height: Union[str, int] = None
+    """Page height in px, mm, cm, in. No unit means px."""
+
     _even_page = None
     _merge_making_even = None
-    _read_password = None
     _modify_password = None
     _password_protection_flag = None
-    _watermark = None
     _lock_form = None
     _copies = None
     _page_margin = None
     _landscape = False
-    _page_width = None
-    _page_height = None
     _page_format = None
     _merge = None
 
@@ -480,23 +342,16 @@ class PDFOptions:
 
     @property
     def json(self) -> str:
-        """Get the json representation of these PDF options.
+        """The json representation of these PDF options.
 
         The json representation is a direct json dump of the dict representation.
-        The dict representation is accessed through the as_dict property.
-
-        Returns:
-            str: json string
+        The dict representation is accessed through the `as_dict` property.
         """
         return json.dumps(self.as_dict)
 
     @property
     def as_dict(self) -> dict:
-        """Get the dict representation of these PDF options.
-
-        Returns:
-            dict: options as dict
-        """
+        """The dict representation of these PDF options."""
         result = {}
         if self._even_page is not None:
             result["output_even_page"] = self._even_page
@@ -504,12 +359,12 @@ class PDFOptions:
             result["output_merge_making_even"] = self._merge_making_even
         if self._modify_password is not None:
             result["output_modify_password"] = self._modify_password
-        if self._read_password is not None:
-            result["output_read_password"] = self._read_password
+        if self.read_password is not None:
+            result["output_read_password"] = self.read_password
         if self._password_protection_flag is not None:
             result["output_password_protection_flag"] = self._password_protection_flag
-        if self._watermark is not None:
-            result["output_watermark"] = self._watermark
+        if self.watermark is not None:
+            result["output_watermark"] = self.watermark
         if self._lock_form is not None:
             result["lock_form"] = self._lock_form
         if self._copies is not None:
@@ -520,10 +375,10 @@ class PDFOptions:
                     result[f"output_page_margin_{pos}"] = value
             else:
                 result["output_page_margin"] = self._page_margin
-        if self._page_width is not None:
-            result["output_page_width"] = self._page_width
-        if self._page_height is not None:
-            result["output_page_height"] = self._page_height
+        if self.page_width is not None:
+            result["output_page_width"] = self.page_width
+        if self.page_height is not None:
+            result["output_page_height"] = self.page_height
         if self._page_format is not None:
             result["output_page_format"] = self._page_format
         if self._merge is not None:
@@ -531,11 +386,7 @@ class PDFOptions:
 
     @property
     def even_page(self) -> bool:
-        """If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true.
-
-        Returns:
-            bool: even_page
-        """
+        """If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true."""
         return False if self._even_page is None else self._even_page
 
     @even_page.setter
@@ -545,11 +396,7 @@ class PDFOptions:
 
     @property
     def merge_making_even(self) -> bool:
-        """Merge each given document making even paged.
-
-        Returns:
-            bool: merge_making_even
-        """
+        """Merge each given document making even paged."""
         return False if self._merge_making_even is None else self._merge_making_even
 
     @merge_making_even.setter
@@ -557,25 +404,8 @@ class PDFOptions:
         self._merge_making_even = True if value else None
 
     @property
-    def read_password(self) -> str:
-        """The password needed to open the PDF.
-
-        Returns:
-            str: read_password
-        """
-        return self._read_password
-
-    @read_password.setter
-    def read_password(self, value: str):
-        self._read_password = value
-
-    @property
     def modify_password(self) -> str:
-        """The password needed to modify the PDF.
-
-        Returns:
-            str: modify_password
-        """
+        """The password needed to modify the PDF."""
         return self.read_password if self._modify_password is None else self._modify_password
 
     @modify_password.setter
@@ -587,9 +417,6 @@ class PDFOptions:
         """Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer.
 
         [More info.](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption)
-
-        Returns:
-            int: password_protection_flag
         """
         return 4 if self._password_protection_flag is None else self._password_protection_flag
 
@@ -598,25 +425,8 @@ class PDFOptions:
         self._password_protection_flag = int(value)
 
     @property
-    def watermark(self) -> str:
-        """Setting this generates a diagonal custom watermark on every page in the PDF file
-
-        Returns:
-            str: watermark
-        """
-        return self._watermark
-
-    @watermark.setter
-    def watermark(self, value: str):
-        self._watermark = value
-
-    @property
     def lock_form(self) -> bool:
-        """Locks / flattens the forms in the PDF.
-
-        Returns:
-            bool: lock_form
-        """
+        """Locks / flattens the forms in the PDF."""
         return False if self._lock_form is None else self._lock_form
 
     @lock_form.setter
@@ -625,11 +435,7 @@ class PDFOptions:
 
     @property
     def copies(self) -> int:
-        """Repeats the output pdf for the given number of times.
-
-        Returns:
-            int: copies
-        """
+        """Repeats the output pdf for the given number of times."""
         return self._copies
 
     @copies.setter
@@ -649,11 +455,7 @@ class PDFOptions:
             "right": int
         }
         ```
-        or just an int to be used on all sides.
-
-        Returns:
-            Union[int, dict]: page_margin
-        """
+        or just an int to be used on all sides."""
         return self._page_margin
 
     def set_page_margin_at(self, value: int, position: str = None):
@@ -694,11 +496,7 @@ class PDFOptions:
 
     @property
     def page_orientation(self) -> str:
-        """The page orientation, portrait or landscape.
-
-        Returns:
-            str: page_orientation
-        """
+        """The page orientation, portrait or landscape."""
         return "landscape" if self._landscape else "portrait"
 
     @page_orientation.setter
@@ -706,38 +504,8 @@ class PDFOptions:
         self._landscape = True if value == "landscape" else False
 
     @property
-    def page_width(self) -> Union[str, int]:
-        """Page width in px, mm, cm, in. No unit means px.
-
-        Returns:
-            Union[str, int]: page_width
-        """
-        return self._page_width
-
-    @page_width.setter
-    def page_width(self, value: Union[str, int]):
-        self._page_width = value
-
-    @property
-    def page_height(self):
-        """Page height in px, mm, cm, in. No unit means px.
-
-        Returns:
-            Union[str, int]: page_height
-        """
-        return self._page_height
-
-    @page_height.setter
-    def page_height(self, value: Union[str, int]):
-        self._page_height = value
-
-    @property
     def page_format(self) -> str:
-        """The page format: "a4" (default) or "letter"
-
-        Returns:
-            str: page_format
-        """
+        """The page format: "a4" (default) or "letter"."""
         return "a4" if self._page_format is None else self._page_format
 
     @page_format.setter
@@ -746,16 +514,11 @@ class PDFOptions:
 
     @property
     def merge(self) -> bool:
-        """If True: instead of returning back a zip file for multiple output, merge it.
-
-        Returns:
-            bool: merge
-        """
+        """If True: instead of returning back a zip file for multiple output, merge it."""
         return False if self._merge is None else self._merge
 
     @merge.setter
     def merge(self, value: bool):
-
         self._merge = value
 
 
@@ -763,35 +526,18 @@ class ServerConfig:
     """This config class is used to specify the AOP server to interact with."""
 
     def __init__(self, server_url: str, api_key: str = None):
-        """Constructor for ServerConfig
-
-        Args:
-            server_url (str): URL to contact the server at
-            api_key (str, optional): api key to use for the application
         """
-        self._api_key = api_key
+        Args:
+            server_url (str): URL to contact the server at.
+            api_key (str, optional): API key to use for the application.
+        """
+        self.api_key: str = api_key
+        """API key to use for the application."""
         self.server_url = server_url
 
     @property
-    def api_key(self) -> str:
-        """The API key to be used for the application.
-
-        Returns:
-            str: api key
-        """
-        return self._api_key
-
-    @api_key.setter
-    def api_key(self, value: str):
-        self._api_key = value
-
-    @property
     def server_url(self) -> str:
-        """URL at which to contact the server.
-
-        Returns:
-            str: server URL
-        """
+        """URL at which to contact the server."""
         return self._server_url
 
     @server_url.setter

@@ -21,27 +21,15 @@ class AOPError(Exception):
 
     @property
     def encoded_message(self) -> str:
-        """The encrypted and encoded part of the message, for AOP support.
-
-        Returns:
-            str: encoded message
-        """
+        """The encrypted and encoded part of the message, for AOP support."""
         return self._encoded_message
 
     @property
     def user_message(self) -> str:
-        """The user-friendly part of the message.
-
-        Returns:
-            str: user-friendly message
-        """
+        """The user-friendly part of the message."""
         return self._user_message
 
     @property
     def full_message(self) -> str:
-        """The full error message as sent by the server.
-
-        Returns:
-            str: full error message
-        """
+        """The full error message as sent by the server."""
         return self.user_message + "\n" + self._contact_support_message + "\n" + self.encoded_message
