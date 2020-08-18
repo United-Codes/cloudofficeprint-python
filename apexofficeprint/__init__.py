@@ -7,7 +7,6 @@ This Python package provides a programmatic interface with an [APEX Office Print
 ```
 """
 
-from . import config, exceptions
 from .printjob import PrintJob
 from .resource import Resource
 from .response import Response
@@ -17,6 +16,7 @@ from .response import Response
 __all__ = [
     "exceptions",
     "config",
+    "elements",
     "PrintJob",
     "Resource",
     "Response"
