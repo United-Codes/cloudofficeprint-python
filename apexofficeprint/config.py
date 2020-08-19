@@ -317,6 +317,12 @@ class PDFOptions:
     These default values are not passed to the json or dict representation of the object and thus not explicitly sent to the AOP server.
     """
 
+    # TODO:
+    # - 5.2.6.1 aop_pdf_texts
+    # - 5.2.6.2 aop_pdf_images
+    # - 5.2.6.3 AOP Form filling
+    # - 5.2.6.3 AOP PDF signing
+
     def __init__(self,
                  read_password: str = None,
                  watermark: str = None,
@@ -557,6 +563,10 @@ class PDFOptions:
 
 class ServerConfig:
     """This config class is used to specify the AOP server to interact with."""
+
+    # TODO: "logging", "ipp", "post_process", "conversion", "merge"
+
+    # TODO: get_version(), ... (there are some server statuses on other paths than /marco)
 
     def __init__(self, server_url: str, api_key: str = None):
         """
