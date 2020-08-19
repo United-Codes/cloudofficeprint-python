@@ -3,6 +3,7 @@ Elements are used to replace the various tags in a template with actual data.
 """
 
 import json
+from ._utils import file_utils
 from copy import deepcopy
 from typing import Union, List, Iterable, Mapping, Set, FrozenSet
 from abc import abstractmethod, ABC
@@ -268,6 +269,10 @@ class Image(Element, ABC):
         return result
 
     @staticmethod
+    def from_file(name: str, path: str):
+        return ImageBase64(name, file_utils.read_file_as_base64(path))
+
+    @staticmethod
     def from_base64(name: str, base64str: str):
         return ImageBase64(name, base64str)
 
@@ -398,12 +403,27 @@ class Code(Element):
         return result
 
 
+class Chart(Element):
+    def __init__(self, name: str):
+        super().__init__(name)  # TODO
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{$" + self.name + "}"})
+
+    @property
+    def as_dict(self):
+        pass  # TODO
+
+
 class Object(list, Element):
     """# TODO
     """
 
-    def __init__(self, elements: Iterable[Element] = []):
-        super().__init__(elements)
+    def __init__(self, name: str = "", elements: Iterable[Element] = []):
+        # name not used for outer element
+        list.__init__(self, elements)
+        Element.__init__(self, name)
 
     def __str__(self):
         return self.json
@@ -421,14 +441,25 @@ class Object(list, Element):
     def json(self):
         return json.dumps(self.as_dict)
 
-    @property
-    def as_list(self) -> List[dict]:
-        """Compile the dict representations of these elements as a `List[dict]`.
+    # TODO: definitely unused?
+    # @property
+    # def as_list(self) -> List[dict]:
+    #     """Compile the dict representations of these elements as a `List[dict]`.
 
-        Returns:
-            List[dict]: list of elements in this object
-        """
-        return [element.as_dict for element in self]
+    #     Returns:
+    #         List[dict]: list of elements in this object
+    #     """
+    #     return [element.as_dict for element in self]
+
+    def add(self, element: Element):
+        self.append(element)
+
+    def add_all(self, obj: 'Object'):
+        for element in obj:
+            self.add(element)
+
+    def remove_element_by_name(self, element_name: str):
+        self.remove(next(element for element in self if element.name == element_name))
 
     @property
     def as_dict(self) -> dict:
@@ -450,12 +481,12 @@ class Object(list, Element):
         return frozenset(result)
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping) -> 'Object':
+    def from_mapping(cls, mapping: Mapping, name: str = "") -> 'Object':
         result_set = set()
         for key, value in mapping.items():
             result_set.add(Property(key, value))
-        return cls(result_set)
+        return cls(name, result_set)
 
     @classmethod
-    def from_json(cls, json_str: str) -> 'Object':
-        return cls.from_mapping(json.loads(json_str))
+    def from_json(cls, json_str: str, name: str = "") -> 'Object':
+        return cls.from_mapping(json.loads(json_str), name)

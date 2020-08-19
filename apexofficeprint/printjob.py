@@ -8,7 +8,8 @@ from .config import OutputConfig, ServerConfig
 from .exceptions import AOPError
 from .response import Response
 from .resource import Resource
-from typing import Union
+from .elements import Element
+from typing import Union, List
 
 STATIC_OPTS = {
     "tool": "python"
@@ -25,6 +26,7 @@ class PrintJob:
 
     def __init__(self,
                  template: Resource,
+                 data: Element,
                  server_config: ServerConfig,
                  output_config: OutputConfig = None):
         """
@@ -33,6 +35,8 @@ class PrintJob:
             server_config (apexofficeprint.config.ServerConfig): Server configuration to be used for this print job.
             output_config (apexofficeprint.config.OutputConfig, optional): Output configuration to be used for this print job. Defaults to `apexofficeprint.config.ServerConfig`().
         """
+        self.data: Union[List[Element], Element] = data
+        """ # TODO """
         self.server_config: ServerConfig = server_config
         """Server configuration to be used for this print job."""
         self.output_config: OutputConfig = output_config if output_config else OutputConfig()
@@ -74,8 +78,10 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
-        # TODO: this is test data, should be handled with render elements
-        result["files"] = [
-            json.loads('{"data":{"testVar": "HELLO!"}}')
-        ]
+        # TODO: support file name
+        # TODO: prepend / append files
+        # TODO: support REST endpoint as file source (see docs)
+
+        result["files"] = [{"data": self.data.as_dict}]
+
         return result
