@@ -8,6 +8,7 @@ from copy import deepcopy
 from typing import Union, List, Iterable, Mapping, Set, FrozenSet
 from abc import abstractmethod, ABC
 from collections.abc import MutableSet
+from logging import warn
 
 
 class CellStyle:
@@ -34,7 +35,30 @@ class CellStyle:
 
 
 class TextStyle:
-    pass  # TODO
+    def __init__(self,
+                 italic: bool = None,
+                 bold: bool = None,
+                 color: str = None,
+                 font: str = None):
+        self.italic: bool = italic
+        self.bold: bool = bold
+        self.color: str = color
+        self.font: str = font
+
+    @property
+    def as_dict(self):
+        result = {}
+
+        if self.italic is not None:
+            result["italic"] = self.italic
+        if self.bold is not None:
+            result["bold"] = self.bold
+        if self.color:
+            result["color"] = self.color
+        if self.font:
+            result["font"] = self.font
+
+        return result
 
 
 class Element(ABC):
@@ -191,7 +215,7 @@ class ForEachTableRow(ForEach):
 
 # These are the same, but they may not be forever
 # and combining them into one class breaks consistency
-ForEachSheet = ForEachSlide
+ForEachSheet = ForEachSlide  # TODO: sheet name
 ForEachHorizontal = ForEachInline
 
 
@@ -215,13 +239,13 @@ class Image(Element, ABC):
                  wrap_text: str,
                  rotation: int):
         super().__init__(name)
-        self.max_width = max_width
+        self.max_width: int = max_width
         """ """
-        self.max_height = max_height
+        self.max_height: int = max_height
         """ """
-        self.alt_text = alt_text
-        self.wrap_text = wrap_text
-        self.rotation = rotation
+        self.alt_text: str = alt_text
+        self.wrap_text: str = wrap_text
+        self.rotation: int = rotation
 
     @property
     def alt_text(self) -> str:
@@ -273,6 +297,10 @@ class Image(Element, ABC):
         return ImageBase64(name, file_utils.read_file_as_base64(path))
 
     @staticmethod
+    def from_raw(name: str, data):
+        return ImageBase64(name, file_utils.raw_to_base64(data))
+
+    @staticmethod
     def from_base64(name: str, base64str: str):
         return ImageBase64(name, base64str)
 
@@ -291,7 +319,7 @@ class ImageUrl(Image):
                  wrap_text: str = "inline",
                  rotation: int = None):
         super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation)
-        self.url = url
+        self.url: str = url
 
     @property
     def as_dict(self) -> dict:
@@ -315,15 +343,7 @@ class ImageBase64(Image):
                  wrap_text: str = "inline",
                  rotation: int = None):
         super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation)
-        self._base64 = base64str
-
-    @property
-    def base64(self) -> str:
-        return self._base64
-
-    @base64.setter
-    def base64(self, value: str):
-        self._base64 = value
+        self.base64: str = base64str
 
     @property
     def as_dict(self) -> dict:
@@ -403,17 +423,209 @@ class Code(Element):
         return result
 
 
+class DateOptions:
+    def __init__(self,
+                 format: str = None,
+                 code: str = None,
+                 unit: str = None,
+                 step: Union[int, str] = None):
+        self.format: str = format,
+        self.code: str = code,
+        self.unit: str = unit,
+        self.step: Union[int, str] = step
+
+    @property
+    def as_dict(self):
+        result = {}
+
+        if self.format:
+            result["format"] = self.format
+        if self.code:
+            result["code"] = self.code
+        if self.unit:
+            result["unit"] = self.unit
+        if self.step:
+            result["step"] = self.step
+
+        return result
+
+
+class ChartAxis:
+    def __init__(self,
+                 orientation: str = None,
+                 min: Union[int, float] = None,
+                 max: Union[int, float] = None,
+                 date: DateOptions = None,
+                 title: str = None,
+                 values: bool = None,
+                 values_style: TextStyle = None,
+                 title_style: TextStyle = None,
+                 title_rotation: int = None,
+                 major_grid_lines: bool = None,
+                 major_unit: Union[int, float] = None,
+                 minor_grid_lines: bool = None,
+                 minor_unit: Union[int, float] = None):
+        self.orientation: str = orientation
+        self.min: Union[int, float] = min
+        self.max: Union[int, float] = max
+        self.date: DateOptions = date
+        self.title: str = title
+        self.values: bool = values
+        self.values_style: TextStyle = values_style
+        self.title_style: TextStyle = title_style
+        self.title_rotation: int = title_rotation
+        self.major_grid_lines: bool = major_grid_lines
+        self.major_unit: Union[int, float] = major_unit
+        self.minor_grid_lines: bool = minor_grid_lines
+        self.minor_unit: Union[int, float] = minor_unit
+
+    @property
+    def as_dict(self):
+        result = {}
+
+        if self.orientation:
+            result["orientation"] = self.orientation
+        if self.min:
+            result["min"] = self.min
+        if self.max:
+            result["max"] = self.max
+        if self.date:
+            result["type"] = "date"
+            result["date"] = self.date.as_dict
+        if self.title:
+            result["title"] = self.title
+        if self.values is not None:
+            result["showValues"] = self.values
+        if self.values_style:
+            result["valuesStyle"] = self.values_style.as_dict
+        if self.title_style:
+            result["titleStyle"] = self.title_style.as_dict
+        if self.title_rotation:
+            result["titleRotation"] = self.title_rotation
+        if self.major_grid_lines is not None:
+            result["majorGridlines"] = self.major_grid_lines
+        if self.major_unit:
+            result["majorUnit"] = self.major_unit
+        if self.minor_grid_lines is not None:
+            result["minorGridlines"] = self.minor_grid_lines
+        if self.minor_unit:
+            result["minorUnit"] = self.minor_unit
+
+        return result
+
+
 class Chart(Element):
-    def __init__(self, name: str):
-        super().__init__(name)  # TODO
+    # TODO: document
+    def __init__(self,
+                 name: str,
+                 x_axis: ChartAxis,
+                 y_axis: ChartAxis,
+                 y2_axis: ChartAxis = None,
+                 width: int = None,
+                 height: int = None,
+                 border: bool = None,
+                 rounded_corners: bool = None,
+                 background_color: str = None,
+                 background_opacity: int = None,
+                 title: str = None,
+                 title_style: TextStyle = None
+                 ):
+        super().__init__(name)
+        self._legend_options = None
+
+        self.x_axis: ChartAxis = x_axis
+        self.y_axis: ChartAxis = y_axis
+        self.y2_axis: ChartAxis = y2_axis
+        if y_axis.date or y2_axis.date:
+            warn('"date" options for the y or y2 axes are ignored by the AOP server.')
+
+        self.width: int = width
+        self.height: int = height
+        self.border: bool = border
+        self.rounded_corners: bool = rounded_corners
+        self.background_color: str = background_color
+        self.background_opacity: int = background_opacity
+        self.title: str = title
+        self.title_style: TextStyle = title_style
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{$" + self.name + "}"})
 
+    def set_legend(self, position: str = 'r', style: TextStyle = None):
+        self._legend_options = {
+            "showLegend": True
+        }
+        if position:
+            self._legend_options["position"] = position
+        if style:
+            self._legend_options["style"] = style.as_dict
+
+    def remove_legend(self):
+        self._legend_options = None
+
+    def set_data_labels(self,
+                        separator: bool = None,
+                        series_name: bool = None,
+                        category_name: bool = None,
+                        legend_key: bool = None,
+                        value: bool = None,
+                        percentage: bool = None,
+                        position: str = None):
+        self._data_labels_options = {
+            "showDataLabels": True
+        }
+        if separator:
+            self._data_labels_options["separator"] = True
+        if series_name:
+            self._data_labels_options["showSeriesName"] = True
+        if category_name:
+            self._data_labels_options["showCategoryName"] = True
+        if legend_key:
+            self._data_labels_options["showLegendKey"] = True
+        if value:
+            self._data_labels_options["showValue"] = True
+        if percentage:
+            self._data_labels_options["showPercentage"] = True
+        if position:
+            self._data_labels_options["position"] = position
+
+    def remove_data_labels(self):
+        self._data_labels_options = None
+
     @property
     def as_dict(self):
-        pass  # TODO
+        result = {
+            "axis": {
+                "x": self.x_axis.as_dict,
+                "y": self.y_axis.as_dict
+            }
+        }
+
+        if self.y2_axis:
+            result["axis"]["y2"] = self.y2_axis.as_dict
+        if self.width:
+            result["width"] = self.width
+        if self.height:
+            result["height"] = self.height
+        if self.border is not None:
+            result["border"] = self.border
+        if self.rounded_corners is not None:
+            result["roundedCorners"] = self.rounded_corners
+        if self.background_color:
+            result["backgroundColor"] = self.background_color
+        if self.background_opacity:
+            result["backgroundOpacity"] = self.background_opacity
+        if self.title:
+            result["title"] = self.title
+        if self.title_style:
+            result["title_style"] = self.title_style.as_dict
+        if self._legend_options:
+            result["legend"] = self._legend_options
+        if self._data_labels_options:
+            result["dataLabels"] = self._data_labels_options
+
+        return result
 
 
 class Object(list, Element):
@@ -441,16 +653,6 @@ class Object(list, Element):
     def json(self):
         return json.dumps(self.as_dict)
 
-    # TODO: definitely unused?
-    # @property
-    # def as_list(self) -> List[dict]:
-    #     """Compile the dict representations of these elements as a `List[dict]`.
-
-    #     Returns:
-    #         List[dict]: list of elements in this object
-    #     """
-    #     return [element.as_dict for element in self]
-
     def add(self, element: Element):
         self.append(element)
 
@@ -459,7 +661,9 @@ class Object(list, Element):
             self.add(element)
 
     def remove_element_by_name(self, element_name: str):
-        self.remove(next(element for element in self if element.name == element_name))
+        self.remove(
+            next(element for element in self if element.name == element_name)
+        )
 
     @property
     def as_dict(self) -> dict:
