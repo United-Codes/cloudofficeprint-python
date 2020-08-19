@@ -2,9 +2,12 @@ docs/html/
 
 # test files
 /test.py
-*.docx
-*.xlsx
-*.pptx
+/test/*.docx
+/test/*.pptx
+/test/*.xlsx
+/test/*.jpg
+/test/*.jpeg
+/test/*.png
 
 # VS Code configuration
 *.code-workspace
