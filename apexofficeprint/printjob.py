@@ -9,7 +9,7 @@ from .exceptions import AOPError
 from .response import Response
 from .resource import Resource
 from .elements import Element
-from typing import Union, List
+from typing import Union, List, Dict
 
 STATIC_OPTS = {
     "tool": "python"
@@ -26,14 +26,15 @@ class PrintJob:
 
     def __init__(self,
                  template: Resource,
-                 data: Element,
+                 data: Union[Element, Dict[str, Element]],
                  server_config: ServerConfig,
                  output_config: OutputConfig = None):
         """
         Args:
-            template (apexofficeprint.resource.Resource): Template to use for this print job.
-            server_config (apexofficeprint.config.ServerConfig): Server configuration to be used for this print job.
-            output_config (apexofficeprint.config.OutputConfig, optional): Output configuration to be used for this print job. Defaults to `apexofficeprint.config.ServerConfig`().
+            template (apexofficeprint.resource.Resource): `PrintJob.template`.
+            data (Union[Element, Dict[str, Element]]): `PrintJob.data`.
+            server_config (apexofficeprint.config.ServerConfig): `PrintJob.server_config`.
+            output_config (apexofficeprint.config.OutputConfig, optional): `Printjob.output_config`. Defaults to `apexofficeprint.config.ServerConfig`().
         """
         self.data: Union[List[Element], Element] = data
         """ # TODO """
@@ -78,10 +79,15 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
-        # TODO: support file name
         # TODO: prepend / append files
         # TODO: support REST endpoint as file source (see docs)
 
-        result["files"] = [{"data": self.data.as_dict}]
+        if isinstance(self.data, dict):
+            result["files"] = [{
+                "filename": name,
+                "data": data.as_dict
+            } for name, data in self.data.items()]
+        else:
+            result["files"] = [{"data": self.data.as_dict}]
 
         return result

@@ -8,6 +8,7 @@ docs/html/
 /test/*.jpg
 /test/*.jpeg
 /test/*.png
+/test/*.zip
 
 # VS Code configuration
 *.code-workspace
