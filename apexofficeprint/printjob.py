@@ -3,13 +3,15 @@ Module containing the PrintJob class, which is also exposed at package level.
 """
 
 import requests
+import asyncio
 import json
-from .config import OutputConfig, ServerConfig
+from .config import OutputConfig, Server
 from .exceptions import AOPError
 from .response import Response
 from .resource import Resource
 from .elements import Element
 from typing import Union, List, Dict
+from functools import partial
 
 STATIC_OPTS = {
     "tool": "python"
@@ -27,19 +29,19 @@ class PrintJob:
     def __init__(self,
                  template: Resource,
                  data: Union[Element, Dict[str, Element]],
-                 server_config: ServerConfig,
+                 server: Server,
                  output_config: OutputConfig = None):
         """
         Args:
             template (apexofficeprint.resource.Resource): `PrintJob.template`.
             data (Union[Element, Dict[str, Element]]): `PrintJob.data`.
-            server_config (apexofficeprint.config.ServerConfig): `PrintJob.server_config`.
+            server (apexofficeprint.config.Server): `PrintJob.server`.
             output_config (apexofficeprint.config.OutputConfig, optional): `Printjob.output_config`. Defaults to `apexofficeprint.config.ServerConfig`().
         """
         self.data: Union[List[Element], Element] = data
         """ # TODO """
-        self.server_config: ServerConfig = server_config
-        """Server configuration to be used for this print job."""
+        self.server: Server = server
+        """Server to be used for this print job."""
         self.output_config: OutputConfig = output_config if output_config else OutputConfig()
         """Output configuration to be used for this print job."""
         self.template: Resource = template
@@ -48,12 +50,32 @@ class PrintJob:
     def execute(self) -> Union[Response, AOPError]:
         """# TODO: document (auto generate args etc.) when finished
         """
-        if not self.server_config.is_reachable():
-            raise ConnectionError(
-                f"Could not reach server at {self.server_config.server_url}")
+        self.server._raise_if_unreachable()
+        return self._handle_response(requests.post(self.server.url, json=self.as_dict))
 
-        res = requests.post(self.server_config.server_url, json=self.as_dict)
+    async def execute_async(self) -> Union[Response, AOPError]:
+        return PrintJob._handle_response(
+            await asyncio.get_event_loop().run_in_executor(
+                None, partial(requests.post, self.server.url, json=self.as_dict)
+            )
+        )
 
+    @staticmethod
+    def execute_full_json(json_data: str, server: Server):
+        server._raise_if_unreachable()
+        return PrintJob._handle_response(requests.post(server.url, data=json_data, headers={"Content-type": "application/json"}))
+
+    @staticmethod
+    async def execute_full_json_async(json_data: str, server: Server):
+        server._raise_if_unreachable()
+        return PrintJob._handle_response(
+            await asyncio.get_event_loop().run_in_executor(
+                None, partial(requests.post, server.url, data=json_data, headers={"Content-type": "application/json"})
+            )
+        )
+
+    @staticmethod
+    def _handle_response(res: requests.Response):
         if res.status_code != 200:
             raise AOPError(res.text)
         else:
@@ -72,8 +94,8 @@ class PrintJob:
         (`PrintJob.json`)."""
         result = STATIC_OPTS
 
-        if self.server_config.api_key is not None:
-            result["api_key"] = self.server_config.api_key
+        if self.server.config:
+            result.update(self.server.config.as_dict)
 
         result["output"] = self.output_config.as_dict
 
