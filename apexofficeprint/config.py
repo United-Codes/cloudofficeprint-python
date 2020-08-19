@@ -143,8 +143,8 @@ class OAuthToken(CloudAccessToken):
     def __init__(self, service: str, token: str):
         """
         Args:
-            service (str): service to use (e.g. Dropbox)
-            token (str): OAuth token
+            service (str): `CloudAccessToken.service`
+            token (str): `OAuthToken.token`
         """
         super().__init__(service)
         self.token: str = token
@@ -164,8 +164,8 @@ class AWSToken(CloudAccessToken):
     def __init__(self, key_id: str, secret_key: str):
         """
         Args:
-            key_id (str): AWS access key ID
-            secret_key (str): AWS secret key
+            key_id (str): `AWSToken.key_id`
+            secret_key (str): `AWSToken.secret_key`
         """
         super().__init__("aws_s3")
         self.key_id: str = key_id
@@ -190,11 +190,11 @@ class FTPToken(CloudAccessToken):
     def __init__(self, host: str, sftp: bool = False, port: int = None, user: str = None, password: str = None):
         """
         Args:
-            host (str): host name or IP address
+            host (str): `FTPToken.host`
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
-            port (int, optional): port number. Defaults to None.
-            user (str, optional): user name for the FTP/SFTP server. Defaults to None.
-            password (str, optional): password for the FTP/SFTP server. Defaults to None.
+            port (int, optional): `FTPToken.port`. Defaults to None.
+            user (str, optional): `FTPToken.user`. Defaults to None.
+            password (str, optional): `FTPToken.password`. Defaults to None.
         """
         super().__init__("sftp" if sftp else "ftp")
         self.host: str = host
@@ -239,12 +239,12 @@ class OutputConfig:
                  pdf_options: 'PDFOptions' = None):
         """
         Args:
-            filetype (str, optional): File type (as extension). Defaults to None.
-            encoding (str, optional): Encoding. Defaults to "raw".
-            converter (str, optional): Converter. Defaults to "libreoffice".
-            cloud_access_token (CloudAccessToken, optional): Cloud access token. Defaults to None.
-            server_directory (str, optional): Server directory. Defaults to None.
-            pdf_options (PDFOptions, optional): PDF options. Defaults to None.
+            filetype (str, optional): `OutputConfig.filetype`. Defaults to None.
+            encoding (str, optional): `OutputConfig.encoding`. Defaults to "raw".
+            converter (str, optional): `OutputConfig.converter`. Defaults to "libreoffice".
+            cloud_access_token (CloudAccessToken, optional): `OutputConfig.cloud_access_token`. Defaults to None.
+            server_directory (str, optional): `OutputConfig.server_directory`. Defaults to None.
+            pdf_options (PDFOptions, optional): `OutputConfig.pdf_options`. Defaults to None.
         """
         self.filetype: str = filetype
         """The file type (as extension) to use for the output."""
@@ -254,7 +254,7 @@ class OutputConfig:
         Can be "libreoffice", "officetopdf" or any custom defined converter.
         Custom converters are configurated in the AOP server's `aop_config.json` file.
         """
-        self._cloud_access_token: CloudAccessToken = cloud_access_token
+        self.cloud_access_token: CloudAccessToken = cloud_access_token
         """Access token used to access various cloud services for output storage."""
         self.server_directory: str = server_directory
         """Base directory to save output files into.
@@ -285,8 +285,8 @@ class OutputConfig:
 
         if self.filetype is not None:
             result["output_type"] = self.filetype
-        if self._cloud_access_token is not None:
-            result.update(self._cloud_access_token.as_dict)
+        if self.cloud_access_token is not None:
+            result.update(self.cloud_access_token.as_dict)
         if self.server_directory is not None:
             result["output_directory"] = self.server_directory
         if self.pdf_options is not None:
@@ -317,25 +317,58 @@ class PDFOptions:
     These default values are not passed to the json or dict representation of the object and thus not explicitly sent to the AOP server.
     """
 
-    read_password: str = None
-    """The password needed to open the PDF."""
-    watermark: str = None
-    """Setting this generates a diagonal custom watermark on every page in the PDF file"""
-    page_width: Union[str, int] = None
-    """Page width in px, mm, cm, in. No unit means px."""
-    page_height: Union[str, int] = None
-    """Page height in px, mm, cm, in. No unit means px."""
+    def __init__(self,
+                 read_password: str = None,
+                 watermark: str = None,
+                 page_width: Union[str, int] = None,
+                 page_height: Union[str, int] = None,
+                 even_page: bool = None,
+                 merge_making_even: bool = None,
+                 modify_password: str = None,
+                 password_protection_flag: int = None,
+                 lock_form: bool = None,
+                 copies: int = None,
+                 page_margin: Union[int, dict] = None,
+                 landscape: bool = None,
+                 page_format: str = None,
+                 merge: bool = None,
+                 ):
+        """
+        Args:
+            read_password (str, optional): `PDFOptions.read_password`. Defaults to None.
+            watermark (str, optional): `PDFOptions.watermark`. Defaults to None.
+            page_width (Union[str, int], optional): `PDFOptions.page_width`. Defaults to None.
+            page_height (Union[str, int], optional): `PDFOptions.page_height`. Defaults to None.
+            even_page (bool, optional): `PDFOptions.even_page`. Defaults to None.
+            merge_making_even (bool, optional): `PDFOptions.merge_making_even`. Defaults to None.
+            modify_password (str, optional): `PDFOptions.modify_password`. Defaults to None.
+            password_protection_flag (int, optional): `PDFOptions.password_protection_flag`. Defaults to None.
+            lock_form (bool, optional): `PDFOptions.lock_form`. Defaults to None.
+            copies (int, optional): `PDFOptions.copies`. Defaults to None.
+            page_margin (Union[int, dict], optional): `PDFOptions.page_margin`. Defaults to None.
+            landscape (bool, optional): `PDFOptions.landscape`. Defaults to None.
+            page_format (str, optional): `PDFOptions.format`. Defaults to None.
+            merge (bool, optional): `PDFOptions.merge`. Defaults to None.
+        """
+        self.read_password: str = None
+        """The password needed to open the PDF."""
+        self.watermark: str = None
+        """Setting this generates a diagonal custom watermark on every page in the PDF file"""
+        self.page_width: Union[str, int] = None
+        """Page width in px, mm, cm, in. No unit means px."""
+        self.page_height: Union[str, int] = None
+        """Page height in px, mm, cm, in. No unit means px."""
 
-    _even_page = None
-    _merge_making_even = None
-    _modify_password = None
-    _password_protection_flag = None
-    _lock_form = None
-    _copies = None
-    _page_margin = None
-    _landscape = False
-    _page_format = None
-    _merge = None
+        self._even_page = even_page
+        self._merge_making_even = merge_making_even
+        self._modify_password = modify_password
+        self._password_protection_flag = password_protection_flag
+        self._lock_form = lock_form
+        self._copies = copies
+        self._page_margin = page_margin
+        self._landscape = landscape
+        self._page_format = page_format
+        self._merge = merge
 
     def __str__(self):
         return self.json
