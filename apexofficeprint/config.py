@@ -352,8 +352,8 @@ class PDFOptions:
             lock_form (bool, optional): `PDFOptions.lock_form`. Defaults to None.
             copies (int, optional): `PDFOptions.copies`. Defaults to None.
             page_margin (Union[int, dict], optional): `PDFOptions.page_margin`. Defaults to None.
-            landscape (bool, optional): `PDFOptions.landscape`. Defaults to None.
-            page_format (str, optional): `PDFOptions.format`. Defaults to None.
+            landscape (bool, optional): Whether the document should be in landscape orientation, affects `PDFOptions.page_orientation`. Defaults to None.
+            page_format (str, optional): `PDFOptions.page_format`. Defaults to None.
             merge (bool, optional): `PDFOptions.merge`. Defaults to None.
         """
         self.read_password: str = None
@@ -588,11 +588,12 @@ class Server:
     def __init__(self, url: str, config: ServerConfig = None):
         """
         Args:
-            url (str): `Server.server_url`.
+            url (str): `Server.url`.
             config (ServerConfig): `Server.config`
         """
         self.url = url
-        self.config = config
+        self.config: ServerConfig = config
+        """# TODO"""
 
     @property
     def url(self) -> str:
