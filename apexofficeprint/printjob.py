@@ -46,6 +46,8 @@ class PrintJob:
         """Output configuration to be used for this print job."""
         self.template: Resource = template
         """Template to use for this print job."""
+        self.subtemplates: Dict[str, Resource] = {}
+        """Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`"""
 
     def execute(self) -> Union[Response, AOPError]:
         """# TODO: document (auto generate args etc.) when finished
@@ -56,7 +58,8 @@ class PrintJob:
     async def execute_async(self) -> Union[Response, AOPError]:
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
-                None, partial(requests.post, self.server.url, json=self.as_dict)
+                None, partial(requests.post, self.server.url,
+                              json=self.as_dict)
             )
         )
 
@@ -70,7 +73,8 @@ class PrintJob:
         server._raise_if_unreachable()
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
-                None, partial(requests.post, server.url, data=json_data, headers={"Content-type": "application/json"})
+                None, partial(requests.post, server.url, data=json_data, headers={
+                              "Content-type": "application/json"})
             )
         )
 
@@ -111,5 +115,13 @@ class PrintJob:
             } for name, data in self.data.items()]
         else:
             result["files"] = [{"data": self.data.as_dict}]
+
+        if len(self.subtemplates) > 0:
+            templates_list = []
+            for name, res in self.subtemplates.items():
+                to_add = res.secondary_file_dict
+                to_add["name"] = name
+                templates_list.append(to_add)
+            result["templates"] = templates_list
 
         return result

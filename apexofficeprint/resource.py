@@ -63,14 +63,14 @@ class Resource(ABC):
         pass
 
     @property
-    def concatfile_json(self) -> str:
-        """The json representation for use as a prepend or append file."""
-        return json.dumps(self.concatfile_dict)
+    def secondary_file_json(self) -> str:
+        """The json representation for use as secondary file."""
+        return json.dumps(self.secondary_file_dict)
 
     @property
     @abstractmethod
-    def concatfile_dict(self) -> dict:
-        """This Resource object as a dict object for use as a prepend or append file.
+    def secondary_file_dict(self) -> dict:
+        """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
 
         This dict and the "concat file" json representation (`Resource.concatfile_json`) are isomorphic."""
         pass
@@ -203,7 +203,7 @@ class RawResource(Resource):
         }
 
     @property
-    def concatfile_dict(self) -> dict:
+    def secondary_file_dict(self) -> dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "base64",
@@ -230,7 +230,7 @@ class Base64Resource(Resource):
         }
 
     @property
-    def concatfile_dict(self) -> dict:
+    def secondary_file_dict(self) -> dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "base64",
@@ -256,7 +256,7 @@ class ServerPathResource(Resource):
         }
 
     @property
-    def concatfile_dict(self) -> dict:
+    def secondary_file_dict(self) -> dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
@@ -283,7 +283,7 @@ class URLResource(Resource):
         }
 
     @property
-    def concatfile_dict(self) -> dict:
+    def secondary_file_dict(self) -> dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
@@ -328,7 +328,7 @@ class HTMLResource(Resource):
         return result
 
     @property
-    def concatfile_dict(self) -> dict:
+    def secondary_file_dict(self) -> dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
