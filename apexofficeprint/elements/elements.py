@@ -533,7 +533,10 @@ class Object(list, Element):
         """
         result = {}
         for element in self:
-            result.update(element.as_dict)
+            if isinstance(element, Object):
+                result.update({element.name: element.as_dict})
+            else:
+                result.update(element.as_dict)
         return result
 
     @property
@@ -542,6 +545,10 @@ class Object(list, Element):
         for element in self:
             result |= element.available_tags
         return frozenset(result)
+
+    @classmethod
+    def element_to_object(cls, element: Element) -> 'Object':
+        return cls.from_mapping(element.as_dict, "")
 
     @classmethod
     def from_mapping(cls, mapping: Mapping, name: str = "") -> 'Object':
