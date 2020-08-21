@@ -614,9 +614,9 @@ class ScatterChart(Chart):
 
 
 class BubbleChart(Chart):
-    def __init__(self, name: str, *bubbles: Union[BubbleSeries], options: ChartOptions = None):
+    def __init__(self, name: str, *bubbles: BubbleSeries, options: ChartOptions = None):
         super().__init__(name, options)
-        self.bubbles: Tuple[Union[BubbleSeries]] = bubbles
+        self.bubbles: Tuple[BubbleSeries] = bubbles
 
     @property
     def as_dict(self):
@@ -627,9 +627,9 @@ class BubbleChart(Chart):
 
 
 class StockChart(Chart):
-    def __init__(self, name: str, *stocks: Union[StockSeries], options: ChartOptions = None):
+    def __init__(self, name: str, *stocks: StockSeries, options: ChartOptions = None):
         super().__init__(name, options)
-        self.stocks: Tuple[Union[StockSeries]] = stocks
+        self.stocks: Tuple[StockSeries] = stocks
 
     @property
     def as_dict(self):
