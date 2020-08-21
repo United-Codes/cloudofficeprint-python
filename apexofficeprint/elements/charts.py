@@ -1,6 +1,6 @@
 from typing import Union
 from logging import warning
-from typing import Sequence, Tuple, FrozenSet
+from typing import Iterable, Tuple, FrozenSet
 from abc import ABC, abstractmethod
 from .elements import Element
 
@@ -254,12 +254,12 @@ class Series(ABC):
 
 class XYSeries(Series):
     def __init__(self,
-                 x: Sequence[Union[int, float, str]],
-                 y: Sequence[Union[int, float]],
+                 x: Iterable[Union[int, float, str]],
+                 y: Iterable[Union[int, float]],
                  name: str = None):
         super().__init__(name)
-        self.x: Sequence[Union[int, float, str]] = x
-        self.y: Sequence[Union[int, float]] = y
+        self.x: Iterable[Union[int, float, str]] = x
+        self.y: Iterable[Union[int, float]] = y
 
     @property
     def data(self):
@@ -271,8 +271,8 @@ class XYSeries(Series):
 
 class PieSeries(XYSeries):
     def __init__(self,
-                 x: Sequence[Union[int, float, str]],
-                 y: Sequence[Union[int, float]],
+                 x: Iterable[Union[int, float, str]],
+                 y: Iterable[Union[int, float]],
                  color: str):
         super().__init__(x, y)
         self.color = color
@@ -293,8 +293,8 @@ class PieSeries(XYSeries):
 
 class AreaSeries(XYSeries):
     def __init__(self,
-                 x: Sequence[Union[int, float, str]],
-                 y: Sequence[Union[int, float]],
+                 x: Iterable[Union[int, float, str]],
+                 y: Iterable[Union[int, float]],
                  name: str = None,
                  color: str = None,
                  opacity: float = None):
@@ -320,8 +320,8 @@ class AreaSeries(XYSeries):
 
 class LineSeries(XYSeries):
     def __init__(self,
-                 x: Sequence[Union[int, float, str]],
-                 y: Sequence[Union[int, float]],
+                 x: Iterable[Union[int, float, str]],
+                 y: Iterable[Union[int, float]],
                  name: str = None,
                  smooth: bool = None,
                  symbol: str = None,
@@ -363,14 +363,14 @@ class LineSeries(XYSeries):
 
 class BubbleSeries(Series):
     def __init__(self,
-                 x: Sequence[Union[int, float, str]],
-                 y: Sequence[Union[int, float]],
-                 sizes: Sequence[Union[int, float]],
+                 x: Iterable[Union[int, float, str]],
+                 y: Iterable[Union[int, float]],
+                 sizes: Iterable[Union[int, float]],
                  name: str = None):
         super().__init__(name)
-        self.x: Sequence[Union[int, float, str]] = x
-        self.y: Sequence[Union[int, float]] = y
-        self.sizes: Sequence[Union[int, float]] = sizes
+        self.x: Iterable[Union[int, float, str]] = x
+        self.y: Iterable[Union[int, float]] = y
+        self.sizes: Iterable[Union[int, float]] = sizes
 
     @property
     def data(self):
@@ -383,21 +383,21 @@ class BubbleSeries(Series):
 
 class StockSeries(Series):
     def __init__(self,
-                 x: Sequence[Union[int, float, str]],
-                 high: Sequence[Union[int, float]],
-                 low: Sequence[Union[int, float]],
-                 close: Sequence[Union[int, float]],
-                 open_: Sequence[Union[int, float]] = None,
-                 volume: Sequence[Union[int, float]] = None,
+                 x: Iterable[Union[int, float, str]],
+                 high: Iterable[Union[int, float]],
+                 low: Iterable[Union[int, float]],
+                 close: Iterable[Union[int, float]],
+                 open_: Iterable[Union[int, float]] = None,
+                 volume: Iterable[Union[int, float]] = None,
                  name=None):
         super().__init__(name)
-        self.x: Sequence[Union[int, float, str]] = x
-        self.high: Sequence[Union[int, float]] = high
-        self.low: Sequence[Union[int, float]] = low
-        self.close: Sequence[Union[int, float]] = close
+        self.x: Iterable[Union[int, float, str]] = x
+        self.high: Iterable[Union[int, float]] = high
+        self.low: Iterable[Union[int, float]] = low
+        self.close: Iterable[Union[int, float]] = close
         # open argument gets a trailing _ because open() is a built-in function
-        self.open: Sequence[Union[int, float]] = open_
-        self.volume: Sequence[Union[int, float]] = volume
+        self.open: Iterable[Union[int, float]] = open_
+        self.volume: Iterable[Union[int, float]] = volume
 
     @property
     def data(self):
@@ -649,7 +649,7 @@ def _replace_key_recursive(obj, old_key, new_key):
 
 
 class CombinedChart(Chart):
-    def __init__(self, name: str, charts: Sequence[Chart], secondaryCharts: Sequence[Chart] = None, options: ChartOptions = None):
+    def __init__(self, name: str, charts: Iterable[Chart], secondaryCharts: Iterable[Chart] = None, options: ChartOptions = None):
         if not options:
             all_options = [chart.options.as_dict for chart in (
                 tuple(charts) + tuple(secondaryCharts)) if chart.options]
