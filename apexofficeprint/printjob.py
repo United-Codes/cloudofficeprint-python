@@ -10,7 +10,7 @@ from .exceptions import AOPError
 from .response import Response
 from .resource import Resource
 from .elements import Element
-from typing import Union, List, Dict
+from typing import Union, List, Dict, Mapping
 from functools import partial
 
 STATIC_OPTS = {
@@ -28,17 +28,17 @@ class PrintJob:
 
     def __init__(self,
                  template: Resource,
-                 data: Union[Element, Dict[str, Element]],
+                 data: Union[Element, Mapping[str, Element]],
                  server: Server,
                  output_config: OutputConfig = None):
         """
         Args:
             template (apexofficeprint.resource.Resource): `PrintJob.template`.
-            data (Union[Element, Dict[str, Element]]): `PrintJob.data`.
+            data (Union[Element, Mapping[str, Element]]): `PrintJob.data`.
             server (apexofficeprint.config.Server): `PrintJob.server`.
             output_config (apexofficeprint.config.OutputConfig, optional): `Printjob.output_config`. Defaults to `apexofficeprint.config.ServerConfig`().
         """
-        self.data: Union[List[Element], Element] = data
+        self.data: Union[Element, Mapping[str, Element]] = data
         """ # TODO """
         self.server: Server = server
         """Server to be used for this print job."""
@@ -48,38 +48,47 @@ class PrintJob:
         """Template to use for this print job."""
         self.subtemplates: Dict[str, Resource] = {}
         """Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`"""
+        self.append_files: List[Resource] = []
+        self.prepend_files: List[Resource] = []
 
-    def execute(self) -> Union[Response, AOPError]:
-        """# TODO: document (auto generate args etc.) when finished
+    def execute(self) -> Response:
+        """# TODO: document
         """
         self.server._raise_if_unreachable()
         return self._handle_response(requests.post(self.server.url, json=self.as_dict))
 
-    async def execute_async(self) -> Union[Response, AOPError]:
+    async def execute_async(self) -> Response:
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
-                None, partial(requests.post, self.server.url,
-                              json=self.as_dict)
+                None, partial(
+                    requests.post,
+                    self.server.url,
+                    json=self.as_dict
+                )
             )
         )
 
     @staticmethod
-    def execute_full_json(json_data: str, server: Server):
+    def execute_full_json(json_data: str, server: Server) -> Response:
         server._raise_if_unreachable()
         return PrintJob._handle_response(requests.post(server.url, data=json_data, headers={"Content-type": "application/json"}))
 
     @staticmethod
-    async def execute_full_json_async(json_data: str, server: Server):
+    async def execute_full_json_async(json_data: str, server: Server) -> Response:
         server._raise_if_unreachable()
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
-                None, partial(requests.post, server.url, data=json_data, headers={
-                              "Content-type": "application/json"})
+                None, partial(
+                    requests.post,
+                    server.url,
+                    data=json_data,
+                    headers={"Content-type": "application/json"}
+                )
             )
         )
 
     @staticmethod
-    def _handle_response(res: requests.Response):
+    def _handle_response(res: requests.Response) -> Response:
         if res.status_code != 200:
             raise AOPError(res.text)
         else:
@@ -105,16 +114,25 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
-        # TODO: prepend / append files
         # TODO: support REST endpoint as file source (see docs)
 
-        if isinstance(self.data, dict):
+        if isinstance(self.data, Mapping):
             result["files"] = [{
                 "filename": name,
                 "data": data.as_dict
             } for name, data in self.data.items()]
         else:
             result["files"] = [{"data": self.data.as_dict}]
+
+        if len(self.prepend_files) > 0:
+            result["prepend_files"] = [
+                res.secondary_file_dict for res in self.prepend_files
+            ]
+
+        if len(self.append_files) > 0:
+            result["append_files"] = [
+                res.secondary_file_dict for res in self.append_files
+            ]
 
         if len(self.subtemplates) > 0:
             templates_list = []
