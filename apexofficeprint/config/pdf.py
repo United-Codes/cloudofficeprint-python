@@ -11,10 +11,6 @@ class PDFOptions:
     These default values are not passed to the json or dict representation of the object and thus not explicitly sent to the AOP server.
     """
 
-    # TODO:
-    # - 5.2.6.3 AOP Form filling
-    # - 5.2.6.3 AOP PDF signing
-
     def __init__(self,
                  read_password: str = None,
                  watermark: str = None,
@@ -29,7 +25,8 @@ class PDFOptions:
                  page_margin: Union[int, dict] = None,
                  landscape: bool = None,
                  page_format: str = None,
-                 merge: bool = None):
+                 merge: bool = None,
+                 sign_certificate: str = None):
         """
         Args:
             read_password (str, optional): `PDFOptions.read_password`. Defaults to None.
@@ -46,6 +43,7 @@ class PDFOptions:
             landscape (bool, optional): Whether the document should be in landscape orientation, affects `PDFOptions.page_orientation`. Defaults to None.
             page_format (str, optional): `PDFOptions.page_format`. Defaults to None.
             merge (bool, optional): `PDFOptions.merge`. Defaults to None.
+            sign_certificate (str, optional): `PDFOptions.sign_certificate`. Defaults to None.
         """
         self.read_password: str = None
         """The password needed to open the PDF."""
@@ -88,6 +86,8 @@ class PDFOptions:
         }
         ```
         or just an int to be used on all sides."""
+        self.sign_certificate: str = sign_certificate
+        """Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path."""
 
         self._landscape = landscape
 
