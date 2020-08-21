@@ -492,7 +492,7 @@ class Object(list, Element):
     """
 
     def __init__(self, name: str = "", elements: Iterable[Element] = ()):
-        # name not used for outer element
+        # name is not used for the outer object, but needed for nested objects
         list.__init__(self, elements)
         Element.__init__(self, name)
 
@@ -547,8 +547,8 @@ class Object(list, Element):
         return frozenset(result)
 
     @classmethod
-    def element_to_object(cls, element: Element) -> 'Object':
-        return cls.from_mapping(element.as_dict, "")
+    def element_to_object(cls, element: Element, name: str = "") -> 'Object':
+        return cls.from_mapping(element.as_dict, name)
 
     @classmethod
     def from_mapping(cls, mapping: Mapping, name: str = "") -> 'Object':
