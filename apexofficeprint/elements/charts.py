@@ -4,6 +4,7 @@ from typing import Iterable, Tuple, FrozenSet
 from abc import ABC, abstractmethod
 from .elements import Element
 
+
 class ChartTextStyle:
     def __init__(self,
                  italic: bool = None,
@@ -268,13 +269,20 @@ class XYSeries(Series):
             "y": y
         } for x, y in zip(self.x, self.y)]
 
+    @classmethod
+    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None):
+        x = list(data.iloc[:, 0])
+        y = list(data.iloc[:, 1])
+        return cls(x, y, name=name)
+
 
 class PieSeries(XYSeries):
     def __init__(self,
                  x: Iterable[Union[int, float, str]],
                  y: Iterable[Union[int, float]],
-                 color: str):
-        super().__init__(x, y)
+                 name: str = None,
+                 color: str = None):
+        super().__init__(x, y, name)
         self.color = color
 
     @property
@@ -380,6 +388,13 @@ class BubbleSeries(Series):
             "size": size
         } for x, y, size in zip(self.x, self.y, self.sizes)]
 
+    @classmethod
+    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None):
+        x = list(data.iloc[:, 0])
+        y = list(data.iloc[:, 1])
+        sizes = list(data.iloc[:, 2])
+        return cls(x, y, sizes, name=name)
+
 
 class StockSeries(Series):
     def __init__(self,
@@ -415,6 +430,23 @@ class StockSeries(Series):
                 result[i]["volume"] = self.volume[i]
 
         return result
+
+    @classmethod
+    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None):
+        x = list(data.iloc[:, 0])
+        high = list(data["high"])
+        low = list(data["low"])
+        close = list(data["close"])
+        # volume and open are optional
+        try:
+            open_ = list(data["open"])
+        except KeyError:
+            open_ = None
+        try:
+            volume = list(data["volume"])
+        except KeyError:
+            volume = None
+        return cls(x, high, low, close, open_, volume, name=name)
 
 
 # better to have a series for every possible chart for future-proofing, in case their options diverge later
