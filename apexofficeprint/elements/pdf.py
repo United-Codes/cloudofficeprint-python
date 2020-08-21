@@ -3,6 +3,7 @@ from typing import Union, FrozenSet, Iterable, Mapping
 from .elements import Element, Object
 
 class PDFInsertObject(ABC):
+    """Abstract base class for PDF's insertable objects."""
     def __init__(self,
                  x: int,
                  y: int,
@@ -26,6 +27,7 @@ class PDFInsertObject(ABC):
 
 
 class PDFText(PDFInsertObject):
+    """Adds text to a PDF"""
     def __init__(self,
                  text: str,
                  x: int,
@@ -37,6 +39,19 @@ class PDFText(PDFInsertObject):
                  font: str = None,
                  font_color: str = None,
                  font_size: int = None):
+        """
+        Args:
+            text (str): `PDFText.text`
+            x (int): `PDFText.x`
+            y (int): `PDFText.y`
+            page (Union[int, str], optional): `PDFText.page`. Defaults to "all".
+            rotation (int, optional): `PDFText.rotation`. Defaults to None.
+            bold (bool, optional): `PDFText.bold`. Defaults to None.
+            italic (bool, optional): `PDFText.italic`. Defaults to None.
+            font (str, optional): `PDFText.font`. Defaults to None.
+            font_color (str, optional): `PDFText.font_color`. Defaults to None.
+            font_size (int, optional): `PDFText.font_size`. Defaults to None.
+        """
         super().__init__(x, y, page)
         self.text: str = text
         """Text to insert."""
@@ -81,6 +96,7 @@ class PDFText(PDFInsertObject):
 
 
 class PDFImage(PDFInsertObject):
+    """Inserts an image into a PDF."""
     def __init__(self,
                  image: str,
                  x: int,
@@ -126,8 +142,14 @@ class PDFImage(PDFInsertObject):
         return result
 
 class PDFTexts(Element):
-    """# TODO"""
-    # there can only be one or they will overwrite
+    """Group of PDF texts as an `Element`.
+    
+    There can only be one of this `Element`.
+    (Element name is fixed and important to the server, so multiple will just overwrite)
+    and it should be at the outer level of an `Object`.
+    """
+    # TODO: it may make more sense to do these (PDFTexts, PDFImages, PDFFormData) as config options,
+    # then PrintJob has to add the "AOP_PDF_TEXTS" Object to the data.
     def __init__(self, texts: Iterable[PDFText]):
         super().__init__("AOP_PDF_TEXTS")
         self.texts = texts
@@ -144,8 +166,12 @@ class PDFTexts(Element):
 
 
 class PDFImages(Element):
-    """# TODO"""
-    # there can only be one or they will overwrite
+    """Group of PDF images as an `Element`.
+    
+    There can only be one of this `Element`.
+    (Element name is fixed and important to the server, so multiple will just overwrite)
+    and it should be at the outer level of an `Object`.
+    """
     def __init__(self, images: Iterable[PDFImage]):
         super().__init__("AOP_PDF_IMAGES")
         self.images = images
@@ -161,7 +187,12 @@ class PDFImages(Element):
         return frozenset()
 
 class PDFFormData(Element):
-    # there can only be one or they will overwrite
+    """PDF form data as an `Element`.
+    
+    There can only be one of this `Element`.
+    (Element name is fixed and important to the server, so multiple will just overwrite)
+    and it should be at the outer level of an `Object`.
+    """
     def __init__(self, **form_data: Mapping[str, Union[str, bool]]):
         super().__init__("aop_pdf_form_data")
         self.form_data = form_data

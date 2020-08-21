@@ -2,8 +2,11 @@
 This Python package provides a programmatic interface with an [APEX Office Print](https://www.apexofficeprint.com) server.
 
 ## Example
+#### TODO: add examples
+- a minimal example from full json data
+- simple example based on the test file (e.g. create a chart with the elements module and render it)
 ```python
-# TODO: the example should go here
+python_code = "goes here"
 ```
 """
 

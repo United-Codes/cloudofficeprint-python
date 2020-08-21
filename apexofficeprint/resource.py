@@ -72,7 +72,7 @@ class Resource(ABC):
     def secondary_file_dict(self) -> dict:
         """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
 
-        This dict and the "concat file" json representation (`Resource.concatfile_json`) are isomorphic."""
+        This dict and the "concat file" json representation (`Resource.secondary_file_json`) are isomorphic."""
         pass
 
     def __str__(self):

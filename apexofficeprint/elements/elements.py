@@ -340,7 +340,7 @@ class D3Code(Property):
 
 
 class Code(Element):
-    """# TODO: refer to this link for type argument
+    """# TODO: refer to this link for type argument (jumps to the right docs section)
     http://www.apexofficeprint.com/docs/#615-barcode-qrcode-tags
     """
 
@@ -488,9 +488,14 @@ class AOPChart(Element):
 
 
 class Object(list, Element):
-    """# TODO
+    """A collection used to group multiple elements together.
+    It can contain nested `Object`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
+    Its name is used as a key name when nested, but ignored for all purposes when it's the outer object.
     """
-
+    # Object inherits from list, which may look odd or overkill (why not set, tuple ...?).
+    # It's because we need it to be mutable and also to be able to contain itself.
+    # A tuple is not mutable.
+    # A set is mutable but needs its contents to be hashable. A set itself is not hashable, so it cannot contain other sets.
     def __init__(self, name: str = "", elements: Iterable[Element] = ()):
         # name is not used for the outer object, but needed for nested objects
         list.__init__(self, elements)
@@ -515,6 +520,11 @@ class Object(list, Element):
     def add(self, element: Element):
         self.append(element)
 
+    # The reason we use 'Object' (a string) in cases like this is that
+    # Object is actually a forward reference here,
+    # which doesn't work, the interpreter will have no idea what Object is.
+    # It is supposed to work out of the box in future Python (>= 3.10)
+    # and with >= 3.7 using "from __future__ import annotations"
     def add_all(self, obj: 'Object'):
         for element in obj:
             self.add(element)

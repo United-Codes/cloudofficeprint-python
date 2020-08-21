@@ -12,3 +12,6 @@ Things to keep in mind when writing docs (some of these are non-standard):
 - Docstrings are inherited from `super()`.
 - Instance variables (attributes) can have docstrings, start the docstring on the line *underneath* the attribute
 - For `@property` properties, the setter's documentation is ignored. Make sure everything is in the getter.
+- You can use markdown in the docstrings, along with the generated google-style docs.
+  - Doing something like \``ClassName`\` (with backticks, which are generally for inline code) makes pdoc look for the reference and try to hyperlink it in the generated docs.</br>
+  This works with any object, useful methods or instance variables of a class too. Maked pdoc look for that 

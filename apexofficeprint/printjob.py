@@ -9,7 +9,7 @@ from .config import OutputConfig, Server
 from .exceptions import AOPError
 from .response import Response
 from .resource import Resource
-from .elements import Element
+from .elements import Element, Object
 from typing import Union, List, Dict, Mapping
 from functools import partial
 
@@ -33,13 +33,17 @@ class PrintJob:
                  output_config: OutputConfig = None):
         """
         Args:
-            template (apexofficeprint.resource.Resource): `PrintJob.template`.
+            template (Resource): `PrintJob.template`.
             data (Union[Element, Mapping[str, Element]]): `PrintJob.data`.
-            server (apexofficeprint.config.Server): `PrintJob.server`.
-            output_config (apexofficeprint.config.OutputConfig, optional): `Printjob.output_config`. Defaults to `apexofficeprint.config.ServerConfig`().
+            server (Server): `PrintJob.server`.
+            output_config (OutputConfig, optional): `Printjob.output_config`. Defaults to `OutputConfig`().
         """
         self.data: Union[Element, Mapping[str, Element]] = data
-        """ # TODO """
+        """This is either:
+        - An `Element` (e.g. an `Object`)
+        - A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them.
+        In the first case, no output file name is specified and the server will name it "file0".
+        """
         self.server: Server = server
         """Server to be used for this print job."""
         self.output_config: OutputConfig = output_config if output_config else OutputConfig()
@@ -52,12 +56,12 @@ class PrintJob:
         self.prepend_files: List[Resource] = []
 
     def execute(self) -> Response:
-        """# TODO: document
-        """
+        """Execute this print job."""
         self.server._raise_if_unreachable()
         return self._handle_response(requests.post(self.server.url, proxies=self.server.proxies, json=self.as_dict))
 
     async def execute_async(self) -> Response:
+        """Async version of `PrintJob.execute`"""
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
                 None, partial(
@@ -120,7 +124,13 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
-        # TODO: support REST endpoint as file source (see docs)
+        # TODO: support REST endpoint as template file source (see docs)
+        # => Should be an extra Resource,
+        #    but the problem is these Resource objects can represent both
+        #    template files and prepend/append/subtemplate files.
+        #    From the docs, it looks like it's only supported for templates.
+        #    So it could be a Resource type that e.g. raises TypeError in its secondary_file_dict property getter,
+        #    but there might be a cleaner way.
 
         if isinstance(self.data, Mapping):
             result["files"] = [{

@@ -124,7 +124,7 @@ class ChartAxisOptions:
 
 
 class ChartOptions():
-    # TODO: document
+    """Options object for a `Chart`."""
     def __init__(self,
                  name: str,
                  x_axis: ChartAxisOptions,
