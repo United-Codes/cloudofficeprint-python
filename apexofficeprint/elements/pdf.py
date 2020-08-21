@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union, FrozenSet, Iterable
+from typing import Union, FrozenSet, Iterable, Mapping
 from .elements import Element, Object
 
 class PDFInsertObject(ABC):
@@ -155,6 +155,20 @@ class PDFImages(Element):
         return {
             str(img.page): img._inner_dict for img in self.images
         }
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset()
+
+class PDFFormData(Element):
+    # there can only be one or they will overwrite
+    def __init__(self, **form_data: Mapping[str, Union[str, bool]]):
+        super().__init__("aop_pdf_form_data")
+        self.form_data = form_data
+
+    @property
+    def as_dict(self):
+        return self.form_data
 
     @property
     def available_tags(self) -> FrozenSet[str]:
