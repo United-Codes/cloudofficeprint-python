@@ -1,7 +1,7 @@
 import json
 from .._utils import file_utils
 from copy import deepcopy
-from typing import Union, Iterable, Mapping, Set, FrozenSet
+from typing import Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 
 
@@ -95,7 +95,7 @@ class Property(Element):
         return frozenset({"{" + self.name + "}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> dict:
         return {
             self.name: self.value
         }
@@ -405,7 +405,87 @@ class Code(Element):
         return result
 
 
-# TODO: aopchart
+class AOPChart(Element):
+    def __init__(self,
+                 name: str,
+                 x_data: Iterable,
+                 y_datas: Union[Iterable[Iterable], Mapping[str, Iterable]],
+                 title: str = None,
+                 x_title: str = None,
+                 y_title: str = None,
+                 y2_title: str = None,
+                 x2_title: str = None):
+        super().__init__(name)
+        self.x_data: List = list(x_data)
+
+        self.y_datas: Dict[str, Iterable[Union[str, int, float]]] = None
+        if isinstance(y_datas, Mapping):
+            self.y_datas = {
+                name: list(data) for name, data in y_datas.items()
+            }
+        elif isinstance(y_datas, Iterable):
+            self.y_datas = {
+                f"series {i+1}": data for i, data in enumerate(y_datas)
+            }
+        else:
+            raise TypeError(
+                f'Expected Mapping or Iterable for y_data, got "{type(y_datas)}"')
+
+        self.title: str = title
+        self.x_title: str = x_title
+        self.y_title: str = y_title
+        self.x2_title: str = x2_title
+        self.y2_title: str = y2_title
+
+    @classmethod
+    def from_dataframe(cls,
+                       name: str,
+                       data: 'pandas.DataFrame',
+                       title: str = None,
+                       x_title: str = None,
+                       y_title: str = None,
+                       y2_title: str = None,
+                       x2_title: str = None):
+        x_data = list(data.iloc[:, 0])
+
+        y_frame = data.iloc[:, 1:]
+        y_datas = {}
+        for col_name, col_data in y_frame.iteritems():
+            y_datas[col_name] = col_data
+
+        return cls(name, x_data, y_datas, title, x_title, y_title, x2_title, y2_title)
+
+    @property
+    def as_dict(self) -> dict:
+        result = {
+            "xAxis": {
+                "data": self.x_data,
+            },
+            "yAxis": {
+                "series": [{
+                    "name": name,
+                    "data": data
+                } for name, data in self.y_datas.items()]
+            }
+        }
+
+        if self.title:
+            result["title"] = self.title
+        if self.x_title:
+            result["xAxis"]["title"] = self.x_title
+        if self.y_title:
+            result["yAxis"]["title"] = self.y_title
+        if self.x2_title:
+            result["x2Axis"]["title"] = self.x2_title
+        if self.y2_title:
+            result["y2Axis"]["title"] = self.y2_title
+
+        return result
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{aopchart " + self.name + "}"})
+
 
 class Object(list, Element):
     """# TODO
