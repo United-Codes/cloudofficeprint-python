@@ -146,19 +146,22 @@ class ServerConfig:
 class Server:
     """This config class is used to specify the AOP server to interact with."""
 
-    # TODO: proxies
-
     # TODO: get_version(), ... (there are some server statuses on other paths than /marco)
 
-    def __init__(self, url: str, config: ServerConfig = None):
+    def __init__(self, url: str, proxies: Dict[str, str] = None, config: ServerConfig = None):
         """
         Args:
             url (str): `Server.url`.
+            proxies (Dict[str, str]): `Server.proxies`
             config (ServerConfig): `Server.config`
         """
         self.url = url
+        """Server URL."""
         self.config: ServerConfig = config
-        """# TODO"""
+        """Server configuration."""
+        self.proxies = proxies
+        """Proxies for contacting the server URL,
+        [as a dictionary](https://requests.readthedocs.io/en/master/user/advanced/#proxies)"""
 
     @property
     def url(self) -> str:
@@ -181,7 +184,7 @@ class Server:
             bool: whether the server at `Server.url` is reachable
         """
         try:
-            r = requests.get(urljoin(self.url, "marco"))
+            r = requests.get(urljoin(self.url, "marco"), proxies=self.proxies)
             return r.text == "polo"
         except requests.exceptions.ConnectionError:
             return False

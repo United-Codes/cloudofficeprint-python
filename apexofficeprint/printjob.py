@@ -55,7 +55,7 @@ class PrintJob:
         """# TODO: document
         """
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, json=self.as_dict))
+        return self._handle_response(requests.post(self.server.url, proxies=self.server.proxies, json=self.as_dict))
 
     async def execute_async(self) -> Response:
         return PrintJob._handle_response(
@@ -63,6 +63,7 @@ class PrintJob:
                 None, partial(
                     requests.post,
                     self.server.url,
+                    proxies=self.server.proxies,
                     json=self.as_dict
                 )
             )
@@ -71,7 +72,7 @@ class PrintJob:
     @staticmethod
     def execute_full_json(json_data: str, server: Server) -> Response:
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, data=json_data, headers={"Content-type": "application/json"}))
+        return PrintJob._handle_response(requests.post(server.url, proxies=server.proxies, data=json_data, headers={"Content-type": "application/json"}))
 
     @staticmethod
     async def execute_full_json_async(json_data: str, server: Server) -> Response:
@@ -81,6 +82,7 @@ class PrintJob:
                 None, partial(
                     requests.post,
                     server.url,
+                    proxies=server.proxies,
                     data=json_data,
                     headers={"Content-type": "application/json"}
                 )
@@ -107,9 +109,13 @@ class PrintJob:
         (`PrintJob.json`)."""
         result = STATIC_OPTS
 
+        # server config goes in the upper level
         if self.server.config:
             result.update(self.server.config.as_dict)
 
+        # output config goes in "output"
+        # and decides where its sub-configs go through its as_dict property
+        # (e.g. PDFConfigs are just appended at this "output" level)
         result["output"] = self.output_config.as_dict
 
         result["template"] = self.template.template_dict
