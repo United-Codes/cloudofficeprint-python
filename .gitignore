@@ -1,9 +1,5 @@
 docs/html/
 
-# test files
-/test.py
-/test/
-
 # VS Code configuration
 *.code-workspace
 .vscode
