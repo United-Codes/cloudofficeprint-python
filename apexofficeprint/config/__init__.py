@@ -7,5 +7,5 @@ They are to be used with `apexofficeprint.printjob.PrintJob`.
 
 from .cloud import *
 from .output import OutputConfig
-from .pdf import PDFOptions
+from .pdf import *
 from .server import Server, ServerConfig
