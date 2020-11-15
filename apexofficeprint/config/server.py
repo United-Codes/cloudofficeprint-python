@@ -138,7 +138,8 @@ class ServerConfig:
         if self.printer:
             result["ipp"] = self.printer._dict
 
-        result.update(self.commands._dict)
+        if self.commands is not None:
+            result.update(self.commands._dict)
 
         return result
 
@@ -148,7 +149,7 @@ class Server:
 
     # TODO: get_version(), ... (there are some server statuses on other paths than /marco)
 
-    def __init__(self, url: str, proxies: Dict[str, str] = None, config: ServerConfig = None):
+    def __init__(self, url: str, config: ServerConfig = None, proxies: Dict[str, str] = None):
         """
         Args:
             url (str): `Server.url`.

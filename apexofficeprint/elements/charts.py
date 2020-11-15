@@ -469,7 +469,7 @@ class Chart(Element, ABC):
             result["options"] = self.options if isinstance(
                 self.options, dict) else self.options.as_dict
         result.update(updates)
-        return result
+        return {self.name: result}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
