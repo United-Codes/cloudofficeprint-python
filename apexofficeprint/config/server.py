@@ -114,7 +114,8 @@ class ServerConfig:
                  api_key: str = None,
                  logging: Mapping = None,
                  printer: Printer = None,
-                 commands: Commands = None):
+                 commands: Commands = None,
+                 proxies: Dict[str, str] = None):
         self.api_key: str = api_key
         """API key to use for the application."""
         self.logging: dict = dict(logging) if logging else None
@@ -122,6 +123,9 @@ class ServerConfig:
         Additional key/value pairs you would like to have logged into server_printjob.log on the server.
         (To be used with the --enable_printlog server flag)
         """
+        self.proxies = proxies
+        """Proxies for contacting the server URL,
+        [as a dictionary](https://requests.readthedocs.io/en/master/user/advanced/#proxies)"""
         self.printer: Printer = printer
         """IP printer to use with this server. See the AOP docs for more info and supported printers."""
         self.commands: Commands = commands
@@ -149,7 +153,7 @@ class Server:
 
     # TODO: get_version(), ... (there are some server statuses on other paths than /marco)
 
-    def __init__(self, url: str, config: ServerConfig = None, proxies: Dict[str, str] = None):
+    def __init__(self, url: str, config: ServerConfig = None):
         """
         Args:
             url (str): `Server.url`.
@@ -160,9 +164,6 @@ class Server:
         """Server URL."""
         self.config: ServerConfig = config
         """Server configuration."""
-        self.proxies = proxies
-        """Proxies for contacting the server URL,
-        [as a dictionary](https://requests.readthedocs.io/en/master/user/advanced/#proxies)"""
 
     @property
     def url(self) -> str:
@@ -185,7 +186,7 @@ class Server:
             bool: whether the server at `Server.url` is reachable
         """
         try:
-            r = requests.get(urljoin(self.url, "marco"), proxies=self.proxies)
+            r = requests.get(urljoin(self.url, "marco"), proxies=self.config.proxies)
             return r.text == "polo"
         except requests.exceptions.ConnectionError:
             return False
