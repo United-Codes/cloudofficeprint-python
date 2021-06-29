@@ -157,7 +157,6 @@ class Server:
         """
         Args:
             url (str): `Server.url`.
-            proxies (Dict[str, str]): `Server.proxies`
             config (ServerConfig): `Server.config`
         """
         self.url = url

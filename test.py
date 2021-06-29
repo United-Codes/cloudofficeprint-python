@@ -1,5 +1,4 @@
 import apexofficeprint as aop
-from copy import deepcopy
 import asyncio
 
 TEMPLATE_PATH = "./test/template.docx"
@@ -105,16 +104,19 @@ async def test_async():
 
 
 def test_full_json():
+    server = aop.config.Server(
+        LOCAL_SERVER_URL,
+        aop.config.ServerConfig(api_key=API_KEY)
+    )
     json_file = open("./test/full_test.json", "r")
     json_data = json_file.read()
-    aop.PrintJob.execute_full_json(json_data, aop.config.Server(
-        LOCAL_SERVER_URL)).to_file("./test/from_full_json_output")
+    aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
 
 
 if __name__ == "__main__":
     # test1()
     # test_full_json()
     # asyncio.run(test_async())
-    # chartTest()
+    # test_chart()
     # test_aopchart()
     pass
