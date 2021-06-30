@@ -1,3 +1,23 @@
+# About
+In this example we are going to show you how to use the Python SDK for APEX Office Print. The example we will be using is: generating an order confirmation for buying products from a company. The resulting output file will look like this:
+
+![](./example_imgs/output_imgs/output-1.jpg)
+![](./example_imgs/output_imgs/output-2.jpg)
+
+# Template
+The template we are using is the following:
+![](./example_imgs/template_imgs/template-1.jpg)
+![](./example_imgs/template_imgs/template-2.jpg)
+
+## Tags used in this example
+- normal tag: {data_string} (e.g. {company_name})
+- image tag: {%imageKey} (e.g. {%company_logo})
+- loop tag: {#data_loop}...{/data_loop} (e.g. {#orders}...{/orders})
+- string/number comparison: {#key=='value'}...{/key=='value'} (e.g. {#in_stock<quantity}...{/in_stock<quantity})
+- numerical expression: {num1+num2} (e.g. {unit_price*quantity})
+
+# Data: Python code
+```python
 import apexofficeprint as aop
 
 TEMPLATE_PATH = "./examples/data/template.docx"
@@ -138,3 +158,5 @@ try:
     res.to_file("./examples/output/output") # Save response to output file
 except aop.exceptions.AOPError as err:
     print('AOP error:', err)
+
+```
