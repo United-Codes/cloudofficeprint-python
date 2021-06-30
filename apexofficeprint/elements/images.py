@@ -12,15 +12,21 @@ class Image(Element, ABC):
                  max_height: int,
                  alt_text: str,
                  wrap_text: str,
-                 rotation: int):
+                 rotation: int,
+                 transparency: int,
+                 url: str,
+                 width: int,
+                 height: int):
         super().__init__(name)
         self.max_width: int = max_width
-        """ """
         self.max_height: int = max_height
-        """ """
         self.alt_text: str = alt_text
         self.wrap_text: str = wrap_text
         self.rotation: int = rotation
+        self.transparency: int = transparency
+        self.url: str = url
+        self.width: int = width
+        self.height: int = height
 
     @property
     def alt_text(self) -> str:
@@ -64,6 +70,14 @@ class Image(Element, ABC):
             result["_wrap_text"] = self._wrap_text
         if self._rotation:
             result["_rotation"] = self._rotation
+        if self.transparency:
+            result["_transparency"] = self.transparency
+        if self.url:
+            result["_url"] = self.url
+        if self.width:
+            result["_width"] = self.width
+        if self.height:
+            result["_height"] = self.height
 
         return result
 
@@ -92,19 +106,20 @@ class ImageUrl(Image):
                  max_height: int = None,
                  alt_text: str = "",
                  wrap_text: str = "inline",
-                 rotation: int = None):
-        super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation)
-        self.url: str = url
+                 rotation: int = None,
+                 transparency: int = None,
+                 width: int = None,
+                 height: int = None):
+        super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
 
     @property
     def as_dict(self) -> dict:
         result = {
-            self.name + "_url": self.url
+            self.name: self.url,
         }
 
         for suffix, value in self._dict_suffixes.items():
             result[self.name + suffix] = value
-
         return result
 
 
@@ -116,8 +131,12 @@ class ImageBase64(Image):
                  max_height: int = None,
                  alt_text: str = None,
                  wrap_text: str = "inline",
-                 rotation: int = None):
-        super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation)
+                 rotation: int = None,
+                 transparency: int = None,
+                 url: str = None,
+                 width: int = None,
+                 height: int = None):
+        super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
         self.base64: str = base64str
 
     @property
