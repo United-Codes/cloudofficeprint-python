@@ -115,7 +115,8 @@ class ServerConfig:
                  logging: Mapping = None,
                  printer: Printer = None,
                  commands: Commands = None,
-                 proxies: Dict[str, str] = None):
+                 proxies: Dict[str, str] = None,
+                 aop_remote_debug: bool = False):
         self.api_key: str = api_key
         """API key to use for the application."""
         self.logging: dict = dict(logging) if logging else None
@@ -130,6 +131,8 @@ class ServerConfig:
         """IP printer to use with this server. See the AOP docs for more info and supported printers."""
         self.commands: Commands = commands
         """Configuration for the various command hooks offered."""
+        self.aop_remote_debug: bool = aop_remote_debug
+        """If True: The AOP server will log the JSON into the database and this can bee seen when logged into apexofficeprint.com"""
 
     @property
     def as_dict(self):
@@ -141,6 +144,8 @@ class ServerConfig:
             result["logging"] = self.logging
         if self.printer:
             result["ipp"] = self.printer._dict
+        if self.aop_remote_debug:
+            result['aop_remote_debug'] = 'Yes'
 
         if self.commands is not None:
             result.update(self.commands._dict)

@@ -15,7 +15,7 @@ from functools import partial
 
 STATIC_OPTS = {
     "tool": "python"
-    # "version": "18.2" # optional
+    # "version": "18.2" # optional: version of AOP JSON format
 }
 
 
