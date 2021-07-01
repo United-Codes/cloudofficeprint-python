@@ -45,13 +45,13 @@ class PDFOptions:
             merge (bool, optional): `PDFOptions.merge`. Defaults to None.
             sign_certificate (str, optional): `PDFOptions.sign_certificate`. Defaults to None.
         """
-        self.read_password: str = None
+        self.read_password: str = read_password
         """The password needed to open the PDF."""
-        self.watermark: str = None
+        self.watermark: str = watermark
         """Setting this generates a diagonal custom watermark on every page in the PDF file"""
-        self.page_width: Union[str, int] = None
+        self.page_width: Union[str, int] = page_width
         """Page width in px, mm, cm, in. No unit means px."""
-        self.page_height: Union[str, int] = None
+        self.page_height: Union[str, int] = page_height
         """Page height in px, mm, cm, in. No unit means px."""
 
         self.even_page: bool = even_page
@@ -138,6 +138,10 @@ class PDFOptions:
             result["output_page_format"] = self.page_format
         if self.merge is not None:
             result["output_merge"] = self.merge
+        if self._landscape is not None:
+            result["output_page_orientation"] = self._landscape
+        if self.sign_certificate is not None:
+            result["output_sign_certificate"] = self.sign_certificate
 
         return result
 

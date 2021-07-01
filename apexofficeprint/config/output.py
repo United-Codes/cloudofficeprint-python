@@ -18,7 +18,7 @@ class OutputConfig:
         """
         Args:
             filetype (str, optional): `OutputConfig.filetype`. Defaults to None.
-            encoding (str, optional): `OutputConfig.encoding`. Defaults to "raw".
+            encoding (str, optional): `OutputConfig.encoding`. Either "raw" or "base64". Defaults to "raw".
             converter (str, optional): `OutputConfig.converter`. Defaults to "libreoffice".
             cloud_access_token (CloudAccessToken, optional): `OutputConfig.cloud_access_token`. Defaults to None.
             server_directory (str, optional): `OutputConfig.server_directory`. Defaults to None.
