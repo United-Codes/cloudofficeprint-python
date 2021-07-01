@@ -30,9 +30,9 @@ class Printer:
 class Command:
     def __init__(self,
                  command: str,
-                 args: Mapping[str, str] = None):
+                 parameters: Mapping[str, str] = None):
         self.command: str = command
-        self.args: Dict[str, str] = dict(args)
+        self.parameters: Dict[str, str] = dict(parameters)
 
     @property
     def _dict(self) -> Dict[str, str]:
@@ -40,8 +40,8 @@ class Command:
             "command": self.command
         }
 
-        if self.args:
-            result["args"] = self.args
+        if self.parameters:
+            result["command_parameters"] = self.parameters
 
         return result
 
@@ -73,7 +73,7 @@ class Commands:
             post_merge (Command, optional): `Commands.post_merge`. Defaults to None.
         """
         self.post_process: Command = post_process
-        """Command to run after post processing."""
+        """Command to run after the given request has been processed but before returning back the output file."""
         self.post_process_return: bool = post_process_return
         """Whether to return the output or not. Note this output is AOP's output and not the post process command output."""
         self.post_process_delete_delay: int = post_process_delete_delay
@@ -91,9 +91,9 @@ class Commands:
 
         if self.post_process:
             to_add = self.post_process._dict
-            if self.post_process_return:
+            if self.post_process_return is not None:
                 to_add["return_output"] = self.post_process_return
-            if self.post_process_delete_delay:
+            if self.post_process_delete_delay is not None:
                 to_add["delete_delay"] = self.post_process_delete_delay
             result["post_process"] = to_add
 
