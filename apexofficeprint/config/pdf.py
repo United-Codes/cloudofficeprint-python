@@ -26,7 +26,8 @@ class PDFOptions:
                  landscape: bool = None,
                  page_format: str = None,
                  merge: bool = None,
-                 sign_certificate: str = None):
+                 sign_certificate: str = None,
+                 identify_form_fields: bool = None):
         """
         Args:
             read_password (str, optional): `PDFOptions.read_password`. Defaults to None.
@@ -44,6 +45,7 @@ class PDFOptions:
             page_format (str, optional): `PDFOptions.page_format`. Defaults to None.
             merge (bool, optional): `PDFOptions.merge`. Defaults to None.
             sign_certificate (str, optional): `PDFOptions.sign_certificate`. Defaults to None.
+            identify_form_fields (bool, optional): `PDFOptions.identify_form_fields`. Defaults to None.
         """
         self.read_password: str = read_password
         """The password needed to open the PDF."""
@@ -90,6 +92,10 @@ class PDFOptions:
         """Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path."""
 
         self._landscape = landscape
+        """If True: the orientation of the output file is landscape; else portrait (default)"""
+
+        self.identify_form_fields = identify_form_fields
+        """Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Optional."""
 
     def __str__(self):
         return self.json
@@ -142,6 +148,8 @@ class PDFOptions:
             result["output_page_orientation"] = self.page_orientation
         if self.sign_certificate is not None:
             result["output_sign_certificate"] = self.sign_certificate
+        if self.identify_form_fields is not None:
+            result["identify_form_fields"] = self.identify_form_fields
 
         return result
 

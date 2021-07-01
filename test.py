@@ -113,14 +113,15 @@ def test_full_json():
     aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
 
 def test_pdf_options():
-    pdf_opts = aop.config.PDFOptions(read_password='test_pw', landscape=False)
+    pdf_opts = aop.config.PDFOptions(read_password='test_pw', landscape=False, identify_form_fields=True)
     conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
     conf_result = {
         'output_type': 'pdf',
         'output_encoding': 'raw',
         'output_converter': 'libreoffice',
         'output_read_password': 'test_pw',
-        'output_page_orientation': 'portrait'
+        'output_page_orientation': 'portrait',
+        'identify_form_fields': True
     }
     assert conf.as_dict == conf_result
 
