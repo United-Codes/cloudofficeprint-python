@@ -68,7 +68,7 @@ class OutputConfig:
         if self.server_directory is not None:
             result["output_directory"] = self.server_directory
         if self.pdf_options is not None:
-            result.update(self.pdf_options)
+            result.update(self.pdf_options.as_dict)
 
         return result
 

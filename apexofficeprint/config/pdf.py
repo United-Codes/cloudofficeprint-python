@@ -139,7 +139,7 @@ class PDFOptions:
         if self.merge is not None:
             result["output_merge"] = self.merge
         if self._landscape is not None:
-            result["output_page_orientation"] = self._landscape
+            result["output_page_orientation"] = self.page_orientation
         if self.sign_certificate is not None:
             result["output_sign_certificate"] = self.sign_certificate
 

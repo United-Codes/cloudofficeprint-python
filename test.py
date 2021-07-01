@@ -112,6 +112,10 @@ def test_full_json():
     json_data = json_file.read()
     aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
 
+def test_pdf_options():
+    pdf_opts = aop.config.PDFOptions(read_password='test_pw', landscape=False)
+    conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
+    print(conf.json)
 
 if __name__ == "__main__":
     # test1()
@@ -119,4 +123,5 @@ if __name__ == "__main__":
     # asyncio.run(test_async())
     # test_chart()
     # test_aopchart()
-    pass
+    test_pdf_options()
+    # pass
