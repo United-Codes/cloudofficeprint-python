@@ -115,7 +115,54 @@ def test_full_json():
 def test_pdf_options():
     pdf_opts = aop.config.PDFOptions(read_password='test_pw', landscape=False)
     conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
-    print(conf.json)
+    conf_result = {
+        'output_type': 'pdf',
+        'output_encoding': 'raw',
+        'output_converter': 'libreoffice',
+        'output_read_password': 'test_pw',
+        'output_page_orientation': 'portrait'
+    }
+    assert conf.as_dict == conf_result
+
+def test_cloud_access_tokens():
+    # OAuthToken
+    o_auth_token = aop.config.CloudAccessToken.from_OAuth('dropbox', 'dummy_token')
+    o_auth_token_result = {
+        'output_location': 'dropbox',
+        'cloud_access_token': 'dummy_token'
+    }
+    assert o_auth_token.as_dict == o_auth_token_result
+
+    # AWSToken
+    aws_token = aop.config.CloudAccessToken.from_AWS('AWS_access_key_id', 'AWS_secter_access_key')
+    aws_token_result = {
+        "output_location": 'aws_s3',
+        "cloud_access_token": {
+            "access_key": 'AWS_access_key_id',
+            "secret_access_key": 'AWS_secter_access_key'
+        }
+    }
+    assert aws_token.as_dict == aws_token_result
+
+    # FTPToken & SFTPToken
+    ftp_token = aop.config.CloudAccessToken.from_FTP('host_name', 35, 'dummy_user', 'dummy_pw')
+    ftp_cloud_access_token = {
+        'host': 'host_name',
+        'port': 35,
+        'user': 'dummy_user',
+        'password': 'dummy_pw'
+    }
+    ftp_token_result = {
+        "output_location": 'ftp',
+        "cloud_access_token": ftp_cloud_access_token
+    }
+    sftp_token = aop.config.CloudAccessToken.from_SFTP('host_name', 35, 'dummy_user', 'dummy_pw')
+    sftp_token_result = {
+        "output_location": 'sftp',
+        "cloud_access_token": ftp_cloud_access_token
+    }
+    assert ftp_token.as_dict == ftp_token_result
+    assert sftp_token.as_dict == sftp_token_result
 
 if __name__ == "__main__":
     # test1()
@@ -123,5 +170,6 @@ if __name__ == "__main__":
     # asyncio.run(test_async())
     # test_chart()
     # test_aopchart()
-    test_pdf_options()
+    # test_pdf_options()
+    test_cloud_access_tokens()
     # pass

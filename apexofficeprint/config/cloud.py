@@ -42,7 +42,9 @@ class CloudAccessToken(ABC):
     @abstractmethod
     def as_dict(self) -> dict:
         """The cloud access token as a dict, for building the json."""
-        pass
+        return {
+            "output_location": self.service
+        }
 
     @property
     def json(self) -> str:
@@ -150,10 +152,11 @@ class OAuthToken(CloudAccessToken):
 
     @property
     def as_dict(self):
-        return {
-            "output_location": self.service,
+        result = super().as_dict
+        result.update({
             "cloud_access_token": self.token
-        }
+        })
+        return result
 
 
 class AWSToken(CloudAccessToken):
@@ -173,13 +176,14 @@ class AWSToken(CloudAccessToken):
 
     @property
     def as_dict(self):
-        return {
-            "output_location": self.service,
+        result = super().as_dict
+        result.update({
             "cloud_access_token": {
                 "access_key": self.key_id,
                 "secret_access_key": self.secret_key
             }
-        }
+        })
+        return result
 
 
 class FTPToken(CloudAccessToken):
@@ -188,7 +192,7 @@ class FTPToken(CloudAccessToken):
     def __init__(self, host: str, sftp: bool = False, port: int = None, user: str = None, password: str = None):
         """
         Args:
-            host (str): `FTPToken.host`
+            host (str): `FTPToken.host`. Server IP or hostname
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
             port (int, optional): `FTPToken.port`. Defaults to None.
             user (str, optional): `FTPToken.user`. Defaults to None.
@@ -216,7 +220,9 @@ class FTPToken(CloudAccessToken):
         if self.password is not None:
             cloud_access_token["password"] = self.password
 
-        return {
-            "output_location": self.service,
+        result = super().as_dict
+        result.update({
             "cloud_access_token": cloud_access_token
-        }
+        })
+
+        return result
