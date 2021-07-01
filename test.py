@@ -1,5 +1,8 @@
+from apexofficeprint._utils import file_utils
 import apexofficeprint as aop
 import asyncio
+import pathlib
+
 
 TEMPLATE_PATH = "./test/template.docx"
 LOCAL_SERVER_URL = "http://localhost:8010"
@@ -113,6 +116,7 @@ def test_full_json():
     aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
 
 def test_pdf_options():
+    """Test class PDFOptions in combination with OutputConfig"""
     pdf_opts = aop.config.PDFOptions(read_password='test_pw', landscape=False, identify_form_fields=True)
     conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
     conf_result = {
@@ -126,6 +130,7 @@ def test_pdf_options():
     assert conf.as_dict == conf_result
 
 def test_cloud_access_tokens():
+    """Test cloud access for output file: OAuthToken, AWSToken, FTPToken and SFTPToken"""
     # OAuthToken
     o_auth_token = aop.config.CloudAccessToken.from_OAuth('dropbox', 'dummy_token')
     o_auth_token_result = {
@@ -226,6 +231,62 @@ def test_commands():
     }
     assert post_merge_commands._dict == post_merge_result
 
+def test_resource():
+    """Test if the different types of resources return the expected result."""
+    # Base64
+    resource = aop.Resource.from_base64('dummy', 'docx')
+    resource_result = {
+        'file': 'dummy',
+        'template_type': 'docx'
+    }
+    assert resource.template_dict == resource_result
+
+    # Local file (raw)
+    local_path = str(pathlib.Path().resolve()) + '/test/template.docx'
+    resource = aop.Resource.from_local_file(local_path)
+    with open(local_path, "rb") as f:
+        content = f.read()
+    resource_result = {
+        'file': file_utils.raw_to_base64(content),
+        'template_type': 'docx'
+    }
+    assert resource.template_dict == resource_result
+
+    # Server path
+    resource = aop.Resource.from_server_path('dummy/path.docx')
+    resource_result = {
+        'filename': 'dummy/path.docx',
+        'template_type': 'docx'
+    }
+    assert resource.template_dict == resource_result
+
+    # URL
+    resource = aop.Resource.from_url('dummy_url', 'docx')
+    resource_result = {
+        'template_type': 'docx',
+        'url': 'dummy_url'
+    }
+    assert resource.template_dict == resource_result
+
+    # HTML
+    html_string = """
+     <!DOCTYPE html>
+    <html>
+    <body>
+
+    <h1>My First Heading</h1>
+    <p>My first paragraph.</p>
+
+    </body>
+    </html> 
+    """
+    resource = aop.Resource.from_html(html_string, True)
+    resource_result = {
+        'template_type': 'html',
+        'orientation': 'landscape',
+        'html_template_content': html_string
+    }
+    assert resource.template_dict == resource_result
 
 if __name__ == "__main__":
     # test1()
@@ -236,4 +297,5 @@ if __name__ == "__main__":
     test_pdf_options()
     test_cloud_access_tokens()
     test_commands()
+    test_resource()
     # pass
