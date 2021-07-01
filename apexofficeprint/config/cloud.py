@@ -23,6 +23,8 @@ class CloudAccessToken(ABC):
     """Abstract base class for classes used to specify cloud access information for outputting to a cloud service."""
 
     def __init__(self, service: str):
+        if not self.is_valid_service(service):
+            raise ValueError(f'Unsupported cloud service "{service}".')
         self._service = service
 
     @property
