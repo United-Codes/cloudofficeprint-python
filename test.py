@@ -164,12 +164,75 @@ def test_cloud_access_tokens():
     assert ftp_token.as_dict == ftp_token_result
     assert sftp_token.as_dict == sftp_token_result
 
+def test_commands():
+    """Test post-process, conversion and merge commands"""
+    # post_process
+    post_process_command = aop.config.server.Command(
+        command='echo_post',
+        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+    )
+    post_process_commands = aop.config.server.Commands(
+        post_process=post_process_command,
+        post_process_return=False,
+        post_process_delete_delay=1500
+    )
+    post_process_result = {
+        "post_process": {
+            "command": "echo_post",
+            "return_output": False,
+            "delete_delay": 1500,
+            "command_parameters": { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        }
+    }
+    assert post_process_commands._dict == post_process_result
+
+    # conversion
+    pre_conversion_command = aop.config.server.Command(
+        command='echo_pre',
+        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+    )
+    post_conversion_command = aop.config.server.Command(
+        command='echo_post',
+        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+    )
+    conversion_commands = aop.config.server.Commands(
+        pre_conversion=pre_conversion_command,
+        post_conversion=post_conversion_command
+    )
+    conversion_result = {
+        'conversion': {
+            'pre_command': 'echo_pre',
+            'pre_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" },
+            'post_command': 'echo_post',
+            'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        }
+    }
+    assert conversion_commands._dict == conversion_result
+
+    # merge
+    post_merge_command = aop.config.server.Command(
+        command='echo_post',
+        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+    )
+    post_merge_commands = aop.config.server.Commands(
+        post_merge=post_merge_command
+    )
+    post_merge_result = {
+        'merge': {
+            'post_command': 'echo_post',
+            'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        }
+    }
+    assert post_merge_commands._dict == post_merge_result
+
+
 if __name__ == "__main__":
     # test1()
     # test_full_json()
     # asyncio.run(test_async())
     # test_chart()
     # test_aopchart()
-    # test_pdf_options()
+    test_pdf_options()
     test_cloud_access_tokens()
+    test_commands()
     # pass
