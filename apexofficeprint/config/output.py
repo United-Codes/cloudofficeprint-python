@@ -12,9 +12,9 @@ class OutputConfig:
                  filetype: str = None,
                  encoding: str = "raw",
                  converter: str = "libreoffice",
-                 cloud_access_token: 'CloudAccessToken' = None,
+                 cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
-                 pdf_options: 'PDFOptions' = None):
+                 pdf_options: PDFOptions = None):
         """
         Args:
             filetype (str, optional): `OutputConfig.filetype`. Defaults to None.

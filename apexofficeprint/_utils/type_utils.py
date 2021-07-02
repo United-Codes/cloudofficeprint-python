@@ -8,6 +8,7 @@ supported_resource_types = [
     "docx",
     "xlsx",
     "pptx",
+    "csv"
 ]
 
 
