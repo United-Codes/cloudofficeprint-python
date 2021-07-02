@@ -52,10 +52,9 @@ class PDFOptions:
         self.watermark: str = watermark
         """Setting this generates a diagonal custom watermark on every page in the PDF file"""
         self.page_width: Union[str, int] = page_width
-        """Page width in px, mm, cm, in. No unit means px."""
+        """Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px."""
         self.page_height: Union[str, int] = page_height
-        """Page height in px, mm, cm, in. No unit means px."""
-
+        """Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px."""
         self.even_page: bool = even_page
         """If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true."""
         self.merge_making_even: bool = merge_making_even
@@ -72,11 +71,11 @@ class PDFOptions:
         self.copies = copies
         """Repeats the output pdf for the given number of times."""
         self.page_format = page_format
-        """The page format: "a4" (default) or "letter"."""
+        """Only for HTML to PDF. The page format: "a4" (default) or "letter"."""
         self.merge = merge
         """If True: instead of returning back a zip file for multiple output, merge it."""
         self.page_margin = page_margin
-        """Margin in px.
+        """Only for HTML to PDF. Margin in px.
 
         Returns either a dict containing:
         ```python
@@ -92,7 +91,7 @@ class PDFOptions:
         """Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path."""
 
         self._landscape = landscape
-        """If True: the orientation of the output file is landscape; else portrait (default)"""
+        """Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default)"""
 
         self.identify_form_fields = identify_form_fields
         """Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Optional."""
@@ -131,11 +130,11 @@ class PDFOptions:
         if self.copies is not None:
             result["output_copies"] = self.copies
         if self.page_margin is not None:
-            if isinstance(self._page_margin, dict):
-                for pos, value in self._page_margin.items():
+            if isinstance(self.page_margin, dict):
+                for pos, value in self.page_margin.items():
                     result[f"output_page_margin_{pos}"] = value
             else:
-                result["output_page_margin"] = self._page_margin
+                result["output_page_margin"] = self.page_margin
         if self.page_width is not None:
             result["output_page_width"] = self.page_width
         if self.page_height is not None:
@@ -169,21 +168,21 @@ class PDFOptions:
                 self.page_margin[position] = value
             elif self.page_margin is None:
                 # page margin not yet defined, set it to a dict with this position defined
-                self._page_margin = {
+                self.page_margin = {
                     position: value
                 }
             else:
                 # page margin defined but no dict, convert to dict first
-                current = self._page_margin
-                self._page_margin = {
+                current = self.page_margin
+                self.page_margin = {
                     "top": current,
                     "bottom": current,
                     "left": current,
                     "right": current
                 }
-                self._page_margin[position] = value
+                self.page_margin[position] = value
         else:
-            self._page_margin = value
+            self.page_margin = value
 
     @property
     def page_orientation(self) -> str:
