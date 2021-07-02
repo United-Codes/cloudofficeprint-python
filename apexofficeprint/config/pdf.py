@@ -130,11 +130,7 @@ class PDFOptions:
         if self.copies is not None:
             result["output_copies"] = self.copies
         if self.page_margin is not None:
-            if isinstance(self.page_margin, dict):
-                for pos, value in self.page_margin.items():
-                    result[f"output_page_margin_{pos}"] = value
-            else:
-                result["output_page_margin"] = self.page_margin
+            result["output_page_margin"] = self.page_margin
         if self.page_width is not None:
             result["output_page_width"] = self.page_width
         if self.page_height is not None:
