@@ -30,13 +30,19 @@ class PrintJob:
                  template: Resource,
                  data: Union[Element, Mapping[str, Element]],
                  server: Server,
-                 output_config: OutputConfig = None):
+                 output_config: OutputConfig = None,
+                 subtemplates: Dict[str, Resource] = {},
+                 prepend_files: List[Resource] = [],
+                 append_files: List[Resource] = []):
         """
         Args:
             template (Resource): `PrintJob.template`.
             data (Union[Element, Mapping[str, Element]]): `PrintJob.data`.
             server (Server): `PrintJob.server`.
             output_config (OutputConfig, optional): `Printjob.output_config`. Defaults to `OutputConfig`().
+            subtemplates (Dict[str, Resource]): `Printjob.subtemplates`. Defaults to {}.
+            prepend_files (List[Resource]): `Printjob.prepend_files`. Defaults to [].
+            append_files (List[Resource]): `Printjob.append_files`. Defaults to [].
         """
         self.data: Union[Element, Mapping[str, Element]] = data
         """This is either:
@@ -50,10 +56,12 @@ class PrintJob:
         """Output configuration to be used for this print job."""
         self.template: Resource = template
         """Template to use for this print job."""
-        self.subtemplates: Dict[str, Resource] = {}
+        self.subtemplates: Dict[str, Resource] = subtemplates
         """Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`"""
-        self.append_files: List[Resource] = []
-        self.prepend_files: List[Resource] = []
+        self.prepend_files: List[Resource] = prepend_files
+        """Files to prepend to the output file."""
+        self.append_files: List[Resource] = append_files
+        """Files to append to the output file."""
 
     def execute(self) -> Response:
         """Execute this print job."""
