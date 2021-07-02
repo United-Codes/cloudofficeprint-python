@@ -130,7 +130,7 @@ class PDFOptions:
         if self.copies is not None:
             result["output_copies"] = self.copies
         if self.page_margin is not None:
-            result["output_page_margin"] = self.page_margin
+            result["page_margin"] = self.page_margin # For AOP versions later than 21.1.1, output_page_margin will also be supported
         if self.page_width is not None:
             result["output_page_width"] = self.page_width
         if self.page_height is not None:
@@ -140,7 +140,7 @@ class PDFOptions:
         if self.merge is not None:
             result["output_merge"] = self.merge
         if self._landscape is not None:
-            result["output_page_orientation"] = self.page_orientation
+            result["page_orientation"] = self.page_orientation  # For AOP versions later than 21.1.1, output_page_orientation will also be supported
         if self.sign_certificate is not None:
             result["output_sign_certificate"] = self.sign_certificate
         if self.identify_form_fields is not None:

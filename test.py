@@ -148,13 +148,13 @@ def test_pdf_options():
         'output_password_protection_flag': 0,
         'lock_form': True,
         'output_copies': 3,
-        'output_page_margin': {
+        'page_margin': {
             'top': 6,
             'bottom': 5,
             'left': 5,
             'right': 5
         },
-        'output_page_orientation': 'portrait',
+        'page_orientation': 'portrait',
         'output_page_format': 'test_page_format',
         'output_merge': False,
         'output_sign_certificate': 'test_sign_certificate',
