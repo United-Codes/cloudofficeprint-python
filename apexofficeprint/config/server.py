@@ -3,6 +3,8 @@ import requests
 from typing import Mapping, Dict
 from urllib.parse import urljoin, urlparse
 
+from requests.models import requote_uri
+
 
 class Printer:
     """This class defines an IP-enabled printer to use with the AOP server."""
@@ -156,8 +158,6 @@ class ServerConfig:
 class Server:
     """This config class is used to specify the AOP server to interact with."""
 
-    # TODO: get_version(), ... (there are some server statuses on other paths than /marco)
-
     def __init__(self, url: str, config: ServerConfig = None):
         """
         Args:
@@ -199,3 +199,31 @@ class Server:
         if not self.is_reachable():
             raise ConnectionError(
                 f"Could not reach server at {self.url}")
+
+    def get_version_soffice(self):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'soffice'), proxies=self.config.proxies).text
+    
+    def get_version_officetopdf(self):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'officetopdf'), proxies=self.config.proxies).text
+    
+    def get_supported_template_mimetypes(self):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'supported_template_mimetypes'), proxies=self.config.proxies).text
+
+    def get_supported_output_mimetypes(self, input_type: str):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'supported_output_mimetypes' + f'?template={input_type}'), proxies=self.config.proxies).text
+
+    def get_supported_prepend_mimetypes(self):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'supported_prepend_mimetypes'), proxies=self.config.proxies).text
+    
+    def get_supported_append_mimetypes(self):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'supported_append_mimetypes'), proxies=self.config.proxies).text
+
+    def get_version_aop(self):
+        self._raise_if_unreachable()
+        return requests.get(urljoin(self.url, 'version'), proxies=self.config.proxies).text
