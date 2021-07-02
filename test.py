@@ -2,12 +2,18 @@ from apexofficeprint._utils import file_utils
 import apexofficeprint as aop
 import asyncio
 import pathlib
+import pprint
 
 
 TEMPLATE_PATH = "./test/template.docx"
 LOCAL_SERVER_URL = "http://localhost:8010"
 API_KEY = "1C511A58ECC73874E0530100007FD01A"
 
+# Add server
+server = aop.config.Server(
+    LOCAL_SERVER_URL,
+    aop.config.ServerConfig(api_key=API_KEY)
+)
 
 def test_chart():
     line = aop.elements.LineChart(
@@ -31,8 +37,6 @@ def test_aopchart():
 
 
 def test1():
-    server = aop.config.Server(
-        LOCAL_SERVER_URL, aop.config.ServerConfig(api_key=API_KEY))
     # load a local file
     template = aop.Resource.from_local_file(TEMPLATE_PATH)
 
@@ -70,8 +74,6 @@ def test1():
 
 
 async def test_async():
-    server = aop.config.Server(
-        LOCAL_SERVER_URL, aop.config.ServerConfig(api_key=API_KEY))
     # load a local file
     template = aop.Resource.from_local_file(TEMPLATE_PATH)
 
@@ -107,10 +109,6 @@ async def test_async():
 
 
 def test_full_json():
-    server = aop.config.Server(
-        LOCAL_SERVER_URL,
-        aop.config.ServerConfig(api_key=API_KEY)
-    )
     json_file = open("./test/full_test.json", "r")
     json_data = json_file.read()
     aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
@@ -321,6 +319,86 @@ def test_resource():
     }
     assert resource.template_dict == resource_result
 
+def test_prepend_append_subtemplate():
+    """Test prepending and appending files in class Printjob"""
+    prepend_file = aop.Resource.from_local_file('./test/template.docx')
+
+    template = aop.Resource.from_local_file('./test/template.docx')
+    template_main = aop.Resource.from_local_file('./test/template_prepend_append_subtemplate.docx')
+    template_base64 = template.base64
+    template_main_base64 = template_main.base64
+    
+    data = aop.elements.Object('data')
+    text_tag = aop.elements.Property('textTag1', 'test_text_tag1')
+    data.add(text_tag)
+
+    append_file = aop.Resource.from_local_file('./test/template.docx')
+
+    subtemplates = {
+        'sub1': template,
+        'sub2': template
+    }
+
+    output_conf = aop.config.OutputConfig(filetype='pdf')
+
+    printjob = aop.PrintJob(template=template_main,
+        data=data,
+        server=server,
+        output_config=output_conf,
+        subtemplates=subtemplates,
+        prepend_files=[prepend_file],
+        append_files=[append_file])
+    printjob_result = {
+        'api_key': API_KEY,
+        'append_files': [
+            {
+                'file_content': template_base64,
+                'file_source': 'base64',
+                'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            }
+            ],
+        'files': [
+            {
+                'data': {
+                    'textTag1': 'test_text_tag1'
+                }
+            }
+        ],
+        'output': {
+            'output_converter': 'libreoffice',
+            'output_encoding': 'raw',
+            'output_type': 'pdf'
+        },
+        'prepend_files': [
+            {
+                'file_content': template_base64,
+                'file_source': 'base64',
+                'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            }
+        ],
+        'template': {
+            'file': template_main_base64,
+            'template_type': 'docx'
+        },
+        'tool': 'python',
+        'templates': [
+            {
+                'file_content': template_base64,
+                'file_source': 'base64',
+                'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'name': 'sub1'
+            },
+            {
+                'file_content': template_base64,
+                'file_source': 'base64',
+                'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'name': 'sub2'
+            }
+        ]
+        }
+    assert printjob.as_dict == printjob_result
+    # printjob.execute().to_file("./test/prepend_append_subtemplate_test") # Works as expected
+
 if __name__ == "__main__":
     # test1()
     # test_full_json()
@@ -331,4 +409,4 @@ if __name__ == "__main__":
     test_cloud_access_tokens()
     test_commands()
     test_resource()
-    # pass
+    test_prepend_append_subtemplate()
