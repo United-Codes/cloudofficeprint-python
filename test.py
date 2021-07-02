@@ -117,14 +117,47 @@ def test_full_json():
 
 def test_pdf_options():
     """Test class PDFOptions in combination with OutputConfig"""
-    pdf_opts = aop.config.PDFOptions(read_password='test_pw', landscape=False, identify_form_fields=True)
+    pdf_opts = aop.config.PDFOptions(
+        read_password='test_pw',
+        watermark='test_watermark',
+        page_width=500,
+        page_height=500,
+        even_page=True,
+        merge_making_even=False,
+        modify_password='test_modify_password',
+        password_protection_flag=0,
+        lock_form=True,
+        copies=3,
+        page_margin=5,
+        landscape=False,
+        page_format='test_page_format',
+        merge=False,
+        sign_certificate='test_sign_certificate',
+        identify_form_fields=True)
+    pdf_opts.set_page_margin_at(6, 'top')
     conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
     conf_result = {
         'output_type': 'pdf',
         'output_encoding': 'raw',
         'output_converter': 'libreoffice',
         'output_read_password': 'test_pw',
+        'output_watermark': 'test_watermark',
+        'output_page_width': 500,
+        'output_page_height': 500,
+        'output_even_page': True,
+        'output_merge_making_even': False,
+        'output_modify_password': 'test_modify_password',
+        'output_password_protection_flag': 0,
+        'lock_form': True,
+        'output_copies': 3,
+        'output_page_margin_top': 6,
+        'output_page_margin_bottom': 5,
+        'output_page_margin_left': 5,
+        'output_page_margin_right': 5,
         'output_page_orientation': 'portrait',
+        'output_page_format': 'test_page_format',
+        'output_merge': False,
+        'output_sign_certificate': 'test_sign_certificate',
         'identify_form_fields': True
     }
     assert conf.as_dict == conf_result
