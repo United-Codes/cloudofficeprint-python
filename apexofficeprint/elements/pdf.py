@@ -189,9 +189,19 @@ class PDFImages(Element):
     
     @property
     def as_dict(self):
-        return {
-            str(img.page): img._inner_dict for img in self.images
-        }
+        result = {}
+        for img in self.images:
+            # If there already is an image for this page -> update entry in dictionary
+            #   else -> create new entry in dictionary
+            if str(img.page) in result:
+                if type(result[str(img.page)]) == list:
+                    result[str(img.page)].append(img._inner_dict)
+                else:
+                    # If there already is an image for this page, but not yet in a list -> make a list
+                    result[str(img.page)] = [result[str(img.page)], img._inner_dict]
+            else:
+                result[str(img.page)] = img._inner_dict
+        return result
 
     @property
     def available_tags(self) -> FrozenSet[str]:
