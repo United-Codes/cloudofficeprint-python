@@ -445,7 +445,6 @@ class BarCode(Code):
 
 class QRCode(Code):
     """This class is a subclass of Code and serves as a superclass for the different types of QR-codes"""
-    # TODO: check which fields are optional for the different QRCode types and change _dict_suffixes() function if needed (if ... is not None:)
     # TODO: create setters (or constructor) for QR-code options (see documentation)
     def __init__(self, name: str, data: str, type: str):
         super().__init__(name, data, type)
@@ -463,9 +462,9 @@ class WiFiQRCode(QRCode):
         self,
         name: str,
         ssid: str,
-        wifi_password: str,
         wifi_encryption: str,
-        wifi_hidden: bool
+        wifi_password: str = None,
+        wifi_hidden: bool = None
     ):
         super().__init__(name, ssid, 'qr_wifi')
         self.wifi_password: str = wifi_password
@@ -476,8 +475,10 @@ class WiFiQRCode(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_wifi_password'] = self.wifi_password
-        result['_wifi_encryption'] = self.wifi_encryption
+        if self.wifi_password is not None:
+            result['_wifi_password'] = self.wifi_password
+        if self.wifi_hidden is not None:
+            result['_wifi_encryption'] = self.wifi_encryption
         result['_wifi_hidden'] = self.wifi_hidden
 
         return result
@@ -493,10 +494,10 @@ class EmailQRCode(QRCode):
         self,
         name: str,
         receiver: str,
-        cc: str,
-        bcc: str,
-        subject: str,
-        body: str
+        cc: str = None,
+        bcc: str = None,
+        subject: str = None,
+        body: str = None
     ):
         super().__init__(name, receiver, 'qr_email')
         self.cc: str = cc
@@ -508,17 +509,21 @@ class EmailQRCode(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_email_cc'] = self.cc
-        result['_email_bcc'] = self.bcc
-        result['_email_subject'] = self.subject
-        result['_email_body'] = self.body
+        if self.cc is not None:
+            result['_email_cc'] = self.cc
+        if self.bcc is not None:
+            result['_email_bcc'] = self.bcc
+        if self.subject is not None:
+            result['_email_subject'] = self.subject
+        if self.body is not None:
+            result['_email_body'] = self.body
 
         return result
 
 
 class SMSQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate an SMS QR-code element"""
-    def __init__(self, name: str, receiver: str, sms_body: str):
+    def __init__(self, name: str, receiver: str, sms_body: str = None):
         super().__init__(name, receiver, 'qr_sms')
         self.sms_body: str = sms_body
 
@@ -526,7 +531,8 @@ class SMSQRCode(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_sms_body'] = self.sms_body
+        if self.sms_body is not None:
+            result['_sms_body'] = self.sms_body
 
         return result
 
@@ -539,7 +545,7 @@ class URLQRCode(QRCode):
 
 class VCardQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a vCard QR-code element"""
-    def __init__(self, name: str, first_name: str, last_name: str, email: str, website: str):
+    def __init__(self, name: str, first_name: str, last_name: str = None, email: str = None, website: str = None):
         super().__init__(name, first_name, 'qr_vcard')
         self.last_name: str = last_name
         self.email: str = email
@@ -549,9 +555,12 @@ class VCardQRCode(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_vcard_last_name'] = self.last_name
-        result['_vcard_email'] = self.email
-        result['_vcard_website'] = self.website
+        if self.last_name is not None:
+            result['_vcard_last_name'] = self.last_name
+        if self.email is not None:
+            result['_vcard_email'] = self.email
+        if self.website is not None:
+            result['_vcard_website'] = self.website
 
         return result
 
@@ -562,15 +571,15 @@ class MeCard(QRCode):
         self,
         name: str,
         first_name: str,
-        last_name: str,
-        nickname: str,
-        email: str,
-        contact_primary: str,
-        contact_secondary: str,
-        contact_tertiary: str,
-        website: str,
-        birthday: str,
-        notes: str
+        last_name: str = None,
+        nickname: str = None,
+        email: str = None,
+        contact_primary: str = None,
+        contact_secondary: str = None,
+        contact_tertiary: str = None,
+        website: str = None,
+        birthday: str = None,
+        notes: str = None
     ):
         super().__init__(name, first_name, 'qr_me_card')
         self.last_name: str = last_name
@@ -587,22 +596,31 @@ class MeCard(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_me_card_last_name'] = self.last_name
-        result['_me_card_nickname'] = self.nickname
-        result['_me_card_email'] = self.email
-        result['_me_card_contact_primary'] = self.contact_primary
-        result['_me_card_contact_secondary'] = self.contact_secondary
-        result['_me_card_contact_tertiary'] = self.contact_tertiary
-        result['_me_card_website'] = self.website
-        result['_me_card_birthday'] = self.birthday
-        result['_me_card_notes'] = self.notes
+        if self.last_name is not None:
+            result['_me_card_last_name'] = self.last_name
+        if self.nickname is not None:
+            result['_me_card_nickname'] = self.nickname
+        if self.email is not None:
+            result['_me_card_email'] = self.email
+        if self.contact_primary is not None:
+            result['_me_card_contact_primary'] = self.contact_primary
+        if self.contact_secondary is not None:
+            result['_me_card_contact_secondary'] = self.contact_secondary
+        if self.contact_tertiary is not None:
+            result['_me_card_contact_tertiary'] = self.contact_tertiary
+        if self.website is not None:
+            result['_me_card_website'] = self.website
+        if self.birthday is not None:
+            result['_me_card_birthday'] = self.birthday
+        if self.notes is not None:
+            result['_me_card_notes'] = self.notes
 
         return result
 
 
 class GeolocationQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a geolocation QR-code element"""
-    def __init__(self, name: str, latitude: str, longitude: str, altitude: str):
+    def __init__(self, name: str, latitude: str, longitude: str = None, altitude: str = None):
         super().__init__(name, latitude, 'qr_geolocation')
         self.longitude: str = longitude
         self.altitude: str = altitude
@@ -611,15 +629,17 @@ class GeolocationQRCode(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_geolocation_longitude'] = self.longitude
-        result['_geolocation_altitude'] = self.altitude
+        if self.longitude is not None:
+            result['_geolocation_longitude'] = self.longitude
+        if self.altitude is not None:
+            result['_geolocation_altitude'] = self.altitude
 
         return result
 
 
 class EventQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate an event QR-code element"""
-    def __init__(self, name: str, summary: str, startdate: str, enddate: str):
+    def __init__(self, name: str, summary: str, startdate: str = None, enddate: str = None):
         super().__init__(name, summary, 'qr_event')
         self.startdate: str = startdate
         self.enddate: str = enddate
@@ -628,8 +648,10 @@ class EventQRCode(QRCode):
     def _dict_suffixes(self):
         result = super()._dict_suffixes
 
-        result['_event_startdate'] = self.startdate
-        result['_event_enddate'] = self.enddate
+        if self.startdate is not None:
+            result['_event_startdate'] = self.startdate
+        if self.enddate is not None:
+            result['_event_enddate'] = self.enddate
 
         return result
 
