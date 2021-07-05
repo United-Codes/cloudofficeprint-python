@@ -511,6 +511,91 @@ def test_aop_pdf_texts():
     }
     assert pdf_texts.as_dict == pdf_texts_results
 
+def test_aop_pdf_images():
+    """Test aop_pdf_images element"""
+    pdf_image1_1 = aop.elements.PDFImage(
+        image='test1_1',
+        x=50,
+        y=60,
+        page=3,
+        rotation=45,
+        width=50,
+        height=50,
+        max_width=100
+    )
+    pdf_image1_2 = aop.elements.PDFImage(
+        image='test1_2',
+        x=60,
+        y=70,
+        page=3,
+        rotation=30,
+        width=75,
+        height=75,
+        max_width=75
+    )
+    pdf_image2 = aop.elements.PDFImage(
+        image='test2',
+        x=20,
+        y=30,
+        page=5,
+        rotation=15,
+        width=100,
+        height=100,
+        max_width=100
+    )
+    pdf_image_all = aop.elements.PDFImage(
+        image='test_all',
+        x=25,
+        y=26,
+        rotation=45,
+        width=20,
+        height=20,
+        max_width=50
+    )
+    pdf_images = aop.elements.PDFImages((pdf_image1_1, pdf_image1_2, pdf_image2, pdf_image_all))
+    pdf_images_result = {
+        '3': [
+            {
+                'image': 'test1_1',
+                'x': 50,
+                'y': 60,
+                'rotation': 45,
+                'image_width': 50,
+                'image_height': 50,
+                'image_max_width': 100
+            },
+            {
+                'image': 'test1_2',
+                'x': 60,
+                'y': 70,
+                'rotation': 30,
+                'image_width': 75,
+                'image_height': 75,
+                'image_max_width': 75
+            }
+        ],
+        '5': {
+            'image': 'test2',
+            'x': 20,
+            'y': 30,
+            'rotation': 15,
+            'image_width': 100,
+            'image_height': 100,
+            'image_max_width': 100
+        },
+        'all': {
+            'image': 'test_all',
+            'x': 25,
+            'y': 26,
+            'rotation': 45,
+            'image_width': 20,
+            'image_height': 20,
+            'image_max_width': 50
+        }
+    }
+    assert pdf_images.as_dict == pdf_images_result
+
+
 if __name__ == "__main__":
     # test1()
     # test_full_json()
@@ -524,3 +609,4 @@ if __name__ == "__main__":
     test_prepend_append_subtemplate()
     test_route_paths()
     test_aop_pdf_texts()
+    test_aop_pdf_images()
