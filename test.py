@@ -401,6 +401,16 @@ def test_prepend_append_subtemplate():
     assert printjob.as_dict == printjob_result
     # printjob.execute().to_file("./test/prepend_append_subtemplate_test") # Works as expected
 
+def test_route_paths():
+    """Test output types of route path functions"""
+    assert type(server.get_version_soffice()) == str
+    assert type(server.get_version_officetopdf()) == str
+    assert type(server.get_version_aop()) == str
+    assert type(server.get_supported_template_mimetypes()) == dict
+    assert type(server.get_supported_output_mimetypes('docx')) == dict
+    assert type(server.get_supported_prepend_mimetypes()) == dict
+    assert type(server.get_supported_append_mimetypes()) == dict
+
 if __name__ == "__main__":
     # test1()
     # test_full_json()
@@ -412,3 +422,4 @@ if __name__ == "__main__":
     test_commands()
     test_resource()
     test_prepend_append_subtemplate()
+    test_route_paths()

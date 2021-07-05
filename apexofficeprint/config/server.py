@@ -2,6 +2,7 @@ import logging
 import requests
 from typing import Mapping, Dict
 from urllib.parse import urljoin, urlparse
+import json
 
 from requests.models import requote_uri
 
@@ -200,30 +201,69 @@ class Server:
             raise ConnectionError(
                 f"Could not reach server at {self.url}")
 
-    def get_version_soffice(self):
+    def get_version_soffice(self) -> str:
+        """Sends a GET request to server-url/soffice.
+
+        Returns:
+            str: current version of Libreoffice installed on the server.
+        """
         self._raise_if_unreachable()
         return requests.get(urljoin(self.url, 'soffice'), proxies=self.config.proxies).text
-    
-    def get_version_officetopdf(self):
+
+    def get_version_officetopdf(self) -> str:
+        """Sends a GET request to server-url/officetopdf.
+
+        Returns:
+            str: current version of OfficeToPdf installed on the server. (Only available if the server runs in Windows environment).
+        """
         self._raise_if_unreachable()
         return requests.get(urljoin(self.url, 'officetopdf'), proxies=self.config.proxies).text
-    
-    def get_supported_template_mimetypes(self):
-        self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'supported_template_mimetypes'), proxies=self.config.proxies).text
 
-    def get_supported_output_mimetypes(self, input_type: str):
-        self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'supported_output_mimetypes' + f'?template={input_type}'), proxies=self.config.proxies).text
+    def get_supported_template_mimetypes(self) -> dict:
+        """Sends a GET request to server-url/supported_template_mimetypes.
 
-    def get_supported_prepend_mimetypes(self):
+        Returns:
+            dict: json of the mime types of templates that AOP supports.
+        """
         self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'supported_prepend_mimetypes'), proxies=self.config.proxies).text
-    
-    def get_supported_append_mimetypes(self):
-        self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'supported_append_mimetypes'), proxies=self.config.proxies).text
+        return json.loads(requests.get(urljoin(self.url, 'supported_template_mimetypes'), proxies=self.config.proxies).text)
 
-    def get_version_aop(self):
+    def get_supported_output_mimetypes(self, input_type: str) -> dict:
+        """Sends a GET request to server-url/supported_output_mimetypes?template=input_type.
+        Note: You will get empty json if the template extension isn't supported.
+
+        Args:
+            input_type (str): extension of file
+
+        Returns:
+            dict: json of the supported output types for the given template extension.
+        """
+        self._raise_if_unreachable()
+        return json.loads(requests.get(urljoin(self.url, 'supported_output_mimetypes' + f'?template={input_type}'), proxies=self.config.proxies).text)
+
+    def get_supported_prepend_mimetypes(self) -> dict:
+        """Sends a GET request to server-url/supported_prepend_mimetypes.
+
+        Returns:
+            dict: json of the supported prepend file mime types.
+        """
+        self._raise_if_unreachable()
+        return json.loads(requests.get(urljoin(self.url, 'supported_prepend_mimetypes'), proxies=self.config.proxies).text)
+
+    def get_supported_append_mimetypes(self) -> dict:
+        """Sends a GET request to server-url/supported_append_mimetypes.
+
+        Returns:
+            dict: json of the supported append file mime types.
+        """
+        self._raise_if_unreachable()
+        return json.loads(requests.get(urljoin(self.url, 'supported_append_mimetypes'), proxies=self.config.proxies).text)
+
+    def get_version_aop(self) -> str:
+        """Sends a GET request to server-url/version.
+
+        Returns:
+            str: the version of AOP that the server runs.
+        """
         self._raise_if_unreachable()
         return requests.get(urljoin(self.url, 'version'), proxies=self.config.proxies).text
