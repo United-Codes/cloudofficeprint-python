@@ -411,6 +411,106 @@ def test_route_paths():
     assert type(server.get_supported_prepend_mimetypes()) == dict
     assert type(server.get_supported_append_mimetypes()) == dict
 
+def test_aop_pdf_texts():
+    """Test aop_pdf_texts element"""
+    pdf_text1_1 = aop.elements.PDFText(
+        text='test1_1',
+        x=50,
+        y=60,
+        page=3,
+        rotation=45,
+        bold=False,
+        italic=True,
+        font='Arial',
+        font_color='blue',
+        font_size=12
+    )
+    pdf_text1_2 = aop.elements.PDFText(
+        text='test1_2',
+        x=20,
+        y=30,
+        page=3,
+        rotation=45,
+        bold=False,
+        italic=False,
+        font='Arial',
+        font_color='red',
+        font_size=10
+    )
+    pdf_text2 = aop.elements.PDFText(
+        text='test2',
+        x=60,
+        y=70,
+        page=5,
+        rotation=30,
+        bold=True,
+        italic=True,
+        font='Times new roman',
+        font_color='#FF00FF',
+        font_size=15
+    )
+    pdf_text_all = aop.elements.PDFText(
+        text='test_all',
+        x=20,
+        y=30,
+        rotation=15,
+        bold=True,
+        italic=False,
+        font='Arial',
+        font_color='red',
+        font_size=20
+    )
+    pdf_texts = aop.elements.PDFTexts((pdf_text1_1, pdf_text1_2, pdf_text2, pdf_text_all))
+    pdf_texts_results = {
+        '3': [
+            {
+                'text': 'test1_1',
+                'x': 50,
+                'y': 60,
+                'rotation': 45,
+                'bold': False,
+                'italic': True,
+                'font': 'Arial',
+                'font_color': 'blue',
+                'font_size': 12
+            },
+            {
+                'text': 'test1_2',
+                'x': 20,
+                'y': 30,
+                'rotation': 45,
+                'bold': False,
+                'italic': False,
+                'font': 'Arial',
+                'font_color': 'red',
+                'font_size': 10
+            }
+        ],
+        '5': {
+            'text': 'test2',
+            'x': 60,
+            'y': 70,
+            'rotation': 30,
+            'bold': True,
+            'italic': True,
+            'font': 'Times new roman',
+            'font_color': '#FF00FF',
+            'font_size': 15
+        },
+        'all': {
+            'text': 'test_all',
+            'x': 20,
+            'y': 30,
+            'rotation': 15,
+            'bold': True,
+            'italic': False,
+            'font': 'Arial',
+            'font_color': 'red',
+            'font_size': 20
+        }
+    }
+    assert pdf_texts.as_dict == pdf_texts_results
+
 if __name__ == "__main__":
     # test1()
     # test_full_json()
@@ -423,3 +523,4 @@ if __name__ == "__main__":
     test_resource()
     test_prepend_append_subtemplate()
     test_route_paths()
+    test_aop_pdf_texts()
