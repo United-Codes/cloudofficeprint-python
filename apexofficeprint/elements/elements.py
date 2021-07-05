@@ -341,7 +341,7 @@ class D3Code(Property):
 
 class Code(Element):
     """# TODO: refer to this link for type argument (jumps to the right docs section)
-    http://www.apexofficeprint.com/docs/#615-barcode-qrcode-tags
+    http://www.apexofficeprint.com/docs/#barcode-qrcode-tags
     """
 
     def __init__(self,

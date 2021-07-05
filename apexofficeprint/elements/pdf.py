@@ -72,6 +72,7 @@ class PDFText(PDFInsertObject):
     def _identifier(self) -> str:
         return "AOP_PDF_TEXTS"
 
+    @property
     def _inner_dict(self) -> dict:
         result = {
             "text": self.text,
@@ -79,17 +80,17 @@ class PDFText(PDFInsertObject):
             "y": self.y
         }
 
-        if self.rotation:
+        if self.rotation is not None:
             result["rotation"] = self.rotation
-        if self.bold:
+        if self.bold is not None:
             result["bold"] = self.bold
-        if self.italic:
+        if self.italic is not None:
             result["italic"] = self.italic
-        if self.font:
+        if self.font is not None:
             result["font"] = self.font
-        if self.font_color:
+        if self.font_color is not None:
             result["font_color"] = self.font_color
-        if self.font_size:
+        if self.font_size is not None:
             result["font_size"] = self.font_size
 
         return result
@@ -130,13 +131,13 @@ class PDFImage(PDFInsertObject):
             "y": self.y
         }
 
-        if self.rotation:
+        if self.rotation is not None:
             result["rotation"] = self.rotation
-        if self.width:
+        if self.width is not None:
             result["image_width"] = self.width
-        if self.height:
+        if self.height is not None:
             result["image_height"] = self.height
-        if self.max_width:
+        if self.max_width is not None:
             result["image_max_width"] = self.max_width
 
         return result
@@ -156,9 +157,19 @@ class PDFTexts(Element):
     
     @property
     def as_dict(self):
-        return {
-            str(txt.page): txt._inner_dict for txt in self.texts
-        }
+        result = {}
+        for txt in self.texts:
+            # If there already is text for this page -> update entry in dictionary
+            #   else -> create new entry in dictionary
+            if str(txt.page) in result:
+                if type(result[str(txt.page)]) == list:
+                    result[str(txt.page)].append(txt._inner_dict)
+                else:
+                    # If there already is text for this page, but not yet in a list -> make a list
+                    result[str(txt.page)] = [result[str(txt.page)], txt._inner_dict]
+            else:
+                result[str(txt.page)] = txt._inner_dict
+        return result
 
     @property
     def available_tags(self) -> FrozenSet[str]:
