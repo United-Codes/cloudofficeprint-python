@@ -24,9 +24,9 @@ class ChartTextStyle:
             result["italic"] = self.italic
         if self.bold is not None:
             result["bold"] = self.bold
-        if self.color:
+        if self.color is not None:
             result["color"] = self.color
-        if self.font:
+        if self.font is not None:
             result["font"] = self.font
 
         return result
@@ -73,7 +73,8 @@ class ChartAxisOptions:
                  major_grid_lines: bool = None,
                  major_unit: Union[int, float] = None,
                  minor_grid_lines: bool = None,
-                 minor_unit: Union[int, float] = None):
+                 minor_unit: Union[int, float] = None,
+                 formatCode: str = None):
         self.orientation: str = orientation
         self.min: Union[int, float] = min
         self.max: Union[int, float] = max
@@ -87,38 +88,41 @@ class ChartAxisOptions:
         self.major_unit: Union[int, float] = major_unit
         self.minor_grid_lines: bool = minor_grid_lines
         self.minor_unit: Union[int, float] = minor_unit
+        self.format_code: str = formatCode
 
     @property
     def as_dict(self):
         result = {}
 
-        if self.orientation:
+        if self.orientation is not None:
             result["orientation"] = self.orientation
-        if self.min:
+        if self.min is not None:
             result["min"] = self.min
-        if self.max:
+        if self.max is not None:
             result["max"] = self.max
-        if self.date:
+        if self.date is not None:
             result["type"] = "date"
             result["date"] = self.date.as_dict
-        if self.title:
+        if self.title is not None:
             result["title"] = self.title
         if self.values is not None:
             result["showValues"] = self.values
-        if self.values_style:
+        if self.values_style is not None:
             result["valuesStyle"] = self.values_style.as_dict
-        if self.title_style:
+        if self.title_style is not None:
             result["titleStyle"] = self.title_style.as_dict
-        if self.title_rotation:
+        if self.title_rotation is not None:
             result["titleRotation"] = self.title_rotation
         if self.major_grid_lines is not None:
             result["majorGridlines"] = self.major_grid_lines
-        if self.major_unit:
+        if self.major_unit is not None:
             result["majorUnit"] = self.major_unit
         if self.minor_grid_lines is not None:
             result["minorGridlines"] = self.minor_grid_lines
-        if self.minor_unit:
+        if self.minor_unit is not None:
             result["minorUnit"] = self.minor_unit
+        if self.format_code is not None:
+            result["formatCode"] = self.format_code
 
         return result
 
@@ -126,7 +130,6 @@ class ChartAxisOptions:
 class ChartOptions():
     """Options object for a `Chart`."""
     def __init__(self,
-                 name: str,
                  x_axis: ChartAxisOptions,
                  y_axis: ChartAxisOptions,
                  y2_axis: ChartAxisOptions = None,
@@ -139,13 +142,13 @@ class ChartOptions():
                  title: str = None,
                  title_style: ChartTextStyle = None):
         self._legend_options: dict = None
+        self._data_labels_options: dict = None
 
         self.x_axis: ChartAxisOptions = x_axis
         self.y_axis: ChartAxisOptions = y_axis
         self.y2_axis: ChartAxisOptions = y2_axis
         if y_axis.date or y2_axis.date:
-            warning(
-                '"date" options for the y or y2 axes are ignored by the AOP server.')
+            warning('"date" options for the y or y2 axes are ignored by the AOP server.')
 
         self.width: int = width
         self.height: int = height
@@ -160,16 +163,15 @@ class ChartOptions():
         self._legend_options = {
             "showLegend": True
         }
-        if position:
-            self._legend_options["position"] = position
-        if style:
+        self._legend_options["position"] = position
+        if style is not None:
             self._legend_options["style"] = style.as_dict
 
     def remove_legend(self):
         self._legend_options = None
 
     def set_data_labels(self,
-                        separator: bool = None,
+                        separator: str = None,
                         series_name: bool = None,
                         category_name: bool = None,
                         legend_key: bool = None,
@@ -179,19 +181,20 @@ class ChartOptions():
         self._data_labels_options = {
             "showDataLabels": True
         }
-        if separator:
-            self._data_labels_options["separator"] = True
-        if series_name:
+
+        if separator is not None:
+            self._data_labels_options["separator"] = separator
+        if series_name is not None:
             self._data_labels_options["showSeriesName"] = True
-        if category_name:
+        if category_name is not None:
             self._data_labels_options["showCategoryName"] = True
-        if legend_key:
+        if legend_key is not None:
             self._data_labels_options["showLegendKey"] = True
-        if value:
+        if value is not None:
             self._data_labels_options["showValue"] = True
-        if percentage:
+        if percentage is not None:
             self._data_labels_options["showPercentage"] = True
-        if position:
+        if position is not None:
             self._data_labels_options["position"] = position
 
     def remove_data_labels(self):
@@ -206,27 +209,27 @@ class ChartOptions():
             }
         }
 
-        if self.y2_axis:
+        if self.y2_axis is not None:
             result["axis"]["y2"] = self.y2_axis.as_dict
-        if self.width:
+        if self.width is not None:
             result["width"] = self.width
-        if self.height:
+        if self.height is not None:
             result["height"] = self.height
         if self.border is not None:
             result["border"] = self.border
         if self.rounded_corners is not None:
             result["roundedCorners"] = self.rounded_corners
-        if self.background_color:
+        if self.background_color is not None:
             result["backgroundColor"] = self.background_color
-        if self.background_opacity:
+        if self.background_opacity is not None:
             result["backgroundOpacity"] = self.background_opacity
-        if self.title:
+        if self.title is not None:
             result["title"] = self.title
-        if self.title_style:
+        if self.title_style is not None:
             result["title_style"] = self.title_style.as_dict
-        if self._legend_options:
+        if self._legend_options is not None:
             result["legend"] = self._legend_options
-        if self._data_labels_options:
+        if self._data_labels_options is not None:
             result["dataLabels"] = self._data_labels_options
 
         return result
