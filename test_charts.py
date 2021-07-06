@@ -218,6 +218,7 @@ def test_chart_options():
     }
     assert options.as_dict == options_result
 
+
 def test_chart_line():
     line1 = aop.elements.LineSeries(
         x=('a', 'b', 'c'),
@@ -299,8 +300,140 @@ def test_chart_line():
         }
     }
     assert line_chart.as_dict == line_chart_result
-    
+
+
+def test_chart_bar():
+    """Test for BarChart. Also serves as the test for: 
+    BarStackedChart, BarStackedPercentChart, ColumnChart, ColumnStackedChart, ColumnStackedPercentChart, 
+    RadarChart and ScatterChart because their constructors take the same argument types (i.e. XYSeries).
+    """
+    bars1 = aop.elements.BarSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        name='bars1'
+    )
+    bars2 = aop.elements.BarSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        name='bars2'
+    )
+    bar_chart = aop.elements.BarChart(
+        name='bar_chart',
+        bars=(bars1, bars2)
+    )
+    bar_chart_result = {
+        'bar_chart': {
+            'bars': [
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 1
+                        },
+                        {
+                            'x': 'b',
+                            'y': 2
+                        },
+                        {
+                            'x': 'c',
+                            'y': 3
+                        }
+                    ],
+                    'name': 'bars1'
+                },
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 4
+                        },
+                        {
+                            'x': 'b',
+                            'y': 5
+                        },
+                        {
+                            'x': 'c',
+                            'y': 6
+                        }
+                    ],
+                    'name': 'bars2'
+                },
+            ],
+            'type': 'bar'
+        }
+    }
+    assert bar_chart.as_dict == bar_chart_result
+
+
+def test_chart_pie():
+    """Test for PieChart and also for Pie3DChart and DoughnutChart, 
+    because their constructors take the same argument types (i.e. PieSeries).
+    """
+    pies1 = aop.elements.PieSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        name='pies1',
+        color=('red', None, 'blue')
+    )
+    pies2 = aop.elements.PieSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        name='pies2',
+        color=('green', 'blue', None)
+    )
+    pies_chart = aop.elements.PieChart(
+        name='pie_chart',
+        pies=(pies1, pies2)
+    )
+    pies_chart_result = {
+        'pie_chart': {
+            'pies': [
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 1,
+                            'color': 'red'
+                        },
+                        {
+                            'x': 'b',
+                            'y': 2
+                        },
+                        {
+                            'x': 'c',
+                            'y': 3,
+                            'color': 'blue'
+                        }
+                    ],
+                    'name': 'pies1'
+                },
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 4,
+                            'color': 'green'
+                        },
+                        {
+                            'x': 'b',
+                            'y': 5,
+                            'color': 'blue'
+                        },
+                        {
+                            'x': 'c',
+                            'y': 6
+                        }
+                    ],
+                    'name': 'pies2'
+                },
+            ],
+            'type': 'pie'
+        }
+    }
+    assert pies_chart.as_dict == pies_chart_result
 
 def run():
     test_chart_options()
     test_chart_line()
+    test_chart_bar()
+    test_chart_pie()
