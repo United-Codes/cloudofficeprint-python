@@ -435,7 +435,7 @@ def test_chart_pie():
 
 
 def test_chart_area():
-    """Test for AreaChart."""
+    """Test for AreaChart"""
     area1 = aop.elements.AreaSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
@@ -501,9 +501,78 @@ def test_chart_area():
     }
     assert area_chart.as_dict == area_chart_result
 
+
+def test_chart_bubble():
+    """Test for BubbleChart"""
+    bubble1 = aop.elements.BubbleSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        sizes=(5, 6, 2),
+        name='bubble1'
+    )
+    bubble2 = aop.elements.BubbleSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        sizes=(5, 6, 2),
+        name='bubble2'
+    )
+    bubble_chart = aop.elements.BubbleChart(
+        name='bubble_chart',
+        bubbles=(bubble1, bubble2)
+    )
+    bubble_chart_result = {
+        'bubble_chart': {
+            'bubbles': [
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 1,
+                            'size': 5
+                        },
+                        {
+                            'x': 'b',
+                            'y': 2,
+                            'size': 6
+                        },
+                        {
+                            'x': 'c',
+                            'y': 3,
+                            'size': 2
+                        },
+                    ],
+                    'name': 'bubble1'
+                },
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 4,
+                            'size': 5
+                        },
+                        {
+                            'x': 'b',
+                            'y': 5,
+                            'size': 6
+                        },
+                        {
+                            'x': 'c',
+                            'y': 6,
+                            'size': 2
+                        },
+                    ],
+                    'name': 'bubble2'
+                }
+            ],
+            'type': 'bubble'
+        }
+    }
+    assert bubble_chart.as_dict == bubble_chart_result
+
 def run():
     test_chart_options()
     test_chart_line()
     test_chart_bar()
     test_chart_pie()
     test_chart_area()
+    test_chart_bubble()
