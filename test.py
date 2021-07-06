@@ -398,8 +398,9 @@ def test_prepend_append_subtemplate():
                 'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 'name': 'sub2'
             }
-        ]
-        }
+        ],
+        'python_sdk_version': aop.printjob.STATIC_OPTS['python_sdk_version']
+    }
     assert printjob.as_dict == printjob_result
     # printjob.execute().to_file("./test/prepend_append_subtemplate_test") # Works as expected
 

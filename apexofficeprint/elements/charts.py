@@ -147,7 +147,7 @@ class ChartOptions():
         self.x_axis: ChartAxisOptions = x_axis
         self.y_axis: ChartAxisOptions = y_axis
         self.y2_axis: ChartAxisOptions = y2_axis
-        if y_axis.date or y2_axis.date:
+        if y_axis.date is not None or y2_axis.date is not None:
             warning('"date" options for the y or y2 axes are ignored by the AOP server.')
 
         self.width: int = width
@@ -250,7 +250,7 @@ class Series(ABC):
             "data": self.data
         }
 
-        if self.name:
+        if self.name is not None:
             result["name"] = self.name
 
         return result
@@ -327,11 +327,11 @@ class AreaSeries(XYSeries):
             "data": self.data
         }
 
-        if self.name:
+        if self.name is not None:
             result["name"] = self.name
-        if self.color:
+        if self.color is not None:
             result["color"] = self.color
-        if self.opacity:
+        if self.opacity is not None:
             result["opacity"] = self.opacity
 
         return result
@@ -438,9 +438,9 @@ class StockSeries(Series):
         } for x, high, low, close in zip(self.x, self.high, self.low, self.close)]
 
         for i in range(len(result)):
-            if self.open:
+            if self.open is not None:
                 result[i]["open"] = self.open[i]
-            if self.volume:
+            if self.volume is not None:
                 result[i]["volume"] = self.volume[i]
 
         return result
@@ -480,7 +480,7 @@ class Chart(Element, ABC):
 
     def _get_dict(self, updates: dict):
         result = {}
-        if self.options:
+        if self.options is not None:
             result["options"] = self.options if isinstance(
                 self.options, dict) else self.options.as_dict
         result.update(updates)
@@ -697,9 +697,9 @@ def _replace_key_recursive(obj, old_key, new_key):
 
 class CombinedChart(Chart):
     def __init__(self, name: str, charts: Iterable[Chart], secondaryCharts: Iterable[Chart] = None, options: ChartOptions = None):
-        if not options:
+        if options is None:
             all_options = [chart.options.as_dict for chart in (
-                tuple(charts) + tuple(secondaryCharts)) if chart.options]
+                tuple(charts) + tuple(secondaryCharts)) if chart.options is not None]
             options = {}
             # use reversed() to give the first charts precedence (they overwrite the others)
             for options in reversed(all_options):

@@ -433,8 +433,77 @@ def test_chart_pie():
     }
     assert pies_chart.as_dict == pies_chart_result
 
+
+def test_chart_area():
+    """Test for AreaChart."""
+    area1 = aop.elements.AreaSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        name='area1',
+        color='red',
+        opacity=50
+    )
+    area2 = aop.elements.AreaSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        name='area2',
+        color='blue',
+        opacity=80
+    )
+    area_chart = aop.elements.AreaChart(
+        name='area_chart',
+        areas=(area1, area2)
+    )
+    area_chart_result = {
+        'area_chart': {
+            'areas': [
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 1
+                        },
+                        {
+                            'x': 'b',
+                            'y': 2
+                        },
+                        {
+                            'x': 'c',
+                            'y': 3
+                        },
+                    ],
+                    'name': 'area1',
+                    'color': 'red',
+                    'opacity': 50
+                },
+                {
+                    'data': [
+                        {
+                            'x': 'a',
+                            'y': 4
+                        },
+                        {
+                            'x': 'b',
+                            'y': 5
+                        },
+                        {
+                            'x': 'c',
+                            'y': 6
+                        },
+                    ],
+                    'name': 'area2',
+                    'color': 'blue',
+                    'opacity': 80
+                }
+            ],
+            'type': 'area'
+        }
+    }
+    assert area_chart.as_dict == area_chart_result
+
 def run():
     test_chart_options()
     test_chart_line()
     test_chart_bar()
     test_chart_pie()
+    test_chart_area()

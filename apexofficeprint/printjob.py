@@ -14,8 +14,9 @@ from typing import Union, List, Dict, Mapping
 from functools import partial
 
 STATIC_OPTS = {
-    "tool": "python"
-    # "version": "18.2" # optional: version of AOP JSON format
+    "tool": "python",
+    # "version": "18.2", # optional: version of AOP JSON format
+    "python_sdk_version": "21.1",
 }
 
 
