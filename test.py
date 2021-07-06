@@ -1,9 +1,10 @@
-from apexofficeprint.elements.elements import MeCard, VCardQRCode
 from apexofficeprint._utils import file_utils
 import apexofficeprint as aop
 import asyncio
 import pathlib
 import pprint
+
+from test_charts import run as test_charts_run
 
 
 TEMPLATE_PATH = "./test/template.docx"
@@ -784,3 +785,6 @@ if __name__ == "__main__":
     test_aop_pdf_images()
     test_barcodes()
     test_qr_codes()
+
+    # Test charts (from test_charts.py)
+    test_charts_run()
