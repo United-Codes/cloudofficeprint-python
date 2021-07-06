@@ -284,9 +284,14 @@ class PieSeries(XYSeries):
                  x: Iterable[Union[int, float, str]],
                  y: Iterable[Union[int, float]],
                  name: str = None,
-                 color: str = None):
+                 color: Iterable[str] = None):
         super().__init__(x, y, name)
         self.color = color
+        """Should be an iterable that contains the color for each specific pie slice.
+        If no colors are specified, the document's theme color is used.
+        If some colors are specified, but not for all data points, random colors will fill the gaps.
+        The value for non-specified colors must be None.
+        """
 
     @property
     def as_dict(self):
@@ -294,10 +299,13 @@ class PieSeries(XYSeries):
             "data": self.data
         }
 
-        if self.name:
+        if self.name is not None:
             result["name"] = self.name
-        if self.color:
-            result["color"] = self.color
+        if self.color is not None:
+            # Add the color for each slice to 'data'
+            for i in range(len(tuple(self.color))):
+                if self.color[i] is not None:
+                    result["data"][i]['color'] = self.color[i]
 
         return result
 
@@ -496,7 +504,7 @@ class LineChart(Chart):
 
 
 class BarChart(Chart):
-    def __init__(self, name: str, *bars: Union[BarSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
 
@@ -509,7 +517,7 @@ class BarChart(Chart):
 
 
 class BarStackedChart(Chart):
-    def __init__(self, name: str, *bars: Union[BarSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
 
@@ -522,7 +530,7 @@ class BarStackedChart(Chart):
 
 
 class BarStackedPercentChart(Chart):
-    def __init__(self, name: str, *bars: Union[BarSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
 
@@ -535,7 +543,7 @@ class BarStackedPercentChart(Chart):
 
 
 class ColumnChart(Chart):
-    def __init__(self, name: str, *columns: Union[ColumnSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
 
@@ -548,7 +556,7 @@ class ColumnChart(Chart):
 
 
 class ColumnStackedChart(Chart):
-    def __init__(self, name: str, *columns: Union[ColumnSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
 
@@ -561,7 +569,7 @@ class ColumnStackedChart(Chart):
 
 
 class ColumnStackedPercentChart(Chart):
-    def __init__(self, name: str, *columns: Union[ColumnSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
 
@@ -574,7 +582,7 @@ class ColumnStackedPercentChart(Chart):
 
 
 class PieChart(Chart):
-    def __init__(self, name: str, *pies: Union[PieSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, pies: Tuple[Union[PieSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.pies: Tuple[Union[PieSeries, XYSeries]] = pies
 
@@ -587,7 +595,7 @@ class PieChart(Chart):
 
 
 class Pie3DChart(Chart):
-    def __init__(self, name: str, *pies: Union[PieSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, pies: Tuple[Union[PieSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.pies: Tuple[Union[PieSeries, XYSeries]] = pies
 
@@ -600,7 +608,7 @@ class Pie3DChart(Chart):
 
 
 class DoughnutChart(Chart):
-    def __init__(self, name: str, *doughnuts: Union[PieSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, doughnuts: Tuple[Union[PieSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name)
         self.doughnuts: Tuple[Union[PieSeries, XYSeries]] = doughnuts
 
@@ -613,7 +621,7 @@ class DoughnutChart(Chart):
 
 
 class RadarChart(Chart):
-    def __init__(self, name: str, *radars: Union[RadarSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, radars: Tuple[Union[RadarSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.radars: Tuple[Union[RadarSeries, XYSeries]] = radars
 
@@ -626,7 +634,7 @@ class RadarChart(Chart):
 
 
 class AreaChart(Chart):
-    def __init__(self, name: str, *areas: Union[AreaSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, areas: Tuple[Union[AreaSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.areas: Tuple[Union[AreaSeries, XYSeries]] = areas
 
@@ -639,7 +647,7 @@ class AreaChart(Chart):
 
 
 class ScatterChart(Chart):
-    def __init__(self, name: str, *scatters: Union[ScatterSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, scatters: Tuple[Union[ScatterSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.scatters: Tuple[Union[ScatterSeries, XYSeries]] = scatters
 
@@ -652,7 +660,7 @@ class ScatterChart(Chart):
 
 
 class BubbleChart(Chart):
-    def __init__(self, name: str, *bubbles: BubbleSeries, options: ChartOptions = None):
+    def __init__(self, name: str, bubbles: Tuple[BubbleSeries], options: ChartOptions = None):
         super().__init__(name, options)
         self.bubbles: Tuple[BubbleSeries] = bubbles
 
@@ -665,7 +673,7 @@ class BubbleChart(Chart):
 
 
 class StockChart(Chart):
-    def __init__(self, name: str, *stocks: StockSeries, options: ChartOptions = None):
+    def __init__(self, name: str, stocks: Tuple[StockSeries], options: ChartOptions = None):
         super().__init__(name, options)
         self.stocks: Tuple[StockSeries] = stocks
 
