@@ -38,22 +38,22 @@ class ChartDateOptions:
                  code: str = None,
                  unit: str = None,
                  step: Union[int, str] = None):
-        self.format: str = format,
-        self.code: str = code,
-        self.unit: str = unit,
+        self.format: str = format
+        self.code: str = code
+        self.unit: str = unit
         self.step: Union[int, str] = step
 
     @property
     def as_dict(self):
         result = {}
 
-        if self.format:
+        if self.format is not None:
             result["format"] = self.format
-        if self.code:
+        if self.code is not None:
             result["code"] = self.code
-        if self.unit:
+        if self.unit is not None:
             result["unit"] = self.unit
-        if self.step:
+        if self.step is not None:
             result["step"] = self.step
 
         return result
@@ -185,15 +185,15 @@ class ChartOptions():
         if separator is not None:
             self._data_labels_options["separator"] = separator
         if series_name is not None:
-            self._data_labels_options["showSeriesName"] = True
+            self._data_labels_options["showSeriesName"] = series_name
         if category_name is not None:
-            self._data_labels_options["showCategoryName"] = True
+            self._data_labels_options["showCategoryName"] = category_name
         if legend_key is not None:
-            self._data_labels_options["showLegendKey"] = True
+            self._data_labels_options["showLegendKey"] = legend_key
         if value is not None:
-            self._data_labels_options["showValue"] = True
+            self._data_labels_options["showValue"] = value
         if percentage is not None:
-            self._data_labels_options["showPercentage"] = True
+            self._data_labels_options["showPercentage"] = percentage
         if position is not None:
             self._data_labels_options["position"] = position
 
@@ -343,10 +343,13 @@ class LineSeries(XYSeries):
         super().__init__(x, y, name)
         self.smooth: bool = smooth
         self.symbol: str = symbol
+        """Options: square (default), diamond, triangle"""
         self.symbol_size: Union[str, int] = symbol_size
         self.color: str = color
+        """Can be html/css colors or hex values"""
         self.line_width: str = line_width
         self.line_style: str = line_style
+        """For the available styles, we refer to http://www.apexofficeprint.com/docs/#line"""
 
     @property
     def as_dict(self):
@@ -354,21 +357,21 @@ class LineSeries(XYSeries):
             "data": self.data
         }
 
-        if self.name:
+        if self.name is not None:
             result["name"] = self.name
-        if self.smooth:
+        if self.smooth is not None:
             result["smooth"] = self.smooth
-        if self.symbol:
+        if self.symbol is not None:
             result["symbol"] = self.symbol
-        if self.symbol_size:
+        if self.symbol_size is not None:
             result["symbolSize"] = self.symbol_size
-        if self.color:
+        if self.color is not None:
             result["color"] = self.color
-        if self.line_width:
+        if self.line_width is not None:
             result["lineWidth"] = self.line_width
-        if self.line_style:
+        if self.line_style is not None:
             result["lineStyle"] = self.line_style
-
+        
         return result
 
 
@@ -480,7 +483,7 @@ class Chart(Element, ABC):
 
 
 class LineChart(Chart):
-    def __init__(self, name: str, *lines: Union[LineSeries, XYSeries], options: ChartOptions = None):
+    def __init__(self, name: str, lines: Tuple[Union[LineSeries, XYSeries]], options: ChartOptions = None):
         super().__init__(name, options)
         self.lines: Tuple[Union[LineSeries, XYSeries]] = lines
 
