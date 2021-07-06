@@ -97,7 +97,7 @@ def test_chart_options():
         percentage=True,
         position='r'
     )
-    options_result = {
+    options_expected = {
         'axis': {
             'x': {
                     'orientation': 'minMax',
@@ -216,7 +216,7 @@ def test_chart_options():
             'position': 'r',
         },
     }
-    assert options.as_dict == options_result
+    assert options.as_dict == options_expected
 
 
 def test_chart_line():
@@ -247,7 +247,7 @@ def test_chart_line():
         name='test_name',
         lines=(line1, line2)
     )
-    line_chart_result = {
+    line_chart_expected = {
         'test_name': {
             'lines': [
                 {
@@ -300,7 +300,7 @@ def test_chart_line():
             'type': 'line'
         }
     }
-    assert line_chart.as_dict == line_chart_result
+    assert line_chart.as_dict == line_chart_expected
 
 
 def test_chart_bar():
@@ -322,7 +322,7 @@ def test_chart_bar():
         name='bar_chart',
         bars=(bars1, bars2)
     )
-    bar_chart_result = {
+    bar_chart_expected = {
         'bar_chart': {
             'bars': [
                 {
@@ -363,7 +363,7 @@ def test_chart_bar():
             'type': 'bar'
         }
     }
-    assert bar_chart.as_dict == bar_chart_result
+    assert bar_chart.as_dict == bar_chart_expected
 
 
 def test_chart_pie():
@@ -386,7 +386,7 @@ def test_chart_pie():
         name='pie_chart',
         pies=(pies1, pies2)
     )
-    pies_chart_result = {
+    pies_chart_expected = {
         'pie_chart': {
             'pies': [
                 {
@@ -431,7 +431,7 @@ def test_chart_pie():
             'type': 'pie'
         }
     }
-    assert pies_chart.as_dict == pies_chart_result
+    assert pies_chart.as_dict == pies_chart_expected
 
 
 def test_chart_area():
@@ -454,7 +454,7 @@ def test_chart_area():
         name='area_chart',
         areas=(area1, area2)
     )
-    area_chart_result = {
+    area_chart_expected = {
         'area_chart': {
             'areas': [
                 {
@@ -499,7 +499,7 @@ def test_chart_area():
             'type': 'area'
         }
     }
-    assert area_chart.as_dict == area_chart_result
+    assert area_chart.as_dict == area_chart_expected
 
 
 def test_chart_bubble():
@@ -520,7 +520,7 @@ def test_chart_bubble():
         name='bubble_chart',
         bubbles=(bubble1, bubble2)
     )
-    bubble_chart_result = {
+    bubble_chart_expected = {
         'bubble_chart': {
             'bubbles': [
                 {
@@ -567,7 +567,100 @@ def test_chart_bubble():
             'type': 'bubble'
         }
     }
-    assert bubble_chart.as_dict == bubble_chart_result
+    assert bubble_chart.as_dict == bubble_chart_expected
+
+
+def test_chart_stock():
+    """Test for StockChart"""
+    stock1 = aop.elements.StockSeries(
+        x=(1, 2, 3),
+        high=(4, 5, 6),
+        low=(7, 8, 9),
+        close=(10, 11, 12),
+        open_=(13, 14, 15),
+        volume=(16, 17, 18),
+        name='stock1'
+    )
+    stock2 = aop.elements.StockSeries(
+        x=(1, 2, 3),
+        high=(4, 5, 6),
+        low=(7, 8, 9),
+        close=(10, 11, 12),
+        open_=(13, 14, 15),
+        volume=(16, 17, 18),
+        name='stock2'
+    )
+    stock_chart = aop.elements.StockChart(
+        name='stock_chart',
+        stocks=(stock1, stock2)
+    )
+    stock_chart_expected = {
+        'stock_chart': {
+            'stocks': [
+                {
+                    'data': [
+                        {
+                            'x': 1,
+                            'high': 4,
+                            'low': 7,
+                            'close': 10,
+                            'open': 13,
+                            'volume': 16,
+                        },
+                        {
+                            'x': 2,
+                            'high': 5,
+                            'low': 8,
+                            'close': 11,
+                            'open': 14,
+                            'volume': 17,
+                        },
+                        {
+                            'x': 3,
+                            'high': 6,
+                            'low': 9,
+                            'close': 12,
+                            'open': 15,
+                            'volume': 18,
+                        }
+                    ],
+                    'name': 'stock1'
+                },
+                {
+                    'data': [
+                        {
+                            'x': 1,
+                            'high': 4,
+                            'low': 7,
+                            'close': 10,
+                            'open': 13,
+                            'volume': 16,
+                        },
+                        {
+                            'x': 2,
+                            'high': 5,
+                            'low': 8,
+                            'close': 11,
+                            'open': 14,
+                            'volume': 17,
+                        },
+                        {
+                            'x': 3,
+                            'high': 6,
+                            'low': 9,
+                            'close': 12,
+                            'open': 15,
+                            'volume': 18,
+                        }
+                    ],
+                    'name': 'stock2'
+                }
+            ],
+            'type': 'stock'
+        }
+    }
+    assert stock_chart.as_dict == stock_chart_expected
+
 
 def run():
     test_chart_options()
@@ -576,3 +669,4 @@ def run():
     test_chart_pie()
     test_chart_area()
     test_chart_bubble()
+    test_chart_stock()

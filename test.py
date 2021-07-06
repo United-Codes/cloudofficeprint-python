@@ -136,7 +136,7 @@ def test_pdf_options():
         identify_form_fields=True)
     pdf_opts.set_page_margin_at(6, 'top')
     conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
-    conf_result = {
+    conf_expected = {
         'output_type': 'pdf',
         'output_encoding': 'raw',
         'output_converter': 'libreoffice',
@@ -162,28 +162,28 @@ def test_pdf_options():
         'output_sign_certificate': 'test_sign_certificate',
         'identify_form_fields': True
     }
-    assert conf.as_dict == conf_result
+    assert conf.as_dict == conf_expected
 
 def test_cloud_access_tokens():
     """Test cloud access for output file: OAuthToken, AWSToken, FTPToken and SFTPToken"""
     # OAuthToken
     o_auth_token = aop.config.CloudAccessToken.from_OAuth('dropbox', 'dummy_token')
-    o_auth_token_result = {
+    o_auth_token_expected = {
         'output_location': 'dropbox',
         'cloud_access_token': 'dummy_token'
     }
-    assert o_auth_token.as_dict == o_auth_token_result
+    assert o_auth_token.as_dict == o_auth_token_expected
 
     # AWSToken
     aws_token = aop.config.CloudAccessToken.from_AWS('AWS_access_key_id', 'AWS_secter_access_key')
-    aws_token_result = {
+    aws_token_expected = {
         "output_location": 'aws_s3',
         "cloud_access_token": {
             "access_key": 'AWS_access_key_id',
             "secret_access_key": 'AWS_secter_access_key'
         }
     }
-    assert aws_token.as_dict == aws_token_result
+    assert aws_token.as_dict == aws_token_expected
 
     # FTPToken & SFTPToken
     ftp_token = aop.config.CloudAccessToken.from_FTP('host_name', 35, 'dummy_user', 'dummy_pw')
@@ -193,17 +193,17 @@ def test_cloud_access_tokens():
         'user': 'dummy_user',
         'password': 'dummy_pw'
     }
-    ftp_token_result = {
+    ftp_token_expected = {
         "output_location": 'ftp',
         "cloud_access_token": ftp_cloud_access_token
     }
     sftp_token = aop.config.CloudAccessToken.from_SFTP('host_name', 35, 'dummy_user', 'dummy_pw')
-    sftp_token_result = {
+    sftp_token_expected = {
         "output_location": 'sftp',
         "cloud_access_token": ftp_cloud_access_token
     }
-    assert ftp_token.as_dict == ftp_token_result
-    assert sftp_token.as_dict == sftp_token_result
+    assert ftp_token.as_dict == ftp_token_expected
+    assert sftp_token.as_dict == sftp_token_expected
 
 def test_commands():
     """Test post-process, conversion and merge commands"""
@@ -217,7 +217,7 @@ def test_commands():
         post_process_return=False,
         post_process_delete_delay=1500
     )
-    post_process_result = {
+    post_process_expected = {
         "post_process": {
             "command": "echo_post",
             "return_output": False,
@@ -225,7 +225,7 @@ def test_commands():
             "command_parameters": { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
         }
     }
-    assert post_process_commands._dict == post_process_result
+    assert post_process_commands._dict == post_process_expected
 
     # conversion
     pre_conversion_command = aop.config.server.Command(
@@ -240,7 +240,7 @@ def test_commands():
         pre_conversion=pre_conversion_command,
         post_conversion=post_conversion_command
     )
-    conversion_result = {
+    conversion_expected = {
         'conversion': {
             'pre_command': 'echo_pre',
             'pre_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" },
@@ -248,7 +248,7 @@ def test_commands():
             'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
         }
     }
-    assert conversion_commands._dict == conversion_result
+    assert conversion_commands._dict == conversion_expected
 
     # merge
     post_merge_command = aop.config.server.Command(
@@ -258,50 +258,50 @@ def test_commands():
     post_merge_commands = aop.config.server.Commands(
         post_merge=post_merge_command
     )
-    post_merge_result = {
+    post_merge_expected = {
         'merge': {
             'post_command': 'echo_post',
             'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
         }
     }
-    assert post_merge_commands._dict == post_merge_result
+    assert post_merge_commands._dict == post_merge_expected
 
 def test_resource():
     """Test if the different types of resources return the expected result."""
     # Base64
     resource = aop.Resource.from_base64('dummy', 'docx')
-    resource_result = {
+    resource_expected = {
         'file': 'dummy',
         'template_type': 'docx'
     }
-    assert resource.template_dict == resource_result
+    assert resource.template_dict == resource_expected
 
     # Local file (raw)
     local_path = str(pathlib.Path().resolve()) + '/test/template.docx'
     resource = aop.Resource.from_local_file(local_path)
     with open(local_path, "rb") as f:
         content = f.read()
-    resource_result = {
+    resource_expected = {
         'file': file_utils.raw_to_base64(content),
         'template_type': 'docx'
     }
-    assert resource.template_dict == resource_result
+    assert resource.template_dict == resource_expected
 
     # Server path
     resource = aop.Resource.from_server_path('dummy/path.docx')
-    resource_result = {
+    resource_expected = {
         'filename': 'dummy/path.docx',
         'template_type': 'docx'
     }
-    assert resource.template_dict == resource_result
+    assert resource.template_dict == resource_expected
 
     # URL
     resource = aop.Resource.from_url('dummy_url', 'docx')
-    resource_result = {
+    resource_expected = {
         'template_type': 'docx',
         'url': 'dummy_url'
     }
-    assert resource.template_dict == resource_result
+    assert resource.template_dict == resource_expected
 
     # HTML
     html_string = """
@@ -316,12 +316,12 @@ def test_resource():
     </html> 
     """
     resource = aop.Resource.from_html(html_string, True)
-    resource_result = {
+    resource_expected = {
         'template_type': 'html',
         'orientation': 'landscape',
         'html_template_content': html_string
     }
-    assert resource.template_dict == resource_result
+    assert resource.template_dict == resource_expected
 
 def test_prepend_append_subtemplate():
     """Test prepending and appending files in class Printjob"""
@@ -352,7 +352,7 @@ def test_prepend_append_subtemplate():
         subtemplates=subtemplates,
         prepend_files=[prepend_file],
         append_files=[append_file])
-    printjob_result = {
+    printjob_expected = {
         'api_key': API_KEY,
         'append_files': [
             {
@@ -401,7 +401,7 @@ def test_prepend_append_subtemplate():
         ],
         'python_sdk_version': aop.printjob.STATIC_OPTS['python_sdk_version']
     }
-    assert printjob.as_dict == printjob_result
+    assert printjob.as_dict == printjob_expected
     # printjob.execute().to_file("./test/prepend_append_subtemplate_test") # Works as expected
 
 def test_route_paths():
@@ -464,7 +464,7 @@ def test_aop_pdf_texts():
         font_size=20
     )
     pdf_texts = aop.elements.PDFTexts((pdf_text1_1, pdf_text1_2, pdf_text2, pdf_text_all))
-    pdf_texts_results = {
+    pdf_texts_expecteds = {
         '3': [
             {
                 'text': 'test1_1',
@@ -512,7 +512,7 @@ def test_aop_pdf_texts():
             'font_size': 20
         }
     }
-    assert pdf_texts.as_dict == pdf_texts_results
+    assert pdf_texts.as_dict == pdf_texts_expecteds
 
 def test_aop_pdf_images():
     """Test aop_pdf_images element"""
@@ -556,7 +556,7 @@ def test_aop_pdf_images():
         max_width=50
     )
     pdf_images = aop.elements.PDFImages((pdf_image1_1, pdf_image1_2, pdf_image2, pdf_image_all))
-    pdf_images_result = {
+    pdf_images_expected = {
         '3': [
             {
                 'image': 'test1_1',
@@ -596,7 +596,7 @@ def test_aop_pdf_images():
             'image_max_width': 50
         }
     }
-    assert pdf_images.as_dict == pdf_images_result
+    assert pdf_images.as_dict == pdf_images_expected
 
 def test_barcodes():
     """Test class BarCode, a subclass of class Code"""
@@ -614,7 +614,7 @@ def test_barcodes():
         padding_height=25,
         extra_options='includetext guardwhitespace'
     )
-    barcode_result = {
+    barcode_expected = {
         'name': 'data',
         'name_type': 'ean13',
         'name_height': 50,
@@ -627,7 +627,7 @@ def test_barcodes():
         'name_padding_height': 25,
         'name_extra_options': 'includetext guardwhitespace'
     }
-    assert barcode.as_dict == barcode_result
+    assert barcode.as_dict == barcode_expected
 
 def test_qr_codes():
     """Test class QRCode, a subclass of class Code, and all its subclasses"""
@@ -638,24 +638,24 @@ def test_qr_codes():
         wifi_encryption='WPA',
         wifi_hidden=False
     )
-    wifi_result = {
+    wifi_expected = {
         'name': 'ssid',
         'name_type': 'qr_wifi',
         'name_wifi_password': 'password',
         'name_wifi_encryption': 'WPA',
         'name_wifi_hidden': False
     }
-    assert wifi.as_dict == wifi_result
+    assert wifi.as_dict == wifi_expected
 
     telephone_number = aop.elements.TelephoneNumberQRCode(
         name='name',
         number='+32_test_number'
     )
-    telephone_number_result = {
+    telephone_number_expected = {
         'name': '+32_test_number',
         'name_type': 'qr_telephone'
     }
-    assert telephone_number.as_dict == telephone_number_result
+    assert telephone_number.as_dict == telephone_number_expected
 
     email = aop.elements.EmailQRCode(
         name='name',
@@ -665,7 +665,7 @@ def test_qr_codes():
         subject='subject',
         body='body'
     )
-    email_result = {
+    email_expected = {
         'name': 'receiver',
         'name_type': 'qr_email',
         'name_email_cc': 'cc',
@@ -673,29 +673,29 @@ def test_qr_codes():
         'name_email_subject': 'subject',
         'name_email_body': 'body'
     }
-    assert email.as_dict == email_result
+    assert email.as_dict == email_expected
 
     sms = aop.elements.SMSQRCode(
         name='name',
         receiver='receiver',
         sms_body='sms_body'
     )
-    sms_result = {
+    sms_expected = {
         'name': 'receiver',
         'name_type': 'qr_sms',
         'name_sms_body': 'sms_body'
     }
-    assert sms.as_dict == sms_result
+    assert sms.as_dict == sms_expected
 
     url = aop.elements.URLQRCode(
         name='name',
         url='url'
     )
-    url_result = {
+    url_expected = {
         'name': 'url',
         'name_type': 'qr_url'
     }
-    assert url.as_dict == url_result
+    assert url.as_dict == url_expected
 
     v_card = aop.elements.VCardQRCode(
         name='name',
@@ -704,14 +704,14 @@ def test_qr_codes():
         email='email',
         website='website'
     )
-    v_card_result = {
+    v_card_expected = {
         'name': 'first_name',
         'name_type': 'qr_vcard',
         'name_vcard_last_name': 'last_name',
         'name_vcard_email': 'email',
         'name_vcard_website': 'website'
     }
-    assert v_card.as_dict == v_card_result
+    assert v_card.as_dict == v_card_expected
 
     me_card = aop.elements.MeCard(
         name='name',
@@ -726,7 +726,7 @@ def test_qr_codes():
         birthday='birthday',
         notes='notes'
     )
-    me_card_result = {
+    me_card_expected = {
         'name': 'first_name',
         'name_type': 'qr_me_card',
         'name_me_card_last_name': 'last_name',
@@ -739,7 +739,7 @@ def test_qr_codes():
         'name_me_card_birthday': 'birthday',
         'name_me_card_notes': 'notes'
     }
-    assert me_card.as_dict == me_card_result
+    assert me_card.as_dict == me_card_expected
 
     geolocation = aop.elements.GeolocationQRCode(
         name='name',
@@ -747,13 +747,13 @@ def test_qr_codes():
         longitude='longitude',
         altitude='altitude'
     )
-    geolocation_result = {
+    geolocation_expected = {
         'name': 'latitude',
         'name_type': 'qr_geolocation',
         'name_geolocation_longitude': 'longitude',
         'name_geolocation_altitude': 'altitude'
     }
-    assert geolocation.as_dict == geolocation_result
+    assert geolocation.as_dict == geolocation_expected
 
     event = aop.elements.EventQRCode(
         name='name',
@@ -761,13 +761,13 @@ def test_qr_codes():
         startdate='startdate',
         enddate='enddate'
     )
-    event_result = {
+    event_expected = {
         'name': 'summary',
         'name_type': 'qr_event',
         'name_event_startdate': 'startdate',
         'name_event_enddate': 'enddate'
     }
-    assert event.as_dict == event_result
+    assert event.as_dict == event_expected
     
 
 if __name__ == "__main__":
