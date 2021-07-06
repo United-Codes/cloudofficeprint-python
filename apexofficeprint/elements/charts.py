@@ -464,7 +464,8 @@ class StockSeries(Series):
 
 
 # better to have a series for every possible chart for future-proofing, in case their options diverge later
-BarSeries = BarStackedSeries = BarStackedPercentSeries = ColumnSeries = ColumnStackedSeries = ColumnStackedPercentSeries = RadarSeries = ScatterSeries = XYSeries
+BarSeries = BarStackedSeries = BarStackedPercentSeries = ColumnSeries = ColumnStackedSeries = ColumnStackedPercentSeries = ScatterSeries = XYSeries
+RadarSeries = LineSeries
 
 
 class Chart(Element, ABC):

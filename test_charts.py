@@ -220,6 +220,7 @@ def test_chart_options():
 
 
 def test_chart_line():
+    """Test for LineChart. Also serves as a test for RadarChart (RadarSeries is equivalent to LineSeries)"""
     line1 = aop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
@@ -304,8 +305,8 @@ def test_chart_line():
 
 def test_chart_bar():
     """Test for BarChart. Also serves as the test for: 
-    BarStackedChart, BarStackedPercentChart, ColumnChart, ColumnStackedChart, ColumnStackedPercentChart, 
-    RadarChart and ScatterChart because their constructors take the same argument types (i.e. XYSeries).
+    BarStackedChart, BarStackedPercentChart, ColumnChart, ColumnStackedChart, ColumnStackedPercentChart 
+    and ScatterChart because their constructors take the same argument types (i.e. XYSeries).
     """
     bars1 = aop.elements.BarSeries(
         x=('a', 'b', 'c'),
@@ -366,7 +367,7 @@ def test_chart_bar():
 
 
 def test_chart_pie():
-    """Test for PieChart and also for Pie3DChart and DoughnutChart, 
+    """Test for PieChart. Also serves as the test for Pie3DChart and DoughnutChart, 
     because their constructors take the same argument types (i.e. PieSeries).
     """
     pies1 = aop.elements.PieSeries(
