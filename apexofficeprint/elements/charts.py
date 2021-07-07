@@ -721,12 +721,14 @@ class CombinedChart(Chart):
         secondary_list = list(self.secondaryCharts)
         dict_list = []
         for chart in primary_list:
-            chart_dict = chart.as_dict
-            chart_dict[chart.name].pop("options", None)
+            chart_dict_full = chart.as_dict
+            chart_dict = chart_dict_full[chart.name]
+            chart_dict.pop("options", None)
             dict_list.append(chart_dict)
         for chart in secondary_list:
-            chart_dict = chart.as_dict
-            chart_dict[chart.name].pop("options", None)
+            chart_dict_full = chart.as_dict
+            chart_dict = chart_dict_full[chart.name]
+            chart_dict.pop("options", None)
             dict_list.append(_replace_key_recursive(chart_dict, "y", "y2"))
         return dict_list
 

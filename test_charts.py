@@ -735,129 +735,123 @@ def test_chart_combined():
         'combined_chart': {
             'multiples': [
                 {
-                    'column_chart': {
-                        'columns': [
-                            {
-                                'data': [
-                                    {
-                                        'x': 'a',
-                                        'y': 1
-                                    },
-                                    {
-                                        'x': 'b',
-                                        'y': 2
-                                    },
-                                    {
-                                        'x': 'c',
-                                        'y': 3
-                                    }
-                                ],
-                                'name': 'column1'
-                            },
-                            {
-                                'data': [
-                                    {
-                                        'x': 'a',
-                                        'y': 4
-                                    },
-                                    {
-                                        'x': 'b',
-                                        'y': 5
-                                    },
-                                    {
-                                        'x': 'c',
-                                        'y': 6
-                                    }
-                                ],
-                                'name': 'column2'
-                            }
-                        ],
-                        'type': 'column'
-                    }
+                    'columns': [
+                        {
+                            'data': [
+                                {
+                                    'x': 'a',
+                                    'y': 1
+                                },
+                                {
+                                    'x': 'b',
+                                    'y': 2
+                                },
+                                {
+                                    'x': 'c',
+                                    'y': 3
+                                }
+                            ],
+                            'name': 'column1'
+                        },
+                        {
+                            'data': [
+                                {
+                                    'x': 'a',
+                                    'y': 4
+                                },
+                                {
+                                    'x': 'b',
+                                    'y': 5
+                                },
+                                {
+                                    'x': 'c',
+                                    'y': 6
+                                }
+                            ],
+                            'name': 'column2'
+                        }
+                    ],
+                    'type': 'column'
                 },
                 {
-                    'line_chart': {
-                        'lines': [
-                            {
-                                'data': [
-                                    {
-                                        'x': 'a',
-                                        'y': 1
-                                    },
-                                    {
-                                        'x': 'b',
-                                        'y': 2
-                                    },
-                                    {
-                                        'x': 'c',
-                                        'y': 3
-                                    }
-                                ],
-                                'name': 'line1',
-                                'symbol': 'square'
-                            },
-                            {
-                                'data': [
-                                    {
-                                        'x': 'a',
-                                        'y': 4
-                                    },
-                                    {
-                                        'x': 'b',
-                                        'y': 5
-                                    },
-                                    {
-                                        'x': 'c',
-                                        'y': 6
-                                    }
-                                ],
-                                'name': 'line2',
-                                'symbol': 'square'
-                            }
-                        ],
-                        'type': 'line'
-                    }
+                    'lines': [
+                        {
+                            'data': [
+                                {
+                                    'x': 'a',
+                                    'y': 1
+                                },
+                                {
+                                    'x': 'b',
+                                    'y': 2
+                                },
+                                {
+                                    'x': 'c',
+                                    'y': 3
+                                }
+                            ],
+                            'name': 'line1',
+                            'symbol': 'square'
+                        },
+                        {
+                            'data': [
+                                {
+                                    'x': 'a',
+                                    'y': 4
+                                },
+                                {
+                                    'x': 'b',
+                                    'y': 5
+                                },
+                                {
+                                    'x': 'c',
+                                    'y': 6
+                                }
+                            ],
+                            'name': 'line2',
+                            'symbol': 'square'
+                        }
+                    ],
+                    'type': 'line'
                 },
                 {
-                    'bar_chart': {
-                        'bars': [
-                            {
-                                'data': [
-                                    {
-                                        'x': 'a',
-                                        'y2': 1
-                                    },
-                                    {
-                                        'x': 'b',
-                                        'y2': 2
-                                    },
-                                    {
-                                        'x': 'c',
-                                        'y2': 3
-                                    }
-                                ],
-                                'name': 'bar1'
-                            },
-                            {
-                                'data': [
-                                    {
-                                        'x': 'a',
-                                        'y2': 4
-                                    },
-                                    {
-                                        'x': 'b',
-                                        'y2': 5
-                                    },
-                                    {
-                                        'x': 'c',
-                                        'y2': 6
-                                    }
-                                ],
-                                'name': 'bar2'
-                            }
-                        ],
-                        'type': 'bar'
-                    }
+                    'bars': [
+                        {
+                            'data': [
+                                {
+                                    'x': 'a',
+                                    'y2': 1
+                                },
+                                {
+                                    'x': 'b',
+                                    'y2': 2
+                                },
+                                {
+                                    'x': 'c',
+                                    'y2': 3
+                                }
+                            ],
+                            'name': 'bar1'
+                        },
+                        {
+                            'data': [
+                                {
+                                    'x': 'a',
+                                    'y2': 4
+                                },
+                                {
+                                    'x': 'b',
+                                    'y2': 5
+                                },
+                                {
+                                    'x': 'c',
+                                    'y2': 6
+                                }
+                            ],
+                            'name': 'bar2'
+                        }
+                    ],
+                    'type': 'bar'
                 }
             ],
             'options': {
