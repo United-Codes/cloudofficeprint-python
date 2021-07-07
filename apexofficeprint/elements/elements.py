@@ -656,11 +656,40 @@ class EventQRCode(QRCode):
         return result
 
 
+class AOPChartDateOptions:
+    """Date options for an AOPChart (different from ChartDateOptions in charts.py)."""
+    def __init__(self,
+                 format: str = None,
+                 unit: str = None,
+                 step: Union[int, str] = None):
+        self.format: str = format
+        """The format to display the date on the chart's axis."""
+        self.unit: str = unit
+        """The unit to be used for spacing the axis values."""
+        self.step: Union[int, str] = step
+        """how many of the above unit should be used for spacing the axis values (automatic if undefined). 
+        This option is not supported in LibreOffice."""
+
+    @property
+    def as_dict(self):
+        result = {}
+
+        if self.format is not None:
+            result["format"] = self.format
+        if self.unit is not None:
+            result["unit"] = self.unit
+        if self.step is not None:
+            result["step"] = self.step
+
+        return result
+
+
 class AOPChart(Element):
     def __init__(self,
                  name: str,
                  x_data: Iterable,
                  y_datas: Union[Iterable[Iterable], Mapping[str, Iterable]],
+                 date: AOPChartDateOptions = None,
                  title: str = None,
                  x_title: str = None,
                  y_title: str = None,
@@ -670,6 +699,7 @@ class AOPChart(Element):
         self.x_data: List = list(x_data)
 
         self.y_datas: Dict[str, Iterable[Union[str, int, float]]] = None
+        """If the argument 'y_datas' is of type Iterable[Iterable], then default names (e.g. series 1, series 2, ...) will be used."""
         if isinstance(y_datas, Mapping):
             self.y_datas = {
                 name: list(data) for name, data in y_datas.items()
@@ -682,6 +712,7 @@ class AOPChart(Element):
             raise TypeError(
                 f'Expected Mapping or Iterable for y_data, got "{type(y_datas)}"')
 
+        self.date: AOPChartDateOptions = date
         self.title: str = title
         self.x_title: str = x_title
         self.y_title: str = y_title
@@ -692,6 +723,7 @@ class AOPChart(Element):
     def from_dataframe(cls,
                        name: str,
                        data: 'pandas.DataFrame',
+                       date: AOPChartDateOptions = None,
                        title: str = None,
                        x_title: str = None,
                        y_title: str = None,
@@ -704,7 +736,7 @@ class AOPChart(Element):
         for col_name, col_data in y_frame.iteritems():
             y_datas[col_name] = col_data
 
-        return cls(name, x_data, y_datas, title, x_title, y_title, x2_title, y2_title)
+        return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)
 
     @property
     def as_dict(self) -> dict:
@@ -722,6 +754,8 @@ class AOPChart(Element):
 
         if self.title is not None:
             result["title"] = self.title
+        if self.date is not None:
+            result['xAxis']['date'] = self.date.as_dict
         if self.x_title is not None:
             result["xAxis"]["title"] = self.x_title
         if self.y_title is not None:
