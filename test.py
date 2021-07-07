@@ -303,55 +303,57 @@ def test_aop_pdf_texts():
         font_size=20
     )
     pdf_texts = aop.elements.PDFTexts((pdf_text1_1, pdf_text1_2, pdf_text2, pdf_text_all))
-    pdf_texts_expecteds = {
-        '3': [
-            {
-                'text': 'test1_1',
-                'x': 50,
-                'y': 60,
-                'rotation': 45,
-                'bold': False,
+    pdf_texts_expected = {
+        'AOP_PDF_TEXTS': {
+            '3': [
+                {
+                    'text': 'test1_1',
+                    'x': 50,
+                    'y': 60,
+                    'rotation': 45,
+                    'bold': False,
+                    'italic': True,
+                    'font': 'Arial',
+                    'font_color': 'blue',
+                    'font_size': 12
+                },
+                {
+                    'text': 'test1_2',
+                    'x': 20,
+                    'y': 30,
+                    'rotation': 45,
+                    'bold': False,
+                    'italic': False,
+                    'font': 'Arial',
+                    'font_color': 'red',
+                    'font_size': 10
+                }
+            ],
+            '5': {
+                'text': 'test2',
+                'x': 60,
+                'y': 70,
+                'rotation': 30,
+                'bold': True,
                 'italic': True,
-                'font': 'Arial',
-                'font_color': 'blue',
-                'font_size': 12
+                'font': 'Times new roman',
+                'font_color': '#FF00FF',
+                'font_size': 15
             },
-            {
-                'text': 'test1_2',
+            'all': {
+                'text': 'test_all',
                 'x': 20,
                 'y': 30,
-                'rotation': 45,
-                'bold': False,
+                'rotation': 15,
+                'bold': True,
                 'italic': False,
                 'font': 'Arial',
                 'font_color': 'red',
-                'font_size': 10
+                'font_size': 20
             }
-        ],
-        '5': {
-            'text': 'test2',
-            'x': 60,
-            'y': 70,
-            'rotation': 30,
-            'bold': True,
-            'italic': True,
-            'font': 'Times new roman',
-            'font_color': '#FF00FF',
-            'font_size': 15
-        },
-        'all': {
-            'text': 'test_all',
-            'x': 20,
-            'y': 30,
-            'rotation': 15,
-            'bold': True,
-            'italic': False,
-            'font': 'Arial',
-            'font_color': 'red',
-            'font_size': 20
         }
     }
-    assert pdf_texts.as_dict == pdf_texts_expecteds
+    assert pdf_texts.as_dict == pdf_texts_expected
 
 def test_aop_pdf_images():
     """Test aop_pdf_images element"""
@@ -396,43 +398,45 @@ def test_aop_pdf_images():
     )
     pdf_images = aop.elements.PDFImages((pdf_image1_1, pdf_image1_2, pdf_image2, pdf_image_all))
     pdf_images_expected = {
-        '3': [
-            {
-                'image': 'test1_1',
-                'x': 50,
-                'y': 60,
-                'rotation': 45,
-                'image_width': 50,
-                'image_height': 50,
+        'AOP_PDF_IMAGES': {
+            '3': [
+                {
+                    'image': 'test1_1',
+                    'x': 50,
+                    'y': 60,
+                    'rotation': 45,
+                    'image_width': 50,
+                    'image_height': 50,
+                    'image_max_width': 100
+                },
+                {
+                    'image': 'test1_2',
+                    'x': 60,
+                    'y': 70,
+                    'rotation': 30,
+                    'image_width': 75,
+                    'image_height': 75,
+                    'image_max_width': 75
+                }
+            ],
+            '5': {
+                'image': 'test2',
+                'x': 20,
+                'y': 30,
+                'rotation': 15,
+                'image_width': 100,
+                'image_height': 100,
                 'image_max_width': 100
             },
-            {
-                'image': 'test1_2',
-                'x': 60,
-                'y': 70,
-                'rotation': 30,
-                'image_width': 75,
-                'image_height': 75,
-                'image_max_width': 75
+            'all': {
+                'image': 'test_all',
+                'x': 25,
+                'y': 26,
+                'rotation': 45,
+                'image_width': 20,
+                'image_height': 20,
+                'image_max_width': 50
             }
-        ],
-        '5': {
-            'image': 'test2',
-            'x': 20,
-            'y': 30,
-            'rotation': 15,
-            'image_width': 100,
-            'image_height': 100,
-            'image_max_width': 100
-        },
-        'all': {
-            'image': 'test_all',
-            'x': 25,
-            'y': 26,
-            'rotation': 45,
-            'image_width': 20,
-            'image_height': 20,
-            'image_max_width': 50
         }
     }
     assert pdf_images.as_dict == pdf_images_expected

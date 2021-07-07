@@ -169,7 +169,7 @@ class PDFTexts(Element):
                     result[str(txt.page)] = [result[str(txt.page)], txt._inner_dict]
             else:
                 result[str(txt.page)] = txt._inner_dict
-        return result
+        return {self.name: result}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -201,7 +201,7 @@ class PDFImages(Element):
                     result[str(img.page)] = [result[str(img.page)], img._inner_dict]
             else:
                 result[str(img.page)] = img._inner_dict
-        return result
+        return {self.name: result}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -220,7 +220,7 @@ class PDFFormData(Element):
 
     @property
     def as_dict(self):
-        return self.form_data
+        return {self.name: self.form_data}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
