@@ -676,7 +676,7 @@ class AOPChart(Element):
             }
         elif isinstance(y_datas, Iterable):
             self.y_datas = {
-                f"series {i+1}": data for i, data in enumerate(y_datas)
+                f"series {i+1}": list(data) for i, data in enumerate(y_datas)
             }
         else:
             raise TypeError(
@@ -720,18 +720,20 @@ class AOPChart(Element):
             }
         }
 
-        if self.title:
+        if self.title is not None:
             result["title"] = self.title
-        if self.x_title:
+        if self.x_title is not None:
             result["xAxis"]["title"] = self.x_title
-        if self.y_title:
+        if self.y_title is not None:
             result["yAxis"]["title"] = self.y_title
-        if self.x2_title:
+        if self.x2_title is not None:
+            result['x2Axis'] = {}
             result["x2Axis"]["title"] = self.x2_title
-        if self.y2_title:
+        if self.y2_title is not None:
+            result['y2Axis'] = {}
             result["y2Axis"]["title"] = self.y2_title
 
-        return result
+        return {self.name: result}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
