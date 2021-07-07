@@ -140,14 +140,15 @@ class ChartOptions():
                  background_color: str = None,
                  background_opacity: int = None,
                  title: str = None,
-                 title_style: ChartTextStyle = None):
+                 title_style: ChartTextStyle = None,
+                 grid: bool = None):
         self._legend_options: dict = None
         self._data_labels_options: dict = None
 
         self.x_axis: ChartAxisOptions = x_axis
         self.y_axis: ChartAxisOptions = y_axis
         self.y2_axis: ChartAxisOptions = y2_axis
-        if y_axis.date is not None or y2_axis.date is not None:
+        if y_axis.date is not None or (y2_axis is not None and y2_axis.date is not None):
             warning('"date" options for the y or y2 axes are ignored by the AOP server.')
 
         self.width: int = width
@@ -158,6 +159,7 @@ class ChartOptions():
         self.background_opacity: int = background_opacity
         self.title: str = title
         self.title_style: ChartTextStyle = title_style
+        self.grid: bool = grid
 
     def set_legend(self, position: str = 'r', style: ChartTextStyle = None):
         self._legend_options = {
@@ -227,6 +229,8 @@ class ChartOptions():
             result["title"] = self.title
         if self.title_style is not None:
             result["title_style"] = self.title_style.as_dict
+        if self.grid is not None:
+            result["grid"] = self.grid
         if self._legend_options is not None:
             result["legend"] = self._legend_options
         if self._data_labels_options is not None:
@@ -690,6 +694,9 @@ def _replace_key_recursive(obj, old_key, new_key):
     for key, value in obj.items():
         if isinstance(value, dict):
             obj[key] = _replace_key_recursive(value, old_key, new_key)
+        elif isinstance(value, list):
+            for i in range(len(value)):
+                value[i] = _replace_key_recursive(value[i], old_key, new_key)
     if old_key in obj:
         obj[new_key] = obj.pop(old_key)
     return obj
@@ -715,11 +722,11 @@ class CombinedChart(Chart):
         dict_list = []
         for chart in primary_list:
             chart_dict = chart.as_dict
-            chart_dict.pop("options", None)
+            chart_dict[chart.name].pop("options", None)
             dict_list.append(chart_dict)
         for chart in secondary_list:
             chart_dict = chart.as_dict
-            chart_dict.pop("options", None)
+            chart_dict[chart.name].pop("options", None)
             dict_list.append(_replace_key_recursive(chart_dict, "y", "y2"))
         return dict_list
 
