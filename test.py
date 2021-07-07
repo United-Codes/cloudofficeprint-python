@@ -4,8 +4,6 @@ import asyncio
 import pathlib
 import pprint
 
-from test_charts import run as test_charts_run
-
 
 TEMPLATE_PATH = "./test/template.docx"
 LOCAL_SERVER_URL = "http://localhost:8010"
@@ -115,156 +113,6 @@ def test_full_json():
     json_data = json_file.read()
     aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
 
-def test_pdf_options():
-    """Test class PDFOptions in combination with OutputConfig"""
-    pdf_opts = aop.config.PDFOptions(
-        read_password='test_pw',
-        watermark='test_watermark',
-        page_width=500,
-        page_height=500,
-        even_page=True,
-        merge_making_even=False,
-        modify_password='test_modify_password',
-        password_protection_flag=0,
-        lock_form=True,
-        copies=3,
-        page_margin=5,
-        landscape=False,
-        page_format='test_page_format',
-        merge=False,
-        sign_certificate='test_sign_certificate',
-        identify_form_fields=True)
-    pdf_opts.set_page_margin_at(6, 'top')
-    conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
-    conf_expected = {
-        'output_type': 'pdf',
-        'output_encoding': 'raw',
-        'output_converter': 'libreoffice',
-        'output_read_password': 'test_pw',
-        'output_watermark': 'test_watermark',
-        'output_page_width': 500,
-        'output_page_height': 500,
-        'output_even_page': True,
-        'output_merge_making_even': False,
-        'output_modify_password': 'test_modify_password',
-        'output_password_protection_flag': 0,
-        'lock_form': True,
-        'output_copies': 3,
-        'page_margin': {
-            'top': 6,
-            'bottom': 5,
-            'left': 5,
-            'right': 5
-        },
-        'page_orientation': 'portrait',
-        'output_page_format': 'test_page_format',
-        'output_merge': False,
-        'output_sign_certificate': 'test_sign_certificate',
-        'identify_form_fields': True
-    }
-    assert conf.as_dict == conf_expected
-
-def test_cloud_access_tokens():
-    """Test cloud access for output file: OAuthToken, AWSToken, FTPToken and SFTPToken"""
-    # OAuthToken
-    o_auth_token = aop.config.CloudAccessToken.from_OAuth('dropbox', 'dummy_token')
-    o_auth_token_expected = {
-        'output_location': 'dropbox',
-        'cloud_access_token': 'dummy_token'
-    }
-    assert o_auth_token.as_dict == o_auth_token_expected
-
-    # AWSToken
-    aws_token = aop.config.CloudAccessToken.from_AWS('AWS_access_key_id', 'AWS_secter_access_key')
-    aws_token_expected = {
-        "output_location": 'aws_s3',
-        "cloud_access_token": {
-            "access_key": 'AWS_access_key_id',
-            "secret_access_key": 'AWS_secter_access_key'
-        }
-    }
-    assert aws_token.as_dict == aws_token_expected
-
-    # FTPToken & SFTPToken
-    ftp_token = aop.config.CloudAccessToken.from_FTP('host_name', 35, 'dummy_user', 'dummy_pw')
-    ftp_cloud_access_token = {
-        'host': 'host_name',
-        'port': 35,
-        'user': 'dummy_user',
-        'password': 'dummy_pw'
-    }
-    ftp_token_expected = {
-        "output_location": 'ftp',
-        "cloud_access_token": ftp_cloud_access_token
-    }
-    sftp_token = aop.config.CloudAccessToken.from_SFTP('host_name', 35, 'dummy_user', 'dummy_pw')
-    sftp_token_expected = {
-        "output_location": 'sftp',
-        "cloud_access_token": ftp_cloud_access_token
-    }
-    assert ftp_token.as_dict == ftp_token_expected
-    assert sftp_token.as_dict == sftp_token_expected
-
-def test_commands():
-    """Test post-process, conversion and merge commands"""
-    # post_process
-    post_process_command = aop.config.server.Command(
-        command='echo_post',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-    )
-    post_process_commands = aop.config.server.Commands(
-        post_process=post_process_command,
-        post_process_return=False,
-        post_process_delete_delay=1500
-    )
-    post_process_expected = {
-        "post_process": {
-            "command": "echo_post",
-            "return_output": False,
-            "delete_delay": 1500,
-            "command_parameters": { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-        }
-    }
-    assert post_process_commands._dict == post_process_expected
-
-    # conversion
-    pre_conversion_command = aop.config.server.Command(
-        command='echo_pre',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-    )
-    post_conversion_command = aop.config.server.Command(
-        command='echo_post',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-    )
-    conversion_commands = aop.config.server.Commands(
-        pre_conversion=pre_conversion_command,
-        post_conversion=post_conversion_command
-    )
-    conversion_expected = {
-        'conversion': {
-            'pre_command': 'echo_pre',
-            'pre_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" },
-            'post_command': 'echo_post',
-            'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-        }
-    }
-    assert conversion_commands._dict == conversion_expected
-
-    # merge
-    post_merge_command = aop.config.server.Command(
-        command='echo_post',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-    )
-    post_merge_commands = aop.config.server.Commands(
-        post_merge=post_merge_command
-    )
-    post_merge_expected = {
-        'merge': {
-            'post_command': 'echo_post',
-            'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
-        }
-    }
-    assert post_merge_commands._dict == post_merge_expected
 
 def test_resource():
     """Test if the different types of resources return the expected result."""
@@ -404,15 +252,6 @@ def test_prepend_append_subtemplate():
     assert printjob.as_dict == printjob_expected
     # printjob.execute().to_file("./test/prepend_append_subtemplate_test") # Works as expected
 
-def test_route_paths():
-    """Test output types of route path functions"""
-    assert type(server.get_version_soffice()) == str
-    assert type(server.get_version_officetopdf()) == str
-    assert type(server.get_version_aop()) == str
-    assert type(server.get_supported_template_mimetypes()) == dict
-    assert type(server.get_supported_output_mimetypes('docx')) == dict
-    assert type(server.get_supported_prepend_mimetypes()) == dict
-    assert type(server.get_supported_append_mimetypes()) == dict
 
 def test_aop_pdf_texts():
     """Test aop_pdf_texts element"""
@@ -598,177 +437,6 @@ def test_aop_pdf_images():
     }
     assert pdf_images.as_dict == pdf_images_expected
 
-def test_barcodes():
-    """Test class BarCode, a subclass of class Code"""
-    barcode = aop.elements.BarCode(
-        name='name',
-        data='data',
-        type='ean13',
-        height=50,
-        width=50,
-        errorcorrectlevel='L',
-        url='url',
-        rotation=45,
-        background_color='red',
-        padding_width=25,
-        padding_height=25,
-        extra_options='includetext guardwhitespace'
-    )
-    barcode_expected = {
-        'name': 'data',
-        'name_type': 'ean13',
-        'name_height': 50,
-        'name_width': 50,
-        'name_errorcorrectlevel': 'L',
-        'name_url': 'url',
-        'name_rotation': 45,
-        'name_background_color': 'red',
-        'name_padding_width': 25,
-        'name_padding_height': 25,
-        'name_extra_options': 'includetext guardwhitespace'
-    }
-    assert barcode.as_dict == barcode_expected
-
-def test_qr_codes():
-    """Test class QRCode, a subclass of class Code, and all its subclasses"""
-    wifi = aop.elements.WiFiQRCode(
-        name='name',
-        ssid='ssid',
-        wifi_password='password',
-        wifi_encryption='WPA',
-        wifi_hidden=False
-    )
-    wifi_expected = {
-        'name': 'ssid',
-        'name_type': 'qr_wifi',
-        'name_wifi_password': 'password',
-        'name_wifi_encryption': 'WPA',
-        'name_wifi_hidden': False
-    }
-    assert wifi.as_dict == wifi_expected
-
-    telephone_number = aop.elements.TelephoneNumberQRCode(
-        name='name',
-        number='+32_test_number'
-    )
-    telephone_number_expected = {
-        'name': '+32_test_number',
-        'name_type': 'qr_telephone'
-    }
-    assert telephone_number.as_dict == telephone_number_expected
-
-    email = aop.elements.EmailQRCode(
-        name='name',
-        receiver='receiver',
-        cc='cc',
-        bcc='bcc',
-        subject='subject',
-        body='body'
-    )
-    email_expected = {
-        'name': 'receiver',
-        'name_type': 'qr_email',
-        'name_email_cc': 'cc',
-        'name_email_bcc': 'bcc',
-        'name_email_subject': 'subject',
-        'name_email_body': 'body'
-    }
-    assert email.as_dict == email_expected
-
-    sms = aop.elements.SMSQRCode(
-        name='name',
-        receiver='receiver',
-        sms_body='sms_body'
-    )
-    sms_expected = {
-        'name': 'receiver',
-        'name_type': 'qr_sms',
-        'name_sms_body': 'sms_body'
-    }
-    assert sms.as_dict == sms_expected
-
-    url = aop.elements.URLQRCode(
-        name='name',
-        url='url'
-    )
-    url_expected = {
-        'name': 'url',
-        'name_type': 'qr_url'
-    }
-    assert url.as_dict == url_expected
-
-    v_card = aop.elements.VCardQRCode(
-        name='name',
-        first_name='first_name',
-        last_name='last_name',
-        email='email',
-        website='website'
-    )
-    v_card_expected = {
-        'name': 'first_name',
-        'name_type': 'qr_vcard',
-        'name_vcard_last_name': 'last_name',
-        'name_vcard_email': 'email',
-        'name_vcard_website': 'website'
-    }
-    assert v_card.as_dict == v_card_expected
-
-    me_card = aop.elements.MeCard(
-        name='name',
-        first_name='first_name',
-        last_name='last_name',
-        nickname='nickname',
-        email='email',
-        contact_primary='contact_primary',
-        contact_secondary='contact_secondary',
-        contact_tertiary='contact_tertiary',
-        website='website',
-        birthday='birthday',
-        notes='notes'
-    )
-    me_card_expected = {
-        'name': 'first_name',
-        'name_type': 'qr_me_card',
-        'name_me_card_last_name': 'last_name',
-        'name_me_card_nickname': 'nickname',
-        'name_me_card_email': 'email',
-        'name_me_card_contact_primary': 'contact_primary',
-        'name_me_card_contact_secondary': 'contact_secondary',
-        'name_me_card_contact_tertiary': 'contact_tertiary',
-        'name_me_card_website': 'website',
-        'name_me_card_birthday': 'birthday',
-        'name_me_card_notes': 'notes'
-    }
-    assert me_card.as_dict == me_card_expected
-
-    geolocation = aop.elements.GeolocationQRCode(
-        name='name',
-        latitude='latitude',
-        longitude='longitude',
-        altitude='altitude'
-    )
-    geolocation_expected = {
-        'name': 'latitude',
-        'name_type': 'qr_geolocation',
-        'name_geolocation_longitude': 'longitude',
-        'name_geolocation_altitude': 'altitude'
-    }
-    assert geolocation.as_dict == geolocation_expected
-
-    event = aop.elements.EventQRCode(
-        name='name',
-        summary='summary',
-        startdate='startdate',
-        enddate='enddate'
-    )
-    event_expected = {
-        'name': 'summary',
-        'name_type': 'qr_event',
-        'name_event_startdate': 'startdate',
-        'name_event_enddate': 'enddate'
-    }
-    assert event.as_dict == event_expected
-    
 
 if __name__ == "__main__":
     # test1()
@@ -776,16 +444,15 @@ if __name__ == "__main__":
     # asyncio.run(test_async())
     # test_chart()
     # test_aopchart()
-    test_pdf_options()
-    test_cloud_access_tokens()
-    test_commands()
     test_resource()
     test_prepend_append_subtemplate()
-    test_route_paths()
     test_aop_pdf_texts()
     test_aop_pdf_images()
-    test_barcodes()
-    test_qr_codes()
 
-    # Test charts (from test_charts.py)
-    test_charts_run()
+    from test_charts import run as test_charts
+    from test_config import run as test_config
+    from test_codes import run as test_codes
+
+    test_charts()
+    test_config()
+    test_codes()
