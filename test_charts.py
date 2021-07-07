@@ -868,6 +868,112 @@ def test_chart_combined():
     }
     assert combined_chart.as_dict == combined_chart_expected
 
+
+def test_chart_aop():
+    aop_chart = aop.elements.AOPChart(
+        name='aop_chart',
+        x_data=('a', 'b', 'c'),
+        y_datas=((1, 2, 3), (4, 5, 6)),
+        title='aop_chart_title',
+        date=aop.elements.AOPChartDateOptions(
+            format='d/m/yyyy',
+            unit='days',
+            step=1
+        ),
+        x_title='x-axis',
+        y_title='y-axis',
+        y2_title='y2-axis',
+        x2_title='x2-axis'
+    )
+    aop_chart_expected = {
+        'aop_chart': {
+            'xAxis': {
+                'data': ['a', 'b', 'c'],
+                'title': 'x-axis',
+                'date': {
+                    'format': 'd/m/yyyy',
+                    'unit': 'days',
+                    'step': 1
+                }
+            },
+            'yAxis': {
+                'series': [
+                    {
+                        'name': 'series 1',
+                        'data': [1, 2, 3]
+                    },
+                    {
+                        'name': 'series 2',
+                        'data': [4, 5, 6]
+                    }
+                ],
+                'title': 'y-axis'
+            },
+            'title': 'aop_chart_title',
+            'x2Axis': {
+                'title': 'x2-axis'
+            },
+            'y2Axis': {
+                'title': 'y2-axis'
+            }
+        }
+    }
+    assert aop_chart.as_dict == aop_chart_expected
+
+    # Test for y_datas = dictionary
+    aop_chart = aop.elements.AOPChart(
+        name='aop_chart',
+        x_data=('a', 'b', 'c'),
+        y_datas={
+            'first_series': (1, 2, 3),
+            'second_series': (4, 5, 6)
+        },
+        title='aop_chart_title',
+        date=aop.elements.AOPChartDateOptions(
+            format='d/m/yyyy',
+            unit='days',
+            step=1
+        ),
+        x_title='x-axis',
+        y_title='y-axis',
+        y2_title='y2-axis',
+        x2_title='x2-axis'
+    )
+    aop_chart_expected = {
+        'aop_chart': {
+            'xAxis': {
+                'data': ['a', 'b', 'c'],
+                'title': 'x-axis',
+                'date': {
+                    'format': 'd/m/yyyy',
+                    'unit': 'days',
+                    'step': 1
+                }
+            },
+            'yAxis': {
+                'series': [
+                    {
+                        'name': 'first_series',
+                        'data': [1, 2, 3]
+                    },
+                    {
+                        'name': 'second_series',
+                        'data': [4, 5, 6]
+                    }
+                ],
+                'title': 'y-axis'
+            },
+            'title': 'aop_chart_title',
+            'x2Axis': {
+                'title': 'x2-axis'
+            },
+            'y2Axis': {
+                'title': 'y2-axis'
+            }
+        }
+    }
+    assert aop_chart.as_dict == aop_chart_expected
+
 def run():
     test_chart_options()
     test_chart_line()
@@ -877,3 +983,4 @@ def run():
     test_chart_bubble()
     test_chart_stock()
     test_chart_combined()
+    test_chart_aop()
