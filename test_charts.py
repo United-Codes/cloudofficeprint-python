@@ -77,7 +77,8 @@ def test_chart_options():
             bold=True,
             color='red',
             font='Arial'
-        )
+        ),
+        grid=True
     )
     options.set_legend(
         position='l',
@@ -195,6 +196,7 @@ def test_chart_options():
             'color': 'red',
             'font': 'Arial',
         },
+        'grid': True,
         'legend': {
             'showLegend': True,
             'position': 'l',
@@ -662,6 +664,216 @@ def test_chart_stock():
     assert stock_chart.as_dict == stock_chart_expected
 
 
+def test_chart_combined():
+    axis = aop.elements.ChartAxisOptions()
+    column1 = aop.elements.ColumnSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        name='column1'
+    )
+    column2 = aop.elements.ColumnSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        name='column2'
+    )
+    column_chart = aop.elements.ColumnChart(
+        name='column_chart',
+        columns=(column1, column2)
+    )
+    line1 = aop.elements.LineSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        name='line1',
+        symbol='square'
+    )
+    line2 = aop.elements.LineSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        name='line2',
+        symbol='square'
+    )
+    line_chart_options = aop.elements.ChartOptions(
+    x_axis=axis,
+    y_axis=axis,
+    width=50,
+    background_color='gray',
+    background_opacity=50
+    )
+    line_chart = aop.elements.LineChart(
+        name='line_chart',
+        lines=(line1, line2),
+        options=line_chart_options
+    )
+    bar1 = aop.elements.BarSeries(
+        x=('a', 'b', 'c'),
+        y=(1, 2, 3),
+        name='bar1'
+    )
+    bar2 = aop.elements.BarSeries(
+        x=('a', 'b', 'c'),
+        y=(4, 5, 6),
+        name='bar2'
+    )
+    bar_chart_options = aop.elements.ChartOptions(
+        x_axis=axis,
+        y_axis=axis,
+        width=100,
+        height=100,
+        rounded_corners=False
+    )
+    bar_chart = aop.elements.BarChart(
+        name='bar_chart',
+        bars=(bar1, bar2),
+        options=bar_chart_options
+    )
+    combined_chart = aop.elements.CombinedChart(
+        name='combined_chart',
+        charts=(column_chart, line_chart),
+        secondaryCharts=(bar_chart,)
+    )
+    combined_chart_expected = {
+        'combined_chart': {
+            'multiples': [
+                {
+                    'column_chart': {
+                        'columns': [
+                            {
+                                'data': [
+                                    {
+                                        'x': 'a',
+                                        'y': 1
+                                    },
+                                    {
+                                        'x': 'b',
+                                        'y': 2
+                                    },
+                                    {
+                                        'x': 'c',
+                                        'y': 3
+                                    }
+                                ],
+                                'name': 'column1'
+                            },
+                            {
+                                'data': [
+                                    {
+                                        'x': 'a',
+                                        'y': 4
+                                    },
+                                    {
+                                        'x': 'b',
+                                        'y': 5
+                                    },
+                                    {
+                                        'x': 'c',
+                                        'y': 6
+                                    }
+                                ],
+                                'name': 'column2'
+                            }
+                        ],
+                        'type': 'column'
+                    }
+                },
+                {
+                    'line_chart': {
+                        'lines': [
+                            {
+                                'data': [
+                                    {
+                                        'x': 'a',
+                                        'y': 1
+                                    },
+                                    {
+                                        'x': 'b',
+                                        'y': 2
+                                    },
+                                    {
+                                        'x': 'c',
+                                        'y': 3
+                                    }
+                                ],
+                                'name': 'line1',
+                                'symbol': 'square'
+                            },
+                            {
+                                'data': [
+                                    {
+                                        'x': 'a',
+                                        'y': 4
+                                    },
+                                    {
+                                        'x': 'b',
+                                        'y': 5
+                                    },
+                                    {
+                                        'x': 'c',
+                                        'y': 6
+                                    }
+                                ],
+                                'name': 'line2',
+                                'symbol': 'square'
+                            }
+                        ],
+                        'type': 'line'
+                    }
+                },
+                {
+                    'bar_chart': {
+                        'bars': [
+                            {
+                                'data': [
+                                    {
+                                        'x': 'a',
+                                        'y2': 1
+                                    },
+                                    {
+                                        'x': 'b',
+                                        'y2': 2
+                                    },
+                                    {
+                                        'x': 'c',
+                                        'y2': 3
+                                    }
+                                ],
+                                'name': 'bar1'
+                            },
+                            {
+                                'data': [
+                                    {
+                                        'x': 'a',
+                                        'y2': 4
+                                    },
+                                    {
+                                        'x': 'b',
+                                        'y2': 5
+                                    },
+                                    {
+                                        'x': 'c',
+                                        'y2': 6
+                                    }
+                                ],
+                                'name': 'bar2'
+                            }
+                        ],
+                        'type': 'bar'
+                    }
+                }
+            ],
+            'options': {
+                'axis': {
+                    'x': {},
+                    'y': {}
+                },
+                'width': 50,
+                'backgroundColor': 'gray',
+                'backgroundOpacity': 50
+            },
+            'type': 'multiple'
+        }
+    }
+    assert combined_chart.as_dict == combined_chart_expected
+
 def run():
     test_chart_options()
     test_chart_line()
@@ -670,3 +882,4 @@ def run():
     test_chart_area()
     test_chart_bubble()
     test_chart_stock()
+    test_chart_combined()
