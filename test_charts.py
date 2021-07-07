@@ -190,7 +190,7 @@ def test_chart_options():
         'backgroundColor': 'green',
         'backgroundOpacity': 50,
         'title': 'title_chart',
-        'title_style': {
+        'titleStyle': {
             'italic': False,
             'bold': True,
             'color': 'red',

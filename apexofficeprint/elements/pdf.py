@@ -168,8 +168,8 @@ class PDFTexts(Element):
                     # If there already is text for this page, but not yet in a list -> make a list
                     result[str(txt.page)] = [result[str(txt.page)], txt._inner_dict]
             else:
-                result[str(txt.page)] = txt._inner_dict
-        return {self.name: result}
+                result[str(txt.page)] = [txt._inner_dict]
+        return {self.name: [result]}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -200,8 +200,8 @@ class PDFImages(Element):
                     # If there already is an image for this page, but not yet in a list -> make a list
                     result[str(img.page)] = [result[str(img.page)], img._inner_dict]
             else:
-                result[str(img.page)] = img._inner_dict
-        return {self.name: result}
+                result[str(img.page)] = [img._inner_dict]
+        return {self.name: [result]}
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -214,7 +214,7 @@ class PDFFormData(Element):
     (Element name is fixed and important to the server, so multiple will just overwrite)
     and it should be at the outer level of an `Object`.
     """
-    def __init__(self, **form_data: Mapping[str, Union[str, bool]]):
+    def __init__(self, form_data: Mapping[str, Union[str, bool]]):
         super().__init__("aop_pdf_form_data")
         self.form_data = form_data
 

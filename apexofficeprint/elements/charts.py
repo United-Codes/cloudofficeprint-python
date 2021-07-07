@@ -228,7 +228,7 @@ class ChartOptions():
         if self.title is not None:
             result["title"] = self.title
         if self.title_style is not None:
-            result["title_style"] = self.title_style.as_dict
+            result["titleStyle"] = self.title_style.as_dict
         if self.grid is not None:
             result["grid"] = self.grid
         if self._legend_options is not None:
