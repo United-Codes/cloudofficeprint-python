@@ -122,8 +122,7 @@ class PrintJob:
 
         This representation is isomorphic to the json representation
         (`PrintJob.json`)."""
-        result = STATIC_OPTS
-
+        result = dict(STATIC_OPTS) # Copy of STATIC_OPTS! Otherwise everything we add to 'result' will also be added to 'STATIC_OPTS'
         # server config goes in the upper level
         if self.server.config:
             result.update(self.server.config.as_dict)

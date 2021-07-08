@@ -81,13 +81,12 @@ def test_rest_source_printjob():
             }
         ]
     }
-    # pprint.pprint(pj.as_dict)
     assert pj.as_dict == pj_expected
 
 def run():
     test_rest_source_rest()
     test_rest_source_graphql()
-    # test_rest_source_printjob()  # Works, but conflicts with test_prepend_append_subtemplate() in test.py (strange)
+    test_rest_source_printjob()
 
 if __name__ == '__main__':
     run()
