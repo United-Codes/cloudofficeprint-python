@@ -134,14 +134,6 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
-        # TODO: support REST endpoint as template file source (see docs)
-        # => Should be an extra Resource,
-        #    but the problem is these Resource objects can represent both
-        #    template files and prepend/append/subtemplate files.
-        #    From the docs, it looks like it's only supported for templates.
-        #    So it could be a Resource type that e.g. raises TypeError in its secondary_file_dict property getter,
-        #    but there might be a cleaner way.
-
         if isinstance(self.data, Mapping):
             result["files"] = [{
                 "filename": name,

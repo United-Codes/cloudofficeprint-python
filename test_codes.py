@@ -191,3 +191,6 @@ def run():
     test_qr_code_me_card()
     test_qr_code_geolocation()
     test_qr_code_event()
+
+if __name__ == '__main__':
+    run()

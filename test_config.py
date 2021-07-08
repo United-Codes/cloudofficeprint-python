@@ -172,3 +172,6 @@ def run():
     test_cloud_access_tokens()
     test_commands()
     test_route_paths()
+
+if __name__ == '__main__':
+    run()

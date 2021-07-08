@@ -984,3 +984,6 @@ def run():
     test_chart_stock()
     test_chart_combined()
     test_chart_aop()
+
+if __name__ == '__main__':
+    run()

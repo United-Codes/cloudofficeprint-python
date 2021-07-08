@@ -1,7 +1,5 @@
-from apexofficeprint._utils import file_utils
 import apexofficeprint as aop
 import asyncio
-import pathlib
 import pprint
 
 
@@ -113,63 +111,6 @@ def test_full_json():
     json_data = json_file.read()
     aop.PrintJob.execute_full_json(json_data, server).to_file("./test/from_full_json_output")
 
-
-def test_resource():
-    """Test if the different types of resources return the expected result."""
-    # Base64
-    resource = aop.Resource.from_base64('dummy', 'docx')
-    resource_expected = {
-        'file': 'dummy',
-        'template_type': 'docx'
-    }
-    assert resource.template_dict == resource_expected
-
-    # Local file (raw)
-    local_path = str(pathlib.Path().resolve()) + '/test/template.docx'
-    resource = aop.Resource.from_local_file(local_path)
-    with open(local_path, "rb") as f:
-        content = f.read()
-    resource_expected = {
-        'file': file_utils.raw_to_base64(content),
-        'template_type': 'docx'
-    }
-    assert resource.template_dict == resource_expected
-
-    # Server path
-    resource = aop.Resource.from_server_path('dummy/path.docx')
-    resource_expected = {
-        'filename': 'dummy/path.docx',
-        'template_type': 'docx'
-    }
-    assert resource.template_dict == resource_expected
-
-    # URL
-    resource = aop.Resource.from_url('dummy_url', 'docx')
-    resource_expected = {
-        'template_type': 'docx',
-        'url': 'dummy_url'
-    }
-    assert resource.template_dict == resource_expected
-
-    # HTML
-    html_string = """
-     <!DOCTYPE html>
-    <html>
-    <body>
-
-    <h1>My First Heading</h1>
-    <p>My first paragraph.</p>
-
-    </body>
-    </html> 
-    """
-    resource = aop.Resource.from_html(html_string, True)
-    resource_expected = {
-        'template_type': 'html',
-        'orientation': 'landscape',
-        'html_template_content': html_string
-    }
-    assert resource.template_dict == resource_expected
 
 def test_prepend_append_subtemplate():
     """Test prepending and appending files in class Printjob"""
@@ -480,7 +421,6 @@ if __name__ == "__main__":
     # asyncio.run(test_async())
     # test_chart()
     # test_aopchart()
-    test_resource()
     test_prepend_append_subtemplate()
     test_aop_pdf_texts()
     test_aop_pdf_images()
@@ -494,3 +434,5 @@ if __name__ == "__main__":
     test_codes()
     from test_rest_source import run as test_rest_source
     test_rest_source()
+    from test_resource import run as test_resource
+    test_resource()
