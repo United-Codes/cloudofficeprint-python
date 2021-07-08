@@ -2,6 +2,7 @@
 Module containing the PrintJob class, which is also exposed at package level.
 """
 
+from apexofficeprint.elements.rest_source import RESTSource
 import requests
 import asyncio
 import json
@@ -29,7 +30,7 @@ class PrintJob:
 
     def __init__(self,
                  template: Resource,
-                 data: Union[Element, Mapping[str, Element]],
+                 data: Union[Element, Mapping[str, Element], RESTSource],
                  server: Server,
                  output_config: OutputConfig = None,
                  subtemplates: Dict[str, Resource] = {},
@@ -38,14 +39,14 @@ class PrintJob:
         """
         Args:
             template (Resource): `PrintJob.template`.
-            data (Union[Element, Mapping[str, Element]]): `PrintJob.data`.
+            data (Union[Element, Mapping[str, Element]], RESTSource): `PrintJob.data`.
             server (Server): `PrintJob.server`.
             output_config (OutputConfig, optional): `Printjob.output_config`. Defaults to `OutputConfig`().
             subtemplates (Dict[str, Resource]): `Printjob.subtemplates`. Defaults to {}.
             prepend_files (List[Resource]): `Printjob.prepend_files`. Defaults to [].
             append_files (List[Resource]): `Printjob.append_files`. Defaults to [].
         """
-        self.data: Union[Element, Mapping[str, Element]] = data
+        self.data: Union[Element, Mapping[str, Element], RESTSource] = data
         """This is either:
         - An `Element` (e.g. an `Object`)
         - A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them.
@@ -71,6 +72,7 @@ class PrintJob:
 
     async def execute_async(self) -> Response:
         """Async version of `PrintJob.execute`"""
+        self.server._raise_if_unreachable()
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
                 None, partial(
@@ -146,6 +148,8 @@ class PrintJob:
                 "filename": name,
                 "data": data.as_dict
             } for name, data in self.data.items()]
+        elif isinstance(self.data, RESTSource):
+            result['files'] = [self.data.as_dict]
         else:
             result["files"] = [{"data": self.data.as_dict}]
 

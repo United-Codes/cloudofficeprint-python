@@ -15,7 +15,7 @@ class AOPError(Exception):
     def _split_message(message):
         separated = message.split("\n")
         user_message = "\n".join(separated[:-2]) # everything before the last 2 lines are considered user message
-        contact_support_message = separated[-2] # second to last line contains the separated message
+        contact_support_message = separated[-2] # second to last line contains the support message
         encoded_message = separated[-1] # last line contains the encoded message
         return [user_message, contact_support_message, encoded_message]
 

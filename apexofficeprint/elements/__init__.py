@@ -7,3 +7,4 @@ from .charts import *
 from .loops import *
 from .images import *
 from .pdf import *
+from .rest_source import *
