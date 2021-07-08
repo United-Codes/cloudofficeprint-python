@@ -487,9 +487,10 @@ if __name__ == "__main__":
     test_aop_pdf_forms()
 
     from test_charts import run as test_charts
-    from test_config import run as test_config
-    from test_codes import run as test_codes
-
     test_charts()
+    from test_config import run as test_config
     test_config()
+    from test_codes import run as test_codes
     test_codes()
+    from test_rest_source import run as test_rest_source
+    test_rest_source()
