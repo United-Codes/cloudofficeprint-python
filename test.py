@@ -113,3 +113,5 @@ if __name__ == "__main__":
     test_pdf()
     from test_loops import run as test_loops
     test_loops()
+    from test_images import run as test_images
+    test_images()
