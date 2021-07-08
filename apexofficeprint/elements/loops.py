@@ -59,7 +59,7 @@ class ForEachSheet(ForEach):
         # when it's just an iterable, don't add sheet names (or they can do the Property manually)
         if isinstance(content, Mapping):
             new_content = []
-            for sheetname, sheetcontent in content:
+            for sheetname, sheetcontent in content.items():
                 # we need to add the additional sheet_name property,
                 # so we should convert the Element to to an Object if needed
                 if not isinstance(sheetcontent, Object):
@@ -85,6 +85,11 @@ class ForEachInline(ForEach):
         }
 
 
+# These are the same, but they may not be forever
+# and combining them into one class breaks consistency
+ForEachHorizontal = ForEachInline
+
+
 class ForEachTableRow(ForEach):
     def __init__(self, name: str, content: Iterable[Element]):
         super().__init__(name, content)
@@ -92,8 +97,3 @@ class ForEachTableRow(ForEach):
             "{=" + name + "}",
             "{/" + name + "}"
         }
-
-
-# These are the same, but they may not be forever
-# and combining them into one class breaks consistency
-ForEachHorizontal = ForEachInline

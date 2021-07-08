@@ -13,27 +13,6 @@ server = aop.config.Server(
     aop.config.ServerConfig(api_key=API_KEY)
 )
 
-def test_chart():
-    line = aop.elements.LineChart(
-        "chart-name",
-        aop.elements.LineSeries([1, 2, 3, 4], [1, 2, 3, 4], color="green"),
-        aop.elements.XYSeries([1, 2, 3, 4], ["a", "b", "c", "d"])
-    )
-    area = aop.elements.AreaChart(
-        "area-chart-name", aop.elements.AreaSeries([1, 2, 3, 4], [5, 4, 6, 3]))
-    combi = aop.elements.CombinedChart("combi-chart-name", [line], [area])
-    del combi # del to avoid annoying unused var warning, thanks VS Code
-
-
-def test_aopchart():
-    aopchart = aop.elements.AOPChart(
-        "chartName",
-        [1, 2, 3, 4],
-        [[5, 6, 8, 9], [3, 3, 3, 3]]
-    )
-    del aopchart
-
-
 def test1():
     # load a local file
     template = aop.Resource.from_local_file(TEMPLATE_PATH)
@@ -116,8 +95,7 @@ if __name__ == "__main__":
     # test1()
     # test_full_json()
     # asyncio.run(test_async())
-    # test_chart()
-    # test_aopchart()
+
 
     from test_charts import run as test_charts
     test_charts()
@@ -133,3 +111,5 @@ if __name__ == "__main__":
     test_printjob()
     from test_pdf import run as test_pdf
     test_pdf()
+    from test_loops import run as test_loops
+    test_loops()
