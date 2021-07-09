@@ -299,11 +299,11 @@ class Watermark(Property):
                  opacity: float = None,
                  rotation: int = None):
         super().__init__(name, text)
-        self.color: str = color,
-        self.font: str = font,
-        self.width: Union[int, str] = width,
-        self.height: Union[int, str] = height,
-        self.opacity: float = opacity,
+        self.color: str = color
+        self.font: str = font
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+        self.opacity: float = opacity
         self.rotation: int = rotation
 
     @property
@@ -332,14 +332,27 @@ class Watermark(Property):
         return result
 
 
-class D3Code(Property):
-    def __init__(self, name: str, code: str):
-        super().__init__(name, code)
+class D3Code(Element):
+    def __init__(self, name: str, code: str, data=None):
+        super().__init__(name)
+        self.code: str = code
+        self.data = data
+        """The data that the code will have access to"""
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{$d3 " + self.name + "}"})
+    
+    @property
+    def as_dict(self):
+        result = {
+            self.name: self.code
+        }
 
+        if self.data is not None:
+            result[self.name + '_data'] = self.data
+        
+        return result
 
 class AOPChartDateOptions:
     """Date options for an AOPChart (different from ChartDateOptions in charts.py)."""
@@ -464,10 +477,6 @@ class Object(list, Element):
     It can contain nested `Object`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
     Its name is used as a key name when nested, but ignored for all purposes when it's the outer object.
     """
-    # Object inherits from list, which may look odd or overkill (why not set, tuple ...?).
-    # It's because we need it to be mutable and also to be able to contain itself.
-    # A tuple is not mutable.
-    # A set is mutable but needs its contents to be hashable. A set itself is not hashable, so it cannot contain other sets.
     def __init__(self, name: str = "", elements: Iterable[Element] = ()):
         # name is not used for the outer object, but needed for nested objects
         list.__init__(self, elements)

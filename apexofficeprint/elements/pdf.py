@@ -149,8 +149,6 @@ class PDFTexts(Element):
     (Element name is fixed and important to the server, so multiple will just overwrite)
     and it should be at the outer level of an `Object`.
     """
-    # TODO: it may make more sense to do these (PDFTexts, PDFImages, PDFFormData) as config options,
-    # then PrintJob has to add the "AOP_PDF_TEXTS" Object to the data.
     def __init__(self, texts: Iterable[PDFText]):
         super().__init__("AOP_PDF_TEXTS")
         self.texts = texts

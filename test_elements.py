@@ -102,6 +102,45 @@ def test_styled_property():
     assert styled_prop.as_dict == styled_prop_expected
 
 
+def test_watermark():
+    watermark = aop.elements.Watermark(
+        name='wm_name',
+        text='wm_text',
+        color='red',
+        font='Arial',
+        width=50,
+        height=30,
+        opacity=50,
+        rotation=-45
+    )
+    watermark_expected = {
+        'wm_name': 'wm_text',
+        'wm_name_color': 'red',
+        'wm_name_font': 'Arial',
+        'wm_name_width': 50,
+        'wm_name_height': 30,
+        'wm_name_opacity': 50,
+        'wm_name_rotation': -45
+    }
+    assert watermark.as_dict == watermark_expected
+
+
+def test_d3_code():
+    d3 = aop.elements.D3Code(
+        name='d3_code',
+        code='test_code',
+        data=['a', 1, 2, 3, 'b']
+    )
+    d3_expected = {
+        'd3_code': 'test_code',
+        'd3_code_data': ['a', 1, 2, 3, 'b']
+    }
+    assert d3.as_dict == d3_expected
+
+
+def test_object():
+    pass
+
 def run():
     test_property()
     test_cell_style_property()
@@ -109,6 +148,10 @@ def run():
     test_table_of_content()
     test_span()
     test_styled_property()
+    test_watermark()
+    test_d3_code()
+    # AOP charts get tested in test_charts.py
+    test_object()
 
 
 
