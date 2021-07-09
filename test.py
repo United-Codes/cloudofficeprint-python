@@ -115,3 +115,5 @@ if __name__ == "__main__":
     test_loops()
     from test_images import run as test_images
     test_images()
+    from test_elements import run as test_elements
+    test_elements()

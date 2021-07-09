@@ -1,12 +1,11 @@
 import json
-from .._utils import file_utils
 from copy import deepcopy
 from typing import Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 
 
 class CellStyle:
-    def __init__(self, background_color: str = None, width: str = None):
+    def __init__(self, background_color: str = None, width: Union[str, int] = None):
         self.background_color: str = background_color
         self.width: Union[str, int] = width
 
@@ -150,7 +149,7 @@ class FootNote(Property):
         return frozenset({"{+" + self.name + "}"})
 
 
-class HyperLink(Element):
+class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
         super().__init__(name)
         self.url: str = url
@@ -176,8 +175,11 @@ class TableOfContents(Element):
     def __init__(self, name: str, title: str, depth: int = None, tab_leader: str = None):
         super().__init__(name)
         self.title: str = title
-        self.depth: int = None
-        self.tab_leader: str = None
+        """Title of the table of contents. Default is 'Contents'"""
+        self.depth: int = depth
+        """The depth of heading to be shown, default 3"""
+        self.tab_leader: str = tab_leader
+        """How the space between title and page number should be filled. Can be "hyphen", "underscore", or "dot" (default)."""
 
     @property
     def available_tags(self):
@@ -245,16 +247,16 @@ class StyledProperty(Property):
                  italic: bool = None,
                  underline: bool = None,
                  strikethrough: bool = None,
-                 highlight_color: bool = None):
+                 highlight_color: str = None):
         super().__init__(name, value)
-        self.font: str = font,
-        self.font_size: Union[str, int] = font_size,
-        self.font_color: str = font_color,
-        self.bold: bool = bold,
-        self.italic: bool = italic,
-        self.underline: bool = underline,
-        self.strikethrough: bool = strikethrough,
-        self.highlight_color: bool = highlight_color
+        self.font: str = font
+        self.font_size: Union[str, int] = font_size
+        self.font_color: str = font_color
+        self.bold: bool = bold
+        self.italic: bool = italic
+        self.underline: bool = underline
+        self.strikethrough: bool = strikethrough
+        self.highlight_color: str = highlight_color
 
     @property
     def available_tags(self):
@@ -266,11 +268,11 @@ class StyledProperty(Property):
             self.name: self.value
         }
 
-        if self.font:
+        if self.font is not None:
             result[self.name + "_font_family"] = self.font
-        if self.font_size:
+        if self.font_size is not None:
             result[self.name + "_font_size"] = self.font_size
-        if self.font_color:
+        if self.font_color is not None:
             result[self.name + "_font_color"] = self.font_color
         if self.bold is not None:
             result[self.name + "_bold"] = self.bold
@@ -280,8 +282,8 @@ class StyledProperty(Property):
             result[self.name + "_underline"] = self.underline
         if self.strikethrough is not None:
             result[self.name + "_strikethrough"] = self.strikethrough
-        if self.font_color:
-            result[self.name + "_font_color"] = self.font_color
+        if self.highlight_color is not None:
+            result[self.name + "_highlight"] = self.highlight_color
 
         return result
 
