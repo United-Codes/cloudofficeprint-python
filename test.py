@@ -17,22 +17,22 @@ def test1():
     # load a local file
     template = aop.Resource.from_local_file(TEMPLATE_PATH)
 
-    data1 = aop.elements.Object("data1")
+    data1 = aop.elements.ElementCollection("data1")
     imageElement = aop.elements.Image.from_file("imageTag", "./test/test.jpg")
     imageElement.max_width = 500
     imageElement.rotation = 75
     data1.add(imageElement)
 
-    data2 = aop.elements.Object("data2")
-    data2.add_all(aop.elements.Object.from_mapping({
+    data2 = aop.elements.ElementCollection("data2")
+    data2.add_all(aop.elements.ElementCollection.from_mapping({
         "textTag1": "Hello",
         "textTag2": ", ",
         "textTag3": "world",
         "textTag4": "!"
     }))
 
-    data3 = aop.elements.Object("nested_test", [data1, data2])
-    data3_obj = aop.elements.Object.element_to_object(data3, "newObjName")
+    data3 = aop.elements.ElementCollection("nested_test", [data1, data2])
+    data3_obj = aop.elements.ElementCollection.element_to_element_collection(data3, "newObjName")
     del data3_obj
 
     # create a print job with default output config
@@ -54,14 +54,14 @@ async def test_async():
     # load a local file
     template = aop.Resource.from_local_file(TEMPLATE_PATH)
 
-    data1 = aop.elements.Object()
+    data1 = aop.elements.ElementCollection()
     imageElement = aop.elements.Image.from_file("imageTag", "./test/test.jpg")
     imageElement.max_width = 500
     imageElement.rotation = 75
     data1.add(imageElement)
 
-    data2 = aop.elements.Object()
-    data2.add(aop.elements.Object.from_mapping({
+    data2 = aop.elements.ElementCollection()
+    data2.add(aop.elements.ElementCollection.from_mapping({
         "textTag1": "Hello",
         "textTag2": ", ",
         "textTag3": "world",

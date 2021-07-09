@@ -31,8 +31,8 @@ server = aop.config.Server(
     aop.config.ServerConfig(api_key=API_KEY)
 )
 
-# Main object that includes all the data
-data = aop.elements.Object('data')
+# Main ElementCollection that includes all the data
+data = aop.elements.ElementCollection('data')
 
 # Company information
 company_name = aop.elements.Property('company_name', 'APEXOfficePrint')
@@ -45,7 +45,7 @@ data.add(company_name)
 data.add(company_logo)
 
 # Customer information
-cust = aop.elements.Object.from_mapping({
+cust = aop.elements.ElementCollection.from_mapping({
     "cust_city": "St. Louis",
     "cust_first_name": "Albertos",
     "cust_last_name": "Lambert",
@@ -58,7 +58,7 @@ data.add_all(cust)
 order_list = []
 
 ## Order 1
-order1 = aop.elements.Object.from_mapping({
+order1 = aop.elements.ElementCollection.from_mapping({
     "order_name": "Order 1",
     "order_total": 610,
     "ref_nb": 5645
@@ -67,7 +67,7 @@ order1 = aop.elements.Object.from_mapping({
 ### Add products for first order
 
 #### First product of first order
-product1 = aop.elements.Object.from_mapping({
+product1 = aop.elements.ElementCollection.from_mapping({
     "product_name": "Business \nShirt",
     "quantity": 3,
     "unit_price": 50,
@@ -79,7 +79,7 @@ image = aop.elements.Image.from_base64('image', '/9j/4AAQSkZJRgABAQAAAQABAAD/2wC
 product1.add(image)
 
 #### Second product of first order
-product2 = aop.elements.Object.from_mapping({
+product2 = aop.elements.ElementCollection.from_mapping({
     "product_name": "Trousers",
     "quantity": 2,
     "unit_price": 80,
@@ -91,7 +91,7 @@ image = aop.elements.Image.from_base64('image', '/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
 product2.add(image)
 
 #### Third product of first order
-product3 = aop.elements.Object.from_mapping({
+product3 = aop.elements.ElementCollection.from_mapping({
     "product_name": "Jacket",
     "quantity": 2,
     "unit_price": 150,
@@ -107,7 +107,7 @@ products = aop.elements.ForEach('product', [product1, product2, product3])
 order1.add(products)
 
 ## Order 2
-order2 = aop.elements.Object.from_mapping({
+order2 = aop.elements.ElementCollection.from_mapping({
     "order_name": "Order 2",
     "order_total": 340,
     "ref_nb": 4561
@@ -116,7 +116,7 @@ order2 = aop.elements.Object.from_mapping({
 ### Add products for second order
 
 #### First product of second order
-product1 = aop.elements.Object.from_mapping({
+product1 = aop.elements.ElementCollection.from_mapping({
     "product_name": "Blouse",
     "quantity": 3,
     "unit_price": 60,
@@ -128,7 +128,7 @@ image = aop.elements.Image.from_base64('image', '/9j/4AAQSkZJRgABAQAAAQABAAD/2wC
 product1.add(image)
 
 #### Second product of second order
-product2 = aop.elements.Object.from_mapping({
+product2 = aop.elements.ElementCollection.from_mapping({
     "product_name": "Skirt",
     "quantity": 2,
     "unit_price": 80,

@@ -14,7 +14,7 @@ template = aop.Resource.from_local_file("./path/to/template.docx")
 ```
 
 ### Render elements
-Most render elements encapsulate the data for a single tag. An `elements.Object` is an element which represents a collection of elements.
+Most render elements encapsulate the data for a single tag. An `elements.ElementCollection` is an element which represents a collection of elements.
 
 Combining a simple line chart and some text tags:
 ```python
@@ -25,14 +25,14 @@ line = aop.elements.LineChart(
 )
 
 text_tag = aop.elements.Property("tag-name", "Hello, world!")
-# or multiple at once using Object.from_mapping
+# or multiple at once using ElementCollection.from_mapping
 # and supplying the dictionary representation directly
-text_tags = aop.elements.Object.from_mapping({
+text_tags = aop.elements.ElementCollection.from_mapping({
     "another-tag": "Foo",
     "one-more-tag": "Bar"
 })
 
-combined_data = aop.elements.Object()
+combined_data = aop.elements.ElementCollection()
 combined_data.add(line)
 combined_data.add(text_tag)
 combined_data.add_all(text_tags)

@@ -472,13 +472,13 @@ class AOPChart(Element):
         return frozenset({"{aopchart " + self.name + "}"})
 
 
-class Object(list, Element):
+class ElementCollection(list, Element):
     """A collection used to group multiple elements together.
-    It can contain nested `Object`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
-    Its name is used as a key name when nested, but ignored for all purposes when it's the outer object.
+    It can contain nested `ElementCollection`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
+    Its name is used as a key name when nested, but ignored for all purposes when it's the outer ElementCollection.
     """
     def __init__(self, name: str = "", elements: Iterable[Element] = ()):
-        # name is not used for the outer object, but needed for nested objects
+        # name is not used for the outer ElementCollection, but needed for nested ElementCollections
         list.__init__(self, elements)
         Element.__init__(self, name)
 
@@ -501,12 +501,7 @@ class Object(list, Element):
     def add(self, element: Element):
         self.append(element)
 
-    # The reason we use 'Object' (a string) in cases like this is that
-    # Object is actually a forward reference here,
-    # which doesn't work, the interpreter will have no idea what Object is.
-    # It is supposed to work out of the box in future Python (>= 3.10)
-    # and with >= 3.7 using "from __future__ import annotations"
-    def add_all(self, obj: 'Object'):
+    def add_all(self, obj: 'ElementCollection'):
         for element in obj:
             self.add(element)
 
@@ -517,14 +512,14 @@ class Object(list, Element):
 
     @property
     def as_dict(self) -> dict:
-        """Merge the `Object`'s contents as one dict.
+        """Merge the `ElementCollection`'s contents as one dict.
 
         Returns:
             dict: merged element
         """
         result = {}
         for element in self:
-            if isinstance(element, Object):
+            if isinstance(element, ElementCollection):
                 result.update({element.name: element.as_dict})
             else:
                 result.update(element.as_dict)
@@ -538,16 +533,16 @@ class Object(list, Element):
         return frozenset(result)
 
     @classmethod
-    def element_to_object(cls, element: Element, name: str = "") -> 'Object':
+    def element_to_element_collection(cls, element: Element, name: str = "") -> 'ElementCollection':
         return cls.from_mapping(element.as_dict, name)
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping, name: str = "") -> 'Object':
+    def from_mapping(cls, mapping: Mapping, name: str = "") -> 'ElementCollection':
         result_set = set()
         for key, value in mapping.items():
             result_set.add(Property(key, value))
         return cls(name, result_set)
 
     @classmethod
-    def from_json(cls, json_str: str, name: str = "") -> 'Object':
+    def from_json(cls, json_str: str, name: str = "") -> 'ElementCollection':
         return cls.from_mapping(json.loads(json_str), name)

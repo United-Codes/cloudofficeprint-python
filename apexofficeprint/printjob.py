@@ -10,7 +10,7 @@ from .config import OutputConfig, Server
 from .exceptions import AOPError
 from .response import Response
 from .resource import Resource
-from .elements import Element, Object
+from .elements import Element, ElementCollection
 from typing import Union, List, Dict, Mapping
 from functools import partial
 
@@ -48,7 +48,7 @@ class PrintJob:
         """
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
         """This is either:
-        - An `Element` (e.g. an `Object`)
+        - An `Element` (e.g. an `ElementCollection`)
         - A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them.
         In the first case, no output file name is specified and the server will name it "file0".
         """

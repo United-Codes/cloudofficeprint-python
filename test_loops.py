@@ -3,14 +3,14 @@ import apexofficeprint as aop
 
 def test_for_each():
     """Also serves as the tests for Labels, ForEachSlide, ForEachInline, ForEachHorizontal and ForEachTableRow. """
-    element1 = aop.elements.Object.from_mapping(
+    element1 = aop.elements.ElementCollection.from_mapping(
         {
             'a': 1,
             'b': 2,
             'c': 3
         }
     )
-    element2 = aop.elements.Object.from_mapping(
+    element2 = aop.elements.ElementCollection.from_mapping(
         {
             'a': 4,
             'b': 5,
@@ -39,7 +39,7 @@ def test_for_each():
 
 
 def test_for_each_sheet():
-    element1 = aop.elements.Object.from_mapping(
+    element1 = aop.elements.ElementCollection.from_mapping(
         {
             "sheet_name": "John Dulles",
             "sheet_dynamic_print_area": True,
@@ -71,7 +71,7 @@ def test_for_each_sheet():
             ]
         }
     )
-    element2 = aop.elements.Object.from_mapping(
+    element2 = aop.elements.ElementCollection.from_mapping(
         {
             "sheet_name": "William Hartsfield",
             "cust_first_name": "William",
@@ -113,7 +113,7 @@ def test_for_each_sheet():
         content=(element1, element2)
     )
 
-    element1 = aop.elements.Object.from_mapping(
+    element1 = aop.elements.ElementCollection.from_mapping(
         {
             "sheet_dynamic_print_area": True,
             "cust_first_name": "John",
@@ -144,7 +144,7 @@ def test_for_each_sheet():
             ]
         }
     )
-    element2 = aop.elements.Object.from_mapping(
+    element2 = aop.elements.ElementCollection.from_mapping(
         {
             "cust_first_name": "William",
             "cust_last_name": "Hartsfield",

@@ -10,7 +10,7 @@ def test_printjob():
     template_base64 = template.base64
     template_main_base64 = template_main.base64
     
-    data = aop.elements.Object('data')
+    data = aop.elements.ElementCollection('data')
     text_tag = aop.elements.Property('textTag1', 'test_text_tag1')
     data.add(text_tag)
 

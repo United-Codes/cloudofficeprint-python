@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Union, FrozenSet, Iterable, Mapping
-from .elements import Element, Object
+from .elements import Element, ElementCollection
 
 class PDFInsertObject(ABC):
     """Abstract base class for PDF's insertable objects."""
@@ -147,7 +147,7 @@ class PDFTexts(Element):
     
     There can only be one of this `Element`.
     (Element name is fixed and important to the server, so multiple will just overwrite)
-    and it should be at the outer level of an `Object`.
+    and it should be at the outer level of an `ElementCollection`.
     """
     def __init__(self, texts: Iterable[PDFText]):
         super().__init__("AOP_PDF_TEXTS")
@@ -179,7 +179,7 @@ class PDFImages(Element):
     
     There can only be one of this `Element`.
     (Element name is fixed and important to the server, so multiple will just overwrite)
-    and it should be at the outer level of an `Object`.
+    and it should be at the outer level of an `ElementCollection`.
     """
     def __init__(self, images: Iterable[PDFImage]):
         super().__init__("AOP_PDF_IMAGES")
@@ -210,7 +210,7 @@ class PDFFormData(Element):
     
     There can only be one of this `Element`.
     (Element name is fixed and important to the server, so multiple will just overwrite)
-    and it should be at the outer level of an `Object`.
+    and it should be at the outer level of an `ElementCollection`.
     """
     def __init__(self, form_data: Mapping[str, Union[str, bool]]):
         super().__init__("aop_pdf_form_data")

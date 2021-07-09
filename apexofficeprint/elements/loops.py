@@ -1,4 +1,4 @@
-from .elements import Element, Object, Property
+from .elements import Element, ElementCollection, Property
 from typing import Iterable, FrozenSet, Union, Mapping
 
 
@@ -61,9 +61,9 @@ class ForEachSheet(ForEach):
             new_content = []
             for sheetname, sheetcontent in content.items():
                 # we need to add the additional sheet_name property,
-                # so we should convert the Element to to an Object if needed
-                if not isinstance(sheetcontent, Object):
-                    sheetcontent = Object.element_to_object(sheetcontent)
+                # so we should convert the Element to to an ElementCollection if needed
+                if not isinstance(sheetcontent, ElementCollection):
+                    sheetcontent = ElementCollection.element_to_element_collection(sheetcontent)
                 # adding the new property containing sheet_name
                 sheetcontent.add(Property("sheet_name", sheetname))
                 new_content.append(sheetcontent)

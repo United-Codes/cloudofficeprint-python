@@ -138,7 +138,7 @@ def test_d3_code():
     assert d3.as_dict == d3_expected
 
 
-def test_object():
+def test_ElementCollection():
     pass
 
 def run():
@@ -151,7 +151,7 @@ def run():
     test_watermark()
     test_d3_code()
     # AOP charts get tested in test_charts.py
-    test_object()
+    test_ElementCollection()
 
 
 
