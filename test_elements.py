@@ -1,5 +1,4 @@
 import apexofficeprint as aop
-import pprint
 
 
 def test_property():
@@ -138,8 +137,57 @@ def test_d3_code():
     assert d3.as_dict == d3_expected
 
 
-def test_ElementCollection():
-    pass
+def test_element_collection():
+    data = aop.elements.ElementCollection('data') # Name doesn't get used
+    element1 = aop.elements.Image.from_url('image1', 'url')
+    element1.alt_text = 'alt_text'
+    data.add(element1)
+    element2 = aop.elements.ForEach(
+        name='loop',
+        content=(aop.elements.Property('prop', 'value1'), aop.elements.Property('prop', 'value2'))
+    )
+    data.add(element2)
+    data_expected = {
+        'image1': 'url',
+        'image1_alt_text': 'alt_text',
+        'image1_url': 'url',
+        'loop': [
+            {
+                'prop': 'value1'
+            },
+            {
+                'prop': 'value2'
+            }
+        ]
+    }
+    assert data.as_dict == data_expected
+
+    data.remove_element_by_name('image1')
+
+    data_expected = {
+        'loop': [
+            {
+                'prop': 'value1'
+            },
+            {
+                'prop': 'value2'
+            }
+        ]
+    }
+
+    assert data.as_dict == data_expected
+
+    collection = aop.elements.ElementCollection.element_to_element_collection(
+        element=element1,
+        name='test_name' # Doesn't get used
+    )
+    collection_expected = {
+        'image1': 'url',
+        'image1_alt_text': 'alt_text',
+        'image1_url': 'url'
+    }
+    assert collection.as_dict == collection_expected
+
 
 def run():
     test_property()
@@ -150,9 +198,8 @@ def run():
     test_styled_property()
     test_watermark()
     test_d3_code()
+    test_element_collection()
     # AOP charts get tested in test_charts.py
-    test_ElementCollection()
-
 
 
 if __name__ == '__main__':
