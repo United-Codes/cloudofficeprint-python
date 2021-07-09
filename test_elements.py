@@ -1,8 +1,9 @@
 import apexofficeprint as aop
+import pprint
 
 
 def test_property():
-    """Test for Property. Also serves as a test for Html, RightToLeft, FootNote, Raw and Formula."""
+    """Test for Property. Also serves as a test for Html, RightToLeft, FootNote, Raw, Formula, PageBreak and MarkdownContent."""
     prop = aop.elements.Property(
         name='name',
         value='value'
@@ -137,6 +138,29 @@ def test_d3_code():
     assert d3.as_dict == d3_expected
 
 
+def test_text_box():
+    tbox = aop.elements.TextBox(
+        name='tbox_name',
+        value='tbox_value',
+        font='Arial',
+        font_color='blue',
+        font_size=12,
+        transparency=50,
+        width=30,
+        height=25
+    )
+    tbox_expected = {
+        'tbox_name': 'tbox_value',
+        'tbox_name_font': 'Arial',
+        'tbox_name_font_color': 'blue',
+        'tbox_name_font_size': 12,
+        'tbox_name_transparency': 50,
+        'tbox_name_width': 30,
+        'tbox_name_height': 25
+    }
+    assert tbox.as_dict == tbox_expected
+
+
 def test_element_collection():
     data = aop.elements.ElementCollection('data') # Name doesn't get used
     element1 = aop.elements.Image.from_url('image1', 'url')
@@ -198,6 +222,7 @@ def run():
     test_styled_property()
     test_watermark()
     test_d3_code()
+    test_text_box()
     test_element_collection()
     # AOP charts get tested in test_charts.py
 

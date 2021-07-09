@@ -316,17 +316,17 @@ class Watermark(Property):
             self.name: self.value
         }
 
-        if self.color:
+        if self.color is not None:
             result[self.name + "_color"] = self.color
-        if self.font:
+        if self.font is not None:
             result[self.name + "_font"] = self.font
-        if self.width:
+        if self.width is not None:
             result[self.name + "_width"] = self.width
-        if self.height:
+        if self.height is not None:
             result[self.name + "_height"] = self.height
-        if self.opacity:
+        if self.opacity is not None:
             result[self.name + "_opacity"] = self.opacity
-        if self.rotation:
+        if self.rotation is not None:
             result[self.name + "_rotation"] = self.rotation
 
         return result
@@ -470,6 +470,73 @@ class AOPChart(Element):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{aopchart " + self.name + "}"})
+
+
+class PageBreak(Property):
+    """Value should be set to 'page' or 'pagebreak' for PageBreak, 'column' or 'columnbreak' for column breaks,
+    if set to True (default) it will create a pagebreak."""
+    def __init__(self, name: str, value: Union[str, bool]):
+        super().__init__(name, value)
+    
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?" + self.name + "}"})
+
+
+class MarkdownContent(Property):
+    """Value holds the Markdown content"""
+    def __init__(self, name: str, value: str):
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{_" + self.name + "_}"})
+
+
+class TextBox(Element):
+    """This tag will allow you to insert a text box starting in the cell containing the tag in Excel."""
+    def __init__(self,
+    name: str,
+    value: str,
+    font: str=None,
+    font_color: str=None,
+    font_size: Union[int, str]=None,
+    transparency: Union[int, str]=None,
+    width: Union[int, str]=None,
+    height: Union[int, str]=None):
+        super().__init__(name)
+        self.value: str = value
+        self.font: str = font
+        self.font_color: str = font_color
+        self.font_size: Union[int, str] = font_size
+        self.transparency: Union[int, str] = transparency
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+    
+    @property
+    def available_tags(self):
+        return frozenset({"{tbox " + self.name + "}"})
+
+    @property
+    def as_dict(self):
+        result = {
+            self.name: self.value
+        }
+
+        if self.font is not None:
+            result[self.name + '_font'] = self.font
+        if self.font_color is not None:
+            result[self.name + '_font_color'] = self.font_color
+        if self.font_size is not None:
+            result[self.name + '_font_size'] = self.font_size
+        if self.transparency is not None:
+            result[self.name + '_transparency'] = self.transparency
+        if self.width is not None:
+            result[self.name + '_width'] = self.width
+        if self.height is not None:
+            result[self.name + '_height'] = self.height
+
+        return result
 
 
 class ElementCollection(list, Element):
