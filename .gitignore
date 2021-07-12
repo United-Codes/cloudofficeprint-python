@@ -35,3 +35,5 @@ pip-delete-this-directory.txt
 
 # Generated files by examples
 examples/output/
+example_solar_system/docx/output.docx
+example_solar_system/pptx/output.pptx
