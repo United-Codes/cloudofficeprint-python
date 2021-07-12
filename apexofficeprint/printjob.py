@@ -134,6 +134,10 @@ class PrintJob:
 
         result["template"] = self.template.template_dict
 
+        # If output_type is not specified, set this to the template filetype
+        if 'output_type' not in self.output_config.as_dict.keys():
+            result['output']['output_type'] = result['template']['template_type']
+
         if isinstance(self.data, Mapping):
             result["files"] = [{
                 "filename": name,
