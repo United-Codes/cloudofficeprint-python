@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import FrozenSet
+from typing import FrozenSet, Union
 from .._utils import file_utils
 from .elements import Element
 
@@ -8,25 +8,25 @@ class Image(Element, ABC):
 
     def __init__(self,
                  name: str,
-                 max_width: int,
-                 max_height: int,
+                 max_width: Union[int, str],
+                 max_height: Union[int, str],
                  alt_text: str,
                  wrap_text: str,
                  rotation: int,
-                 transparency: int,
+                 transparency: Union[int, str],
                  url: str,
-                 width: int,
-                 height: int):
+                 width: Union[int, str],
+                 height: Union[int, str]):
         super().__init__(name)
-        self.max_width: int = max_width
-        self.max_height: int = max_height
+        self.max_width: Union[int, str] = max_width
+        self.max_height: Union[int, str] = max_height
         self.alt_text: str = alt_text
         self.wrap_text: str = wrap_text
         self.rotation: int = rotation
-        self.transparency: int = transparency
+        self.transparency: Union[int, str] = transparency
         self.url: str = url
-        self.width: int = width
-        self.height: int = height
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
 
     @property
     def alt_text(self) -> str:
@@ -102,14 +102,14 @@ class ImageUrl(Image):
     def __init__(self,
                  name: str,
                  url: str,
-                 max_width: int = None,
-                 max_height: int = None,
+                 max_width: Union[int, str] = None,
+                 max_height: Union[int, str] = None,
                  alt_text: str = "",
                  wrap_text: str = "inline",
                  rotation: int = None,
-                 transparency: int = None,
-                 width: int = None,
-                 height: int = None):
+                 transparency: Union[int, str] = None,
+                 width: Union[int, str] = None,
+                 height: Union[int, str] = None):
         super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
 
     @property
@@ -127,15 +127,15 @@ class ImageBase64(Image):
     def __init__(self,
                  name: str,
                  base64str: str,
-                 max_width: int = None,
-                 max_height: int = None,
+                 max_width: Union[int, str] = None,
+                 max_height: Union[int, str] = None,
                  alt_text: str = None,
                  wrap_text: str = "inline",
                  rotation: int = None,
-                 transparency: int = None,
+                 transparency: Union[int, str] = None,
                  url: str = None,
-                 width: int = None,
-                 height: int = None):
+                 width: Union[int, str] = None,
+                 height: Union[int, str] = None):
         super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
         self.base64: str = base64str
 

@@ -155,7 +155,7 @@ class PDFOptions:
         The setter for the page_margin property sets the margin for all positions.
 
         Args:
-            value (int): page margin
+            value (int): page margin in px
             position (str, optional): "all", "top", "bottom", "left" or "right". Defaults to None.
         """
         if position is not None:
