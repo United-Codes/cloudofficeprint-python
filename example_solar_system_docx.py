@@ -45,7 +45,7 @@ data.add(radius_chart)
 
 # Create AOP printjob
 printjob = aop.PrintJob(
-    template=aop.Resource.from_local_file('./example_solar_system/solar_system_template.docx'),
+    template=aop.Resource.from_local_file('./example_solar_system/docx/solar_system_template.docx'),
     data=data,
     server=server,
     output_config=aop.config.OutputConfig(filetype='docx')
@@ -53,4 +53,4 @@ printjob = aop.PrintJob(
 
 # pprint(printjob.as_dict)
 
-printjob.execute().to_file('./example_solar_system/output')
+printjob.execute().to_file('./example_solar_system/docx/output')
