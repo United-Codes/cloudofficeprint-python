@@ -37,3 +37,4 @@ pip-delete-this-directory.txt
 examples/output/
 example_solar_system/docx/output.docx
 example_solar_system/pptx/output.pptx
+spacex_example/output.pptx
