@@ -9,7 +9,7 @@ class OutputConfig:
     """
 
     def __init__(self,
-                 filetype: str = None,
+                 filetype: str = 'docx',
                  encoding: str = "raw",
                  converter: str = "libreoffice",
                  cloud_access_token: CloudAccessToken = None,
@@ -17,7 +17,7 @@ class OutputConfig:
                  pdf_options: PDFOptions = None):
         """
         Args:
-            filetype (str, optional): `OutputConfig.filetype`. Defaults to None.
+            filetype (str, optional): `OutputConfig.filetype`. Defaults to 'docx'.
             encoding (str, optional): `OutputConfig.encoding`. Either "raw" or "base64". Defaults to "raw".
             converter (str, optional): `OutputConfig.converter`. Defaults to "libreoffice".
             cloud_access_token (CloudAccessToken, optional): `OutputConfig.cloud_access_token`. Defaults to None.
@@ -58,11 +58,10 @@ class OutputConfig:
         """The dict representation of this output config."""
         result = {
             "output_encoding": self._encoding,
-            "output_converter": self.converter
+            "output_converter": self.converter,
+            'output_type': self.filetype
         }
 
-        if self.filetype is not None:
-            result["output_type"] = self.filetype
         if self.cloud_access_token is not None:
             result.update(self.cloud_access_token.as_dict)
         if self.server_directory is not None:

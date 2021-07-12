@@ -63,7 +63,8 @@ def test_rest_source_printjob():
         'api_key': server.config.api_key,
         'output': {
             'output_converter': 'libreoffice',
-            'output_encoding': 'raw'
+            'output_encoding': 'raw',
+            'output_type': 'docx'
         },
         'template': {
             'template_type': 'docx',
