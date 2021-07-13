@@ -1,4 +1,4 @@
-from typing import FrozenSet
+from typing import FrozenSet, Union
 from .elements import Element
 
 class Code(Element):
@@ -107,13 +107,163 @@ class BarCode(Code):
 
 class QRCode(Code):
     """This class is a subclass of Code and serves as a superclass for the different types of QR-codes"""
-    # TODO: create setters (or constructor) for QR-code options (see documentation)
     def __init__(self, name: str, data: str, type: str):
         super().__init__(name, data, type)
+
+        self.dotscale: float = None
+        """For body block, must be greater than 0, less than or equal to 1. default is 1"""
+        self.logo: str = None
+        """Logo Image (At center of QR)"""
+        self.background_image: str = None
+        """Background Image"""
+        self.color_dark: str = None
+        self.color_light: str = None
+        self.logo_width: Union[str, int] = None
+        """Width of logo"""
+        self.logo_height: Union[str, int] = None
+        """Height of logo"""
+        self.logo_background_color: str = None
+        self.quiet_zone: int = None
+        """For padding around qr code"""
+        self.quiet_zone_color: str = None
+        """Color of padding area"""
+        self.background_image_alpha: float = None
+        """Background image transparency, value between 0 and 1. default is 1"""
+        self.po_color: str = None
+        """Global Position Outer color. if not set, the defaut is `colorDark`"""
+        self.pi_color: str = None
+        """Global Pisotion Inner color. if not set, the defaut is `colorDark`"""
+        self.po_tl_color: str = None
+        """Position Outer color - Top Left """
+        self.pi_tl_color: str = None
+        """Position Inner color - Top Left"""
+        self.po_tr_color: str = None
+        """Position Outer color - Top Right"""
+        self.pi_tr_color: str = None
+        """Position Inner color - Top Right"""
+        self.po_bl_color: str = None
+        """Position Outer color - Bottom Left"""
+        self.pi_bl_color: str = None
+        """Position Inner color - Bottom Left"""
+        self.timing_v_color: str = None
+        """Vertical timing color"""
+        self.timing_h_color: str = None
+        """Horizontal timing color"""
+        self.timing_color: str = None
+        """Global Timing color. if not set"""
+        self.auto_color: bool = None
+        """Automatic color adjustment(for data block) (default is false) (set to false if using background images)"""
+        self.auto_color_dark: str = None
+        """Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)"""
+        self.auto_color_light: str = None
+        """Automatic color: light CSS color (only required when qr_auto_color is set true)"""
     
+    def set_dotscale(self, dotscale: float):
+        self.dotscale = dotscale
+    def set_logo(self, logo: str):
+        self.logo = logo
+    def set_background_image(self, background_image: str):
+        self.background_image = background_image
+    def set_color_dark(self, color_dark: str):
+        self.color_dark = color_dark
+    def set_color_light(self, color_light: str):
+        self.color_light = color_light
+    def set_logo_width(self, logo_width: Union[str, int]):
+        self.logo_width = logo_width
+    def set_logo_height(self, logo_height: Union[str, int]):
+        self.logo_height = logo_height
+    def set_logo_background_color(self, logo_background_color: str):
+        self.logo_background_color = logo_background_color
+    def set_quiet_zone(self, quiet_zone: int):
+        self.quiet_zone = quiet_zone
+    def set_quiet_zone_color(self, quiet_zone_color: str):
+        self.quiet_zone_color = quiet_zone_color
+    def set_background_image_alpha(self, background_image_alpha: float):
+        self.background_image_alpha = background_image_alpha
+    def set_po_color(self, po_color: str):
+        self.po_color = po_color
+    def set_pi_color(self, pi_color: str):
+        self.pi_color = pi_color
+    def set_po_tl_color(self, po_tl_color: str):
+        self.po_tl_color = po_tl_color
+    def set_pi_tl_color(self, pi_tl_color: str):
+        self.pi_tl_color = pi_tl_color
+    def set_po_tr_color(self, po_tr_color: str):
+        self.po_tr_color = po_tr_color
+    def set_pi_tr_color(self, pi_tr_color: str):
+        self.pi_tr_color = pi_tr_color
+    def set_po_bl_color(self, po_bl_color: str):
+        self.po_bl_color = po_bl_color
+    def set_pi_bl_color(self, pi_bl_color: str):
+        self.pi_bl_color = pi_bl_color
+    def set_timing_v_color(self, timing_v_color: str):
+        self.timing_v_color = timing_v_color
+    def set_timing_h_color(self, timing_h_color: str):
+        self.timing_h_color = timing_h_color
+    def set_timing_color(self, timing_color: str):
+        self.timing_color = timing_color
+    def set_auto_color(self, auto_color: bool):
+        self.auto_color = auto_color
+    def set_auto_color_dark(self, auto_color_dark: str):
+        self.auto_color_dark = auto_color_dark
+    def set_auto_color_light(self, auto_color_light: str):
+        self.auto_color_light = auto_color_light
+
+
     @property
     def _dict_suffixes(self):
         result = super()._dict_suffixes
+
+        if self.dotscale is not None:
+            result['_dotscale'] = self.dotscale
+        if self.logo is not None:
+            result['_logo'] = self.logo
+        if self.background_image is not None:
+            result['_background_image'] = self.background_image
+        if self.color_dark is not None:
+            result['_color_dark'] = self.color_dark
+        if self.color_light is not None:
+            result['_color_light'] = self.color_light
+        if self.logo_width is not None:
+            result['_logo_width'] = self.logo_width
+        if self.logo_height is not None:
+            result['_logo_height'] = self.logo_height
+        if self.logo_background_color is not None:
+            result['_logo_background_color'] = self.logo_background_color
+        if self.quiet_zone is not None:
+            result['_quiet_zone'] = self.quiet_zone
+        if self.quiet_zone_color is not None:
+            result['_quiet_zone_color'] = self.quiet_zone_color
+        if self.background_image_alpha is not None:
+            result['_background_image_alpha'] = self.background_image_alpha
+        if self.po_color is not None:
+            result['_po_color'] = self.po_color
+        if self.pi_color is not None:
+            result['_pi_color'] = self.pi_color
+        if self.po_tl_color is not None:
+            result['_po_tl_color'] = self.po_tl_color
+        if self.pi_tl_color is not None:
+            result['_pi_tl_color'] = self.pi_tl_color
+        if self.po_tr_color is not None:
+            result['_po_tr_color'] = self.po_tr_color
+        if self.pi_tr_color is not None:
+            result['_pi_tr_color'] = self.pi_tr_color
+        if self.po_bl_color is not None:
+            result['_po_bl_color'] = self.po_bl_color
+        if self.pi_bl_color is not None:
+            result['_pi_bl_color'] = self.pi_bl_color
+        if self.timing_v_color is not None:
+            result['_timing_v_color'] = self.timing_v_color
+        if self.timing_h_color is not None:
+            result['_timing_h_color'] = self.timing_h_color
+        if self.timing_color is not None:
+            result['_timing_color'] = self.timing_color
+        if self.auto_color is not None:
+            result['_auto_color'] = self.auto_color
+        if self.auto_color_dark is not None:
+            result['_auto_color_dark'] = self.auto_color_dark
+        if self.auto_color_light is not None:
+            result['_auto_color_light'] = self.auto_color_light
 
         return result
 

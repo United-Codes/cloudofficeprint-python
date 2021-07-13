@@ -32,6 +32,71 @@ def test_barcodes():
     }
     assert barcode.as_dict == barcode_expected
 
+def test_qr_code():
+    """Test styling options for qr-code class"""
+    qr = aop.elements.QRCode(
+        name='qr',
+        data='data',
+        type='qrcode'
+    )
+
+    qr.set_dotscale(0.5)
+    qr.set_logo('logo')
+    qr.set_background_image('background_image')
+    qr.set_color_dark('color_dark')
+    qr.set_color_light('color_light')
+    qr.set_logo_width('logo_width')
+    qr.set_logo_height('logo_height')
+    qr.set_logo_background_color('logo_background_color')
+    qr.set_quiet_zone(2)
+    qr.set_quiet_zone_color('quiet_zone_color')
+    qr.set_background_image_alpha(0.5)
+    qr.set_po_color('po_color')
+    qr.set_pi_color('pi_color')
+    qr.set_po_tl_color('po_tl_color')
+    qr.set_pi_tl_color('pi_tl_color')
+    qr.set_po_tr_color('po_tr_color')
+    qr.set_pi_tr_color('pi_tr_color')
+    qr.set_po_bl_color('po_bl_color')
+    qr.set_pi_bl_color('pi_bl_color')
+    qr.set_timing_v_color('timing_v_color')
+    qr.set_timing_h_color('timing_h_color')
+    qr.set_timing_color('timing_color')
+    qr.set_auto_color(False)
+    qr.set_auto_color_dark('auto_color_dark')
+    qr.set_auto_color_light('auto_color_light')
+
+    qr_expected = {
+        'qr': 'data',
+        'qr_type': 'qrcode',
+        'qr_dotscale': 0.5,
+        'qr_logo': 'logo',
+        'qr_background_image': 'background_image',
+        'qr_color_dark': 'color_dark',
+        'qr_color_light': 'color_light',
+        'qr_logo_width': 'logo_width',
+        'qr_logo_height': 'logo_height',
+        'qr_logo_background_color': 'logo_background_color',
+        'qr_quiet_zone': 2,
+        'qr_quiet_zone_color': 'quiet_zone_color',
+        'qr_background_image_alpha': 0.5,
+        'qr_po_color': 'po_color',
+        'qr_pi_color': 'pi_color',
+        'qr_po_tl_color': 'po_tl_color',
+        'qr_pi_tl_color': 'pi_tl_color',
+        'qr_po_tr_color': 'po_tr_color',
+        'qr_pi_tr_color': 'pi_tr_color',
+        'qr_po_bl_color': 'po_bl_color',
+        'qr_pi_bl_color': 'pi_bl_color',
+        'qr_timing_v_color': 'timing_v_color',
+        'qr_timing_h_color': 'timing_h_color',
+        'qr_timing_color': 'timing_color',
+        'qr_auto_color': False,
+        'qr_auto_color_dark': 'auto_color_dark',
+        'qr_auto_color_light': 'auto_color_light',
+    }
+    assert qr.as_dict == qr_expected
+
 def test_qr_code_wifi():
     wifi = aop.elements.WiFiQRCode(
         name='name',
@@ -182,6 +247,7 @@ def test_qr_code_event():
 
 def run():
     test_barcodes()
+    test_qr_code()
     test_qr_code_wifi()
     test_qr_code_telephone()
     test_qr_code_email()
