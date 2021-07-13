@@ -112,7 +112,8 @@ for rocket in rockets:
 cost_series = aop.elements.ColumnSeries(
     x=x,
     y=cost_y,
-    name='Cost per launch'
+    name='Cost per launch',
+    color='#087c6c'
 )
 
 rockets_chart_options = aop.elements.ChartOptions(
@@ -123,7 +124,8 @@ rockets_chart_options = aop.elements.ChartOptions(
     y_axis=aop.elements.ChartAxisOptions(
         title='Cost ($)',
         title_rotation=-90,
-        title_style=aop.elements.ChartTextStyle(color='black')
+        title_style=aop.elements.ChartTextStyle(color='black'),
+        major_grid_lines=True
     ),
     width=800,
     height=300,
@@ -242,7 +244,8 @@ data.add(ship_data)
 
 # Create printjob
 printjob = aop.PrintJob(
-    template=Resource.from_local_file('./spacex_example/spacex_template.pptx'),
+    # template=Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
+    template=Resource.from_local_file('./spacex_example/spacex_template.xlsx'), # For xlsx
     data=data,
     server=server
 )
