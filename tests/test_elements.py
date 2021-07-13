@@ -1,5 +1,4 @@
 import apexofficeprint as aop
-import pprint
 
 
 def test_property():

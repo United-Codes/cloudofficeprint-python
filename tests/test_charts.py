@@ -1,5 +1,4 @@
 import apexofficeprint as aop
-import pprint
 
 """This file contains tests for all the possible charts"""
 

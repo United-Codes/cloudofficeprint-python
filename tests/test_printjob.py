@@ -81,7 +81,7 @@ def test_printjob():
         'python_sdk_version': aop.printjob.STATIC_OPTS['python_sdk_version']
     }
     assert printjob.as_dict == printjob_expected
-    # printjob.execute().to_file("./test/prepend_append_subtemplate_test") # Works as expected
+    # printjob.execute().to_file("test/prepend_append_subtemplate_test") # Works as expected
 
 
 def run():

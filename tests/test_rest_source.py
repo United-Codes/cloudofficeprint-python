@@ -1,6 +1,5 @@
 import apexofficeprint as aop
 from test import server
-import pprint
 
 
 def test_rest_source_rest():

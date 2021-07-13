@@ -3,7 +3,6 @@ import apexofficeprint as aop
 from apexofficeprint.elements.charts import ChartAxisOptions
 import apexofficeprint as aop
 import requests
-from pprint import pprint
 
 # Get solar system data from https://api.le-systeme-solaire.net/rest/bodies/
 res = requests.get('https://api.le-systeme-solaire.net/rest/bodies/')

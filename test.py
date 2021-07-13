@@ -2,6 +2,9 @@ import apexofficeprint as aop
 import asyncio
 import pprint
 
+###
+#   Main file to run all the tests in the 'tests'-folder
+###
 
 TEMPLATE_PATH = "./test/template.docx"
 LOCAL_SERVER_URL = "http://localhost:8010"
@@ -97,23 +100,23 @@ if __name__ == "__main__":
     # asyncio.run(test_async())
 
 
-    from test_charts import run as test_charts
+    from tests.test_charts import run as test_charts
     test_charts()
-    from test_config import run as test_config
+    from tests.test_config import run as test_config
     test_config()
-    from test_codes import run as test_codes
+    from tests.test_codes import run as test_codes
     test_codes()
-    from test_rest_source import run as test_rest_source
+    from tests.test_rest_source import run as test_rest_source
     test_rest_source()
-    from test_resource import run as test_resource
+    from tests.test_resource import run as test_resource
     test_resource()
-    from test_printjob import run as test_printjob
+    from tests.test_printjob import run as test_printjob
     test_printjob()
-    from test_pdf import run as test_pdf
+    from tests.test_pdf import run as test_pdf
     test_pdf()
-    from test_loops import run as test_loops
+    from tests.test_loops import run as test_loops
     test_loops()
-    from test_images import run as test_images
+    from tests.test_images import run as test_images
     test_images()
-    from test_elements import run as test_elements
+    from tests.test_elements import run as test_elements
     test_elements()
