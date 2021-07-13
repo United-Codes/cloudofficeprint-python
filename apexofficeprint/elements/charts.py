@@ -264,10 +264,13 @@ class XYSeries(Series):
     def __init__(self,
                  x: Iterable[Union[int, float, str]],
                  y: Iterable[Union[int, float]],
-                 name: str = None):
+                 name: str = None,
+                 color: str = None):
         super().__init__(name)
         self.x: Iterable[Union[int, float, str]] = x
         self.y: Iterable[Union[int, float]] = y
+        self.color: str = color
+        """Can be html/css colors or hex values"""
 
     @property
     def data(self):
@@ -281,6 +284,15 @@ class XYSeries(Series):
         x = list(data.iloc[:, 0])
         y = list(data.iloc[:, 1])
         return cls(x, y, name=name)
+    
+    @property
+    def as_dict(self):
+        result = super().as_dict
+
+        if self.color is not None:
+            result['color'] = self.color
+        
+        return result
 
 
 class PieSeries(XYSeries):
@@ -288,28 +300,26 @@ class PieSeries(XYSeries):
                  x: Iterable[Union[int, float, str]],
                  y: Iterable[Union[int, float]],
                  name: str = None,
-                 color: Iterable[str] = None):
+                 colors: Iterable[str] = None):
         super().__init__(x, y, name)
-        self.color = color
+        self.colors = colors
         """Should be an iterable that contains the color for each specific pie slice.
         If no colors are specified, the document's theme color is used.
         If some colors are specified, but not for all data points, random colors will fill the gaps.
         The value for non-specified colors must be None.
+        Warning: this is not the same as self.color of XYSeries, which is the color for the entire series,
+        but this is not applicable to PieSeries.
         """
 
     @property
     def as_dict(self):
-        result = {
-            "data": self.data
-        }
+        result = super().as_dict
 
-        if self.name is not None:
-            result["name"] = self.name
-        if self.color is not None:
+        if self.colors is not None:
             # Add the color for each slice to 'data'
-            for i in range(len(tuple(self.color))):
-                if self.color[i] is not None:
-                    result["data"][i]['color'] = self.color[i]
+            for i in range(len(tuple(self.colors))):
+                if self.colors[i] is not None:
+                    result["data"][i]['color'] = self.colors[i]
 
         return result
 
@@ -321,20 +331,13 @@ class AreaSeries(XYSeries):
                  name: str = None,
                  color: str = None,
                  opacity: float = None):
-        super().__init__(x, y, name)
-        self.color = color
+        super().__init__(x, y, name, color)
         self.opacity = opacity
 
     @property
     def as_dict(self):
-        result = {
-            "data": self.data
-        }
+        result = super().as_dict
 
-        if self.name is not None:
-            result["name"] = self.name
-        if self.color is not None:
-            result["color"] = self.color
         if self.opacity is not None:
             result["opacity"] = self.opacity
 
@@ -352,33 +355,25 @@ class LineSeries(XYSeries):
                  color: str = None,
                  line_width: str = None,
                  line_style: str = None):
-        super().__init__(x, y, name)
+        super().__init__(x, y, name, color)
         self.smooth: bool = smooth
         self.symbol: str = symbol
         """Options: square (default), diamond, triangle"""
         self.symbol_size: Union[str, int] = symbol_size
-        self.color: str = color
-        """Can be html/css colors or hex values"""
         self.line_width: str = line_width
         self.line_style: str = line_style
         """For the available styles, we refer to http://www.apexofficeprint.com/docs/#line"""
 
     @property
     def as_dict(self):
-        result = {
-            "data": self.data
-        }
+        result = super().as_dict
 
-        if self.name is not None:
-            result["name"] = self.name
         if self.smooth is not None:
             result["smooth"] = self.smooth
         if self.symbol is not None:
             result["symbol"] = self.symbol
         if self.symbol_size is not None:
             result["symbolSize"] = self.symbol_size
-        if self.color is not None:
-            result["color"] = self.color
         if self.line_width is not None:
             result["lineWidth"] = self.line_width
         if self.line_style is not None:
@@ -392,8 +387,9 @@ class BubbleSeries(XYSeries):
                  x: Iterable[Union[int, float, str]],
                  y: Iterable[Union[int, float]],
                  sizes: Iterable[Union[int, float]],
-                 name: str = None):
-        super().__init__(x, y, name)
+                 name: str = None,
+                 color: str = None):
+        super().__init__(x, y, name, color)
         self.sizes: Iterable[Union[int, float]] = sizes
 
     @property

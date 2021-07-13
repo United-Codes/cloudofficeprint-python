@@ -313,12 +313,14 @@ def test_chart_bar():
     bars1 = aop.elements.BarSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
-        name='bars1'
+        name='bars1',
+        color='red'
     )
     bars2 = aop.elements.BarSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
-        name='bars2'
+        name='bars2',
+        color='blue'
     )
     bar_chart = aop.elements.BarChart(
         name='bar_chart',
@@ -342,7 +344,8 @@ def test_chart_bar():
                             'y': 3
                         }
                     ],
-                    'name': 'bars1'
+                    'name': 'bars1',
+                    'color': 'red'
                 },
                 {
                     'data': [
@@ -359,7 +362,8 @@ def test_chart_bar():
                             'y': 6
                         }
                     ],
-                    'name': 'bars2'
+                    'name': 'bars2',
+                    'color': 'blue'
                 },
             ],
             'type': 'bar'
@@ -376,13 +380,13 @@ def test_chart_pie():
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='pies1',
-        color=('red', None, 'blue')
+        colors=('red', None, 'blue')
     )
     pies2 = aop.elements.PieSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='pies2',
-        color=('green', 'blue', None)
+        colors=('green', 'blue', None)
     )
     pies_chart = aop.elements.PieChart(
         name='pie_chart',
@@ -510,13 +514,15 @@ def test_chart_bubble():
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         sizes=(5, 6, 2),
-        name='bubble1'
+        name='bubble1',
+        color='red'
     )
     bubble2 = aop.elements.BubbleSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         sizes=(5, 6, 2),
-        name='bubble2'
+        name='bubble2',
+        color='blue'
     )
     bubble_chart = aop.elements.BubbleChart(
         name='bubble_chart',
@@ -543,7 +549,8 @@ def test_chart_bubble():
                             'size': 2
                         },
                     ],
-                    'name': 'bubble1'
+                    'name': 'bubble1',
+                    'color': 'red'
                 },
                 {
                     'data': [
@@ -563,7 +570,8 @@ def test_chart_bubble():
                             'size': 2
                         },
                     ],
-                    'name': 'bubble2'
+                    'name': 'bubble2',
+                    'color': 'blue'
                 }
             ],
             'type': 'bubble'
