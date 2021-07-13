@@ -387,15 +387,13 @@ class LineSeries(XYSeries):
         return result
 
 
-class BubbleSeries(Series):
+class BubbleSeries(XYSeries):
     def __init__(self,
                  x: Iterable[Union[int, float, str]],
                  y: Iterable[Union[int, float]],
                  sizes: Iterable[Union[int, float]],
                  name: str = None):
-        super().__init__(name)
-        self.x: Iterable[Union[int, float, str]] = x
-        self.y: Iterable[Union[int, float]] = y
+        super().__init__(x, y, name)
         self.sizes: Iterable[Union[int, float]] = sizes
 
     @property
