@@ -30,6 +30,14 @@ data = aop.elements.ElementCollection()
 # Add information about SpaceX
 data.add_all(aop.elements.ElementCollection.from_mapping(info))
 
+## Add SpaceX website as hyperlink
+website = aop.elements.Hyperlink(
+    name='spacex_website',
+    url=info['links']['website'],
+    text='Website'
+)
+data.add(website)
+
 
 # Add data source
 data.add(aop.elements.Hyperlink(
@@ -76,7 +84,20 @@ for i in range(len(rockets)):
     rockets[i]['description'] = shorten_description(rockets[i]['description'])
 
 
-rocket_list = [aop.elements.ElementCollection.from_mapping(rocket) for rocket in rockets]
+## Add rocket data to a list
+rocket_list = []
+
+## Add wikipedia hyperlink for each rocket
+for rocket in rockets:
+    collec = aop.elements.ElementCollection.from_mapping(rocket)
+    hyper = aop.elements.Hyperlink(
+        name='wikipedia',
+        url=rocket['wikipedia'],
+        text='Wikipedia'
+    )
+    collec.add(hyper)
+    rocket_list.append(collec)
+
 rocket_data = aop.elements.ForEach('rockets', rocket_list)
 data.add(rocket_data)
 
@@ -134,7 +155,20 @@ for i in range(len(dragons)):
     dragons[i].update(img.as_dict)
     dragons[i]['description'] = shorten_description(dragons[i]['description'])
 
-dragon_list = [aop.elements.ElementCollection.from_mapping(dragon) for dragon in dragons]
+## Add dragon data to a list
+dragon_list = []
+
+## Add wikipedia hyperlink for each dragon
+for dragon in dragons:
+    collec = aop.elements.ElementCollection.from_mapping(dragon)
+    hyper = aop.elements.Hyperlink(
+        name='wikipedia',
+        url=dragon['wikipedia'],
+        text='Wikipedia'
+    )
+    collec.add(hyper)
+    dragon_list.append(collec)
+
 dragon_data = aop.elements.ForEach('dragons', dragon_list)
 data.add(dragon_data)
 
@@ -162,8 +196,20 @@ for i in range(len(landing_pads)):
     landing_pads[i].update(img.as_dict)
     landing_pads[i]['details'] = shorten_description(landing_pads[i]['details'])
 
-## Add landing pads data
-landing_pad_list = [aop.elements.ElementCollection.from_mapping(landing_pad) for landing_pad in landing_pads]
+## Add landing_pad data to a list
+landing_pad_list = []
+
+## Add wikipedia hyperlink for each landing_pad
+for landing_pad in landing_pads:
+    collec = aop.elements.ElementCollection.from_mapping(landing_pad)
+    hyper = aop.elements.Hyperlink(
+        name='wikipedia',
+        url=landing_pad['wikipedia'],
+        text='Wikipedia'
+    )
+    collec.add(hyper)
+    landing_pad_list.append(collec)
+
 landing_pad_data = aop.elements.ForEach('landing_pads', landing_pad_list)
 
 data.add(landing_pad_data)
@@ -176,7 +222,20 @@ for i in range(len(ships)):
     img.max_width = 400
     ships[i].update(img.as_dict)
 
-ship_list = [aop.elements.ElementCollection.from_mapping(ship) for ship in ships]
+## Add ship data to a list
+ship_list = []
+
+## Add wikipedia hyperlink for each ship
+for ship in ships:
+    collec = aop.elements.ElementCollection.from_mapping(ship)
+    hyper = aop.elements.Hyperlink(
+        name='website',
+        url=ship['link'],
+        text='Website'
+    )
+    collec.add(hyper)
+    ship_list.append(collec)
+
 ship_data = aop.elements.ForEach('ships', ship_list)
 data.add(ship_data)
 
