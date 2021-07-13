@@ -2,7 +2,6 @@ from apexofficeprint.config import server
 from apexofficeprint.resource import Resource
 import apexofficeprint as aop
 import requests
-import pprint
 
 
 # Get SpaceX data from https://docs.spacexdata.com
@@ -24,7 +23,7 @@ server = aop.config.Server(
 )
 
 
-# Create data object
+# Create data object that contains all the data needed to fill in the template
 data = aop.elements.ElementCollection()
 
 
@@ -80,6 +79,51 @@ for i in range(len(rockets)):
 rocket_list = [aop.elements.ElementCollection.from_mapping(rocket) for rocket in rockets]
 rocket_data = aop.elements.ForEach('rockets', rocket_list)
 data.add(rocket_data)
+
+## Add rocket chart
+x = []
+cost_y = []
+
+for rocket in rockets:
+    x.append(rocket['name'])
+    cost_y.append(rocket['cost_per_launch'])
+
+cost_series = aop.elements.ColumnSeries(
+    x=x,
+    y=cost_y,
+    name='Cost per launch'
+)
+
+rockets_chart_options = aop.elements.ChartOptions(
+    x_axis=aop.elements.ChartAxisOptions(
+        title='Rocket',
+        title_style=aop.elements.ChartTextStyle(color='black')
+    ),
+    y_axis=aop.elements.ChartAxisOptions(
+        title='Cost ($)',
+        title_rotation=-90,
+        title_style=aop.elements.ChartTextStyle(color='black')
+    ),
+    width=800,
+    height=300,
+    rounded_corners=True,
+    border=False,
+    background_color='#c8a45c',
+    background_opacity=50
+)
+
+rockets_chart_options.set_legend(
+    style=aop.elements.ChartTextStyle(color='black')
+)
+
+rockets_chart = aop.elements.ColumnChart(
+    name='rockets_chart',
+    columns=(cost_series,),
+    options=rockets_chart_options
+)
+
+data.add(rockets_chart)
+
 
 # Add dragons data
 ## Add dragon images and shorten description
