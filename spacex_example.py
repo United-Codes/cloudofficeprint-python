@@ -9,6 +9,7 @@ import pprint
 info = requests.get('https://api.spacexdata.com/v3/info').json() # v4 not supported
 rockets = requests.get('https://api.spacexdata.com/v4/rockets').json()
 dragons = requests.get('https://api.spacexdata.com/v4/dragons').json()
+launch_pads = requests.get('https://api.spacexdata.com/v4/launchpads').json()
 landing_pads = requests.get('https://api.spacexdata.com/v4/landpads').json()
 ships = requests.get('https://api.spacexdata.com/v4/ships').json()
 
@@ -44,6 +45,9 @@ data.add(aop.elements.Property('rockets_description', 'Data about the rockets bu
 # Add dragons description
 data.add(aop.elements.Property('dragons_description', 'Data about the dragon capsules of SpaceX'))
 
+# Add launch pads description
+data.add(aop.elements.Property('launch_pads_description', "Data about SpaceX's launch pads"))
+
 # Add landing pads description
 data.add(aop.elements.Property('landing_pads_description', "Data about SpaceX's landing pads"))
 
@@ -51,13 +55,26 @@ data.add(aop.elements.Property('landing_pads_description', "Data about SpaceX's 
 data.add(aop.elements.Property('ships_description', 'Data about the ships that assist SpaceX launches, including ASDS drone ships, tugs, fairing recovery ships, and various support ships'))
 
 
+def shorten_description(input: str) -> str:
+    """Return only the first sentence of an input.
+
+    Args:
+        input (str): The input that needs to be shortened
+
+    Returns:
+        str: First sentence of input string
+    """
+    return input.split('.')[0] + '.'
+
+
 # Add rocket data
-## Add rocket images
+## Add rocket images and shorten description
 for i in range(len(rockets)):
     img = aop.elements.Image.from_url('image', rockets[i]['flickr_images'][0])
     img.max_height = 250
     img.max_width = 400
     rockets[i].update(img.as_dict)
+    rockets[i]['description'] = shorten_description(rockets[i]['description'])
 
 
 rocket_list = [aop.elements.ElementCollection.from_mapping(rocket) for rocket in rockets]
@@ -65,26 +82,41 @@ rocket_data = aop.elements.ForEach('rockets', rocket_list)
 data.add(rocket_data)
 
 # Add dragons data
-## Add dragon images
+## Add dragon images and shorten description
 for i in range(len(dragons)):
     img = aop.elements.Image.from_url('image', dragons[i]['flickr_images'][0])
     img.max_height = 250
     img.max_width = 400
     dragons[i].update(img.as_dict)
+    dragons[i]['description'] = shorten_description(dragons[i]['description'])
 
 dragon_list = [aop.elements.ElementCollection.from_mapping(dragon) for dragon in dragons]
 dragon_data = aop.elements.ForEach('dragons', dragon_list)
 data.add(dragon_data)
 
+# Add launch pads data
+## Add launch pad images and shorten description
+for i in range(len(launch_pads)):
+    img = aop.elements.Image.from_url('image', launch_pads[i]['images']['large'][0])
+    img.max_height = 250
+    img.max_width = 400
+    launch_pads[i].update(img.as_dict)
+    launch_pads[i]['details'] = shorten_description(launch_pads[i]['details'])
+
+## Add launch pads data
+launch_pad_list = [aop.elements.ElementCollection.from_mapping(launch_pad) for launch_pad in launch_pads]
+launch_pad_data = aop.elements.ForEach('launch_pads', launch_pad_list)
+
+data.add(launch_pad_data)
+
 # Add landing pads data
-## Add landing pad images
+## Add landing pad images and shorten description
 for i in range(len(landing_pads)):
     img = aop.elements.Image.from_url('image', landing_pads[i]['images']['large'][0])
     img.max_height = 250
     img.max_width = 400
     landing_pads[i].update(img.as_dict)
-    # Preprocess details (only take first sentence of description)
-    landing_pads[i]['details'] = landing_pads[i]['details'].split('.')[0] + '.'
+    landing_pads[i]['details'] = shorten_description(landing_pads[i]['details'])
 
 ## Add landing pads data
 landing_pad_list = [aop.elements.ElementCollection.from_mapping(landing_pad) for landing_pad in landing_pads]
