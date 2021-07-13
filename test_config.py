@@ -52,6 +52,22 @@ def test_pdf_options():
     assert conf.as_dict == conf_expected
 
 
+def test_printer():
+    printer = aop.config.server.Printer(
+        location='location',
+        version='version',
+        requester='requester',
+        job_name='job_name'
+    )
+    printer_expected = {
+        'location': 'location',
+        'version': 'version',
+        'requester': 'requester',
+        'job_name': 'job_name'
+    }
+    assert printer._dict == printer_expected
+
+
 def test_cloud_access_tokens():
     """Test cloud access for output file: OAuthToken, AWSToken, FTPToken and SFTPToken"""
     # OAuthToken
@@ -169,6 +185,7 @@ def test_route_paths():
 
 def run():
     test_pdf_options()
+    test_printer()
     test_cloud_access_tokens()
     test_commands()
     test_route_paths()

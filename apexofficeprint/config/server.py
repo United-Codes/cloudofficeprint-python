@@ -4,8 +4,6 @@ from typing import Mapping, Dict
 from urllib.parse import urljoin, urlparse
 import json
 
-from requests.models import requote_uri
-
 
 class Printer:
     """This class defines an IP-enabled printer to use with the AOP server."""
@@ -127,7 +125,7 @@ class ServerConfig:
         Additional key/value pairs you would like to have logged into server_printjob.log on the server.
         (To be used with the --enable_printlog server flag)
         """
-        self.proxies = proxies
+        self.proxies: Dict[str, str] = proxies
         """Proxies for contacting the server URL,
         [as a dictionary](https://requests.readthedocs.io/en/master/user/advanced/#proxies)"""
         self.printer: Printer = printer
@@ -141,11 +139,11 @@ class ServerConfig:
     def as_dict(self):
         result = {}
 
-        if self.api_key:
+        if self.api_key is not None:
             result["api_key"] = self.api_key
-        if self.logging:
+        if self.logging is not None:
             result["logging"] = self.logging
-        if self.printer:
+        if self.printer is not None:
             result["ipp"] = self.printer._dict
         if self.aop_remote_debug:
             result['aop_remote_debug'] = 'Yes'
