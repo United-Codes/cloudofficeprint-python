@@ -426,6 +426,37 @@ On the last slide we have to make some notes. A ship can have multiple roles, so
 
 We also use a few condition-tags. These tags are used to only show what is between the opening and closing condition-tag if the condition is true. The tags used are the opening tag `{#condition}` and the closing tag `{/condition}`. The condition tags on this slide are: `{#year_built}...{/year_built}`, `{#mass_kg}...{/mass_kg}` and `{#website}...{/website}`.
 
+## xlsx
+The xlsx-template is very similar to the pptx-template in the sense that they both use the same tags/placeholders. The only differences are:
+- we do not want the images in the xlsx-file, because the images do not fit nicely into our tables, because they are too big.
+- we do not generate a separate tab for each rocket, dragon, etc. Instead we loop over the objects in an Excel table
+
+### About
+The first tab is the 'about'-tab. This tab contains the information of the company SpaceX in general and the source where we got the SpaceX data from:
+<img src="./imgs/xlsx_template/tab1.png" width="600" height="350" />
+
+### Rockets
+The 'rockets'-tab contains the rockets description in the left top. It also contains the data for each rocket in a table. On the image below, you can see how a table with information about each rocket can be generated:
+
+<img src="./imgs/xlsx_template/tab2.png" width="600" height="350" />
+
+We use the loop tags `{#rockets}...{/rockets}` to loop through the 'rockets'-array. The AOP server will repeat everything inside the loop tags on a new row for each object in the array.
+
+### Dragons
+<img src="./imgs/xlsx_template/tab3.png" width="600" height="350" />
+
+### Launch pads
+<img src="./imgs/xlsx_template/tab4.png" width="600" height="350" />
+
+### Landing pads
+<img src="./imgs/xlsx_template/tab5.png" width="600" height="350" />
+
+### Ships
+<img src="./imgs/xlsx_template/tab6.png" width="600" height="350" />
+
+Here we can again see the use of the 'condition'-tag `{#website}...{/website}`, because we do not want to see the text 'Website' without a hyperlink if the website is not available in the data.
+
+
 # Process input data (Python SDK)
 Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template. The full Python code can also be found in the file `spacex_example.py`.
 
@@ -519,7 +550,7 @@ data.add(rockets_description)
 ```
 
 ### Main loop
-Since we want a separate slide for each rocket, we need to add the rockets information in an array to be able to loop through the rockest. So we create a rocket list: 
+Since we want a separate slide for each rocket, we need to add the rockets information in an array to be able to loop through the rockets. So we create a rocket list: 
 ```python
 rocket_list = []
 ```
@@ -773,4 +804,4 @@ Finally we actually send this printjob to an AOP server and save the response in
 ```python
 printjob.execute().to_file('./spacex_example/output')
 ```
-The resulting file can now be found in the specified folder.
+The resulting file can now be found in the specified folder. We will not add the result in this markdown file, but the result can be seen in the files `output.pptx` and `output.xlsx` that can be found in the folder `spacex_example`.
