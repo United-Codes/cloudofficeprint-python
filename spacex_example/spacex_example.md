@@ -427,7 +427,7 @@ On the last slide we have to make some notes. A ship can have multiple roles, so
 We also use a few condition-tags. These tags are used to only show what is between the opening and closing condition-tag if the condition is true. The tags used are the opening tag `{#condition}` and the closing tag `{/condition}`. The condition tags on this slide are: `{#year_built}...{/year_built}`, `{#mass_kg}...{/mass_kg}` and `{#website}...{/website}`.
 
 # Process input data (Python SDK)
-Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain all the Python code needed to generate the data to fill in the template.
+Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template.
 
 
 

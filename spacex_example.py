@@ -1,16 +1,5 @@
-from apexofficeprint.config import server
-from apexofficeprint.resource import Resource
 import apexofficeprint as aop
 import requests
-
-
-# Get SpaceX data from https://docs.spacexdata.com
-info = requests.get('https://api.spacexdata.com/v3/info').json() # v4 not supported
-rockets = requests.get('https://api.spacexdata.com/v4/rockets').json()
-dragons = requests.get('https://api.spacexdata.com/v4/dragons').json()
-launch_pads = requests.get('https://api.spacexdata.com/v4/launchpads').json()
-landing_pads = requests.get('https://api.spacexdata.com/v4/landpads').json()
-ships = requests.get('https://api.spacexdata.com/v4/ships').json()
 
 
 # Setup AOP server
@@ -23,8 +12,26 @@ server = aop.config.Server(
 )
 
 
+# Get SpaceX data from https://docs.spacexdata.com
+info = requests.get('https://api.spacexdata.com/v3/info').json() # v4 not supported
+rockets = requests.get('https://api.spacexdata.com/v4/rockets').json()
+dragons = requests.get('https://api.spacexdata.com/v4/dragons').json()
+launch_pads = requests.get('https://api.spacexdata.com/v4/launchpads').json()
+landing_pads = requests.get('https://api.spacexdata.com/v4/landpads').json()
+ships = requests.get('https://api.spacexdata.com/v4/ships').json()
+
+
 # Create data object that contains all the data needed to fill in the template
 data = aop.elements.ElementCollection()
+
+
+# Add data source hyperlink
+data_source = aop.elements.Hyperlink(
+    name='data_source',
+    url='https://docs.spacexdata.com',
+    text='Data source'
+)
+data.add(data_source)
 
 
 # Add information about SpaceX
@@ -37,29 +44,6 @@ website = aop.elements.Hyperlink(
     text='Website'
 )
 data.add(website)
-
-
-# Add data source hyperlink
-data.add(aop.elements.Hyperlink(
-    name='data_source',
-    url='https://docs.spacexdata.com',
-    text='Data source'
-))
-
-# Add rockets description
-data.add(aop.elements.Property('rockets_description', 'Data about the rockets built by SpaceX'))
-
-# Add dragons description
-data.add(aop.elements.Property('dragons_description', 'Data about the dragon capsules of SpaceX'))
-
-# Add launch pads description
-data.add(aop.elements.Property('launch_pads_description', "Data about SpaceX's launch pads"))
-
-# Add landing pads description
-data.add(aop.elements.Property('landing_pads_description', "Data about SpaceX's landing pads"))
-
-# Add ships description
-data.add(aop.elements.Property('ships_description', 'Data about the ships that assist SpaceX launches, including ASDS drone ships, tugs, fairing recovery ships, and various support ships'))
 
 
 def shorten_description(input: str) -> str:
@@ -75,27 +59,32 @@ def shorten_description(input: str) -> str:
 
 
 # Add rocket data
-## Add rocket images and shorten description
-for i in range(len(rockets)):
-    img = aop.elements.Image.from_url('image', rockets[i]['flickr_images'][0])
-    img.max_height = 250
-    img.max_width = 400
-    rockets[i].update(img.as_dict)
-    rockets[i]['description'] = shorten_description(rockets[i]['description'])
-
+## Add rockets description
+rockets_description = aop.elements.Property('rockets_description', 'Data about the rockets built by SpaceX')
+data.add(rockets_description)
 
 ## Add rocket data to a list
 rocket_list = []
 
-## Add wikipedia hyperlink for each rocket
+## Add rocket images, wikipedia hyperlink and shortened description for each rocket
 for rocket in rockets:
     collec = aop.elements.ElementCollection.from_mapping(rocket)
+
+    img = aop.elements.Image.from_url('image', rocket['flickr_images'][0])
+    img.max_height = 250
+    img.max_width = 400
+    collec.add(img)
+
     hyper = aop.elements.Hyperlink(
         name='wikipedia',
         url=rocket['wikipedia'],
         text='Wikipedia'
     )
     collec.add(hyper)
+
+    short_description = aop.elements.Property('description', shorten_description(rocket['description']))
+    collec.add(short_description)  # Overwrites the current description
+
     rocket_list.append(collec)
 
 rocket_data = aop.elements.ForEach('rockets', rocket_list)
@@ -149,93 +138,119 @@ data.add(rockets_chart)
 
 
 # Add dragons data
-## Add dragon images and shorten description
-for i in range(len(dragons)):
-    img = aop.elements.Image.from_url('image', dragons[i]['flickr_images'][0])
-    img.max_height = 250
-    img.max_width = 400
-    dragons[i].update(img.as_dict)
-    dragons[i]['description'] = shorten_description(dragons[i]['description'])
+## Add dragons description
+data.add(aop.elements.Property('dragons_description', 'Data about the dragon capsules of SpaceX'))
 
 ## Add dragon data to a list
 dragon_list = []
 
-## Add wikipedia hyperlink for each dragon
+## Add dragon images, wikipedia hyperlink and shortened description for each dragon
 for dragon in dragons:
     collec = aop.elements.ElementCollection.from_mapping(dragon)
+    
+    img = aop.elements.Image.from_url('image', dragon['flickr_images'][0])
+    img.max_height = 250
+    img.max_width = 400
+    collec.add(img)
+
     hyper = aop.elements.Hyperlink(
         name='wikipedia',
         url=dragon['wikipedia'],
         text='Wikipedia'
     )
     collec.add(hyper)
+
+    short_description = aop.elements.Property('description', shorten_description(dragon['description']))
+    collec.add(short_description)  # Overwrites the current description
+
     dragon_list.append(collec)
 
 dragon_data = aop.elements.ForEach('dragons', dragon_list)
 data.add(dragon_data)
 
+
 # Add launch pads data
-## Add launch pad images and shorten description
-for i in range(len(launch_pads)):
-    img = aop.elements.Image.from_url('image', launch_pads[i]['images']['large'][0])
+## Add launch pads description
+data.add(aop.elements.Property('launch_pads_description', "Data about SpaceX's launch pads"))
+
+## Add launch pad data to a list
+launch_pad_list = []
+
+## Add launch pad images, wikipedia hyperlink and shortened description for each launch_pad
+for launch_pad in launch_pads:
+    collec = aop.elements.ElementCollection.from_mapping(launch_pad)
+    
+    img = aop.elements.Image.from_url('image', launch_pad['images']['large'][0])
     img.max_height = 250
     img.max_width = 400
-    launch_pads[i].update(img.as_dict)
-    launch_pads[i]['details'] = shorten_description(launch_pads[i]['details'])
+    collec.add(img)
 
-## Add launch pads data
-launch_pad_list = [aop.elements.ElementCollection.from_mapping(launch_pad) for launch_pad in launch_pads]
+    short_description = aop.elements.Property('details', shorten_description(launch_pad['details']))
+    collec.add(short_description)  # Overwrites the current description
+
+    launch_pad_list.append(collec)
+
 launch_pad_data = aop.elements.ForEach('launch_pads', launch_pad_list)
 
 data.add(launch_pad_data)
 
-# Add landing pads data
-## Add landing pad images and shorten description
-for i in range(len(landing_pads)):
-    img = aop.elements.Image.from_url('image', landing_pads[i]['images']['large'][0])
-    img.max_height = 250
-    img.max_width = 400
-    landing_pads[i].update(img.as_dict)
-    landing_pads[i]['details'] = shorten_description(landing_pads[i]['details'])
 
-## Add landing_pad data to a list
+# Add landing pads data
+## Add landing pads description
+data.add(aop.elements.Property('landing_pads_description', "Data about SpaceX's landing pads"))
+
+## Add landing pad data to a list
 landing_pad_list = []
 
-## Add wikipedia hyperlink for each landing_pad
+## Add landing pad images, wikipedia hyperlink and shortened description for each landing pad
 for landing_pad in landing_pads:
     collec = aop.elements.ElementCollection.from_mapping(landing_pad)
+    
+    img = aop.elements.Image.from_url('image', landing_pad['images']['large'][0])
+    img.max_height = 250
+    img.max_width = 400
+    collec.add(img)
+
     hyper = aop.elements.Hyperlink(
         name='wikipedia',
         url=landing_pad['wikipedia'],
         text='Wikipedia'
     )
     collec.add(hyper)
+
+    short_description = aop.elements.Property('details', shorten_description(landing_pad['details']))
+    collec.add(short_description)  # Overwrites the current description
+
     landing_pad_list.append(collec)
 
 landing_pad_data = aop.elements.ForEach('landing_pads', landing_pad_list)
 
 data.add(landing_pad_data)
 
+
 # Add ships data
-## Add ship images
-for i in range(len(ships)):
-    img = aop.elements.Image.from_url('image', ships[i]['image'])
-    img.max_height = 250
-    img.max_width = 400
-    ships[i].update(img.as_dict)
+## Add ships description
+data.add(aop.elements.Property('ships_description', 'Data about the ships that assist SpaceX launches, including ASDS drone ships, tugs, fairing recovery ships, and various support ships'))
 
 ## Add ship data to a list
 ship_list = []
 
-## Add wikipedia hyperlink for each ship
+## Add ship images and website hyperlink for each ship
 for ship in ships:
     collec = aop.elements.ElementCollection.from_mapping(ship)
+    
+    img = aop.elements.Image.from_url('image', ship['image'])
+    img.max_height = 250
+    img.max_width = 400
+    collec.add(img)
+
     hyper = aop.elements.Hyperlink(
         name='website',
         url=ship['link'],
         text='Website'
     )
     collec.add(hyper)
+
     ship_list.append(collec)
 
 ship_data = aop.elements.ForEach('ships', ship_list)
@@ -244,8 +259,8 @@ data.add(ship_data)
 
 # Create printjob
 printjob = aop.PrintJob(
-    # template=Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
-    template=Resource.from_local_file('./spacex_example/spacex_template.xlsx'), # For xlsx
+    template=aop.Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
+    # template=aop.Resource.from_local_file('./spacex_example/spacex_template.xlsx'), # For xlsx
     data=data,
     server=server
 )
