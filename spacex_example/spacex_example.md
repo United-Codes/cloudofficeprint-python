@@ -427,8 +427,116 @@ On the last slide we have to make some notes. A ship can have multiple roles, so
 We also use a few condition-tags. These tags are used to only show what is between the opening and closing condition-tag if the condition is true. The tags used are the opening tag `{#condition}` and the closing tag `{/condition}`. The condition tags on this slide are: `{#year_built}...{/year_built}`, `{#mass_kg}...{/mass_kg}` and `{#website}...{/website}`.
 
 # Process input data (Python SDK)
-Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template.
+Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template. The full Python code can also be found in the file `spacex_example.py`.
 
+## Setup
+First we create a new Python file and import the APEX Office Print library and the `requests`-library:
+
+```python
+import apexofficeprint as aop
+import requests
+```
+
+Then we need to set up the AOP server where we will send our template and data to:
+```python
+LOCAL_SERVER_URL = "http://localhost:8010"
+API_KEY = "1C511A58ECC73874E0530100007FD01A"
+
+server = aop.config.Server(
+    LOCAL_SERVER_URL,
+    aop.config.ServerConfig(api_key=API_KEY)
+)
+```
+If you do not have an AOP server running on localhost (e.g. on-premise version) and want to use the AOP cloud server, replace the local server url by the url of our cloud server: https://api.apexofficeprint.com/.
+
+We also need to create the main element-collection object that contains all our data:
+```python
+data = aop.elements.ElementCollection()
+```
+
+Lastly we write a function that return the first sentence of a text input. This is used when we only want to display the first sentence of a discription:
+```python
+def shorten_description(input: str) -> str:
+    """Return only the first sentence of an input.
+
+    Args:
+        input (str): The input that needs to be shortened
+
+    Returns:
+        str: First sentence of input string
+    """
+    return input.split('.')[0] + '.'
+```
+
+## Import data
+As discussed in [Input data (API)](#input-data-api), we use an API of a cloud server to receive the data about SpaceX. The information we use for this example can be received as follows using the `requests`-library:
+```python
+info = requests.get('https://api.spacexdata.com/v3/info').json()
+rockets = requests.get('https://api.spacexdata.com/v4/rockets').json()
+dragons = requests.get('https://api.spacexdata.com/v4/dragons').json()
+launch_pads = requests.get('https://api.spacexdata.com/v4/launchpads').json()
+landing_pads = requests.get('https://api.spacexdata.com/v4/landpads').json()
+ships = requests.get('https://api.spacexdata.com/v4/ships').json()
+```
+
+## Title slide
+The template title slide contains the title of our presentation and a hyperlink-tag `{*data_source}`. Now we need to add the data for this tag in our Python code by creating an AOP element (hyperlink) and adding this to the main data collection:
+```python
+data_source = aop.elements.Hyperlink(
+    name='data_source',
+    url='https://docs.spacexdata.com',
+    text='Data source'
+)
+data.add(data_source)
+```
+The tag `{*data_source}` will be replaced by the text 'Data source' and this text will have a hyperlink to the URL 'https://docs.spacexdata.com'.
+
+## Company
+We see why we said in [Template](#template) to use as the variable names inside the tags, the name of the keys available in the responses of [Input data (API)](#input-data-api). Now we can just add the data received from the SpaceX-API to our data collection and this data can be accessed by the template:
+```python
+data.add_all(aop.elements.ElementCollection.from_mapping(info))
+```
+The only thing we need to create ourselves is the SpaceX-website hyperlink:
+```python
+website = aop.elements.Hyperlink(
+    name='spacex_website',
+    url=info['links']['website'],
+    text='Website'
+)
+data.add(website)
+```
+
+## Rockets
+
+### Description
+
+### Main loop
+
+### Chart
+
+## Dragons
+
+### Description
+
+### Main loop
+
+## Launch pads
+
+### Description
+
+### Main loop
+
+## Landing pads
+
+### Description
+
+### Main loop
+
+## Ships
+
+### Description
+
+### Main loop
 
 
 # AOP server and response

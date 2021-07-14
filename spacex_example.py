@@ -12,6 +12,22 @@ server = aop.config.Server(
 )
 
 
+# Create data object that contains all the data needed to fill in the template
+data = aop.elements.ElementCollection()
+
+
+def shorten_description(input: str) -> str:
+    """Return only the first sentence of an input.
+
+    Args:
+        input (str): The input that needs to be shortened
+
+    Returns:
+        str: First sentence of input string
+    """
+    return input.split('.')[0] + '.'
+
+
 # Get SpaceX data from https://docs.spacexdata.com
 info = requests.get('https://api.spacexdata.com/v3/info').json() # v4 not supported
 rockets = requests.get('https://api.spacexdata.com/v4/rockets').json()
@@ -19,10 +35,6 @@ dragons = requests.get('https://api.spacexdata.com/v4/dragons').json()
 launch_pads = requests.get('https://api.spacexdata.com/v4/launchpads').json()
 landing_pads = requests.get('https://api.spacexdata.com/v4/landpads').json()
 ships = requests.get('https://api.spacexdata.com/v4/ships').json()
-
-
-# Create data object that contains all the data needed to fill in the template
-data = aop.elements.ElementCollection()
 
 
 # Add data source hyperlink
@@ -44,18 +56,6 @@ website = aop.elements.Hyperlink(
     text='Website'
 )
 data.add(website)
-
-
-def shorten_description(input: str) -> str:
-    """Return only the first sentence of an input.
-
-    Args:
-        input (str): The input that needs to be shortened
-
-    Returns:
-        str: First sentence of input string
-    """
-    return input.split('.')[0] + '.'
 
 
 # Add rocket data
