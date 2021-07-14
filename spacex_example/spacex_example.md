@@ -356,7 +356,7 @@ The response is a JSON array with information about all the ships. One element o
 ```
 
 # Template
-Now we will build the template. We can create templates in different file extensions, namely docx, xlsx, pptx, html, md, txt and csv. In this example we will build a template of filetype pptx, xlsx and HTML (TODO). The template has to follow a specific structure which can be found at the official AOP documentation: http://www.apexofficeprint.com/docs/.
+Now we will build the template. We can create templates in different file extensions, namely docx, xlsx, pptx, html, md, txt and csv. In this example we will build a template of filetype pptx, xlsx and docx. The template has to follow a specific structure which can be found at the official AOP documentation: http://www.apexofficeprint.com/docs/.
 
 ## pptx
 We will build the template in Google Slides. After choosing a pretty theme, we create the title slide. On this slide, we want the title of our presentation and the source where we got the data from. The title slide looks like this:
@@ -456,6 +456,8 @@ We use the loop tags `{#rockets}...{/rockets}` to loop through the 'rockets'-arr
 
 Here we can again see the use of the 'condition'-tag `{#website}...{/website}`, because we do not want to see the text 'Website' without a hyperlink if the website is not available in the data.
 
+## docx
+TODO
 
 # Process input data (Python SDK)
 Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template. The full Python code can also be found in the file `spacex_example.py`.

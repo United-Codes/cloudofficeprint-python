@@ -28,6 +28,12 @@ def shorten_description(input: str) -> str:
     return input.split('.')[0] + '.'
 
 
+# IMAGE_MAX_HEIGHT = 250  # pptx, xlsx
+# IMAGE_MAX_WIDTH = 400  # pptx, xlsx
+IMAGE_MAX_HEIGHT = 500  # docx
+IMAGE_MAX_WIDTH = 640  # docx
+
+
 # Get SpaceX data from https://docs.spacexdata.com
 info = requests.get('https://api.spacexdata.com/v3/info').json() # v4 not supported
 rockets = requests.get('https://api.spacexdata.com/v4/rockets').json()
@@ -71,8 +77,8 @@ for rocket in rockets:
     collec = aop.elements.ElementCollection.from_mapping(rocket)
 
     img = aop.elements.Image.from_url('image', rocket['flickr_images'][0])
-    img.max_height = 250
-    img.max_width = 400
+    img.max_height = IMAGE_MAX_HEIGHT
+    img.max_width = IMAGE_MAX_WIDTH
     collec.add(img)
 
     hyper = aop.elements.Hyperlink(
@@ -116,7 +122,8 @@ rockets_chart_options = aop.elements.ChartOptions(
         title_style=aop.elements.ChartTextStyle(color='black'),
         major_grid_lines=True
     ),
-    width=800,
+    # width=800,  # pptx and xlsx
+    width=650,  # docx
     height=300,
     rounded_corners=True,
     border=False,
@@ -149,8 +156,8 @@ for dragon in dragons:
     collec = aop.elements.ElementCollection.from_mapping(dragon)
     
     img = aop.elements.Image.from_url('image', dragon['flickr_images'][0])
-    img.max_height = 250
-    img.max_width = 400
+    img.max_height = IMAGE_MAX_HEIGHT
+    img.max_width = IMAGE_MAX_WIDTH
     collec.add(img)
 
     hyper = aop.elements.Hyperlink(
@@ -181,8 +188,8 @@ for launch_pad in launch_pads:
     collec = aop.elements.ElementCollection.from_mapping(launch_pad)
     
     img = aop.elements.Image.from_url('image', launch_pad['images']['large'][0])
-    img.max_height = 250
-    img.max_width = 400
+    img.max_height = IMAGE_MAX_HEIGHT
+    img.max_width = IMAGE_MAX_WIDTH
     collec.add(img)
 
     short_description = aop.elements.Property('details', shorten_description(launch_pad['details']))
@@ -206,8 +213,8 @@ for landing_pad in landing_pads:
     collec = aop.elements.ElementCollection.from_mapping(landing_pad)
     
     img = aop.elements.Image.from_url('image', landing_pad['images']['large'][0])
-    img.max_height = 250
-    img.max_width = 400
+    img.max_height = IMAGE_MAX_HEIGHT
+    img.max_width = IMAGE_MAX_WIDTH
     collec.add(img)
 
     hyper = aop.elements.Hyperlink(
@@ -239,8 +246,8 @@ for ship in ships:
     collec = aop.elements.ElementCollection.from_mapping(ship)
     
     img = aop.elements.Image.from_url('image', ship['image'])
-    img.max_height = 250
-    img.max_width = 400
+    img.max_height = IMAGE_MAX_HEIGHT
+    img.max_width = IMAGE_MAX_WIDTH
     collec.add(img)
 
     hyper = aop.elements.Hyperlink(
@@ -258,8 +265,9 @@ data.add(ship_data)
 
 # Create printjob
 printjob = aop.PrintJob(
-    template=aop.Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
+    # template=aop.Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
     # template=aop.Resource.from_local_file('./spacex_example/spacex_template.xlsx'), # For xlsx
+    template=aop.Resource.from_local_file('./spacex_example/spacex_template.docx'), # For docx
     data=data,
     server=server
 )
