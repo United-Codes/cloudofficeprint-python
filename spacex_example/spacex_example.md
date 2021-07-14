@@ -429,6 +429,8 @@ We also use a few condition-tags. These tags are used to only show what is betwe
 # Process input data (Python SDK)
 Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template. The full Python code can also be found in the file `spacex_example.py`.
 
+The beauty of AOP is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
+
 ## Setup
 First we create a new Python file and import the APEX Office Print library and the `requests`-library:
 
@@ -507,12 +509,114 @@ data.add(website)
 ```
 
 ## Rockets
+We now add all the information about SpaceX's rockets to our main element collection.
 
 ### Description
+First we add the description for the tag `{rockets_description}`:
+```python
+rockets_description = aop.elements.Property('rockets_description', 'Data about the rockets built by SpaceX')
+data.add(rockets_description)
+```
 
 ### Main loop
+Since we want a separate slide for each rocket, we need to add the rockets information in an array to be able to loop through the rockest. So we create a rocket list: 
+```python
+rocket_list = []
+```
+
+We cannot just add the rocket data to our element collection, because we need to do some processing on it. We want the images to be accessible with the tag `{%image}` and we want to choose the size of these images. We also want to add a hyperlink for their Wikipedia page and we want to shorten their description to one sentence. The code for this is the following:
+```python
+for rocket in rockets:
+    collec = aop.elements.ElementCollection.from_mapping(rocket)
+
+    img = aop.elements.Image.from_url('image', rocket['flickr_images'][0])
+    img.max_height = 250
+    img.max_width = 400
+    collec.add(img)
+
+    hyper = aop.elements.Hyperlink(
+        name='wikipedia',
+        url=rocket['wikipedia'],
+        text='Wikipedia'
+    )
+    collec.add(hyper)
+
+    short_description = aop.elements.Property('description', shorten_description(rocket['description']))
+    collec.add(short_description)  # Overwrites the current description
+
+    rocket_list.append(collec)
+```
+We loop through all the rockets and for each rocket, we first create an element collection with the data received from the API. Then we create the image element and specify its height and width and add this image to the collection. Next we create the hyperlink and also add this to the collection. Finally we shorten the description, add this to the collection and add the rocket element collection to the rocket list created earlier.
+
+Now we need to make an element of the rocket list. Because we use `{!rockets}` in our template to loop over all the rockets, the name of this loop-element needs to be 'rockets'. Then we add this loop-element to the main data collection and we're done with the rockets:
+```python
+rocket_data = aop.elements.ForEach('rockets', rocket_list)
+data.add(rocket_data)
+```
 
 ### Chart
+We also want to implement a chart in our example. The tag in the template is `{$rockets_chart}`. We want to plot the cost per launch for each rocket. That means that on the x-axis we want to see the rocket names and on the y-axis their costs per launch. We thus create two lists like this:
+```python
+x = []
+cost_y = []
+
+for rocket in rockets:
+    x.append(rocket['name'])
+    cost_y.append(rocket['cost_per_launch'])
+```
+Each chart can contain multiple data series. Since we only want to show the cost per launch for the rockets, we only need one series. Let's say we want our chart to show the data in vertical bars, then we can use this code:
+```python
+cost_series = aop.elements.ColumnSeries(
+    x=x,
+    y=cost_y,
+    name='Cost per launch',
+    color='#087c6c'
+)
+```
+We also specify the name of the series (showed in the legend) and the color of the bars.
+
+Next we want to choose the style of our chart, so we create an element for chart options:
+```python
+rockets_chart_options = aop.elements.ChartOptions(
+    x_axis=aop.elements.ChartAxisOptions(
+        title='Rocket',
+        title_style=aop.elements.ChartTextStyle(color='black')
+    ),
+    y_axis=aop.elements.ChartAxisOptions(
+        title='Cost ($)',
+        title_rotation=-90,
+        title_style=aop.elements.ChartTextStyle(color='black'),
+        major_grid_lines=True
+    ),
+    width=800,
+    height=300,
+    rounded_corners=True,
+    border=False,
+    background_color='#c8a45c',
+    background_opacity=50
+)
+```
+We also create styling elements for the axes, which include the title of the axis and its styling, the title rotation and if the grid lines need to be shown. The other options speak for themselves.
+
+Next we would like to have a legend showing on the right side of the chart:
+```python
+rockets_chart_options.set_legend(
+    style=aop.elements.ChartTextStyle(color='black')
+)
+```
+The color of the text in the legend is chosen to be black and its position is on the right side of the chart by default.
+
+Now we create the actual chart with the series created earlier and the chart options and add this to the main element collection (data). Because the tag used in our template is `{$rockets_chart}`, the name of the chart element should be 'rockets_chart':
+```python
+rockets_chart = aop.elements.ColumnChart(
+    name='rockets_chart',
+    columns=(cost_series,),
+    options=rockets_chart_options
+)
+
+data.add(rockets_chart)
+```
+The argument `columns` expects an array of series. That's why we create a tuple with one element: `(cost_series,)`.
 
 ## Dragons
 
