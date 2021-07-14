@@ -191,7 +191,6 @@ for launch_pad in launch_pads:
     launch_pad_list.append(collec)
 
 launch_pad_data = aop.elements.ForEach('launch_pads', launch_pad_list)
-
 data.add(launch_pad_data)
 
 
