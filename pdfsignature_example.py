@@ -20,11 +20,11 @@ conf = aop.config.OutputConfig(
 
 # Create printjob
 printjob = aop.PrintJob(
-    template=aop.Resource.from_local_file('./pdfsignature_example/pdfsignature_template.pdf'),
+    template=aop.Resource.from_local_file('./examples/pdfsignature_example/pdfsignature_template.pdf'),
     data=collection,
     server=server,
     output_config=conf
 )
 
 # Execute printjob
-printjob.execute().to_file('./pdfsignature_example/output')
+printjob.execute().to_file('./examples/pdfsignature_example/output')

@@ -265,11 +265,11 @@ data.add(ship_data)
 
 # Create printjob
 printjob = aop.PrintJob(
-    # template=aop.Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
-    # template=aop.Resource.from_local_file('./spacex_example/spacex_template.xlsx'), # For xlsx
-    template=aop.Resource.from_local_file('./spacex_example/spacex_template.docx'), # For docx
+    # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
+    # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.xlsx'), # For xlsx
+    template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
     data=data,
     server=server
 )
 
-printjob.execute().to_file('./spacex_example/output')
+printjob.execute().to_file('./examples/spacex_example/output')

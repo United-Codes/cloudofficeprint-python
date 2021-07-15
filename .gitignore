@@ -34,11 +34,11 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Generated files by examples
-examples/output/
-example_solar_system/docx/output.docx
-example_solar_system/pptx/output.pptx
-spacex_example/.~lock.output.pptx#
-spacex_example/.~lock.spacex_template.pptx#
-spacex_example/.~lock.output.xlsx#
-spacex_example/.~lock.spacex_template.xlsx#
-spacex_example/.~lock.spacex_template.docx#
+examples/order_confirmation_example/output/
+examples/solar_system_example/docx/output.docx
+examples/solar_system_example/pptx/output.pptx
+examples/spacex_example/.~lock.output.pptx#
+examples/spacex_example/.~lock.spacex_template.pptx#
+examples/spacex_example/.~lock.output.xlsx#
+examples/spacex_example/.~lock.spacex_template.xlsx#
+examples/spacex_example/.~lock.spacex_template.docx#
