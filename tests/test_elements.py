@@ -13,9 +13,9 @@ def test_property():
     assert prop.as_dict == prop_expected
 
 
-def test_cell_style_property():
-    style = aop.elements.CellStyle(
-        background_color='red',
+def test_cell_style_property_docx():
+    style = aop.elements.CellStyleDocx(
+        cell_background_color='#eb4034',
         width=10
     )
     style_property = aop.elements.CellStyleProperty(
@@ -25,8 +25,74 @@ def test_cell_style_property():
     )
     style_property_expected = {
         'name': 'value',
-        'name_background_color': 'red',
+        'name_cell_background_color': '#eb4034',
         'name_width': 10
+    }
+    assert style_property.as_dict == style_property_expected
+
+
+def test_cell_style_property_xlsx():
+    style = aop.elements.CellStyleXlsx(
+        cell_locked=True,
+        cell_hidden=False,
+        cell_background='#ff0000',
+        font_name='Arial',
+        font_size=12,
+        font_color='#ff0000',
+        font_italic=True,
+        font_bold=False,
+        font_strike=False,
+        font_underline=True,
+        font_superscript=False,
+        font_subscript=True,
+        border_top='medium',
+        border_top_color='#ff0000',
+        border_bottom='mediumDashed',
+        border_bottom_color='#ff0000',
+        border_left='mediumDashDot',
+        border_left_color='#ff0000',
+        border_right='mediumDashDotDot',
+        border_right_color='#ff0000',
+        border_diagonal='thick',
+        border_diagonal_direction='up-wards',
+        border_diagonal_color='#ff0000',
+        text_h_alignment='center',
+        text_v_alignment='justify',
+        text_rotation=45
+    )
+    style_property = aop.elements.CellStyleProperty(
+        name='name',
+        value='value',
+        cell_style=style
+    )
+    style_property_expected = {
+        'name': 'value',
+        'name_cell_locked': True,
+        'name_cell_hidden': False,
+        'name_cell_background': '#ff0000',
+        'name_font_name': 'Arial',
+        'name_font_size': 12,
+        'name_font_color': '#ff0000',
+        'name_font_italic': True,
+        'name_font_bold': False,
+        'name_font_strike': False,
+        'name_font_underline': True,
+        'name_font_superscript': False,
+        'name_font_subscript': True,
+        'name_border_top': 'medium',
+        'name_border_top_color': '#ff0000',
+        'name_border_bottom': 'mediumDashed',
+        'name_border_bottom_color': '#ff0000',
+        'name_border_left': 'mediumDashDot',
+        'name_border_left_color': '#ff0000',
+        'name_border_right': 'mediumDashDotDot',
+        'name_border_right_color': '#ff0000',
+        'name_border_diagonal': 'thick',
+        'name_border_diagonal_direction': 'up-wards',
+        'name_border_diagonal_color': '#ff0000',
+        'name_text_h_alignment': 'center',
+        'name_text_v_alignment': 'justify',
+        'name_text_rotation': 45
     }
     assert style_property.as_dict == style_property_expected
 
@@ -214,7 +280,8 @@ def test_element_collection():
 
 def run():
     test_property()
-    test_cell_style_property()
+    test_cell_style_property_docx()
+    test_cell_style_property_xlsx()
     test_hyperlink()
     test_table_of_content()
     test_span()

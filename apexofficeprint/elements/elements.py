@@ -4,10 +4,11 @@ from typing import Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 
 
-class CellStyle:
-    def __init__(self, background_color: str = None, width: Union[str, int] = None):
-        self.background_color: str = background_color
-        self.width: Union[str, int] = width
+class CellStyle(ABC):
+    """Abstract base class for a cell style
+    """
+    def __init__(self):
+        pass
 
     def get_dict(self, property_name: str):
         result = {}
@@ -16,14 +17,163 @@ class CellStyle:
         return result
 
     @property
+    @abstractmethod
     def _dict_suffixes(self):
-        result = {}
+        return {}
 
-        if self.background_color:
-            result["_background_color"] = self.background_color
-        if self.width:
-            result["_width"] = self.width
 
+class CellStyleDocx(CellStyle):
+    """Cell styling settings for docx templates"""
+    def __init__(self, cell_background_color: str=None, width: Union[int, str]=None):
+        super().__init__()
+        self.cell_background_color: str = cell_background_color
+        self.width: Union[int, str] = width
+
+    @property
+    def _dict_suffixes(self):
+        result = super()._dict_suffixes
+
+        if self.cell_background_color is not None:
+            result['_cell_background_color'] = self.cell_background_color
+        if self.width is not None:
+            result['_width'] = self.width
+        
+        return result
+
+
+class CellStyleXlsx(CellStyle):
+    """Cell styling settings for xlsx templates"""
+    def __init__(
+        self,
+        cell_locked: bool=None,
+        cell_hidden: bool=None,
+        cell_background: str=None,
+        font_name: str=None,
+        font_size: Union[int, str]=None,
+        font_color: str=None,
+        font_italic: bool=None,
+        font_bold: bool=None,
+        font_strike: bool=None,
+        font_underline: bool=None,
+        font_superscript: bool=None,
+        font_subscript: bool=None,
+        border_top: str=None,
+        border_top_color: str=None,
+        border_bottom: str=None,
+        border_bottom_color: str=None,
+        border_left: str=None,
+        border_left_color: str=None,
+        border_right: str=None,
+        border_right_color: str=None,
+        border_diagonal: str=None,
+        border_diagonal_direction: str=None,
+        border_diagonal_color: str=None,
+        text_h_alignment: str=None,
+        text_v_alignment: str=None,
+        text_rotation: Union[int, str]=None
+    ):
+        super().__init__()
+        self.cell_locked: bool = cell_locked
+        self.cell_hidden: bool = cell_hidden
+        self.cell_background: str = cell_background
+        """hex color e.g: #ff0000"""
+        self.font_name: str = font_name
+        """name of the font e.g: Arial"""
+        self.font_size: Union[int, str] = font_size
+        self.font_color: str = font_color
+        """hex color e.g: #00ff00"""
+        self.font_italic: bool = font_italic
+        self.font_bold: bool = font_bold
+        self.font_strike: bool = font_strike
+        self.font_underline: bool = font_underline
+        self.font_superscript: bool = font_superscript
+        self.font_subscript: bool = font_subscript
+        self.border_top: str = border_top
+        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
+        self.border_top_color: str = border_top_color
+        """hex color e.g: #000000"""
+        self.border_bottom: str = border_bottom
+        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
+        self.border_bottom_color: str = border_bottom_color
+        """hex color e.g: #000000"""
+        self.border_left: str = border_left
+        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
+        self.border_left_color: str = border_left_color
+        """hex color e.g: #000000"""
+        self.border_right: str = border_right
+        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
+        self.border_right_color: str = border_right_color
+        """hex color e.g: #000000"""
+        self.border_diagonal: str = border_diagonal
+        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
+        self.border_diagonal_direction: str = border_diagonal_direction
+        """[up-wards|down-wards| both]"""
+        self.border_diagonal_color: str = border_diagonal_color
+        """hex color e.g: #000000"""
+        self.text_h_alignment: str = text_h_alignment
+        """[top|bottom|center|justify]"""
+        self.text_v_alignment: str = text_v_alignment
+        """[top|bottom|center|justify]"""
+        self.text_rotation: Union[int, str] = text_rotation
+        """rotation of text value from 0-90 degrees"""
+
+    @property
+    def _dict_suffixes(self):
+        result = super()._dict_suffixes
+
+        if self.cell_locked is not None:
+            result['_cell_locked'] = self.cell_locked
+        if self.cell_hidden is not None:
+            result['_cell_hidden'] = self.cell_hidden
+        if self.cell_background is not None:
+            result['_cell_background'] = self.cell_background
+        if self.font_name is not None:
+            result['_font_name'] = self.font_name
+        if self.font_size is not None:
+            result['_font_size'] = self.font_size
+        if self.font_color is not None:
+            result['_font_color'] = self.font_color
+        if self.font_italic is not None:
+            result['_font_italic'] = self.font_italic
+        if self.font_bold is not None:
+            result['_font_bold'] = self.font_bold
+        if self.font_strike is not None:
+            result['_font_strike'] = self.font_strike
+        if self.font_underline is not None:
+            result['_font_underline'] = self.font_underline
+        if self.font_superscript is not None:
+            result['_font_superscript'] = self.font_superscript
+        if self.font_subscript is not None:
+            result['_font_subscript'] = self.font_subscript
+        if self.border_top is not None:
+            result['_border_top'] = self.border_top
+        if self.border_top_color is not None:
+            result['_border_top_color'] = self.border_top_color
+        if self.border_bottom is not None:
+            result['_border_bottom'] = self.border_bottom
+        if self.border_bottom_color is not None:
+            result['_border_bottom_color'] = self.border_bottom_color
+        if self.border_left is not None:
+            result['_border_left'] = self.border_left
+        if self.border_left_color is not None:
+            result['_border_left_color'] = self.border_left_color
+        if self.border_right is not None:
+            result['_border_right'] = self.border_right
+        if self.border_right_color is not None:
+            result['_border_right_color'] = self.border_right_color
+        if self.border_diagonal is not None:
+            result['_border_diagonal'] = self.border_diagonal
+        if self.border_diagonal_direction is not None:
+            result['_border_diagonal_direction'] = self.border_diagonal_direction
+        if self.border_diagonal_color is not None:
+            result['_border_diagonal_color'] = self.border_diagonal_color
+        if self.text_h_alignment is not None:
+            result['_text_h_alignment'] = self.text_h_alignment
+        if self.text_v_alignment is not None:
+            result['_text_v_alignment'] = self.text_v_alignment
+        if self.text_rotation is not None:
+            result['_text_rotation'] = self.text_rotation
+        
         return result
 
 
