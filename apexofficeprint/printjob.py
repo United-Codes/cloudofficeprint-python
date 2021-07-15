@@ -13,6 +13,8 @@ from .resource import Resource
 from .elements import Element, ElementCollection
 from typing import Union, List, Dict, Mapping
 from functools import partial
+import sys
+from pprint import pprint
 
 STATIC_OPTS = {
     "tool": "python",
@@ -165,5 +167,10 @@ class PrintJob:
                 to_add["name"] = name
                 templates_list.append(to_add)
             result["templates"] = templates_list
+
+        # If verbose mode is activated, print the result
+        if '--verbose' in sys.argv:
+            print('The JSON data that is sent to the AOP server:\n')
+            pprint(result)
 
         return result

@@ -14,7 +14,12 @@ You also need to have the requests-library installed (https://docs.python-reques
 2. Create the input data with this Python SDK
 3. Send template and data to an AOP server and save the response to a file with this Python SDK
 
-For an overview of all the possibilities, we refer to the official AOP docs: http://www.apexofficeprint.com/docs/
+For an overview of all the possibilities, we refer to the official AOP docs: http://www.apexofficeprint.com/docs/.
+
+To see the JSON-data that is sent to the AOP server, you can turn on verbose-mode by running your Python program with the `--verbose` argument like this:
+```python
+python my_file.py --verbose
+```
 
 # Quickstart: Hello World example
 ## Template (docx)
