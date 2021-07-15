@@ -21,7 +21,7 @@ The template we are using is the following:
 import apexofficeprint as aop
 
 TEMPLATE_PATH = "./examples/data/template.docx"
-SERVER_URL = "http://localhost:8010"
+SERVER_URL = "http://apexofficeprint.com/dev/"
 API_KEY = "1FC7446D926A2E3CE0530100007F2364"
 
 template = aop.Resource.from_local_file(TEMPLATE_PATH)

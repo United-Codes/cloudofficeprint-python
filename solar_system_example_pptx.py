@@ -10,11 +10,11 @@ bodies = res.json()['bodies']
 
 
 # Setup AOP server
-LOCAL_SERVER_URL = "http://localhost:8010"
+SERVER_URL = "http://apexofficeprint.com/dev/"
 API_KEY = "1C511A58ECC73874E0530100007FD01A"
 
 server = aop.config.Server(
-    LOCAL_SERVER_URL,
+    SERVER_URL,
     aop.config.ServerConfig(api_key=API_KEY)
 )
 

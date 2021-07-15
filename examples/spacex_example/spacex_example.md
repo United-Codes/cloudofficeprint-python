@@ -505,15 +505,15 @@ import requests
 
 Then we need to set up the AOP server where we will send our template and data to:
 ```python
-LOCAL_SERVER_URL = "http://localhost:8010"
+SERVER_URL = "http://apexofficeprint.com/dev/"
 API_KEY = "1C511A58ECC73874E0530100007FD01A"
 
 server = aop.config.Server(
-    LOCAL_SERVER_URL,
+    SERVER_URL,
     aop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you do not have an AOP server running on localhost (e.g. on-premise version) and want to use the AOP cloud server, replace the local server url by the url of our cloud server: https://api.apexofficeprint.com/.
+If you have an AOP server running on localhost (e.g. on-premise version), replace the server url by the localhost url: `http://localhost:8010`
 
 We also need to create the main element-collection object that contains all our data:
 ```python
