@@ -361,7 +361,7 @@ Now we will build the template. We can create templates in different file extens
 ## pptx
 We will build the template in Google Slides. After choosing a pretty theme, we create the title slide. On this slide, we want the title of our presentation and the source where we got the data from. The title slide looks like this:
 
-<img src="./imgs/pptx_template/slide1.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide1.png" width="600" />
 
 Here we encounter our first placeholder/tag: `{*data_source}`. Tags are defined by surrounding a variable name with curly brackets. This is the way we let the AOP server know that data needs to replace this placeholder. We will see what that data is in the section [Process input data](#process-input-data). In this specific case, we used a hyperlink-tag `{*hyperlink}`.
 
@@ -369,7 +369,7 @@ Note: to minimize the modifications to the input data (see [Input Data (API)](#i
 
 Next we want a slide that gives information about the company itself:
 
-<img src="./imgs/pptx_template/slide2.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide2.png" width="600" />
 
 Again, the placeholders will be replaced with data by the AOP server. Since the data given to the AOP server will be in JSON-format (see [Process input data](#process-input-data)), it is possible to reach a subfield of an entry by using `entry.subfield`. So if `headquarters` is a JSON object like this:
 ```json
@@ -386,45 +386,46 @@ Now that the general information is provided in the presentation, we want some s
 ### Rockets
 First we want to have a general slide for the rockets with a description:
 
-<img src="./imgs/pptx_template/slide3.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide3.png" width="600" />
 
 Then we want to have a slide for each rocket with information about this rocket. Since all rockets have the same parameters (such as height, diameter, mass etc.), we want to specify one template slide and use this for each rocket. This template slide looks like this:
 
-<img src="./imgs/pptx_template/slide4.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide4.png" width="600" />
 
 The thing of replicating a certain template slide for each object in a list is exactly what the first tag `{!rockets}` is for. For each rocket in the rockets-array (provided in the data, see [Process input data](#process-input-data)), this slide is repeated. Another new tag is the `{%image}`-tag. This tag is used to insert an image at this place. We have already covered the other types of tags on this slide.
 
 It might be interesting to plot the cost per launch for each of the rockets on a chart. This is the slide used for that:
 
-<img src="./imgs/pptx_template/slide5.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide5.png" width="600" />
 
 The tag `{$rockets_chart}` is used to insert a chart at the place of this placeholder. The data for the chart can be generated using the Python SDK.
 
 ### Dragons
 Similar to the section [Rockets](#rockets), we can add the slides for the SpaceX-dragons. The slides used are:
 
-<img src="./imgs/pptx_template/slide6.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide6.png" width="600" />
 
-<img src="./imgs/pptx_template/slide7.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide7.png" width="600" />
 
 ### Launch pads
-<img src="./imgs/pptx_template/slide8.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide8.png" width="600" />
 
-<img src="./imgs/pptx_template/slide9.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide9.png" width="600" />
 
 ### Landing pads
-<img src="./imgs/pptx_template/slide10.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide10.png" width="600" />
 
-<img src="./imgs/pptx_template/slide11.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide11.png" width="600" />
 
 ### Ships
-<img src="./imgs/pptx_template/slide12.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide12.png" width="600" />
 
-<img src="./imgs/pptx_template/slide13.png" width="600" height="350" />
+<img src="./imgs/pptx_template/slide13.png" width="600" />
 
 On the last slide we have to make some notes. A ship can have multiple roles, so we loop through these roles by using the loop tag: `{#roles}...{/roles}`, with 'roles' the name of the array in the data. Since in this case 'roles' is an array containing values (see [Ships](#ships)), we can insert those values using `{.}`. If we have an array containing objects with keys and values, we could access those values by using `{key}` instead of `{.}` between the opening and closing loop tags.
 
 We also use a few condition-tags. These tags are used to only show what is between the opening and closing condition-tag if the condition is true. The tags used are the opening tag `{#condition}` and the closing tag `{/condition}`. The condition tags on this slide are: `{#year_built}...{/year_built}`, `{#mass_kg}...{/mass_kg}` and `{#website}...{/website}`.
+
 
 ## xlsx
 The xlsx-template is very similar to the pptx-template in the sense that they both use the same tags/placeholders. The only differences are:
@@ -433,31 +434,61 @@ The xlsx-template is very similar to the pptx-template in the sense that they bo
 
 ### About
 The first tab is the 'about'-tab. This tab contains the information of the company SpaceX in general and the source where we got the SpaceX data from:
-<img src="./imgs/xlsx_template/tab1.png" width="600" height="350" />
+<img src="./imgs/xlsx_template/tab1.png" width="600" />
 
 ### Rockets
 The 'rockets'-tab contains the rockets description in the left top. It also contains the data for each rocket in a table. On the image below, you can see how a table with information about each rocket can be generated:
 
-<img src="./imgs/xlsx_template/tab2.png" width="600" height="350" />
+<img src="./imgs/xlsx_template/tab2.png" width="600" />
 
 We use the loop tags `{#rockets}...{/rockets}` to loop through the 'rockets'-array. The AOP server will repeat everything inside the loop tags on a new row for each object in the array.
 
 ### Dragons
-<img src="./imgs/xlsx_template/tab3.png" width="600" height="350" />
+<img src="./imgs/xlsx_template/tab3.png" width="600" />
 
 ### Launch pads
-<img src="./imgs/xlsx_template/tab4.png" width="600" height="350" />
+<img src="./imgs/xlsx_template/tab4.png" width="600" />
 
 ### Landing pads
-<img src="./imgs/xlsx_template/tab5.png" width="600" height="350" />
+<img src="./imgs/xlsx_template/tab5.png" width="600" />
 
 ### Ships
-<img src="./imgs/xlsx_template/tab6.png" width="600" height="350" />
+<img src="./imgs/xlsx_template/tab6.png" width="600" />
 
 Here we can again see the use of the 'condition'-tag `{#website}...{/website}`, because we do not want to see the text 'Website' without a hyperlink if the website is not available in the data.
 
+
 ## docx
-TODO
+Again, the docx-template is very similar to the pptx-template, so we will only explain new elements in this section.
+
+### About
+<img src="./imgs/docx_template/page1.png" width="600" />
+
+### Rockets
+We loop through all the rockets by using the loop-tag `{#rockets}...{/rockets}`:
+
+<img src="./imgs/docx_template/page2.png" width="600" />
+
+There are some new elements which we have not yet seen in the previous templates. 'rockets' is an array and we can get the current index in the loop by adding '_index' after the name of the array 'rockets'. The total length of the array can be received by adding '.length' after the array name 'rockets'. We use this to display the current page number compared to the total amount of pages of rockets. 
+
+We also want to have the information for each rocket to be an a separate page. That's why we use a pagebreak-tag `{?pageBreak}`. The value of `pageBreak` can be determined in the data by the Python SDK, but since we always want this to be true in this case, we use `{?true}`. The only time when we don't want to use the pagebreak is when we're at the last element of the 'rockets'-array, otherwise we'll end up with a blank page after the last rocket. We can achieve this by using a 'condition'-tag. We compare the current loop index `rockets_index` with the loop length `rockets.length` to know if we are at the last rocket.
+
+We also want to show a chart of the cost per launch for each rocket:
+
+<img src="./imgs/docx_template/page3.png" width="600" />
+
+### Dragons
+<img src="./imgs/docx_template/page4.png" width="600" />
+
+### Launch pads
+<img src="./imgs/docx_template/page5.png" width="600" />
+
+### Landing pads
+<img src="./imgs/docx_template/page6.png" width="600" />
+
+### Ships
+<img src="./imgs/docx_template/page7.png" width="600" />
+
 
 # Process input data (Python SDK)
 Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template. The full Python code can also be found in the file `spacex_example.py`.
@@ -796,6 +827,7 @@ Now that we have the template and the data ready, it is time to let AOP merge th
 printjob = aop.PrintJob(
     template=aop.Resource.from_local_file('./spacex_example/spacex_template.pptx'), # For pptx
     # template=aop.Resource.from_local_file('./spacex_example/spacex_template.xlsx'), # For xlsx
+    # template=aop.Resource.from_local_file('./spacex_example/spacex_template.docx'), # For docx
     data=data,
     server=server
 )
@@ -806,4 +838,4 @@ Finally we actually send this printjob to an AOP server and save the response in
 ```python
 printjob.execute().to_file('./spacex_example/output')
 ```
-The resulting file can now be found in the specified folder. We will not add the result in this markdown file, but the result can be seen in the files `output.pptx` and `output.xlsx` that can be found in the folder `spacex_example`.
+The resulting file can now be found in the specified folder. We will not add the result in this markdown file, but the result can be seen in the files `output.pptx`, `output.xlsx` and `output.docx` that can be found in the folder `spacex_example`.
