@@ -29,22 +29,6 @@ class Resource(ABC):
         return type_utils.extension_to_mimetype(self.filetype)
 
     @property
-    def filetype(self) -> str:
-        """Resource type as an extension (e.g. "docx").
-        
-        Raises:
-            TypeError: the given type is not a supported resource type.
-        """
-        return self._filetype
-
-    @filetype.setter
-    def filetype(self, value: str):
-        if self.is_supported_resource_type(value):
-            self._filetype = value
-        else:
-            raise TypeError(f'Unsupported template type: "{value}"')
-
-    @property
     def data(self):
         """The data contained in this AOPResource."""
         return self._data
@@ -165,18 +149,6 @@ class Resource(ABC):
             HTMLResource: the created Resource
         """
         return HTMLResource(htmlstring, landscape)
-
-    @staticmethod
-    def is_supported_resource_type(type_: str) -> bool:
-        """Check if the given resource type is a supported resource type.
-
-        Args:
-            type_ (str): resource type (extension)
-
-        Returns:
-            bool: whether the given resource type is a supported resource type
-        """
-        return type_ in type_utils.supported_resource_types
 
 
 class RawResource(Resource):

@@ -1,16 +1,6 @@
 import mimetypes
 from os import path
 
-supported_resource_types = [
-    "txt",
-    "md",
-    "html",
-    "docx",
-    "xlsx",
-    "pptx",
-    "csv"
-]
-
 
 def path_to_extension(file_path: str) -> str:
     """Cut off the extension from a file path.
