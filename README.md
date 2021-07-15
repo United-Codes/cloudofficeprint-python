@@ -77,7 +77,12 @@ response.to_file('PATH_OF_OUTPUT')
 ## Result
 <img src="./imgs/hello_world_output.png" width="600" />
 
-
+# Other examples
+We also made some bigger examples. The current examples are:
+- order_confirmation_example.py
+- pdfsignature_example.py
+- solar_system_example.py
+- spacex_example.py
 # Contributing
 
 ## Useful VS Code extensions

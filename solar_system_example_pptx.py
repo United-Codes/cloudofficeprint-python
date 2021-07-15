@@ -5,8 +5,7 @@ import apexofficeprint as aop
 import requests
 
 # Get solar system data from https://api.le-systeme-solaire.net/rest/bodies/
-res = requests.get('https://api.le-systeme-solaire.net/rest/bodies/')
-bodies = res.json()['bodies']
+res = requests.get('https://api.le-systeme-solaire.net/rest/bodies/').json()
 
 
 # Setup AOP server
@@ -19,10 +18,25 @@ server = aop.config.Server(
 )
 
 
-# Create data to fill template
-data = aop.elements.ElementCollection.from_json(res.text)
+# Create the main element collection that contains all data
+data = aop.elements.ElementCollection()
 
+
+# Add the title to the data
 data.add(aop.elements.Property('main_title', 'The solar system'))
+
+
+# Process data: we only want planets
+planet_list = []
+
+for body in res['bodies']:
+    if body['isPlanet']:
+        collec = aop.elements.ElementCollection.from_mapping(body)
+
+        planet_list.append(collec)
+
+planets = aop.elements.ForEach('planets', planet_list)
+data.add(planets)
 
 
 # Create printjob
