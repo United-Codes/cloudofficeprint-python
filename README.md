@@ -6,6 +6,9 @@ In your terminal:
 
 TODO: `pip install apexofficeprint`
 
+You also need to have the requests-library installed (https://docs.python-requests.org/en/master/). This can be installed in your terminal:
+`pip install requests`
+
 # Usage
 1. Create a template (docx, xlsx, pptx, HTML, md, txt, csv)
 2. Create the input data with this Python SDK
