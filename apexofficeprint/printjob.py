@@ -68,7 +68,7 @@ class PrintJob:
     def execute(self) -> Response:
         """Execute this print job."""
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies, json=self.as_dict))
+        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))
 
     async def execute_async(self) -> Response:
         """Async version of `PrintJob.execute`"""
@@ -78,7 +78,7 @@ class PrintJob:
                 None, partial(
                     requests.post,
                     self.server.url,
-                    proxies=self.server.config.proxies,
+                    proxies=self.server.config.proxies if self.server.config is not None else None,
                     json=self.as_dict
                 )
             )
@@ -87,7 +87,7 @@ class PrintJob:
     @staticmethod
     def execute_full_json(json_data: str, server: Server) -> Response:
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies, data=json_data, headers={"Content-type": "application/json"}))
+        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={"Content-type": "application/json"}))
 
     @staticmethod
     async def execute_full_json_async(json_data: str, server: Server) -> Response:
@@ -97,7 +97,7 @@ class PrintJob:
                 None, partial(
                     requests.post,
                     server.url,
-                    proxies=server.config.proxies,
+                    proxies=server.config.proxies if server.config is not None else None,
                     data=json_data,
                     headers={"Content-type": "application/json"}
                 )
