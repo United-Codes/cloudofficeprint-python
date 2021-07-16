@@ -34,46 +34,44 @@ class PrintJob:
                  template: Resource,
                  data: Union[Element, Mapping[str, Element], RESTSource],
                  server: Server,
-                 output_config: OutputConfig = None,
+                 output_config: OutputConfig = OutputConfig(),
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
                  append_files: List[Resource] = []):
         """
         Args:
-            template (Resource): `PrintJob.template`.
-            data (Union[Element, Mapping[str, Element]], RESTSource): `PrintJob.data`.
-            server (Server): `PrintJob.server`.
-            output_config (OutputConfig, optional): `Printjob.output_config`. Defaults to `OutputConfig`().
-            subtemplates (Dict[str, Resource]): `Printjob.subtemplates`. Defaults to {}.
-            prepend_files (List[Resource]): `Printjob.prepend_files`. Defaults to [].
-            append_files (List[Resource]): `Printjob.append_files`. Defaults to [].
+            template (Resource): Template to use for this print job.
+            data (Union[Element, Mapping[str, Element], RESTSource]): This is either: An `Element` (e.g. an `ElementCollection`); A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it "file0".
+            server (Server): Server to be used for this print job.
+            output_config (OutputConfig, optional): Output configuration to be used for this print job. Defaults to `OutputConfig`().
+            subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
+            prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
+            append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
         """
+        
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
-        """This is either:
-        - An `Element` (e.g. an `ElementCollection`)
-        - A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them.
-        In the first case, no output file name is specified and the server will name it "file0".
-        """
         self.server: Server = server
-        """Server to be used for this print job."""
-        self.output_config: OutputConfig = output_config if output_config else OutputConfig()
-        """Output configuration to be used for this print job."""
+        self.output_config: OutputConfig = output_config
         self.template: Resource = template
-        """Template to use for this print job."""
         self.subtemplates: Dict[str, Resource] = subtemplates
-        """Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`"""
         self.prepend_files: List[Resource] = prepend_files
-        """Files to prepend to the output file."""
         self.append_files: List[Resource] = append_files
-        """Files to append to the output file."""
 
     def execute(self) -> Response:
-        """Execute this print job."""
+        """Execute this print job.
+
+        Returns:
+            Response: `Response`-object
+        """
         self.server._raise_if_unreachable()
         return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))
 
     async def execute_async(self) -> Response:
-        """Async version of `PrintJob.execute`"""
+        """Async version of `PrintJob.execute`
+
+        Returns:
+            Response: `Response`-object
+        """
         self.server._raise_if_unreachable()
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
@@ -88,11 +86,29 @@ class PrintJob:
 
     @staticmethod
     def execute_full_json(json_data: str, server: Server) -> Response:
+        """If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
+
+        Args:
+            json_data (str): full JSON data that needs to be sent to an AOP server
+            server (Server): `Server`-object
+
+        Returns:
+            Response: `Response`-object
+        """
         server._raise_if_unreachable()
         return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={"Content-type": "application/json"}))
 
     @staticmethod
     async def execute_full_json_async(json_data: str, server: Server) -> Response:
+        """Async version of `Printjob.execute_full_json`
+
+        Args:
+            json_data (str): full JSON data that needs to be sent to an AOP server
+            server (Server): `Server`-object
+
+        Returns:
+            Response: `Response`-object
+        """
         server._raise_if_unreachable()
         return PrintJob._handle_response(
             await asyncio.get_event_loop().run_in_executor(
@@ -108,6 +124,17 @@ class PrintJob:
 
     @staticmethod
     def _handle_response(res: requests.Response) -> Response:
+        """Converts the HTML response to a `Response`-object
+
+        Args:
+            res (requests.Response): HTML response from the AOP server
+
+        Raises:
+            AOPError: Error when the HTML status code is not 200
+
+        Returns:
+            Response: `Response`-object of HTML response
+        """
         if res.status_code != 200:
             raise AOPError(res.text)
         else:
@@ -115,15 +142,21 @@ class PrintJob:
 
     @property
     def json(self) -> str:
-        """JSON equivalent of the dict representation of this print job."""
+        """JSON equivalent of the dict representation of this print job.
+        This representation is isomorphic to the dict representation `Printjob.as_dict`.
+
+        Returns:
+            str: JSON equivalent of the dict representation of this print job
+        """
         return json.dumps(self.as_dict)
 
     @property
     def as_dict(self) -> dict:
-        """dict representation of this print job.
+        """Return the JSON representation of this print job.
 
-        This representation is isomorphic to the JSON representation
-        (`PrintJob.json`)."""
+        Returns:
+            dict: JSON representation of this print job
+        """
         result = dict(STATIC_OPTS) # Copy of STATIC_OPTS! Otherwise everything we add to 'result' will also be added to 'STATIC_OPTS'
         # server config goes in the upper level
         if self.server.config:
@@ -168,7 +201,7 @@ class PrintJob:
                 templates_list.append(to_add)
             result["templates"] = templates_list
 
-        # If verbose mode is activated, print the result
+        # If verbose mode is activated, print the result to the terminal
         if '--verbose' in sys.argv:
             print('The JSON data that is sent to the AOP server:\n')
             pprint(result)

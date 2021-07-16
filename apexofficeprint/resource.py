@@ -20,6 +20,11 @@ class Resource(ABC):
     """The abstract base class for the resources."""
 
     def __init__(self, data: Union[str, bytes]=None, filetype: str = None):
+        """
+        Args:
+            data (Union[str, bytes], optional): the data for this resource. Defaults to None.
+            filetype (str, optional): the file type of this resource. Defaults to None.
+        """
         self._data: Union[str, bytes] = data
         self.filetype: str = filetype
 
@@ -103,11 +108,11 @@ class Resource(ABC):
         return Base64Resource(base64string, filetype)
 
     @staticmethod
-    def from_raw(raw_data, filetype: str) -> 'RawResource':
+    def from_raw(raw_data: bytes, filetype: str) -> 'RawResource':
         """Create a RawResource from raw file data and a file type (extension).
 
         Args:
-            raw_data: raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object)
+            raw_data (bytes): raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object)
             filetype (str): file type (extension)
 
         Returns:
@@ -198,12 +203,6 @@ class RawResource(Resource):
 
     @property
     def template_dict(self) -> dict:
-        """This Resource object as a dict object for use as a template.
-        This dict and the template JSON representation (`Resource.template_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a template
-        """
         return {
             "template_type": self.filetype,
             "file": self.base64
@@ -211,12 +210,6 @@ class RawResource(Resource):
 
     @property
     def secondary_file_dict(self) -> dict:
-        """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
-        This dict and the "concat file" JSON representation (`Resource.secondary_file_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a secondary file
-        """
         return {
             "mime_type": self.mimetype,
             "file_source": "base64",
@@ -237,12 +230,6 @@ class Base64Resource(Resource):
 
     @property
     def template_dict(self) -> dict:
-        """This Resource object as a dict object for use as a template.
-        This dict and the template JSON representation (`Resource.template_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a template
-        """
         return {
             "template_type": self.filetype,
             "file": self.data
@@ -250,12 +237,6 @@ class Base64Resource(Resource):
 
     @property
     def secondary_file_dict(self) -> dict:
-        """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
-        This dict and the "concat file" JSON representation (`Resource.secondary_file_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a secondary file
-        """
         return {
             "mime_type": self.mimetype,
             "file_source": "base64",
@@ -275,12 +256,6 @@ class ServerPathResource(Resource):
 
     @property
     def template_dict(self) -> dict:
-        """This Resource object as a dict object for use as a template.
-        This dict and the template JSON representation (`Resource.template_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a template
-        """
         return {
             "template_type": self.filetype,
             "filename": self.data
@@ -288,12 +263,6 @@ class ServerPathResource(Resource):
 
     @property
     def secondary_file_dict(self) -> dict:
-        """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
-        This dict and the "concat file" JSON representation (`Resource.secondary_file_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a secondary file
-        """
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
@@ -314,12 +283,6 @@ class URLResource(Resource):
 
     @property
     def template_dict(self) -> dict:
-        """This Resource object as a dict object for use as a template.
-        This dict and the template JSON representation (`Resource.template_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a template
-        """
         return {
             "template_type": self.filetype,
             "url": self.data
@@ -327,12 +290,6 @@ class URLResource(Resource):
 
     @property
     def secondary_file_dict(self) -> dict:
-        """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
-        This dict and the "concat file" JSON representation (`Resource.secondary_file_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a secondary file
-        """
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
@@ -366,12 +323,6 @@ class HTMLResource(Resource):
 
     @property
     def template_dict(self) -> dict:
-        """This Resource object as a dict object for use as a template.
-        This dict and the template JSON representation (`Resource.template_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a template
-        """
         result = {
             "template_type": self.filetype,
             "html_template_content": self.data
@@ -384,12 +335,6 @@ class HTMLResource(Resource):
 
     @property
     def secondary_file_dict(self) -> dict:
-        """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
-        This dict and the "concat file" JSON representation (`Resource.secondary_file_json`) are isomorphic.
-        
-        Returns:
-            dict: JSON representation of this resource as a secondary file
-        """
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
