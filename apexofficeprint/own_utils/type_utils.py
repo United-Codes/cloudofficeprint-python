@@ -11,7 +11,7 @@ def path_to_extension(file_path: str) -> str:
         file_path (str): file path to handle
 
     Returns:
-        str: the file's file type / extension
+        str: the file's type / extension
     """
     return path.splitext(file_path)[1][1:]
 
