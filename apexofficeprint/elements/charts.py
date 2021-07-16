@@ -148,7 +148,7 @@ class ChartOptions():
         self.x_axis: ChartAxisOptions = x_axis
         self.y_axis: ChartAxisOptions = y_axis
         self.y2_axis: ChartAxisOptions = y2_axis
-        if y_axis.date is not None or (y2_axis is not None and y2_axis.date is not None):
+        if (y_axis is not None and y_axis.date is not None) or (y2_axis is not None and y2_axis.date is not None):
             warning('"date" options for the y or y2 axes are ignored by the AOP server.')
 
         self.width: int = width
@@ -206,11 +206,13 @@ class ChartOptions():
     def as_dict(self):
         result = {
             "axis": {
-                "x": self.x_axis.as_dict,
-                "y": self.y_axis.as_dict
             }
         }
 
+        if self.x_axis is not None:
+            result['axis']['x'] = self.x_axis.as_dict
+        if self.y_axis is not None:
+            result['axis']['y'] = self.y_axis.as_dict
         if self.y2_axis is not None:
             result["axis"]["y2"] = self.y2_axis.as_dict
         if self.width is not None:
