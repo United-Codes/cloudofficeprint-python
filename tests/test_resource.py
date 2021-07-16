@@ -1,5 +1,5 @@
 import apexofficeprint as aop
-from apexofficeprint._utils import file_utils
+from apexofficeprint.own_utils import file_utils
 import pathlib
 
 

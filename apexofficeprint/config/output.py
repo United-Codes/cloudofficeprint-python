@@ -47,9 +47,9 @@ class OutputConfig:
 
     @property
     def json(self) -> str:
-        """The json representation of this output config.
+        """The JSON representation of this output config.
 
-        This is the json serialization of the dict representation.
+        This is the JSON serialization of the dict representation.
         """
         return json.dumps(self.as_dict)
 

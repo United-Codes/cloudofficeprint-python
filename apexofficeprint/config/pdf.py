@@ -8,7 +8,7 @@ class PDFOptions:
     All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.
 
     The getters for the properties return the value the server uses as default value if the value is set to None.
-    These default values are not passed to the json or dict representation of the object and thus not explicitly sent to the AOP server.
+    These default values are not passed to the JSON or dict representation of the object and thus not explicitly sent to the AOP server.
     """
 
     def __init__(self,
@@ -102,9 +102,9 @@ class PDFOptions:
 
     @property
     def json(self) -> str:
-        """The json representation of these PDF options.
+        """The JSON representation of these PDF options.
 
-        The json representation is a direct json dump of the dict representation.
+        The JSON representation is a direct JSON dump of the dict representation.
         The dict representation is accessed through the `as_dict` property.
         """
         return json.dumps(self.as_dict)

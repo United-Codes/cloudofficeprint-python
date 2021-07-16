@@ -44,3 +44,6 @@ examples/spacex_example/.~lock.spacex_template.xlsx#
 examples/spacex_example/.~lock.spacex_template.docx#
 examples/solar_system_example/pptx/.~lock.output.pptx#
 examples/solar_system_example/docx/.~lock.solar_system_template.docx#
+
+# Generated docs
+html

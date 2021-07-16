@@ -196,12 +196,12 @@ class Element(ABC):
 
     @property
     def json(self) -> str:
-        """json representation of this `Element`.
+        """JSON representation of this `Element`.
 
         Isomorphic with the dict representation (`Element.as_dict`).
 
         Returns:
-            str: json representation
+            str: JSON representation
         """
         return json.dumps(self.as_dict)
 
@@ -210,7 +210,7 @@ class Element(ABC):
     def as_dict(self) -> dict:
         """Dictionary representation of this `Element`.
 
-        Isomorphic with the json representation (`Element.json`).
+        Isomorphic with the JSON representation (`Element.json`).
 
         Returns:
             dict: dictionary representation

@@ -1,7 +1,7 @@
 """
 This Python package provides a programmatic interface with an [APEX Office Print](https://www.apexofficeprint.com) server.
 
-## Examples
+## Usage
 The examples below call this package aop.
 ```python
 import apexofficeprint as aop
@@ -49,7 +49,7 @@ server = aop.config.Server(
 ```
 
 ### Print job
-`PrintJob` combines template, data, server and an optional output configuration (`config.OutputConfig`) and can execute itself on the AOP server. An example using the variables declared throughout the previous examples.
+`PrintJob` combines template, data, server and an optional output configuration (`config.OutputConfig`) and can execute itself on the AOP server. An example using the variables declared above:
 
 ```python
 printjob = aop.PrintJob(template, combined_data, server)
@@ -86,9 +86,12 @@ except aop.exceptions.AOPError as err:
     print(err.encoded_message)
     ...
 ```
+
+### Further information
+For further information, such as where to find our examples, we refer to our README.md file on our [Github page](https://github.com/United-Codes/apexofficeprint-python/).
 """
 
-from . import exceptions, config, elements, _utils
+from . import exceptions, config, elements, own_utils
 
 from .printjob import PrintJob
 from .resource import Resource
@@ -100,7 +103,7 @@ __all__ = [
     "exceptions",
     "config",
     "elements",
-    "_utils",
+    "own_utils",
     "PrintJob",
     "Resource",
     "Response"

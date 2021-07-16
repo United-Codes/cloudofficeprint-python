@@ -228,13 +228,13 @@ class Server:
 
     def get_supported_output_mimetypes(self, input_type: str) -> dict:
         """Sends a GET request to server-url/supported_output_mimetypes?template=input_type.
-        Note: You will get empty json if the template extension isn't supported.
+        Note: You will get empty JSON if the template extension isn't supported.
 
         Args:
             input_type (str): extension of file
 
         Returns:
-            dict: json of the supported output types for the given template extension.
+            dict: JSON of the supported output types for the given template extension.
         """
         self._raise_if_unreachable()
         return json.loads(requests.get(urljoin(self.url, 'supported_output_mimetypes' + f'?template={input_type}'), proxies=self.config.proxies if self.config is not None else None).text)

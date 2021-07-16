@@ -83,6 +83,7 @@ We also made some bigger examples. The current examples are:
 - pdfsignature_example.py
 - solar_system_example.py
 - spacex_example.py
+Each example also has its own folder containing the used templates, the generated output files and possibly a markdown file with explanation.
 # Contributing
 
 ## Useful VS Code extensions

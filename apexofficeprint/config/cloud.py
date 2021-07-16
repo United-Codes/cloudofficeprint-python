@@ -41,14 +41,14 @@ class CloudAccessToken(ABC):
     @property
     @abstractmethod
     def as_dict(self) -> dict:
-        """The cloud access token as a dict, for building the json."""
+        """The cloud access token as a dict, for building the JSON."""
         return {
             "output_location": self.service
         }
 
     @property
     def json(self) -> str:
-        """The cloud access token as AOP-compatible json data."""
+        """The cloud access token as AOP-compatible JSON data."""
         return json.dumps(self.as_dict)
 
     @staticmethod

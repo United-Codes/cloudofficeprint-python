@@ -115,14 +115,14 @@ class PrintJob:
 
     @property
     def json(self) -> str:
-        """json equivalent of the dict representation of this print job."""
+        """JSON equivalent of the dict representation of this print job."""
         return json.dumps(self.as_dict)
 
     @property
     def as_dict(self) -> dict:
         """dict representation of this print job.
 
-        This representation is isomorphic to the json representation
+        This representation is isomorphic to the JSON representation
         (`PrintJob.json`)."""
         result = dict(STATIC_OPTS) # Copy of STATIC_OPTS! Otherwise everything we add to 'result' will also be added to 'STATIC_OPTS'
         # server config goes in the upper level

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import FrozenSet, Union
-from .._utils import file_utils
+from ..own_utils import file_utils
 from .elements import Element
 
 class Image(Element, ABC):
