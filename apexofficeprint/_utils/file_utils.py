@@ -1,6 +1,5 @@
 import base64
 import requests
-from typing import BinaryIO
 
 
 def raw_to_base64(raw_data) -> str:

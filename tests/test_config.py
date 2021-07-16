@@ -113,11 +113,11 @@ def test_cloud_access_tokens():
 def test_commands():
     """Test post-process, conversion and merge commands"""
     # post_process
-    post_process_command = aop.config.server.Command(
+    post_process_command = aop.config.Command(
         command='echo_post',
         parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
     )
-    post_process_commands = aop.config.server.Commands(
+    post_process_commands = aop.config.Commands(
         post_process=post_process_command,
         post_process_return=False,
         post_process_delete_delay=1500
@@ -133,15 +133,15 @@ def test_commands():
     assert post_process_commands._dict == post_process_expected
 
     # conversion
-    pre_conversion_command = aop.config.server.Command(
+    pre_conversion_command = aop.config.Command(
         command='echo_pre',
         parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
     )
-    post_conversion_command = aop.config.server.Command(
+    post_conversion_command = aop.config.Command(
         command='echo_post',
         parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
     )
-    conversion_commands = aop.config.server.Commands(
+    conversion_commands = aop.config.Commands(
         pre_conversion=pre_conversion_command,
         post_conversion=post_conversion_command
     )
@@ -156,11 +156,11 @@ def test_commands():
     assert conversion_commands._dict == conversion_expected
 
     # merge
-    post_merge_command = aop.config.server.Command(
+    post_merge_command = aop.config.Command(
         command='echo_post',
         parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
     )
-    post_merge_commands = aop.config.server.Commands(
+    post_merge_commands = aop.config.Commands(
         post_merge=post_merge_command
     )
     post_merge_expected = {

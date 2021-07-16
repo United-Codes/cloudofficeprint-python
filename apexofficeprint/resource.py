@@ -11,7 +11,6 @@ alternatively, the `Resource` subclasses can be constructed to form a valid `Res
 """
 
 import json
-import base64
 from ._utils import type_utils, file_utils
 from abc import abstractmethod, ABC
 

@@ -88,7 +88,7 @@ except aop.exceptions.AOPError as err:
 ```
 """
 
-from . import exceptions, config, elements
+from . import exceptions, config, elements, _utils
 
 from .printjob import PrintJob
 from .resource import Resource
@@ -100,6 +100,7 @@ __all__ = [
     "exceptions",
     "config",
     "elements",
+    "_utils",
     "PrintJob",
     "Resource",
     "Response"
