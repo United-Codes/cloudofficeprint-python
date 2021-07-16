@@ -130,18 +130,18 @@ class ChartAxisOptions:
 class ChartOptions():
     """Options object for a `Chart`."""
     def __init__(self,
-                 x_axis: ChartAxisOptions,
-                 y_axis: ChartAxisOptions,
-                 y2_axis: ChartAxisOptions = None,
-                 width: int = None,
-                 height: int = None,
-                 border: bool = None,
-                 rounded_corners: bool = None,
-                 background_color: str = None,
-                 background_opacity: int = None,
-                 title: str = None,
-                 title_style: ChartTextStyle = None,
-                 grid: bool = None):
+                 x_axis: ChartAxisOptions=None,
+                 y_axis: ChartAxisOptions=None,
+                 y2_axis: ChartAxisOptions=None,
+                 width: int=None,
+                 height: int=None,
+                 border: bool=None,
+                 rounded_corners: bool=None,
+                 background_color: str=None,
+                 background_opacity: int=None,
+                 title: str=None,
+                 title_style: ChartTextStyle=None,
+                 grid: bool=None):
         self._legend_options: dict = None
         self._data_labels_options: dict = None
 
