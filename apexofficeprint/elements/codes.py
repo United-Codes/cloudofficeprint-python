@@ -1,20 +1,31 @@
+from abc import ABC
 from typing import Dict, FrozenSet, Union
 from .elements import Element
 
-class Code(Element):
-    """Superclass for QR-codes and barcodes"""
+class Code(Element, ABC):
+    """The abstract base class for QR-codes and barcodes"""
     def __init__(self, name: str, data: str, type: str):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            data (str): The data for this Code object.
+            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](http://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
+        """
         super().__init__(name)
         self.data: str = data
         self.type: str = type
-        """For the different types of QR-codes and barcodes, we refer to the AOP documentation: http://www.apexofficeprint.com/docs/#barcode-qrcode-tags"""
     
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{|" + self.name + "}"})
 
     @property
-    def _dict_suffixes(self):
+    def _dict_suffixes(self) -> Dict:
+        """Get the suffixes that need to be appended to the keys of the dict representation of this Code object.
+
+        Returns:
+            Dict: the suffixes that need to be appended to the keys of the dict representation of this Code object
+        """
         result = {}
 
         if self.type is not None:
@@ -50,37 +61,42 @@ class BarCode(Code):
             padding_height: int = None,
             extra_options: str = None
         ):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            data (str): The data for this Code object.
+            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](http://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
+            height (int, optional): The height for the generated code. The default is 200 for QR, 50 for the rest. Defaults to None.
+            width (int, optional): The width for the generated code. The default is 200. Defaults to None.
+            errorcorrectlevel (str, optional): The level of which the QR code should be recoverable. The options are:
+                "L" (up to 7% damage)
+                "M" (up to 15% damage)
+                "Q" (up to 25% damage)
+                "H" (up to 30% damage). Defaults to None.
+            url (str, optional): The URL to hyperlink to when the barcode/qrcode is clicked. Defaults to None.
+            rotation (int, optional): The rotation angle of the barcode/qrcode (in degrees, counterclockwise). Defaults to None.
+            background_color (str, optional): The background color for the barcode/qrcode. default: white/ffffff.
+                You can provide a hex value; html named colors like red, white, purple; rgb(255, 0, 0) or any other css supported format. Defaults to None.
+            padding_width (int, optional): The width padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.
+            padding_height (int, optional): The height padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.
+            extra_options (str, optional): If you want to include extra options like including barcode text on the bottom. 
+                The options should be space separated and should be followed by a "=" and their value.
+                E.g.: "includetext guardwhitespace guardwidth=3 guardheight=3".
+                Please visit https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference for all the options. Defaults to None.
+        """
         super().__init__(name, data, type)
         self.height: int = height
-        """ This field contains the height for the generated image. Default is 200 for QR, 50 for the rest."""
         self.width: int = width
-        """This field contains the width for the generated image. Default is 200."""
         self.errorcorrectlevel: str = errorcorrectlevel
-        """This field contains the level of which the QR code should be recoverable. The options are:
-            "L" (up to 7% damage)
-            "M" (up to 15% damage)
-            "Q" (up to 25% damage)
-            "H" (up to 30% damage)
-        """
         self.url: str = url
-        """The URL to hyperlink to when the barcode/qrcode is clicked"""
         self.rotation: int = rotation
-        """The rotation angle of the barcode/qrcode (in degrees, counterclockwise)"""
         self.background_color: str = background_color
-        """The background color for the barcode/qrcode. default: white/ffffff.
-        You can provide hex value; html named colors like red, white, purple; rgb(255, 0, 0) ; or any other css supported format."""
         self.padding_width: int = padding_width
-        """The padding of the inserted qrcode/barcode. default 10. In pixels"""
         self.padding_height: int = padding_height
-        """The padding of the inserted qrcode/barcode. default 10. In pixels"""
         self.extra_options: str = extra_options
-        """If you want to include extra options like including barcode text on the bottom. 
-        The options should be space separated and should be followed by a "=" and their value.
-        E.g.: "includetext guardwhitespace guardwidth=3 guardheight=3".
-        Please visit: https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference for all option availability."""
     
     @property
-    def _dict_suffixes(self):
+    def _dict_suffixes(self) -> Dict:
         result = super()._dict_suffixes
 
         if self.height is not None:
@@ -108,110 +124,169 @@ class BarCode(Code):
 class QRCode(Code):
     """This class is a subclass of Code and serves as a superclass for the different types of QR-codes"""
     def __init__(self, name: str, data: str, type: str):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            data (str): The data for this Code object.
+            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](http://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
+        """
         super().__init__(name, data, type)
 
         self.dotscale: float = None
-        """For body block, must be greater than 0, less than or equal to 1. default is 1"""
         self.logo: str = None
-        """Logo Image (At center of QR)"""
         self.background_image: str = None
-        """Background Image"""
         self.color_dark: str = None
         self.color_light: str = None
         self.logo_width: Union[str, int] = None
-        """Width of logo"""
         self.logo_height: Union[str, int] = None
-        """Height of logo"""
         self.logo_background_color: str = None
         self.quiet_zone: int = None
-        """For padding around qr code"""
         self.quiet_zone_color: str = None
-        """Color of padding area"""
         self.background_image_alpha: float = None
-        """Background image transparency, value between 0 and 1. default is 1"""
         self.po_color: str = None
-        """Global Position Outer color. if not set, the defaut is `colorDark`"""
         self.pi_color: str = None
-        """Global Pisotion Inner color. if not set, the defaut is `colorDark`"""
         self.po_tl_color: str = None
-        """Position Outer color - Top Left """
         self.pi_tl_color: str = None
-        """Position Inner color - Top Left"""
         self.po_tr_color: str = None
-        """Position Outer color - Top Right"""
         self.pi_tr_color: str = None
-        """Position Inner color - Top Right"""
         self.po_bl_color: str = None
-        """Position Outer color - Bottom Left"""
         self.pi_bl_color: str = None
-        """Position Inner color - Bottom Left"""
         self.timing_v_color: str = None
-        """Vertical timing color"""
         self.timing_h_color: str = None
-        """Horizontal timing color"""
         self.timing_color: str = None
-        """Global Timing color. if not set"""
         self.auto_color: bool = None
-        """Automatic color adjustment(for data block) (default is false) (set to false if using background images)"""
         self.auto_color_dark: str = None
-        """Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)"""
         self.auto_color_light: str = None
-        """Automatic color: light CSS color (only required when qr_auto_color is set true)"""
     
     def set_dotscale(self, dotscale: float):
+        """
+        Args:
+            dotscale (float): For body block, must be greater than 0, less than or equal to 1. default is 1"""
         self.dotscale = dotscale
     def set_logo(self, logo: str):
+        """
+        Args:
+            logo (str): Logo Image (At center of QR)"""
         self.logo = logo
     def set_background_image(self, background_image: str):
+        """
+        Args:
+            background_image (str): Background Image"""
         self.background_image = background_image
     def set_color_dark(self, color_dark: str):
+        """
+        Args:
+            color_dark (str): Dark color of the QR code"""
         self.color_dark = color_dark
     def set_color_light(self, color_light: str):
+        """
+        Args:
+            color_light (str): Light color of the QR code"""
         self.color_light = color_light
     def set_logo_width(self, logo_width: Union[str, int]):
+        """
+        Args:
+            logo_width (str): Width of logo"""
         self.logo_width = logo_width
     def set_logo_height(self, logo_height: Union[str, int]):
+        """
+        Args:
+            logo_height (str): Height of logo"""
         self.logo_height = logo_height
     def set_logo_background_color(self, logo_background_color: str):
+        """
+        Args:
+            logo_background_color (str): Background color of the QR code"""
         self.logo_background_color = logo_background_color
     def set_quiet_zone(self, quiet_zone: int):
+        """
+        Args:
+            quiet_zone (int): For padding around QR code"""
         self.quiet_zone = quiet_zone
     def set_quiet_zone_color(self, quiet_zone_color: str):
+        """
+        Args:
+            quiet_zone_color (str): Color of padding area"""
         self.quiet_zone_color = quiet_zone_color
     def set_background_image_alpha(self, background_image_alpha: float):
+        """
+        Args:
+            background_image_alpha (float): Background image transparency, value between 0 and 1. default is 1"""
         self.background_image_alpha = background_image_alpha
     def set_po_color(self, po_color: str):
+        """
+        Args:
+            po_color (str): Global Position Outer color. if not set, the defaut is `colorDark`"""
         self.po_color = po_color
     def set_pi_color(self, pi_color: str):
+        """
+        Args:
+            pi_color (str): Global Position Inner color. if not set, the defaut is `colorDark`"""
         self.pi_color = pi_color
     def set_po_tl_color(self, po_tl_color: str):
+        """
+        Args:
+            po_tl_color (str): Position Outer color - Top Left """
         self.po_tl_color = po_tl_color
     def set_pi_tl_color(self, pi_tl_color: str):
+        """
+        Args:
+            pi_tl_color (str): Position Inner color - Top Left"""
         self.pi_tl_color = pi_tl_color
     def set_po_tr_color(self, po_tr_color: str):
+        """
+        Args:
+            po_tr_color (str): Position Outer color - Top Right"""
         self.po_tr_color = po_tr_color
     def set_pi_tr_color(self, pi_tr_color: str):
+        """
+        Args:
+            pi_tr_color (str): Position Inner color - Top Right"""
         self.pi_tr_color = pi_tr_color
     def set_po_bl_color(self, po_bl_color: str):
+        """
+        Args:
+            po_bl_color (str): Position Outer color - Bottom Left"""
         self.po_bl_color = po_bl_color
     def set_pi_bl_color(self, pi_bl_color: str):
+        """
+        Args:
+            pi_bl_color (str): Position Inner color - Bottom Left"""
         self.pi_bl_color = pi_bl_color
     def set_timing_v_color(self, timing_v_color: str):
+        """
+        Args:
+            timing_v_color (str): Vertical timing color"""
         self.timing_v_color = timing_v_color
     def set_timing_h_color(self, timing_h_color: str):
+        """
+        Args:
+            timing_h_color (str): Horizontal timing color"""
         self.timing_h_color = timing_h_color
     def set_timing_color(self, timing_color: str):
+        """
+        Args:
+            timing_color (str): Global Timing color"""
         self.timing_color = timing_color
     def set_auto_color(self, auto_color: bool):
+        """
+        Args:
+            auto_color (bool): Automatic color adjustment (for data block) (default is false) (set to false if using background images)"""
         self.auto_color = auto_color
     def set_auto_color_dark(self, auto_color_dark: str):
+        """
+        Args:
+            auto_color_dark (str): Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)"""
         self.auto_color_dark = auto_color_dark
     def set_auto_color_light(self, auto_color_light: str):
+        """
+        Args:
+            auto_color_light (str): Automatic color: light CSS color (only required when qr_auto_color is set true)"""
         self.auto_color_light = auto_color_light
 
 
     @property
-    def _dict_suffixes(self):
+    def _dict_suffixes(self) -> Dict:
         result = super()._dict_suffixes
 
         if self.dotscale is not None:
@@ -278,6 +353,14 @@ class WiFiQRCode(QRCode):
         wifi_password: str = None,
         wifi_hidden: bool = None
     ):
+        """
+        Args:
+            name (str): The name of this Code object (AOP tag)
+            ssid (str): The ssid of the WiFi
+            wifi_encryption (str): The encryption type
+            wifi_password (str, optional): The WiFi password Defaults to None.
+            wifi_hidden (bool, optional): Whether or not the WiFi is hidden. Defaults to None.
+        """
         super().__init__(name, ssid, 'qr_wifi')
         self.wifi_password: str = wifi_password
         self.wifi_encryption: str = wifi_encryption
@@ -298,6 +381,11 @@ class WiFiQRCode(QRCode):
 class TelephoneNumberQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a telephone number QR-code element"""
     def __init__(self, name: str, number: str):
+        """
+        Args:
+            name (str): The name of this Code object (AOP tag)
+            number (str): The telephone number
+        """
         super().__init__(name, number, 'qr_telephone')
 
 class EmailQRCode(QRCode):
@@ -311,6 +399,15 @@ class EmailQRCode(QRCode):
         subject: str = None,
         body: str = None
     ):
+        """
+        Args:
+            name (str): The name of this Code object (AOP tag)
+            receiver (str): The receiver of the email
+            cc (str, optional): The cc for the email. Defaults to None.
+            bcc (str, optional): The bcc for the email. Defaults to None.
+            subject (str, optional): The subject for the email. Defaults to None.
+            body (str, optional): The body of the email. Defaults to None.
+        """
         super().__init__(name, receiver, 'qr_email')
         self.cc: str = cc
         self.bcc: str = bcc
@@ -336,6 +433,12 @@ class EmailQRCode(QRCode):
 class SMSQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate an SMS QR-code element"""
     def __init__(self, name: str, receiver: str, sms_body: str = None):
+        """
+        Args:
+            name (str): The name of this Code object (AOP tag)
+            receiver (str): The telephone number for the receiver of the sms
+            sms_body (str, optional): The body of the sms. Defaults to None.
+        """
         super().__init__(name, receiver, 'qr_sms')
         self.sms_body: str = sms_body
 
@@ -352,12 +455,25 @@ class SMSQRCode(QRCode):
 class URLQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a URL QR-code element"""
     def __init__(self, name: str, url: str):
+        """
+        Args:
+            name (str): The name of this Code object (AOP tag)
+            url (str): The URL
+        """
         super().__init__(name, url, 'qr_url')
 
 
 class VCardQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a vCard QR-code element"""
     def __init__(self, name: str, first_name: str, last_name: str = None, email: str = None, website: str = None):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            first_name (str): The first name.
+            last_name (str, optional): The last name. Defaults to None.
+            email (str, optional): The email. Defaults to None.
+            website (str, optional): The website. Defaults to None.
+        """
         super().__init__(name, first_name, 'qr_vcard')
         self.last_name: str = last_name
         self.email: str = email
@@ -393,6 +509,20 @@ class MeCard(QRCode):
         birthday: str = None,
         notes: str = None
     ):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            first_name (str): The first name.
+            last_name (str, optional): The last name. Defaults to None.
+            nickname (str, optional): The nickname. Defaults to None.
+            email (str, optional): The email. Defaults to None.
+            contact_primary (str, optional): The primary contact. Defaults to None.
+            contact_secondary (str, optional): The secondary contact. Defaults to None.
+            contact_tertiary (str, optional): The tertiary contact. Defaults to None.
+            website (str, optional): The website. Defaults to None.
+            birthday (str, optional): The birthday. Defaults to None.
+            notes (str, optional): The notes. Defaults to None.
+        """
         super().__init__(name, first_name, 'qr_me_card')
         self.last_name: str = last_name
         self.nickname: str = nickname
@@ -433,6 +563,13 @@ class MeCard(QRCode):
 class GeolocationQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a geolocation QR-code element"""
     def __init__(self, name: str, latitude: str, longitude: str = None, altitude: str = None):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            latitude (str): The latitude.
+            longitude (str, optional): The longitude. Defaults to None.
+            altitude (str, optional): The altitude. Defaults to None.
+        """
         super().__init__(name, latitude, 'qr_geolocation')
         self.longitude: str = longitude
         self.altitude: str = altitude
@@ -452,6 +589,13 @@ class GeolocationQRCode(QRCode):
 class EventQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate an event QR-code element"""
     def __init__(self, name: str, summary: str, startdate: str = None, enddate: str = None):
+        """
+        Args:
+            name (str): The name for this Code object (AOP tag).
+            summary (str): The summary.
+            startdate (str, optional): The start date. Defaults to None.
+            enddate (str, optional): The end date. Defaults to None.
+        """
         super().__init__(name, summary, 'qr_event')
         self.startdate: str = startdate
         self.enddate: str = enddate
