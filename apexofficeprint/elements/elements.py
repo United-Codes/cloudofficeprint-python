@@ -5,12 +5,19 @@ from abc import abstractmethod, ABC
 
 
 class CellStyle(ABC):
-    """Abstract base class for a cell style
-    """
+    """Abstract base class for a cell style"""
     def __init__(self):
         pass
 
-    def get_dict(self, property_name: str):
+    def get_dict(self, property_name: str) -> Dict:
+        """Get the dict representation of this cell style.
+
+        Args:
+            property_name (str): The name of the property for which you want to define the cell style
+
+        Returns:
+            Dict: dict representation of this cell style
+        """
         result = {}
         for suffix, value in self._dict_suffixes.items():
             result[property_name + suffix] = value
@@ -18,13 +25,23 @@ class CellStyle(ABC):
 
     @property
     @abstractmethod
-    def _dict_suffixes(self):
+    def _dict_suffixes(self) -> Dict:
+        """Get the dict representation of the suffixes that need to be appended to the name of this property in this CellStyle object's dict representation.
+
+        Returns:
+            Dict: the dict representation of the suffixes that need to be appended to the name of this property in this CellStyle object's dict representation
+        """
         return {}
 
 
 class CellStyleDocx(CellStyle):
     """Cell styling settings for docx templates"""
     def __init__(self, cell_background_color: str=None, width: Union[int, str]=None):
+        """
+        Args:
+            cell_background_color (str, optional): The background color of the cell. Defaults to None.
+            width (Union[int, str], optional): The width of the cell. Defaults to None.
+        """
         super().__init__()
         self.cell_background_color: str = cell_background_color
         self.width: Union[int, str] = width
@@ -72,16 +89,42 @@ class CellStyleXlsx(CellStyle):
         text_v_alignment: str=None,
         text_rotation: Union[int, str]=None
     ):
+        """
+        Args:
+            cell_locked (bool, optional): Whether or not the cell is locked. Defaults to None.
+            cell_hidden (bool, optional): Whether or not the cell is hidden. Defaults to None.
+            cell_background (str, optional): hex color e.g: #ff0000. Defaults to None.
+            font_name (str, optional): name of the font e.g: Arial. Defaults to None.
+            font_size (Union[int, str], optional): The size of the font. Defaults to None.
+            font_color (str, optional): hex color e.g: #00ff00. Defaults to None.
+            font_italic (bool, optional): Whether or not the text is in italic. Defaults to None.
+            font_bold (bool, optional): Whether or not the text is in bold. Defaults to None.
+            font_strike (bool, optional): Whether or not the text is striked. Defaults to None.
+            font_underline (bool, optional): Whether or not the text is underlined. Defaults to None.
+            font_superscript (bool, optional): Whether or not the text is in superscript. Defaults to None.
+            font_subscript (bool, optional): Whether or not the text is in subscript. Defaults to None.
+            border_top (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_top_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_bottom (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_bottom_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_left (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_left_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_right (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_right_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_diagonal (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_diagonal_direction (str, optional): [up-wards|down-wards| both]. Defaults to None.
+            border_diagonal_color (str, optional): hex color e.g: #000000. Defaults to None.
+            text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
+            text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
+            text_rotation (Union[int, str], optional): rotation of text value from 0-90 degrees. Defaults to None.
+        """
         super().__init__()
         self.cell_locked: bool = cell_locked
         self.cell_hidden: bool = cell_hidden
         self.cell_background: str = cell_background
-        """hex color e.g: #ff0000"""
         self.font_name: str = font_name
-        """name of the font e.g: Arial"""
         self.font_size: Union[int, str] = font_size
         self.font_color: str = font_color
-        """hex color e.g: #00ff00"""
         self.font_italic: bool = font_italic
         self.font_bold: bool = font_bold
         self.font_strike: bool = font_strike
@@ -89,33 +132,19 @@ class CellStyleXlsx(CellStyle):
         self.font_superscript: bool = font_superscript
         self.font_subscript: bool = font_subscript
         self.border_top: str = border_top
-        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
         self.border_top_color: str = border_top_color
-        """hex color e.g: #000000"""
         self.border_bottom: str = border_bottom
-        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
         self.border_bottom_color: str = border_bottom_color
-        """hex color e.g: #000000"""
         self.border_left: str = border_left
-        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
         self.border_left_color: str = border_left_color
-        """hex color e.g: #000000"""
         self.border_right: str = border_right
-        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
         self.border_right_color: str = border_right_color
-        """hex color e.g: #000000"""
         self.border_diagonal: str = border_diagonal
-        """[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]"""
         self.border_diagonal_direction: str = border_diagonal_direction
-        """[up-wards|down-wards| both]"""
         self.border_diagonal_color: str = border_diagonal_color
-        """hex color e.g: #000000"""
         self.text_h_alignment: str = text_h_alignment
-        """[top|bottom|center|justify]"""
         self.text_v_alignment: str = text_v_alignment
-        """[top|bottom|center|justify]"""
         self.text_rotation: Union[int, str] = text_rotation
-        """rotation of text value from 0-90 degrees"""
 
     @property
     def _dict_suffixes(self):
@@ -181,17 +210,26 @@ class Element(ABC):
     """ The abstract base class for elements."""
 
     def __init__(self, name: str):
+        """
+        Args:
+            name (str): The name of this element.
+        """
         self.name = name
-        """Name for this element
+
+    def __str__(self) -> str:
+        """Get the string representation of this object.
 
         Returns:
-            str: element name
+            str: string representation of this object
         """
-
-    def __str__(self):
         return self.json
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Get the JSON representation of this object.
+
+        Returns:
+            str: JSON representation of this object
+        """
         return self.json
 
     @property
@@ -235,9 +273,14 @@ class Property(Element):
     """
 
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property. Note: the general purpose for this value-field is the value as a string,
+                but this can be of any type, for example a dict.
+        """
         super().__init__(name)
         self.value: Union[int, str] = value
-        """Value of this property."""
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -252,9 +295,14 @@ class Property(Element):
 
 class CellStyleProperty(Property):
     def __init__(self, name: str, value: str, cell_style: CellStyle):
+        """
+        Args:
+            name (str): The name for this property
+            value (str): The value for this property
+            cell_style (CellStyle): Cell style as a `CellStyle`.
+        """
         super().__init__(name, value)
         self.cell_style: CellStyle = cell_style
-        """Cell style as a `CellStyle`."""
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -274,6 +322,11 @@ class CellStyleProperty(Property):
 
 class Html(Property):
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        """
         super().__init__(name, value)
 
     @property
@@ -283,6 +336,11 @@ class Html(Property):
 
 class RightToLeft(Property):
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        """
         super().__init__(name, value)
 
     @property
@@ -292,6 +350,11 @@ class RightToLeft(Property):
 
 class FootNote(Property):
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        """
         super().__init__(name, value)
 
     @property
@@ -301,6 +364,12 @@ class FootNote(Property):
 
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
+        """
+        Args:
+            name (str): The name for this element.
+            url (str): The URL for the hyperlink.
+            text (str, optional): The text for the hyperlink. Defaults to None.
+        """
         super().__init__(name)
         self.url: str = url
         self.text: str = text
@@ -323,13 +392,17 @@ class Hyperlink(Element):
 
 class TableOfContents(Element):
     def __init__(self, name: str, title: str, depth: int = None, tab_leader: str = None):
+        """
+        Args:
+            name (str): The name for this element.
+            title (str): Title of the table of contents. Default is 'Contents'.
+            depth (int, optional): The depth of heading to be shown, default 3. Defaults to None.
+            tab_leader (str, optional): How the space between title and page number should be filled. Can be "hyphen", "underscore", or "dot" (default). Defaults to None.
+        """
         super().__init__(name)
         self.title: str = title
-        """Title of the table of contents. Default is 'Contents'"""
         self.depth: int = depth
-        """The depth of heading to be shown, default 3"""
         self.tab_leader: str = tab_leader
-        """How the space between title and page number should be filled. Can be "hyphen", "underscore", or "dot" (default)."""
 
     @property
     def available_tags(self):
@@ -351,6 +424,11 @@ class TableOfContents(Element):
 
 class Raw(Property):
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        """
         super().__init__(name, value)
 
     @property
@@ -360,6 +438,13 @@ class Raw(Property):
 
 class Span(Property):
     def __init__(self, name: str, value: str, columns: int, rows: int):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+            columns (int): The amount of columns to span.
+            rows (int): The amount of rows to span.
+        """
         super().__init__(name, value)
         self.columns = columns
         self.rows = rows
@@ -379,6 +464,11 @@ class Span(Property):
 
 class Formula(Property):
     def __init__(self, name: str, formula: str):
+        """
+        Args:
+            name (str): The name for this property.
+            formula (str): The formula.
+        """
         super().__init__(name, formula)
 
     @property
@@ -398,6 +488,19 @@ class StyledProperty(Property):
                  underline: bool = None,
                  strikethrough: bool = None,
                  highlight_color: str = None):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+            font (str, optional): The font. Defaults to None.
+            font_size (Union[str, int], optional): The font size. Defaults to None.
+            font_color (str, optional): The font color. Defaults to None.
+            bold (bool, optional): Whether or not the text should be bold. Defaults to None.
+            italic (bool, optional): Whether or not the text should be italic. Defaults to None.
+            underline (bool, optional): Whether or not the text should be underlined. Defaults to None.
+            strikethrough (bool, optional): Whether or not the text should be striked through. Defaults to None.
+            highlight_color (str, optional): The color in which the text should be highlighted. Defaults to None.
+        """
         super().__init__(name, value)
         self.font: str = font
         self.font_size: Union[str, int] = font_size
@@ -448,6 +551,17 @@ class Watermark(Property):
                  height: Union[int, str] = None,
                  opacity: float = None,
                  rotation: int = None):
+        """
+        Args:
+            name (str): The name for this property.
+            text (str): The text for the watermark.
+            color (str, optional): The color for the watermark. Defaults to None.
+            font (str, optional): The font for the watermark. Defaults to None.
+            width (Union[int, str], optional): The width of the watermark. Defaults to None.
+            height (Union[int, str], optional): The height of the watermark. Defaults to None.
+            opacity (float, optional): The opacity of the watermark. Defaults to None.
+            rotation (int, optional): The rotation of the watermark. Defaults to None.
+        """
         super().__init__(name, text)
         self.color: str = color
         self.font: str = font
@@ -484,10 +598,16 @@ class Watermark(Property):
 
 class D3Code(Element):
     def __init__(self, name: str, code: str, data=None):
+        """
+        Args:
+            name (str): The name for this element.
+            code (str): The JSON encoded code for generating a D3 image.
+            data ([type], optional): The data that the code will have access to. Defaults to None.
+        """
         super().__init__(name)
         self.code: str = code
         self.data = data
-        """The data that the code will have access to"""
+        
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -510,13 +630,16 @@ class AOPChartDateOptions:
                  format: str = None,
                  unit: str = None,
                  step: Union[int, str] = None):
+        """
+        Args:
+            format (str, optional): The format to display the date on the chart's axis. Defaults to None.
+            unit (str, optional): The unit to be used for spacing the axis values. Defaults to None.
+            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined). 
+                This option is not supported in LibreOffice. Defaults to None.
+        """
         self.format: str = format
-        """The format to display the date on the chart's axis."""
         self.unit: str = unit
-        """The unit to be used for spacing the axis values."""
         self.step: Union[int, str] = step
-        """how many of the above unit should be used for spacing the axis values (automatic if undefined). 
-        This option is not supported in LibreOffice."""
 
     @property
     def as_dict(self):
@@ -533,6 +656,7 @@ class AOPChartDateOptions:
 
 
 class AOPChart(Element):
+    """The class for an AOPChart. This is used for chart templating."""
     def __init__(self,
                  name: str,
                  x_data: Iterable,
@@ -543,6 +667,22 @@ class AOPChart(Element):
                  y_title: str = None,
                  y2_title: str = None,
                  x2_title: str = None):
+        """
+        Args:
+            name (str): The name for this element.
+            x_data (Iterable): The data for the x-axis. Format : ["day 1", "day 2", "day 3", "day 4", "day 5"] or
+                [{"value": "day 1"}, {"value": "day 2"}, {"value": "day 3"}, {"value": "day 4"}, {"value": "day 5"}]
+            y_datas (Union[Iterable[Iterable], Mapping[str, Iterable]]): The data for the y-axis in the same format as x_data.
+            date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+            title (str, optional): The title of the chart. Defaults to None.
+            x_title (str, optional): The title for the x-axis. Defaults to None.
+            y_title (str, optional): The title for the y-axis. Defaults to None.
+            y2_title (str, optional): The title for the second y-axis. Defaults to None.
+            x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+        Raises:
+            TypeError: raise error when the input data for the y-axis is not valid
+        """
         super().__init__(name)
         self.x_data: List = list(x_data)
 
@@ -577,6 +717,21 @@ class AOPChart(Element):
                        y_title: str = None,
                        y2_title: str = None,
                        x2_title: str = None):
+        """Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            name (str): The name for this element.
+            data (pandas.DataFrame): The data for this AOPChart in a Pandas dataframe
+            date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+            title (str, optional): The title for the chart. Defaults to None.
+            x_title (str, optional): The title for the x-axis. Defaults to None.
+            y_title (str, optional): The title for the y-axis. Defaults to None.
+            y2_title (str, optional): The title for the second y-axis. Defaults to None.
+            x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+        Returns:
+            [type]: [description]
+        """
         x_data = list(data.iloc[:, 0])
 
         y_frame = data.iloc[:, 1:]
@@ -623,9 +778,14 @@ class AOPChart(Element):
 
 
 class PageBreak(Property):
-    """Value should be set to 'page' or 'pagebreak' for PageBreak, 'column' or 'columnbreak' for column breaks,
-    if set to True (default) it will create a pagebreak."""
+    """The class for a page break property."""
     def __init__(self, name: str, value: Union[str, bool]):
+        """
+        Args:
+            name (str): The name for this property.
+            value (Union[str, bool]): Value should be set to 'page' or 'pagebreak' for PageBreak, 'column' or 'columnbreak' for column breaks.
+                If set to True (default) it will create a pagebreak.
+        """
         super().__init__(name, value)
     
     @property
@@ -634,8 +794,13 @@ class PageBreak(Property):
 
 
 class MarkdownContent(Property):
-    """Value holds the Markdown content"""
+    """The class for markdown content."""
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this property.
+            value (str): Holds the Markdown content.
+        """
         super().__init__(name, value)
 
     @property
@@ -654,6 +819,17 @@ class TextBox(Element):
     transparency: Union[int, str]=None,
     width: Union[int, str]=None,
     height: Union[int, str]=None):
+        """
+        Args:
+            name (str): The name for this element.
+            value (str): The value for this element.
+            font (str, optional): The font. Defaults to None.
+            font_color (str, optional): The font color. Defaults to None.
+            font_size (Union[int, str], optional): The font size. Defaults to None.
+            transparency (Union[int, str], optional): The transparency. Defaults to None.
+            width (Union[int, str], optional): The width of the text box. Defaults to None.
+            height (Union[int, str], optional): The height of the text box. Defaults to None.
+        """
         super().__init__(name)
         self.value: str = value
         self.font: str = font
@@ -695,20 +871,40 @@ class ElementCollection(list, Element):
     Its name is used as a key name when nested, but ignored for all purposes when it's the outer ElementCollection.
     """
     def __init__(self, name: str = "", elements: Iterable[Element] = ()):
-        # name is not used for the outer ElementCollection, but needed for nested ElementCollections
+        """
+        Args:
+            name (str, optional): The name for this element collection. Not used for the outer ElementCollection, but needed for nested ElementCollections Defaults to "".
+            elements (Iterable[Element], optional): An iterable containing the elements that need to be added to this collection. Defaults to ().
+        """
         list.__init__(self, elements)
         Element.__init__(self, name)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """
+        Returns:
+            str: The string representation for this object.
+        """
         return self.json
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        Returns:
+            str: The JSON representation for this object.
+        """
         return self.json
 
-    def copy(self):
+    def copy(self) -> 'ElementCollection':
+        """
+        Returns:
+            ElementCollection: A copy of this element collection.
+        """
         return self.__class__(self)
 
-    def deepcopy(self):
+    def deepcopy(self) -> 'ElementCollection':
+        """
+        Returns:
+            ElementCollection: A deep copy of this element collection.
+        """
         return deepcopy(self)
 
     @property
@@ -716,13 +912,28 @@ class ElementCollection(list, Element):
         return json.dumps(self.as_dict)
 
     def add(self, element: Element):
+        """Add an element to this element collection object.
+
+        Args:
+            element (Element): the element to add to this collection
+        """
         self.append(element)
 
     def add_all(self, obj: 'ElementCollection'):
+        """Add all the elements in the given collection to this collection.
+
+        Args:
+            obj (ElementCollection): the collection of which the elements need to be added to this element collection object
+        """
         for element in obj:
             self.add(element)
 
     def remove_element_by_name(self, element_name: str):
+        """Remove an element from this element collection object by its name.
+
+        Args:
+            element_name (str): the name of the element that needs to be removed
+        """
         self.remove(
             next(element for element in self if element.name == element_name)
         )
@@ -751,10 +962,20 @@ class ElementCollection(list, Element):
 
     @classmethod
     def element_to_element_collection(cls, element: Element, name: str = "") -> 'ElementCollection':
+        """Generate an element collection from an element and a name.
+
+        Returns:
+            ElementCollection: the generated element collection from an element and a name
+        """
         return cls.from_mapping(element.as_dict, name)
 
     @classmethod
     def from_mapping(cls, mapping: Mapping, name: str = "") -> 'ElementCollection':
+        """Generate an element collection from a mapping and a name.
+
+        Returns:
+            ElementCollection: an element collection generated from the given mapping and name
+        """
         result_set = set()
         for key, value in mapping.items():
             result_set.add(Property(key, value))
@@ -762,4 +983,9 @@ class ElementCollection(list, Element):
 
     @classmethod
     def from_json(cls, json_str: str, name: str = "") -> 'ElementCollection':
+        """Generate an element collection from a JSON string.
+
+        Returns:
+            ElementCollection: an element collection generated from the given JSON string and name
+        """
         return cls.from_mapping(json.loads(json_str), name)
