@@ -11,7 +11,7 @@ alternatively, the `Resource` subclasses can be constructed to form a valid `Res
 """
 
 import json
-from typing import Union
+from typing import Dict, Union
 from .own_utils import type_utils, file_utils
 from abc import abstractmethod, ABC
 
@@ -57,12 +57,12 @@ class Resource(ABC):
 
     @property
     @abstractmethod
-    def template_dict(self) -> dict:
+    def template_dict(self) -> Dict:
         """This Resource object as a dict object for use as a template.
         This dict and the template JSON representation (`Resource.template_json`) are isomorphic.
         
         Returns:
-            dict: JSON representation of this resource as a template
+            Dict: dict representation of this resource as a template
         """
         pass
 
@@ -77,12 +77,12 @@ class Resource(ABC):
 
     @property
     @abstractmethod
-    def secondary_file_dict(self) -> dict:
+    def secondary_file_dict(self) -> Dict:
         """This Resource object as a dict object for use as a secondary file (prepend, append, insert, as subtemplate).
         This dict and the "concat file" JSON representation (`Resource.secondary_file_json`) are isomorphic.
         
         Returns:
-            dict: JSON representation of this resource as a secondary file
+            Dict: dict representation of this resource as a secondary file
         """
         pass
 
@@ -202,14 +202,14 @@ class RawResource(Resource):
         return file_utils.raw_to_base64(self.data)
 
     @property
-    def template_dict(self) -> dict:
+    def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
             "file": self.base64
         }
 
     @property
-    def secondary_file_dict(self) -> dict:
+    def secondary_file_dict(self) -> Dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "base64",
@@ -229,14 +229,14 @@ class Base64Resource(Resource):
         super().__init__(base64string, filetype)
 
     @property
-    def template_dict(self) -> dict:
+    def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
             "file": self.data
         }
 
     @property
-    def secondary_file_dict(self) -> dict:
+    def secondary_file_dict(self) -> Dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "base64",
@@ -255,14 +255,14 @@ class ServerPathResource(Resource):
         super().__init__(server_path, type_utils.path_to_extension(server_path))
 
     @property
-    def template_dict(self) -> dict:
+    def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
             "filename": self.data
         }
 
     @property
-    def secondary_file_dict(self) -> dict:
+    def secondary_file_dict(self) -> Dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
@@ -282,14 +282,14 @@ class URLResource(Resource):
         super().__init__(url, filetype)
 
     @property
-    def template_dict(self) -> dict:
+    def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
             "url": self.data
         }
 
     @property
-    def secondary_file_dict(self) -> dict:
+    def secondary_file_dict(self) -> Dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "file",
@@ -322,7 +322,7 @@ class HTMLResource(Resource):
         return None if not self.landscape else "landscape"
 
     @property
-    def template_dict(self) -> dict:
+    def template_dict(self) -> Dict:
         result = {
             "template_type": self.filetype,
             "html_template_content": self.data
@@ -334,7 +334,7 @@ class HTMLResource(Resource):
         return result
 
     @property
-    def secondary_file_dict(self) -> dict:
+    def secondary_file_dict(self) -> Dict:
         return {
             "mime_type": self.mimetype,
             "file_source": "file",

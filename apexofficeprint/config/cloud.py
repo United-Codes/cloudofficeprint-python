@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import Dict, List
 from abc import ABC, abstractmethod
 
 __all__ = [
@@ -59,11 +59,11 @@ class CloudAccessToken(ABC):
 
     @property
     @abstractmethod
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         """The cloud access token as a dict, for building the JSON.
 
         Returns:
-            dict: JSON representation for this cloud access token
+            Dict: dict representation for this cloud access token
         """
         return {
             "output_location": self.service
@@ -74,7 +74,7 @@ class CloudAccessToken(ABC):
         """The cloud access token as JSON.
 
         Returns:
-            dict: JSON representation for this cloud access token
+            str: JSON representation for this cloud access token
         """
         return json.dumps(self.as_dict)
 

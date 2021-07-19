@@ -151,11 +151,11 @@ class PrintJob:
         return json.dumps(self.as_dict)
 
     @property
-    def as_dict(self) -> dict:
-        """Return the JSON representation of this print job.
+    def as_dict(self) -> Dict:
+        """Return the dict representation of this print job.
 
         Returns:
-            dict: JSON representation of this print job
+            Dict: dict representation of this print job
         """
         result = dict(STATIC_OPTS) # Copy of STATIC_OPTS! Otherwise everything we add to 'result' will also be added to 'STATIC_OPTS'
         # server config goes in the upper level

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union, FrozenSet, Iterable, Mapping
+from typing import Dict, Union, FrozenSet, Iterable, Mapping
 from .elements import Element, ElementCollection
 
 class PDFInsertObject(ABC):
@@ -17,7 +17,7 @@ class PDFInsertObject(ABC):
 
     @property
     @abstractmethod
-    def _inner_dict(self) -> dict:
+    def _inner_dict(self) -> Dict:
         pass
 
     @property
@@ -73,7 +73,7 @@ class PDFText(PDFInsertObject):
         return "AOP_PDF_TEXTS"
 
     @property
-    def _inner_dict(self) -> dict:
+    def _inner_dict(self) -> Dict:
         result = {
             "text": self.text,
             "x": self.x,
@@ -124,7 +124,7 @@ class PDFImage(PDFInsertObject):
         return "AOP_PDF_IMAGES"
 
     @property
-    def _inner_dict(self) -> dict:
+    def _inner_dict(self) -> Dict:
         result = {
             "image": self.image,
             "x": self.x,

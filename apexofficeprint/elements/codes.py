@@ -1,4 +1,4 @@
-from typing import FrozenSet, Union
+from typing import Dict, FrozenSet, Union
 from .elements import Element
 
 class Code(Element):
@@ -23,7 +23,7 @@ class Code(Element):
         return result
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.data
         }

@@ -30,74 +30,46 @@ class PDFOptions:
                  identify_form_fields: bool = None):
         """
         Args:
-            read_password (str, optional): `PDFOptions.read_password`. Defaults to None.
-            watermark (str, optional): `PDFOptions.watermark`. Defaults to None.
-            page_width (Union[str, int], optional): `PDFOptions.page_width`. Defaults to None.
-            page_height (Union[str, int], optional): `PDFOptions.page_height`. Defaults to None.
-            even_page (bool, optional): `PDFOptions.even_page`. Defaults to None.
-            merge_making_even (bool, optional): `PDFOptions.merge_making_even`. Defaults to None.
-            modify_password (str, optional): `PDFOptions.modify_password`. Defaults to None.
-            password_protection_flag (int, optional): `PDFOptions.password_protection_flag`. Defaults to None.
-            lock_form (bool, optional): `PDFOptions.lock_form`. Defaults to None.
-            copies (int, optional): `PDFOptions.copies`. Defaults to None.
-            page_margin (Union[int, dict], optional): `PDFOptions.page_margin`. Defaults to None.
-            landscape (bool, optional): Whether the document should be in landscape orientation, affects `PDFOptions.page_orientation`. Defaults to None.
-            page_format (str, optional): `PDFOptions.page_format`. Defaults to None.
-            merge (bool, optional): `PDFOptions.merge`. Defaults to None.
-            sign_certificate (str, optional): `PDFOptions.sign_certificate`. Defaults to None.
-            identify_form_fields (bool, optional): `PDFOptions.identify_form_fields`. Defaults to None.
+            read_password (str, optional): The password needed to open the PDF. Defaults to None.
+            watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
+            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
+            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
+            even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
+            merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
+            modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
+            password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
+            lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
+            copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
+            page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.
+            landscape (bool, optional): Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default). Defaults to None.
+            page_format (str, optional): Only for HTML to PDF. The page format: "a4" (default) or "letter". Defaults to None.
+            merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
+            sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
+            identify_form_fields (bool, optional): Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
         """
         self.read_password: str = read_password
-        """The password needed to open the PDF."""
         self.watermark: str = watermark
-        """Setting this generates a diagonal custom watermark on every page in the PDF file"""
         self.page_width: Union[str, int] = page_width
-        """Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px."""
         self.page_height: Union[str, int] = page_height
-        """Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px."""
         self.even_page: bool = even_page
-        """If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true."""
         self.merge_making_even: bool = merge_making_even
-        """Merge each given document making even paged."""
         self.modify_password: str = modify_password
-        """The password needed to modify the PDF."""
         self.password_protection_flag: int = password_protection_flag
-        """Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer.
-
-        [More info.](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption)
-        """
         self.lock_form = lock_form
-        """Locks / flattens the forms in the PDF."""
         self.copies = copies
-        """Repeats the output pdf for the given number of times."""
         self.page_format = page_format
-        """Only for HTML to PDF. The page format: "a4" (default) or "letter"."""
         self.merge = merge
-        """If True: instead of returning back a zip file for multiple output, merge it."""
         self.page_margin = page_margin
-        """Only for HTML to PDF. Margin in px.
-
-        Returns either a dict containing:
-        ```python
-        {
-            "top": int,
-            "bottom": int,
-            "left": int,
-            "right": int
-        }
-        ```
-        or just an int to be used on all sides."""
         self.sign_certificate: str = sign_certificate
-        """Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path.
-        The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64."""
-
         self._landscape = landscape
-        """Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default)"""
-
         self.identify_form_fields = identify_form_fields
-        """Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Optional."""
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Get the string representation of these PDF options.
+
+        Returns:
+            str: string representation of these PDF options
+        """
         return self.json
 
     @property
@@ -106,12 +78,19 @@ class PDFOptions:
 
         The JSON representation is a direct JSON dump of the dict representation.
         The dict representation is accessed through the `as_dict` property.
+
+        Returns:
+            str: JSON representation of these PDF options
         """
         return json.dumps(self.as_dict)
 
     @property
-    def as_dict(self) -> dict:
-        """The dict representation of these PDF options."""
+    def as_dict(self) -> Dict:
+        """The dict representation of these PDF options.
+
+        Returns:
+            Dict: the dict representation of these PDF options
+        """
         result = {}
 
         if self.even_page is not None:
@@ -183,9 +162,18 @@ class PDFOptions:
 
     @property
     def page_orientation(self) -> str:
-        """The page orientation, portrait or landscape."""
+        """The page orientation, portrait or landscape.
+
+        Returns:
+            str: the page orientation, portrait or landscape
+        """
         return "landscape" if self._landscape else "portrait"
 
     @page_orientation.setter
     def page_orientation(self, value: str):
+        """Setter for the page orientation.
+
+        Args:
+            value (str): the page orientation
+        """
         self._landscape = True if value == "landscape" else False

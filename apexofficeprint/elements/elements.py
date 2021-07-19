@@ -207,13 +207,13 @@ class Element(ABC):
 
     @property
     @abstractmethod
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         """Dictionary representation of this `Element`.
 
         Isomorphic with the JSON representation (`Element.json`).
 
         Returns:
-            dict: dictionary representation
+            Dict: dictionary representation
         """
         pass
 
@@ -244,7 +244,7 @@ class Property(Element):
         return frozenset({"{" + self.name + "}"})
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         return {
             self.name: self.value
         }
@@ -587,7 +587,7 @@ class AOPChart(Element):
         return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = {
             "xAxis": {
                 "data": self.x_data,
@@ -728,11 +728,11 @@ class ElementCollection(list, Element):
         )
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         """Merge the `ElementCollection`'s contents as one dict.
 
         Returns:
-            dict: merged element
+            Dict: merged element
         """
         result = {}
         for element in self:

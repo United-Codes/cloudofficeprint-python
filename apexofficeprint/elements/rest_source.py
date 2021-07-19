@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Union, FrozenSet, Iterable, Mapping
+from typing import Dict, List, Union, FrozenSet, Iterable, Mapping
 
 class RESTSource(ABC):
     """Abstract base class for REST datasources."""
@@ -17,7 +17,7 @@ class RESTSource(ABC):
     
     @property
     @abstractmethod
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = {
             'datasource': self.datasource,
             'endpoint': self.endpoint
@@ -49,7 +49,7 @@ class RESTSourceREST(RESTSource):
         """Body of HTTP request (can be left empty for GET requests)"""
     
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = super().as_dict
 
         result['method'] = self.method
@@ -71,7 +71,7 @@ class RESTSourceGraphQL(RESTSource):
         """Graphql query"""
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = super().as_dict
 
         result['query'] = self.query

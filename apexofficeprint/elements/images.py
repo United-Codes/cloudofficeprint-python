@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import FrozenSet, Union
+from typing import Dict, FrozenSet, Union
 from ..own_utils import file_utils
 from .elements import Element
 
@@ -113,7 +113,7 @@ class ImageUrl(Image):
         super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.url,
         }
@@ -140,7 +140,7 @@ class ImageBase64(Image):
         self.base64: str = base64str
 
     @property
-    def as_dict(self) -> dict:
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.base64
         }
