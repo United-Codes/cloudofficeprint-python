@@ -14,7 +14,7 @@ def test_resource_base64():
 
 def test_resource_local_file():
     """Also serves as a test for raw resource, because from_local_file uses raw resource"""
-    local_path = str(pathlib.Path().resolve()) + '/test/template.docx'
+    local_path = str(pathlib.Path().resolve()) + '/tests/data/template.docx'
     resource = aop.Resource.from_local_file(local_path)
     with open(local_path, "rb") as f:
         content = f.read()

@@ -88,6 +88,14 @@ Each example also has its own folder containing the used templates, the generate
 # Documentation
 The documentation for this SDK can be seen by double clicking the file `index.html` in the folder `docs/apexofficeprint/`.
 
+# Tests
+To check if everything works, you can run the tests.
+
+## How to run the tests
+1. Open a terminal in the parent directory of this project
+2. Type in the terminal: `python test.py`
+3. The tests succeeded if nothing is printed to the terminal
+
 # Contributing
 
 ## Useful VS Code extensions
