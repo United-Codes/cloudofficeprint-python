@@ -84,6 +84,10 @@ We also made some bigger examples. The current examples are:
 - solar_system_example.py
 - spacex_example.py
 Each example also has its own folder containing the used templates, the generated output files and possibly a markdown file with explanation.
+
+# Documentation
+The documentation for this SDK can be seen by double clicking the file `index.html` in the folder `docs/apexofficeprint/`.
+
 # Contributing
 
 ## Useful VS Code extensions
@@ -97,4 +101,4 @@ Things to keep in mind when writing docs (some of these are non-standard):
 - For `@property` properties, the setter's documentation is ignored. Make sure everything is in the getter.
 - You can use markdown in the docstrings, along with the generated google-style docs.
   - Doing something like \``ClassName`\` (with backticks, which are generally for inline code) makes pdoc look for the reference and try to hyperlink it in the generated docs.</br>
-  This works with any object, useful methods or instance variables of a class too. Maked pdoc look for that 
+  This works with any object, useful methods or instance variables of a class too.
