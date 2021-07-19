@@ -177,7 +177,7 @@ class OAuthToken(CloudAccessToken):
         self.token: str = token
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = super().as_dict
         result.update({
             "cloud_access_token": self.token
@@ -199,7 +199,7 @@ class AWSToken(CloudAccessToken):
         self.secret_key: str = secret_key
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = super().as_dict
         result.update({
             "cloud_access_token": {
@@ -229,7 +229,7 @@ class FTPToken(CloudAccessToken):
         self.password: str = password
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         cloud_access_token = {
             "host": self.host
         }

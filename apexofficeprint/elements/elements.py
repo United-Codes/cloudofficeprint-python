@@ -309,7 +309,7 @@ class CellStyleProperty(Property):
         return frozenset({"{" + self.name + "$}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.value
         }
@@ -330,7 +330,7 @@ class Html(Property):
         super().__init__(name, value)
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{_" + self.name + "}"})
 
 
@@ -344,7 +344,7 @@ class RightToLeft(Property):
         super().__init__(name, value)
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{<" + self.name + "}"})
 
 
@@ -358,7 +358,7 @@ class FootNote(Property):
         super().__init__(name, value)
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{+" + self.name + "}"})
 
 
@@ -375,11 +375,11 @@ class Hyperlink(Element):
         self.text: str = text
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{*" + self.name + "}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.url
         }
@@ -405,11 +405,11 @@ class TableOfContents(Element):
         self.tab_leader: str = tab_leader
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{~" + self.name + "}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = dict()
 
         if self.title:
@@ -432,7 +432,7 @@ class Raw(Property):
         super().__init__(name, value)
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{@" + self.name + "}"})
 
 
@@ -450,11 +450,11 @@ class Span(Property):
         self.rows = rows
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{" + self.name + "#}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return {
             self.name: self.value,
             self.name + "_row_span": self.rows,
@@ -472,7 +472,7 @@ class Formula(Property):
         super().__init__(name, formula)
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{>" + self.name + "}"})
 
 
@@ -512,11 +512,11 @@ class StyledProperty(Property):
         self.highlight_color: str = highlight_color
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{style " + self.name + "}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.value
         }
@@ -571,11 +571,11 @@ class Watermark(Property):
         self.rotation: int = rotation
 
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{watermark " + self.name + "}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.value
         }
@@ -614,7 +614,7 @@ class D3Code(Element):
         return frozenset({"{$d3 " + self.name + "}"})
     
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.code
         }
@@ -642,7 +642,7 @@ class AOPChartDateOptions:
         self.step: Union[int, str] = step
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {}
 
         if self.format is not None:
@@ -840,11 +840,11 @@ class TextBox(Element):
         self.height: Union[int, str] = height
     
     @property
-    def available_tags(self):
+    def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{tbox " + self.name + "}"})
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {
             self.name: self.value
         }

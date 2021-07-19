@@ -397,7 +397,7 @@ class XYSeries(Series):
         return cls(x, y, name=name)
     
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = super().as_dict
 
         if self.color is not None:
@@ -429,7 +429,7 @@ class PieSeries(XYSeries):
         self.colors = colors
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = super().as_dict
 
         if self.colors is not None:
@@ -462,7 +462,7 @@ class AreaSeries(XYSeries):
         self.opacity = opacity
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = super().as_dict
 
         if self.opacity is not None:
@@ -504,7 +504,7 @@ class LineSeries(XYSeries):
         self.line_style: str = line_style
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = super().as_dict
 
         if self.smooth is not None:
@@ -639,7 +639,7 @@ class Chart(Element, ABC):
 
     @property
     @abstractmethod
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         pass
 
     def _get_dict(self, updates: dict) -> Dict:
@@ -676,7 +676,7 @@ class LineChart(Chart):
         self.lines: Tuple[Union[LineSeries, XYSeries]] = lines
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "lines": [line.as_dict for line in self.lines],
             "type": "line"
@@ -696,7 +696,7 @@ class BarChart(Chart):
         self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "bars": [bar.as_dict for bar in self.bars],
             "type": "bar"
@@ -716,7 +716,7 @@ class BarStackedChart(Chart):
         self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "bars": [bar.as_dict for bar in self.bars],
             "type": "barStacked"
@@ -736,7 +736,7 @@ class BarStackedPercentChart(Chart):
         self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "bars": [bar.as_dict for bar in self.bars],
             "type": "barStackedPercent"
@@ -756,7 +756,7 @@ class ColumnChart(Chart):
         self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "columns": [col.as_dict for col in self.columns],
             "type": "column"
@@ -776,7 +776,7 @@ class ColumnStackedChart(Chart):
         self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "columns": [col.as_dict for col in self.columns],
             "type": "columnStacked"
@@ -796,7 +796,7 @@ class ColumnStackedPercentChart(Chart):
         self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "columns": [col.as_dict for col in self.columns],
             "type": "columnStackedPercent"
@@ -816,7 +816,7 @@ class PieChart(Chart):
         self.pies: Tuple[Union[PieSeries, XYSeries]] = pies
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "pies": [pie.as_dict for pie in self.pies],
             "type": "pie"
@@ -836,7 +836,7 @@ class Pie3DChart(Chart):
         self.pies: Tuple[Union[PieSeries, XYSeries]] = pies
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "pies": [pie.as_dict for pie in self.pies],
             "type": "pie3d"
@@ -856,7 +856,7 @@ class DoughnutChart(Chart):
         self.doughnuts: Tuple[Union[PieSeries, XYSeries]] = doughnuts
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "doughnuts": [nut.as_dict for nut in self.doughnuts],
             "type": "doughnut"
@@ -876,7 +876,7 @@ class RadarChart(Chart):
         self.radars: Tuple[Union[RadarSeries, XYSeries]] = radars
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "radars": [radar.as_dict for radar in self.radars],
             "type": "radar"
@@ -896,7 +896,7 @@ class AreaChart(Chart):
         self.areas: Tuple[Union[AreaSeries, XYSeries]] = areas
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "areas": [area.as_dict for area in self.areas],
             "type": "area"
@@ -916,7 +916,7 @@ class ScatterChart(Chart):
         self.scatters: Tuple[Union[ScatterSeries, XYSeries]] = scatters
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "scatters": [scatter.as_dict for scatter in self.scatters],
             "type": "scatter"
@@ -936,7 +936,7 @@ class BubbleChart(Chart):
         self.bubbles: Tuple[BubbleSeries] = bubbles
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "bubbles": [bub.as_dict for bub in self.bubbles],
             "type": "bubble"
@@ -956,7 +956,7 @@ class StockChart(Chart):
         self.stocks: Tuple[StockSeries] = stocks
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "stocks": [stock.as_dict for stock in self.stocks],
             "type": "stock"
@@ -1031,7 +1031,7 @@ class CombinedChart(Chart):
         return dict_list
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return self._get_dict({
             "type": "multiple",
             "multiples": self._get_modified_chart_dicts()

@@ -154,7 +154,7 @@ class PDFTexts(Element):
         self.texts = texts
     
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {}
         for txt in self.texts:
             # If there already is text for this page -> update entry in dictionary
@@ -186,7 +186,7 @@ class PDFImages(Element):
         self.images = images
     
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         result = {}
         for img in self.images:
             # If there already is an image for this page -> update entry in dictionary
@@ -217,7 +217,7 @@ class PDFFormData(Element):
         self.form_data = form_data
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         return {self.name: self.form_data}
 
     @property
