@@ -8,21 +8,34 @@ class PDFInsertObject(ABC):
                  x: int,
                  y: int,
                  page: Union[int, str] = "all"):
+        """
+        Args:
+            x (int): X component of this object's position.
+            y (int): Y component of this object's position.
+            page (Union[int, str], optional): Page to include this object on. Either "all" or an integer. Defaults to "all".
+        """
         self.x: int = x
-        """X component of this object's position."""
         self.y: int = y
-        """Y component of this object's position."""
-        self.page: Union[int, str] = page
-        """Page to include this object on. Either "all" or an integer."""
+        self.page: Union[int, str] = page        
 
     @property
     @abstractmethod
     def _inner_dict(self) -> Dict:
+        """Get the dict representation of this PDFInsertObject.
+
+        Returns:
+            Dict: dict representation of this PDFInsertObject
+        """
         pass
 
-    @property
+    @staticmethod
     @abstractmethod
-    def _identifier(self) -> str:
+    def _identifier() -> str:
+        """Get the identifier for this PDFInsertObject.
+
+        Returns:
+            str: identifier for this PDFInsertObject
+        """
         pass
 
 
@@ -41,35 +54,28 @@ class PDFText(PDFInsertObject):
                  font_size: int = None):
         """
         Args:
-            text (str): `PDFText.text`
-            x (int): `PDFText.x`
-            y (int): `PDFText.y`
-            page (Union[int, str], optional): `PDFText.page`. Defaults to "all".
-            rotation (int, optional): `PDFText.rotation`. Defaults to None.
-            bold (bool, optional): `PDFText.bold`. Defaults to None.
-            italic (bool, optional): `PDFText.italic`. Defaults to None.
-            font (str, optional): `PDFText.font`. Defaults to None.
-            font_color (str, optional): `PDFText.font_color`. Defaults to None.
-            font_size (int, optional): `PDFText.font_size`. Defaults to None.
+            text (str): Text to insert.
+            x (int): X component of this object's position.
+            y (int): Y component of this object's position.
+            page (Union[int, str], optional): Page to include this object on. Either "all" or an integer. Defaults to "all".
+            rotation (int, optional): Text rotation in degrees. Defaults to None.
+            bold (bool, optional): Whether or not the text should be in bold. Defaults to None.
+            italic (bool, optional): Whether or not the text should be in italic. Defaults to None.
+            font (str, optional): The text font name. Defaults to None.
+            font_color (str, optional): The text font color, CSS notation. Defaults to None.
+            font_size (int, optional): The text font size. Defaults to None.
         """
         super().__init__(x, y, page)
         self.text: str = text
-        """Text to insert."""
         self.rotation: int = rotation
-        """Text rotation in degrees."""
         self.bold: bool = bold
-        """Should text be bold?"""
         self.italic: bool = italic
-        """Should text be in italics?"""
         self.font: str = font
-        """Text font name."""
         self.font_color: str = font_color
-        """Text font color, CSS notation."""
         self.font_size: int = font_size
-        """Text font size."""
 
-    @property
-    def _identifier(self) -> str:
+    @staticmethod
+    def _identifier() -> str:
         return "AOP_PDF_TEXTS"
 
     @property
@@ -107,20 +113,26 @@ class PDFImage(PDFInsertObject):
                  width: int = None,
                  height: int = None,
                  max_width: int = None):
+        """
+        Args:
+            image (str): The image's base64 string or URL.
+            x (int): X component of this object's position.
+            y (int): Y component of this object's position.
+            page (Union[int, str], optional): Page to include this object on. Either "all" or an integer. Defaults to "all".
+            rotation (int, optional): Rotation in degrees. Defaults to None.
+            width (int, optional): Image width in px. Defaults to None.
+            height (int, optional): Image height in px. Defaults to None.
+            max_width (int, optional): Max image height in px (for scaling purposes). Defaults to None.
+        """
         super().__init__(x, y, page)
         self.image: str = image
-        """Image base64 or URL."""
         self.rotation: int = rotation
-        """Rotation in degrees."""
         self.width: int = width
-        """Image width in px."""
         self.height: int = height
-        """Image height in px."""
         self.max_width: int = max_width
-        """Max image height in px (for scaling purposes)."""
 
-    @property
-    def _identifier(self) -> str:
+    @staticmethod
+    def _identifier() -> str:
         return "AOP_PDF_IMAGES"
 
     @property
@@ -144,13 +156,15 @@ class PDFImage(PDFInsertObject):
 
 class PDFTexts(Element):
     """Group of PDF texts as an `Element`.
-    
     There can only be one of this `Element`.
-    (Element name is fixed and important to the server, so multiple will just overwrite)
-    and it should be at the outer level of an `ElementCollection`.
+    Element name is fixed and important to the server, so multiple will just overwrite.
     """
     def __init__(self, texts: Iterable[PDFText]):
-        super().__init__("AOP_PDF_TEXTS")
+        """
+        Args:
+            texts (Iterable[PDFText]): An iterable consisting of `PDFText`-objects.
+        """
+        super().__init__(PDFText._identifier())
         self.texts = texts
     
     @property
@@ -176,13 +190,15 @@ class PDFTexts(Element):
 
 class PDFImages(Element):
     """Group of PDF images as an `Element`.
-    
     There can only be one of this `Element`.
-    (Element name is fixed and important to the server, so multiple will just overwrite)
-    and it should be at the outer level of an `ElementCollection`.
+    Element name is fixed and important to the server, so multiple will just overwrite.
     """
     def __init__(self, images: Iterable[PDFImage]):
-        super().__init__("AOP_PDF_IMAGES")
+        """
+        Args:
+            images (Iterable[PDFImage]): An iterable consisting of `PDFImage`-objects.
+        """
+        super().__init__(PDFImage._identifier())
         self.images = images
     
     @property
@@ -206,15 +222,26 @@ class PDFImages(Element):
         return frozenset()
 
 class PDFFormData(Element):
-    """PDF form data as an `Element`.
-    
+    """Class used for filling in PDF forms.
     There can only be one of this `Element`.
-    (Element name is fixed and important to the server, so multiple will just overwrite)
-    and it should be at the outer level of an `ElementCollection`.
+    Element name is fixed and important to the server, so multiple will just overwrite.
     """
     def __init__(self, form_data: Mapping[str, Union[str, bool]]):
-        super().__init__("aop_pdf_form_data")
+        """
+        Args:
+            form_data (Mapping[str, Union[str, bool]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
+        """
+        super().__init__(PDFFormData._identifier())
         self.form_data = form_data
+
+    @staticmethod
+    def _identifier() -> str:
+        """Get the identifier for this element.
+
+        Returns:
+            str: identifier for this element
+        """
+        return 'aop_pdf_form_data'
 
     @property
     def as_dict(self) -> Dict:
