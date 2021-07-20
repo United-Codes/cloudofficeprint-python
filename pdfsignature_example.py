@@ -1,3 +1,5 @@
+"""In this example we show you how you can create a PDF signature with the Python SDK."""
+
 import apexofficeprint as aop
 
 # Setup AOP server

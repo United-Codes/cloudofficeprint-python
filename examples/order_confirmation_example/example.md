@@ -2,12 +2,16 @@
 In this example we are going to show you how to use the Python SDK for APEX Office Print. The example we will be using is: generating an order confirmation for buying products from a company. The resulting output file will look like this:
 
 ![](./imgs/output_imgs/output-1.jpg)
+<!-- TODO: change this link to Github link -->
 ![](./imgs/output_imgs/output-2.jpg)
+<!-- TODO: change this link to Github link -->
 
 # Template
 The template we are using is the following:
 ![](./imgs/template_imgs/template-1.jpg)
+<!-- TODO: change this link to Github link -->
 ![](./imgs/template_imgs/template-2.jpg)
+<!-- TODO: change this link to Github link -->
 
 ## Tags used in this example
 - normal tag: {data_string} (e.g. {company_name})
@@ -20,7 +24,7 @@ The template we are using is the following:
 ```python
 import apexofficeprint as aop
 
-TEMPLATE_PATH = "./examples/data/template.docx"
+TEMPLATE_PATH = "./examples/order_confirmation_example/data/template.docx"
 SERVER_URL = "http://apexofficeprint.com/dev/"
 API_KEY = "1FC7446D926A2E3CE0530100007F2364"
 
@@ -36,7 +40,7 @@ data = aop.elements.ElementCollection('data')
 
 # Company information
 company_name = aop.elements.Property('company_name', 'APEXOfficePrint')
-company_logo = aop.elements.Image.from_file('company_logo', './examples/data/logo-office-print.jpg')
+company_logo = aop.elements.Image.from_file('company_logo', './examples/order_confirmation_example/data/logo-office-print.jpg')
 company_logo.max_height = 200
 company_logo.max_width = 200
 
@@ -155,7 +159,7 @@ printjob = aop.PrintJob(template, data, server, conf)
 
 try:
     res = printjob.execute()
-    res.to_file("./examples/output/output") # Save response to output file
+    res.to_file("./examples/order_confirmation_example/output/output") # Save response to output file
 except aop.exceptions.AOPError as err:
     print('AOP error:', err)
 
