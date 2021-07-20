@@ -26,8 +26,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from logging import warning
-from typing import Dict, Iterable, List, Tuple, FrozenSet, Union
+<pre><code class="python">from typing import Any, Dict, Iterable, List, Tuple, FrozenSet, Union
 from abc import ABC, abstractmethod
 from .elements import Element
 
@@ -417,6 +416,10 @@ class XYSeries(Series):
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -570,7 +573,7 @@ class BubbleSeries(XYSeries):
         self.sizes: Iterable[Union[int, float]] = sizes
 
     @property
-    def data(self):
+    def data(self) -&gt; List[Dict[str, Any]]:
         return [{
             &#34;x&#34;: x,
             &#34;y&#34;: y,
@@ -578,7 +581,16 @@ class BubbleSeries(XYSeries):
         } for x, y, size in zip(self.x, self.y, self.sizes)]
 
     @classmethod
-    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None):
+    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;BubbleSeries&#39;:
+        &#34;&#34;&#34;Generate a BubbleSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis and the sizes for the bubbles.
+            name (str): The name for the series.
+
+        Returns:
+            BubbleSeries: BubbleSeries generated from a Pandas dataframe
+        &#34;&#34;&#34;
         x = list(data.iloc[:, 0])
         y = list(data.iloc[:, 1])
         sizes = list(data.iloc[:, 2])
@@ -594,7 +606,7 @@ class StockSeries(Series):
                  close: Iterable[Union[int, float]],
                  open_: Iterable[Union[int, float]] = None,
                  volume: Iterable[Union[int, float]] = None,
-                 name=None):
+                 name: str = None):
         &#34;&#34;&#34;
         Args:
             x (Iterable[Union[int, float, str]]): The data for the x-axis.
@@ -603,7 +615,7 @@ class StockSeries(Series):
             close (Iterable[Union[int, float]]): The data for the closing prices.
             open_ (Iterable[Union[int, float]], optional): The data for the opening prices. Defaults to None.
             volume (Iterable[Union[int, float]], optional): The data for the volumes. Defaults to None.
-            name ([type], optional): The name of the series. Defaults to None.
+            name (str, optional): The name of the series. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.x: Iterable[Union[int, float, str]] = x
@@ -632,7 +644,16 @@ class StockSeries(Series):
         return result
 
     @classmethod
-    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None):
+    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;StockSeries&#39;:
+        &#34;&#34;&#34;Generate a StockSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the x, high, low and possibly volume and open data.
+            name (str): The name for the series.
+
+        Returns:
+            StockSeries: StockSeries generated from a Pandas dataframe
+        &#34;&#34;&#34;
         x = list(data.iloc[:, 0])
         high = list(data[&#34;high&#34;])
         low = list(data[&#34;low&#34;])
@@ -1465,7 +1486,7 @@ Can be html/css colors or hex values. Defaults to None.</dd>
         self.sizes: Iterable[Union[int, float]] = sizes
 
     @property
-    def data(self):
+    def data(self) -&gt; List[Dict[str, Any]]:
         return [{
             &#34;x&#34;: x,
             &#34;y&#34;: y,
@@ -1473,7 +1494,16 @@ Can be html/css colors or hex values. Defaults to None.</dd>
         } for x, y, size in zip(self.x, self.y, self.sizes)]
 
     @classmethod
-    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None):
+    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;BubbleSeries&#39;:
+        &#34;&#34;&#34;Generate a BubbleSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis and the sizes for the bubbles.
+            name (str): The name for the series.
+
+        Returns:
+            BubbleSeries: BubbleSeries generated from a Pandas dataframe
+        &#34;&#34;&#34;
         x = list(data.iloc[:, 0])
         y = list(data.iloc[:, 1])
         sizes = list(data.iloc[:, 2])
@@ -1485,13 +1515,53 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <li><a title="apexofficeprint.elements.charts.Series" href="#apexofficeprint.elements.charts.Series">Series</a></li>
 <li>abc.ABC</li>
 </ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="apexofficeprint.elements.charts.BubbleSeries.from_dataframe"><code class="name flex">
+<span>def <span class="ident">from_dataframe</span></span>(<span>data: pandas.DataFrame, name: str = None) ‑> <a title="apexofficeprint.elements.charts.BubbleSeries" href="#apexofficeprint.elements.charts.BubbleSeries">BubbleSeries</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a BubbleSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis and the sizes for the bubbles.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.charts.BubbleSeries" href="#apexofficeprint.elements.charts.BubbleSeries">BubbleSeries</a></code></dt>
+<dd>BubbleSeries generated from a Pandas dataframe</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;BubbleSeries&#39;:
+    &#34;&#34;&#34;Generate a BubbleSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis and the sizes for the bubbles.
+        name (str): The name for the series.
+
+    Returns:
+        BubbleSeries: BubbleSeries generated from a Pandas dataframe
+    &#34;&#34;&#34;
+    x = list(data.iloc[:, 0])
+    y = list(data.iloc[:, 1])
+    sizes = list(data.iloc[:, 2])
+    return cls(x, y, sizes, name=name)</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
 <li><code><b><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></b></code>:
 <ul class="hlist">
 <li><code><a title="apexofficeprint.elements.charts.XYSeries.as_dict" href="#apexofficeprint.elements.charts.Series.as_dict">as_dict</a></code></li>
 <li><code><a title="apexofficeprint.elements.charts.XYSeries.data" href="#apexofficeprint.elements.charts.Series.data">data</a></code></li>
-<li><code><a title="apexofficeprint.elements.charts.XYSeries.from_dataframe" href="#apexofficeprint.elements.charts.XYSeries.from_dataframe">from_dataframe</a></code></li>
 </ul>
 </li>
 </ul>
@@ -3378,7 +3448,7 @@ def data(self):
 </dd>
 <dt id="apexofficeprint.elements.charts.StockSeries"><code class="flex name class">
 <span>class <span class="ident">StockSeries</span></span>
-<span>(</span><span>x: Iterable[Union[int, float, str]], high: Iterable[Union[int, float]], low: Iterable[Union[int, float]], close: Iterable[Union[int, float]], open_: Iterable[Union[int, float]] = None, volume: Iterable[Union[int, float]] = None, name=None)</span>
+<span>(</span><span>x: Iterable[Union[int, float, str]], high: Iterable[Union[int, float]], low: Iterable[Union[int, float]], close: Iterable[Union[int, float]], open_: Iterable[Union[int, float]] = None, volume: Iterable[Union[int, float]] = None, name: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>A series for candlestick charts.</p>
@@ -3396,7 +3466,7 @@ def data(self):
 <dd>The data for the opening prices. Defaults to None.</dd>
 <dt><strong><code>volume</code></strong> :&ensp;<code>Iterable[Union[int, float]]</code>, optional</dt>
 <dd>The data for the volumes. Defaults to None.</dd>
-<dt><strong><code>name</code></strong> :&ensp;<code>[type]</code>, optional</dt>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>The name of the series. Defaults to None.</dd>
 </dl></div>
 <details class="source">
@@ -3412,7 +3482,7 @@ def data(self):
                  close: Iterable[Union[int, float]],
                  open_: Iterable[Union[int, float]] = None,
                  volume: Iterable[Union[int, float]] = None,
-                 name=None):
+                 name: str = None):
         &#34;&#34;&#34;
         Args:
             x (Iterable[Union[int, float, str]]): The data for the x-axis.
@@ -3421,7 +3491,7 @@ def data(self):
             close (Iterable[Union[int, float]]): The data for the closing prices.
             open_ (Iterable[Union[int, float]], optional): The data for the opening prices. Defaults to None.
             volume (Iterable[Union[int, float]], optional): The data for the volumes. Defaults to None.
-            name ([type], optional): The name of the series. Defaults to None.
+            name (str, optional): The name of the series. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.x: Iterable[Union[int, float, str]] = x
@@ -3450,7 +3520,16 @@ def data(self):
         return result
 
     @classmethod
-    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None):
+    def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;StockSeries&#39;:
+        &#34;&#34;&#34;Generate a StockSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the x, high, low and possibly volume and open data.
+            name (str): The name for the series.
+
+        Returns:
+            StockSeries: StockSeries generated from a Pandas dataframe
+        &#34;&#34;&#34;
         x = list(data.iloc[:, 0])
         high = list(data[&#34;high&#34;])
         low = list(data[&#34;low&#34;])
@@ -3474,16 +3553,37 @@ def data(self):
 <h3>Static methods</h3>
 <dl>
 <dt id="apexofficeprint.elements.charts.StockSeries.from_dataframe"><code class="name flex">
-<span>def <span class="ident">from_dataframe</span></span>(<span>data: pandas.DataFrame, name: str = None)</span>
+<span>def <span class="ident">from_dataframe</span></span>(<span>data: pandas.DataFrame, name: str = None) ‑> <a title="apexofficeprint.elements.charts.StockSeries" href="#apexofficeprint.elements.charts.StockSeries">StockSeries</a></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Generate a StockSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the x, high, low and possibly volume and open data.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.charts.StockSeries" href="#apexofficeprint.elements.charts.StockSeries">StockSeries</a></code></dt>
+<dd>StockSeries generated from a Pandas dataframe</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None):
+def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;StockSeries&#39;:
+    &#34;&#34;&#34;Generate a StockSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the x, high, low and possibly volume and open data.
+        name (str): The name for the series.
+
+    Returns:
+        StockSeries: StockSeries generated from a Pandas dataframe
+    &#34;&#34;&#34;
     x = list(data.iloc[:, 0])
     high = list(data[&#34;high&#34;])
     low = list(data[&#34;low&#34;])
@@ -3564,6 +3664,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -3599,6 +3703,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -3611,6 +3722,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -3715,6 +3830,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -3750,6 +3869,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -3762,6 +3888,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -3866,6 +3996,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -3901,6 +4035,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -3913,6 +4054,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -4017,6 +4162,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -4052,6 +4201,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -4064,6 +4220,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -4168,6 +4328,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -4203,6 +4367,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -4215,6 +4386,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -4319,6 +4494,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -4354,6 +4533,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -4366,6 +4552,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -4470,6 +4660,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -4505,6 +4699,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -4517,6 +4718,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -4621,6 +4826,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
     def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
         &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         &#34;&#34;&#34;
@@ -4656,6 +4865,13 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an XYSeries from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas dataframe containing the data for the x- and y-axis.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the series.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.charts.XYSeries" href="#apexofficeprint.elements.charts.XYSeries">XYSeries</a></code></dt>
@@ -4668,6 +4884,10 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 <pre><code class="python">@classmethod
 def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt; &#39;XYSeries&#39;:
     &#34;&#34;&#34;Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+        name (str): The name for the series.
 
     Returns:
         XYSeries: XYSeries generated from a Pandas dataframe
@@ -4724,6 +4944,9 @@ def from_dataframe(cls, data: &#39;pandas.DataFrame&#39;, name: str = None) -&gt
 </li>
 <li>
 <h4><code><a title="apexofficeprint.elements.charts.BubbleSeries" href="#apexofficeprint.elements.charts.BubbleSeries">BubbleSeries</a></code></h4>
+<ul class="">
+<li><code><a title="apexofficeprint.elements.charts.BubbleSeries.from_dataframe" href="#apexofficeprint.elements.charts.BubbleSeries.from_dataframe">from_dataframe</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="apexofficeprint.elements.charts.Chart" href="#apexofficeprint.elements.charts.Chart">Chart</a></code></h4>

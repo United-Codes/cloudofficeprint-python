@@ -625,12 +625,12 @@ class Watermark(Property):
 
 
 class D3Code(Element):
-    def __init__(self, name: str, code: str, data=None):
+    def __init__(self, name: str, code: str, data: str = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             code (str): The JSON encoded code for generating a D3 image.
-            data ([type], optional): The data that the code will have access to. Defaults to None.
+            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.code: str = code
@@ -744,7 +744,7 @@ class AOPChart(Element):
                        x_title: str = None,
                        y_title: str = None,
                        y2_title: str = None,
-                       x2_title: str = None):
+                       x2_title: str = None) -&gt; &#39;AOPChart&#39;:
         &#34;&#34;&#34;Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
         Args:
@@ -758,7 +758,7 @@ class AOPChart(Element):
             x2_title (str, optional): The title for the second x-axis. Defaults to None.
 
         Returns:
-            [type]: [description]
+            AOPChart: the AOPChart object generated from the dataframe
         &#34;&#34;&#34;
         x_data = list(data.iloc[:, 0])
 
@@ -1126,7 +1126,7 @@ class ElementCollection(list, Element):
                        x_title: str = None,
                        y_title: str = None,
                        y2_title: str = None,
-                       x2_title: str = None):
+                       x2_title: str = None) -&gt; &#39;AOPChart&#39;:
         &#34;&#34;&#34;Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
         Args:
@@ -1140,7 +1140,7 @@ class ElementCollection(list, Element):
             x2_title (str, optional): The title for the second x-axis. Defaults to None.
 
         Returns:
-            [type]: [description]
+            AOPChart: the AOPChart object generated from the dataframe
         &#34;&#34;&#34;
         x_data = list(data.iloc[:, 0])
 
@@ -1194,7 +1194,7 @@ class ElementCollection(list, Element):
 <h3>Static methods</h3>
 <dl>
 <dt id="apexofficeprint.elements.elements.AOPChart.from_dataframe"><code class="name flex">
-<span>def <span class="ident">from_dataframe</span></span>(<span>name: str, data: pandas.DataFrame, date: <a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None)</span>
+<span>def <span class="ident">from_dataframe</span></span>(<span>name: str, data: pandas.DataFrame, date: <a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None) ‑> <a title="apexofficeprint.elements.elements.AOPChart" href="#apexofficeprint.elements.elements.AOPChart">AOPChart</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Construct an AOPChart object from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
@@ -1219,8 +1219,8 @@ class ElementCollection(list, Element):
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>[type]</code></dt>
-<dd>[description]</dd>
+<dt><code><a title="apexofficeprint.elements.elements.AOPChart" href="#apexofficeprint.elements.elements.AOPChart">AOPChart</a></code></dt>
+<dd>the AOPChart object generated from the dataframe</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1235,7 +1235,7 @@ def from_dataframe(cls,
                    x_title: str = None,
                    y_title: str = None,
                    y2_title: str = None,
-                   x2_title: str = None):
+                   x2_title: str = None) -&gt; &#39;AOPChart&#39;:
     &#34;&#34;&#34;Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
     Args:
@@ -1249,7 +1249,7 @@ def from_dataframe(cls,
         x2_title (str, optional): The title for the second x-axis. Defaults to None.
 
     Returns:
-        [type]: [description]
+        AOPChart: the AOPChart object generated from the dataframe
     &#34;&#34;&#34;
     x_data = list(data.iloc[:, 0])
 
@@ -1785,7 +1785,7 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="apexofficeprint.elements.elements.D3Code"><code class="flex name class">
 <span>class <span class="ident">D3Code</span></span>
-<span>(</span><span>name: str, code: str, data=None)</span>
+<span>(</span><span>name: str, code: str, data: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The abstract base class for elements.</p>
@@ -1795,20 +1795,20 @@ def as_dict(self) -&gt; Dict:
 <dd>The name for this element.</dd>
 <dt><strong><code>code</code></strong> :&ensp;<code>str</code></dt>
 <dd>The JSON encoded code for generating a D3 image.</dd>
-<dt><strong><code>data</code></strong> :&ensp;<code>[type]</code>, optional</dt>
-<dd>The data that the code will have access to. Defaults to None.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The JSON-encoded data that the code will have access to. Defaults to None.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class D3Code(Element):
-    def __init__(self, name: str, code: str, data=None):
+    def __init__(self, name: str, code: str, data: str = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             code (str): The JSON encoded code for generating a D3 image.
-            data ([type], optional): The data that the code will have access to. Defaults to None.
+            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.code: str = code

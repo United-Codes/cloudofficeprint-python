@@ -597,12 +597,12 @@ class Watermark(Property):
 
 
 class D3Code(Element):
-    def __init__(self, name: str, code: str, data=None):
+    def __init__(self, name: str, code: str, data: str = None):
         """
         Args:
             name (str): The name for this element.
             code (str): The JSON encoded code for generating a D3 image.
-            data ([type], optional): The data that the code will have access to. Defaults to None.
+            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
         """
         super().__init__(name)
         self.code: str = code
@@ -716,7 +716,7 @@ class AOPChart(Element):
                        x_title: str = None,
                        y_title: str = None,
                        y2_title: str = None,
-                       x2_title: str = None):
+                       x2_title: str = None) -> 'AOPChart':
         """Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
         Args:
@@ -730,7 +730,7 @@ class AOPChart(Element):
             x2_title (str, optional): The title for the second x-axis. Defaults to None.
 
         Returns:
-            [type]: [description]
+            AOPChart: the AOPChart object generated from the dataframe
         """
         x_data = list(data.iloc[:, 0])
 

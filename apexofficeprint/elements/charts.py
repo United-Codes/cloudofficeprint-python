@@ -1,5 +1,4 @@
-from logging import warning
-from typing import Dict, Iterable, List, Tuple, FrozenSet, Union
+from typing import Any, Dict, Iterable, List, Tuple, FrozenSet, Union
 from abc import ABC, abstractmethod
 from .elements import Element
 
@@ -389,6 +388,10 @@ class XYSeries(Series):
     def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None) -> 'XYSeries':
         """Generate an XYSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis.
+            name (str): The name for the series.
+
         Returns:
             XYSeries: XYSeries generated from a Pandas dataframe
         """
@@ -542,7 +545,7 @@ class BubbleSeries(XYSeries):
         self.sizes: Iterable[Union[int, float]] = sizes
 
     @property
-    def data(self):
+    def data(self) -> List[Dict[str, Any]]:
         return [{
             "x": x,
             "y": y,
@@ -550,7 +553,16 @@ class BubbleSeries(XYSeries):
         } for x, y, size in zip(self.x, self.y, self.sizes)]
 
     @classmethod
-    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None):
+    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None) -> 'BubbleSeries':
+        """Generate a BubbleSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the data for the x- and y-axis and the sizes for the bubbles.
+            name (str): The name for the series.
+
+        Returns:
+            BubbleSeries: BubbleSeries generated from a Pandas dataframe
+        """
         x = list(data.iloc[:, 0])
         y = list(data.iloc[:, 1])
         sizes = list(data.iloc[:, 2])
@@ -566,7 +578,7 @@ class StockSeries(Series):
                  close: Iterable[Union[int, float]],
                  open_: Iterable[Union[int, float]] = None,
                  volume: Iterable[Union[int, float]] = None,
-                 name=None):
+                 name: str = None):
         """
         Args:
             x (Iterable[Union[int, float, str]]): The data for the x-axis.
@@ -575,7 +587,7 @@ class StockSeries(Series):
             close (Iterable[Union[int, float]]): The data for the closing prices.
             open_ (Iterable[Union[int, float]], optional): The data for the opening prices. Defaults to None.
             volume (Iterable[Union[int, float]], optional): The data for the volumes. Defaults to None.
-            name ([type], optional): The name of the series. Defaults to None.
+            name (str, optional): The name of the series. Defaults to None.
         """
         super().__init__(name)
         self.x: Iterable[Union[int, float, str]] = x
@@ -604,7 +616,16 @@ class StockSeries(Series):
         return result
 
     @classmethod
-    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None):
+    def from_dataframe(cls, data: 'pandas.DataFrame', name: str = None) -> 'StockSeries':
+        """Generate a StockSeries from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            data (pandas.DataFrame): Pandas dataframe containing the x, high, low and possibly volume and open data.
+            name (str): The name for the series.
+
+        Returns:
+            StockSeries: StockSeries generated from a Pandas dataframe
+        """
         x = list(data.iloc[:, 0])
         high = list(data["high"])
         low = list(data["low"])

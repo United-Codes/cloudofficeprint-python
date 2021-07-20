@@ -55,7 +55,8 @@ class PDFOptions:
                  page_format: str = None,
                  merge: bool = None,
                  sign_certificate: str = None,
-                 identify_form_fields: bool = None):
+                 identify_form_fields: bool = None,
+                 split: bool = None):
         &#34;&#34;&#34;
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
@@ -73,7 +74,8 @@ class PDFOptions:
             page_format (str, optional): Only for HTML to PDF. The page format: &#34;a4&#34; (default) or &#34;letter&#34;. Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
-            identify_form_fields (bool, optional): Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file.
         &#34;&#34;&#34;
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -91,6 +93,7 @@ class PDFOptions:
         self.sign_certificate: str = sign_certificate
         self._landscape = landscape
         self.identify_form_fields = identify_form_fields
+        self.split = split
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Get the string representation of these PDF options.
@@ -153,6 +156,8 @@ class PDFOptions:
             result[&#34;output_sign_certificate&#34;] = self.sign_certificate
         if self.identify_form_fields is not None:
             result[&#34;identify_form_fields&#34;] = self.identify_form_fields
+        if self.split is not None:
+            result[&#39;output_split&#39;] = self.split
 
         return result
 
@@ -218,7 +223,7 @@ class PDFOptions:
 <dl>
 <dt id="apexofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>read_password: str = None, watermark: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, identify_form_fields: bool = None)</span>
+<span>(</span><span>read_password: str = None, watermark: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, identify_form_fields: bool = None, split: bool = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class of optional PDF options.</p>
@@ -259,7 +264,9 @@ These default values are not passed to the JSON or dict representation of the ob
 <dt><strong><code>sign_certificate</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.</dd>
 <dt><strong><code>identify_form_fields</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
+<dd>Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
+<dt><strong><code>split</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>You can specify to split a PDF in separate files. You will get one file per page in a zip file.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -291,7 +298,8 @@ These default values are not passed to the JSON or dict representation of the ob
                  page_format: str = None,
                  merge: bool = None,
                  sign_certificate: str = None,
-                 identify_form_fields: bool = None):
+                 identify_form_fields: bool = None,
+                 split: bool = None):
         &#34;&#34;&#34;
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
@@ -309,7 +317,8 @@ These default values are not passed to the JSON or dict representation of the ob
             page_format (str, optional): Only for HTML to PDF. The page format: &#34;a4&#34; (default) or &#34;letter&#34;. Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
-            identify_form_fields (bool, optional): Boolean value. Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file.
         &#34;&#34;&#34;
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -327,6 +336,7 @@ These default values are not passed to the JSON or dict representation of the ob
         self.sign_certificate: str = sign_certificate
         self._landscape = landscape
         self.identify_form_fields = identify_form_fields
+        self.split = split
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Get the string representation of these PDF options.
@@ -389,6 +399,8 @@ These default values are not passed to the JSON or dict representation of the ob
             result[&#34;output_sign_certificate&#34;] = self.sign_certificate
         if self.identify_form_fields is not None:
             result[&#34;identify_form_fields&#34;] = self.identify_form_fields
+        if self.split is not None:
+            result[&#39;output_split&#39;] = self.split
 
         return result
 
@@ -497,6 +509,8 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_sign_certificate&#34;] = self.sign_certificate
     if self.identify_form_fields is not None:
         result[&#34;identify_form_fields&#34;] = self.identify_form_fields
+    if self.split is not None:
+        result[&#39;output_split&#39;] = self.split
 
     return result</code></pre>
 </details>
