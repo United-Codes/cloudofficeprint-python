@@ -20,7 +20,8 @@ def test_pdf_options():
         page_format='test_page_format',
         merge=False,
         sign_certificate='test_sign_certificate',
-        identify_form_fields=True)
+        identify_form_fields=True,
+        split=True)
     pdf_opts.set_page_margin_at(6, 'top')
     conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
     conf_expected = {
@@ -47,7 +48,8 @@ def test_pdf_options():
         'output_page_format': 'test_page_format',
         'output_merge': False,
         'output_sign_certificate': 'test_sign_certificate',
-        'identify_form_fields': True
+        'identify_form_fields': True,
+        'output_split': True
     }
     assert conf.as_dict == conf_expected
 
