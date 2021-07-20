@@ -1,6 +1,6 @@
-import apexofficeprint as aop
+"""This is a standard example of how to use an API to get data to fill in a template.
+The SpaceX example `spacex_example.py` is a more advanced example using this approach."""
 
-from apexofficeprint.elements.charts import ChartAxisOptions
 import apexofficeprint as aop
 import requests
 

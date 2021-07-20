@@ -82,6 +82,7 @@ We also made some bigger examples. The current examples are:
 - pdfsignature_example.py
 - solar_system_example.py
 - spacex_example.py (the most extensive example)
+- multiple_request_merge_example.py
 
 The examples can be found in the parent directory of the project on [Github](https://github.com/United-Codes/apexofficeprint-python). Each example also has its own folder containing the used templates, the generated output files and a markdown file with explanation when needed.
 
