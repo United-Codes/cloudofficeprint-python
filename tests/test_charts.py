@@ -700,11 +700,11 @@ def test_chart_combined():
         symbol='square'
     )
     line_chart_options = aop.elements.ChartOptions(
-    x_axis=axis,
-    y_axis=axis,
-    width=50,
-    background_color='gray',
-    background_opacity=50
+        x_axis=axis,
+        y_axis=axis,
+        width=50,
+        background_color='gray',
+        background_opacity=50
     )
     line_chart = aop.elements.LineChart(
         name='line_chart',

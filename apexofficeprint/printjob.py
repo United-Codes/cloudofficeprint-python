@@ -37,7 +37,8 @@ class PrintJob:
                  output_config: OutputConfig = OutputConfig(),
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
-                 append_files: List[Resource] = []):
+                 append_files: List[Resource] = [],
+                 aop_verbose: bool = False):
         """
         Args:
             template (Resource): Template to use for this print job.
@@ -47,6 +48,7 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            aop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         """
         
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
@@ -56,6 +58,7 @@ class PrintJob:
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.aop_verbose: bool = aop_verbose
 
     def execute(self) -> Response:
         """Execute this print job.
@@ -202,7 +205,7 @@ class PrintJob:
             result["templates"] = templates_list
 
         # If verbose mode is activated, print the result to the terminal
-        if '--verbose' in sys.argv:
+        if self.aop_verbose == True:
             print('The JSON data that is sent to the AOP server:\n')
             pprint(result)
 

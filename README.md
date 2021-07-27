@@ -13,10 +13,7 @@ You also need to have the requests-library installed (https://docs.python-reques
 2. Create the input data with this Python SDK
 3. Send template and data to an AOP server and save the response to a file with this Python SDK
 
-To see the JSON-data that is sent to the AOP server, you can turn on verbose-mode by running your Python program with the `--verbose` argument like this:
-```python
-python my_file.py --verbose
-```
+To see the JSON-data that is sent to the AOP server, you can turn on verbose-mode by setting the argument `aop_verbose` to `True` when creating a `PrintJob`.
 
 # Quickstart: Hello World example
 ## Template (docx)
@@ -87,7 +84,8 @@ We also made some bigger examples. The current examples are:
 The examples can be found in the parent directory of the project on [Github](https://github.com/United-Codes/apexofficeprint-python). Each example also has its own folder containing the used templates, the generated output files and a markdown file with explanation when needed.
 
 # Documentation
-The documentation for this SDK can be seen by double clicking the file `index.html` in the folder `docs/apexofficeprint/` on [Github](https://github.com/United-Codes/apexofficeprint-python).
+The documentation for this SDK can be seen by double clicking the file `index.html` in the folder `docs/apexofficeprint/` on [Github](https://github.com/United-Codes/apexofficeprint-python). If you want to generate this documentation yourself, you can run the following command (after installing pdoc: `pip install pdoc3`) in the project directory:  
+`pdoc --html --force --output-dir docs/ apexofficeprint/`
 
 The full APEX Office Print documentation can be found at the [AOP docs](http://www.apexofficeprint.com/docs/).
 

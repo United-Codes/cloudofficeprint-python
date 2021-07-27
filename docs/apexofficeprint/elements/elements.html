@@ -127,7 +127,7 @@ class CellStyleXlsx(CellStyle):
             font_color (str, optional): hex color e.g: #00ff00. Defaults to None.
             font_italic (bool, optional): Whether or not the text is in italic. Defaults to None.
             font_bold (bool, optional): Whether or not the text is in bold. Defaults to None.
-            font_strike (bool, optional): Whether or not the text is striked. Defaults to None.
+            font_strike (bool, optional): Whether or not the text is struck. Defaults to None.
             font_underline (bool, optional): Whether or not the text is underlined. Defaults to None.
             font_superscript (bool, optional): Whether or not the text is in superscript. Defaults to None.
             font_subscript (bool, optional): Whether or not the text is in subscript. Defaults to None.
@@ -412,18 +412,18 @@ class Hyperlink(Element):
             self.name: self.url
         }
 
-        if self.text:
+        if self.text is not None:
             result[self.name + &#34;_text&#34;] = self.text
 
         return result
 
 
 class TableOfContents(Element):
-    def __init__(self, name: str, title: str, depth: int = None, tab_leader: str = None):
+    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
-            title (str): Title of the table of contents. Default is &#39;Contents&#39;.
+            title (str): Title of the table of contents. Defaults to None.
             depth (int, optional): The depth of heading to be shown, default 3. Defaults to None.
             tab_leader (str, optional): How the space between title and page number should be filled. Can be &#34;hyphen&#34;, &#34;underscore&#34;, or &#34;dot&#34; (default). Defaults to None.
         &#34;&#34;&#34;
@@ -526,7 +526,7 @@ class StyledProperty(Property):
             bold (bool, optional): Whether or not the text should be bold. Defaults to None.
             italic (bool, optional): Whether or not the text should be italic. Defaults to None.
             underline (bool, optional): Whether or not the text should be underlined. Defaults to None.
-            strikethrough (bool, optional): Whether or not the text should be striked through. Defaults to None.
+            strikethrough (bool, optional): Whether or not the text should be struckthrough. Defaults to None.
             highlight_color (str, optional): The color in which the text should be highlighted. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, value)
@@ -629,12 +629,12 @@ class D3Code(Element):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
-            code (str): The JSON encoded code for generating a D3 image.
+            code (str): The JSON-encoded code for generating a D3 image.
             data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.code: str = code
-        self.data = data
+        self.data: str = data
         
 
     @property
@@ -687,8 +687,8 @@ class AOPChart(Element):
     &#34;&#34;&#34;The class for an AOPChart. This is used for chart templating.&#34;&#34;&#34;
     def __init__(self,
                  name: str,
-                 x_data: Iterable,
-                 y_datas: Union[Iterable[Iterable], Mapping[str, Iterable]],
+                 x_data: Iterable[Union[str, int, float, Mapping]],
+                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
                  date: AOPChartDateOptions = None,
                  title: str = None,
                  x_title: str = None,
@@ -698,9 +698,10 @@ class AOPChart(Element):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
-            x_data (Iterable): The data for the x-axis. Format : [&#34;day 1&#34;, &#34;day 2&#34;, &#34;day 3&#34;, &#34;day 4&#34;, &#34;day 5&#34;] or
+            x_data (Iterable[Union[str, int, float, Mapping]]): The data for the x-axis. Format : [&#34;day 1&#34;, &#34;day 2&#34;, &#34;day 3&#34;, &#34;day 4&#34;, &#34;day 5&#34;] or
                 [{&#34;value&#34;: &#34;day 1&#34;}, {&#34;value&#34;: &#34;day 2&#34;}, {&#34;value&#34;: &#34;day 3&#34;}, {&#34;value&#34;: &#34;day 4&#34;}, {&#34;value&#34;: &#34;day 5&#34;}]
-            y_datas (Union[Iterable[Iterable], Mapping[str, Iterable]]): The data for the y-axis in the same format as x_data.
+            y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):
+                The data for the y-axis in the same format as x_data.
             date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
             title (str, optional): The title of the chart. Defaults to None.
             x_title (str, optional): The title for the x-axis. Defaults to None.
@@ -992,6 +993,10 @@ class ElementCollection(list, Element):
     def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
         &#34;&#34;&#34;Generate an element collection from an element and a name.
 
+        Args:
+            element (Element): the element that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
         Returns:
             ElementCollection: the generated element collection from an element and a name
         &#34;&#34;&#34;
@@ -1000,6 +1005,10 @@ class ElementCollection(list, Element):
     @classmethod
     def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
         &#34;&#34;&#34;Generate an element collection from a mapping and a name.
+
+        Args:
+            mapping (Mapping): the mapping that needs to be converted to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
 
         Returns:
             ElementCollection: an element collection generated from the given mapping and name
@@ -1012,6 +1021,10 @@ class ElementCollection(list, Element):
     @classmethod
     def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
         &#34;&#34;&#34;Generate an element collection from a JSON string.
+
+        Args:
+            json_str (str): the json string that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
 
         Returns:
             ElementCollection: an element collection generated from the given JSON string and name
@@ -1030,7 +1043,7 @@ class ElementCollection(list, Element):
 <dl>
 <dt id="apexofficeprint.elements.elements.AOPChart"><code class="flex name class">
 <span>class <span class="ident">AOPChart</span></span>
-<span>(</span><span>name: str, x_data: Iterable, y_datas: Union[Iterable[Iterable], Mapping[str, Iterable]], date: <a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None)</span>
+<span>(</span><span>name: str, x_data: Iterable[Union[str, int, float, Mapping]], y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]], date: <a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The class for an AOPChart. This is used for chart templating.</p>
@@ -1038,11 +1051,11 @@ class ElementCollection(list, Element):
 <dl>
 <dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name for this element.</dd>
-<dt><strong><code>x_data</code></strong> :&ensp;<code>Iterable</code></dt>
+<dt><strong><code>x_data</code></strong> :&ensp;<code>Iterable[Union[str, int, float, Mapping]]</code></dt>
 <dd>The data for the x-axis. Format : ["day 1", "day 2", "day 3", "day 4", "day 5"] or
 [{"value": "day 1"}, {"value": "day 2"}, {"value": "day 3"}, {"value": "day 4"}, {"value": "day 5"}]</dd>
-<dt><strong><code>y_datas</code></strong> :&ensp;<code>Union[Iterable[Iterable], Mapping[str, Iterable]]</code></dt>
-<dd>The data for the y-axis in the same format as x_data.</dd>
+<dt>y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):</dt>
+<dt>The data for the y-axis in the same format as x_data.</dt>
 <dt><strong><code>date</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a></code>, optional</dt>
 <dd>The date options for the chart. Defaults to None.</dd>
 <dt><strong><code>title</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -1069,8 +1082,8 @@ class ElementCollection(list, Element):
     &#34;&#34;&#34;The class for an AOPChart. This is used for chart templating.&#34;&#34;&#34;
     def __init__(self,
                  name: str,
-                 x_data: Iterable,
-                 y_datas: Union[Iterable[Iterable], Mapping[str, Iterable]],
+                 x_data: Iterable[Union[str, int, float, Mapping]],
+                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
                  date: AOPChartDateOptions = None,
                  title: str = None,
                  x_title: str = None,
@@ -1080,9 +1093,10 @@ class ElementCollection(list, Element):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
-            x_data (Iterable): The data for the x-axis. Format : [&#34;day 1&#34;, &#34;day 2&#34;, &#34;day 3&#34;, &#34;day 4&#34;, &#34;day 5&#34;] or
+            x_data (Iterable[Union[str, int, float, Mapping]]): The data for the x-axis. Format : [&#34;day 1&#34;, &#34;day 2&#34;, &#34;day 3&#34;, &#34;day 4&#34;, &#34;day 5&#34;] or
                 [{&#34;value&#34;: &#34;day 1&#34;}, {&#34;value&#34;: &#34;day 2&#34;}, {&#34;value&#34;: &#34;day 3&#34;}, {&#34;value&#34;: &#34;day 4&#34;}, {&#34;value&#34;: &#34;day 5&#34;}]
-            y_datas (Union[Iterable[Iterable], Mapping[str, Iterable]]): The data for the y-axis in the same format as x_data.
+            y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):
+                The data for the y-axis in the same format as x_data.
             date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
             title (str, optional): The title of the chart. Defaults to None.
             x_title (str, optional): The title for the x-axis. Defaults to None.
@@ -1582,7 +1596,7 @@ def as_dict(self) -&gt; Dict:
 <dt><strong><code>font_bold</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether or not the text is in bold. Defaults to None.</dd>
 <dt><strong><code>font_strike</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Whether or not the text is striked. Defaults to None.</dd>
+<dd>Whether or not the text is struck. Defaults to None.</dd>
 <dt><strong><code>font_underline</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether or not the text is underlined. Defaults to None.</dd>
 <dt><strong><code>font_superscript</code></strong> :&ensp;<code>bool</code>, optional</dt>
@@ -1663,7 +1677,7 @@ def as_dict(self) -&gt; Dict:
             font_color (str, optional): hex color e.g: #00ff00. Defaults to None.
             font_italic (bool, optional): Whether or not the text is in italic. Defaults to None.
             font_bold (bool, optional): Whether or not the text is in bold. Defaults to None.
-            font_strike (bool, optional): Whether or not the text is striked. Defaults to None.
+            font_strike (bool, optional): Whether or not the text is struck. Defaults to None.
             font_underline (bool, optional): Whether or not the text is underlined. Defaults to None.
             font_superscript (bool, optional): Whether or not the text is in superscript. Defaults to None.
             font_subscript (bool, optional): Whether or not the text is in subscript. Defaults to None.
@@ -1794,7 +1808,7 @@ def as_dict(self) -&gt; Dict:
 <dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name for this element.</dd>
 <dt><strong><code>code</code></strong> :&ensp;<code>str</code></dt>
-<dd>The JSON encoded code for generating a D3 image.</dd>
+<dd>The JSON-encoded code for generating a D3 image.</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>The JSON-encoded data that the code will have access to. Defaults to None.</dd>
 </dl></div>
@@ -1807,12 +1821,12 @@ def as_dict(self) -&gt; Dict:
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
-            code (str): The JSON encoded code for generating a D3 image.
+            code (str): The JSON-encoded code for generating a D3 image.
             data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.code: str = code
-        self.data = data
+        self.data: str = data
         
 
     @property
@@ -2137,6 +2151,10 @@ Its name is used as a key name when nested, but ignored for all purposes when it
     def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
         &#34;&#34;&#34;Generate an element collection from an element and a name.
 
+        Args:
+            element (Element): the element that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
         Returns:
             ElementCollection: the generated element collection from an element and a name
         &#34;&#34;&#34;
@@ -2145,6 +2163,10 @@ Its name is used as a key name when nested, but ignored for all purposes when it
     @classmethod
     def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
         &#34;&#34;&#34;Generate an element collection from a mapping and a name.
+
+        Args:
+            mapping (Mapping): the mapping that needs to be converted to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
 
         Returns:
             ElementCollection: an element collection generated from the given mapping and name
@@ -2157,6 +2179,10 @@ Its name is used as a key name when nested, but ignored for all purposes when it
     @classmethod
     def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
         &#34;&#34;&#34;Generate an element collection from a JSON string.
+
+        Args:
+            json_str (str): the json string that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
 
         Returns:
             ElementCollection: an element collection generated from the given JSON string and name
@@ -2176,6 +2202,13 @@ Its name is used as a key name when nested, but ignored for all purposes when it
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an element collection from an element and a name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code></dt>
+<dd>the element that needs to be transformed to an element collection</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the element collection. Defaults to ''.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
@@ -2189,6 +2222,10 @@ Its name is used as a key name when nested, but ignored for all purposes when it
 def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
     &#34;&#34;&#34;Generate an element collection from an element and a name.
 
+    Args:
+        element (Element): the element that needs to be transformed to an element collection
+        name (str): The name of the element collection. Defaults to &#39;&#39;.
+
     Returns:
         ElementCollection: the generated element collection from an element and a name
     &#34;&#34;&#34;
@@ -2200,6 +2237,13 @@ def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;)
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an element collection from a JSON string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_str</code></strong> :&ensp;<code>str</code></dt>
+<dd>the json string that needs to be transformed to an element collection</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the element collection. Defaults to ''.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
@@ -2213,6 +2257,10 @@ def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;)
 def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
     &#34;&#34;&#34;Generate an element collection from a JSON string.
 
+    Args:
+        json_str (str): the json string that needs to be transformed to an element collection
+        name (str): The name of the element collection. Defaults to &#39;&#39;.
+
     Returns:
         ElementCollection: an element collection generated from the given JSON string and name
     &#34;&#34;&#34;
@@ -2224,6 +2272,13 @@ def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementColl
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an element collection from a mapping and a name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>mapping</code></strong> :&ensp;<code>Mapping</code></dt>
+<dd>the mapping that needs to be converted to an element collection</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the element collection. Defaults to ''.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
@@ -2236,6 +2291,10 @@ def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementColl
 <pre><code class="python">@classmethod
 def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
     &#34;&#34;&#34;Generate an element collection from a mapping and a name.
+
+    Args:
+        mapping (Mapping): the mapping that needs to be converted to an element collection
+        name (str): The name of the element collection. Defaults to &#39;&#39;.
 
     Returns:
         ElementCollection: an element collection generated from the given mapping and name
@@ -2590,7 +2649,7 @@ def as_dict(self) -&gt; Dict:
             self.name: self.url
         }
 
-        if self.text:
+        if self.text is not None:
             result[self.name + &#34;_text&#34;] = self.text
 
         return result</code></pre>
@@ -2970,7 +3029,7 @@ but this can be of any type, for example a dict.</dd>
 <dt><strong><code>underline</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether or not the text should be underlined. Defaults to None.</dd>
 <dt><strong><code>strikethrough</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Whether or not the text should be striked through. Defaults to None.</dd>
+<dd>Whether or not the text should be struckthrough. Defaults to None.</dd>
 <dt><strong><code>highlight_color</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>The color in which the text should be highlighted. Defaults to None.</dd>
 </dl></div>
@@ -3000,7 +3059,7 @@ but this can be of any type, for example a dict.</dd>
             bold (bool, optional): Whether or not the text should be bold. Defaults to None.
             italic (bool, optional): Whether or not the text should be italic. Defaults to None.
             underline (bool, optional): Whether or not the text should be underlined. Defaults to None.
-            strikethrough (bool, optional): Whether or not the text should be striked through. Defaults to None.
+            strikethrough (bool, optional): Whether or not the text should be struckthrough. Defaults to None.
             highlight_color (str, optional): The color in which the text should be highlighted. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, value)
@@ -3061,7 +3120,7 @@ but this can be of any type, for example a dict.</dd>
 </dd>
 <dt id="apexofficeprint.elements.elements.TableOfContents"><code class="flex name class">
 <span>class <span class="ident">TableOfContents</span></span>
-<span>(</span><span>name: str, title: str, depth: int = None, tab_leader: str = None)</span>
+<span>(</span><span>name: str, title: str = None, depth: int = None, tab_leader: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The abstract base class for elements.</p>
@@ -3070,7 +3129,7 @@ but this can be of any type, for example a dict.</dd>
 <dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name for this element.</dd>
 <dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
-<dd>Title of the table of contents. Default is 'Contents'.</dd>
+<dd>Title of the table of contents. Defaults to None.</dd>
 <dt><strong><code>depth</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>The depth of heading to be shown, default 3. Defaults to None.</dd>
 <dt><strong><code>tab_leader</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -3081,11 +3140,11 @@ but this can be of any type, for example a dict.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class TableOfContents(Element):
-    def __init__(self, name: str, title: str, depth: int = None, tab_leader: str = None):
+    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
-            title (str): Title of the table of contents. Default is &#39;Contents&#39;.
+            title (str): Title of the table of contents. Defaults to None.
             depth (int, optional): The depth of heading to be shown, default 3. Defaults to None.
             tab_leader (str, optional): How the space between title and page number should be filled. Can be &#34;hyphen&#34;, &#34;underscore&#34;, or &#34;dot&#34; (default). Defaults to None.
         &#34;&#34;&#34;

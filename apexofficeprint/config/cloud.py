@@ -219,7 +219,7 @@ class FTPToken(CloudAccessToken):
             host (str): Host name or IP address of the FTP/SFTP server.
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
             port (int, optional): Port number of the FTP/SFTP server. Defaults to None.
-            user (str, optional):User name for the FTP/SFTP server. Defaults to None.
+            user (str, optional): User name for the FTP/SFTP server. Defaults to None.
             password (str, optional): Password for the user. Defaults to None.
         """
         super().__init__("sftp" if sftp else "ftp")

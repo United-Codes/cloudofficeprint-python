@@ -462,7 +462,7 @@ class AreaSeries(XYSeries):
             opacity (float, optional): The opacity for the color of the series. Defaults to None.
         """
         super().__init__(x, y, name, color)
-        self.opacity = opacity
+        self.opacity: float = opacity
 
     @property
     def as_dict(self) -> Dict:
@@ -726,7 +726,7 @@ class BarChart(Chart):
 
 class BarStackedChart(Chart):
     """Class for a stacked bar chart"""
-    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarStackedSeries, XYSeries]], options: ChartOptions = None):
         """
         Args:
             name (str): The name of the chart.
@@ -734,7 +734,7 @@ class BarStackedChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         """
         super().__init__(name, options)
-        self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
+        self.bars: Tuple[Union[BarStackedSeries, XYSeries]] = bars
 
     @property
     def as_dict(self) -> Dict:
@@ -746,7 +746,7 @@ class BarStackedChart(Chart):
 
 class BarStackedPercentChart(Chart):
     """Class for a stacked bar chart with the x-axis expressed in percentage"""
-    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarStackedPercentSeries, XYSeries]], options: ChartOptions = None):
         """
         Args:
             name (str): The name of the chart.
@@ -754,7 +754,7 @@ class BarStackedPercentChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         """
         super().__init__(name, options)
-        self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
+        self.bars: Tuple[Union[BarStackedPercentSeries, XYSeries]] = bars
 
     @property
     def as_dict(self) -> Dict:
@@ -786,7 +786,7 @@ class ColumnChart(Chart):
 
 class ColumnStackedChart(Chart):
     """Class for a stacked column chart"""
-    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnStackedSeries, XYSeries]], options: ChartOptions = None):
         """
         Args:
             name (str): The name of the chart.
@@ -794,7 +794,7 @@ class ColumnStackedChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         """
         super().__init__(name, options)
-        self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
+        self.columns: Tuple[Union[ColumnStackedSeries, XYSeries]] = columns
 
     @property
     def as_dict(self) -> Dict:
@@ -806,7 +806,7 @@ class ColumnStackedChart(Chart):
 
 class ColumnStackedPercentChart(Chart):
     """Class for a stacked column chart with the x-axis expressed in percentage"""
-    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnStackedPercentSeries, XYSeries]], options: ChartOptions = None):
         """
         Args:
             name (str): The name of the chart.
@@ -814,7 +814,7 @@ class ColumnStackedPercentChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         """
         super().__init__(name, options)
-        self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
+        self.columns: Tuple[Union[ColumnStackedPercentSeries, XYSeries]] = columns
 
     @property
     def as_dict(self) -> Dict:

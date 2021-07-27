@@ -490,7 +490,7 @@ class AreaSeries(XYSeries):
             opacity (float, optional): The opacity for the color of the series. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(x, y, name, color)
-        self.opacity = opacity
+        self.opacity: float = opacity
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -754,7 +754,7 @@ class BarChart(Chart):
 
 class BarStackedChart(Chart):
     &#34;&#34;&#34;Class for a stacked bar chart&#34;&#34;&#34;
-    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarStackedSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -762,7 +762,7 @@ class BarStackedChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
+        self.bars: Tuple[Union[BarStackedSeries, XYSeries]] = bars
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -774,7 +774,7 @@ class BarStackedChart(Chart):
 
 class BarStackedPercentChart(Chart):
     &#34;&#34;&#34;Class for a stacked bar chart with the x-axis expressed in percentage&#34;&#34;&#34;
-    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarStackedPercentSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -782,7 +782,7 @@ class BarStackedPercentChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
+        self.bars: Tuple[Union[BarStackedPercentSeries, XYSeries]] = bars
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -814,7 +814,7 @@ class ColumnChart(Chart):
 
 class ColumnStackedChart(Chart):
     &#34;&#34;&#34;Class for a stacked column chart&#34;&#34;&#34;
-    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnStackedSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -822,7 +822,7 @@ class ColumnStackedChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
+        self.columns: Tuple[Union[ColumnStackedSeries, XYSeries]] = columns
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -834,7 +834,7 @@ class ColumnStackedChart(Chart):
 
 class ColumnStackedPercentChart(Chart):
     &#34;&#34;&#34;Class for a stacked column chart with the x-axis expressed in percentage&#34;&#34;&#34;
-    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnStackedPercentSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -842,7 +842,7 @@ class ColumnStackedPercentChart(Chart):
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
+        self.columns: Tuple[Union[ColumnStackedPercentSeries, XYSeries]] = columns
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -1193,7 +1193,7 @@ Can be html/css colors or hex values. Defaults to None.</dd>
             opacity (float, optional): The opacity for the color of the series. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(x, y, name, color)
-        self.opacity = opacity
+        self.opacity: float = opacity
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -1297,7 +1297,7 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </summary>
 <pre><code class="python">class BarStackedChart(Chart):
     &#34;&#34;&#34;Class for a stacked bar chart&#34;&#34;&#34;
-    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarStackedSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -1305,7 +1305,7 @@ Can be html/css colors or hex values. Defaults to None.</dd>
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
+        self.bars: Tuple[Union[BarStackedSeries, XYSeries]] = bars
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -1352,7 +1352,7 @@ Can be html/css colors or hex values. Defaults to None.</dd>
 </summary>
 <pre><code class="python">class BarStackedPercentChart(Chart):
     &#34;&#34;&#34;Class for a stacked bar chart with the x-axis expressed in percentage&#34;&#34;&#34;
-    def __init__(self, name: str, bars: Tuple[Union[BarSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, bars: Tuple[Union[BarStackedPercentSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -1360,7 +1360,7 @@ Can be html/css colors or hex values. Defaults to None.</dd>
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.bars: Tuple[Union[BarSeries, XYSeries]] = bars
+        self.bars: Tuple[Union[BarStackedPercentSeries, XYSeries]] = bars
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -2493,7 +2493,7 @@ def as_dict(self) -&gt; Dict:
 </summary>
 <pre><code class="python">class ColumnStackedChart(Chart):
     &#34;&#34;&#34;Class for a stacked column chart&#34;&#34;&#34;
-    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnStackedSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -2501,7 +2501,7 @@ def as_dict(self) -&gt; Dict:
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
+        self.columns: Tuple[Union[ColumnStackedSeries, XYSeries]] = columns
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -2548,7 +2548,7 @@ def as_dict(self) -&gt; Dict:
 </summary>
 <pre><code class="python">class ColumnStackedPercentChart(Chart):
     &#34;&#34;&#34;Class for a stacked column chart with the x-axis expressed in percentage&#34;&#34;&#34;
-    def __init__(self, name: str, columns: Tuple[Union[ColumnSeries, XYSeries]], options: ChartOptions = None):
+    def __init__(self, name: str, columns: Tuple[Union[ColumnStackedPercentSeries, XYSeries]], options: ChartOptions = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the chart.
@@ -2556,7 +2556,7 @@ def as_dict(self) -&gt; Dict:
             options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name, options)
-        self.columns: Tuple[Union[ColumnSeries, XYSeries]] = columns
+        self.columns: Tuple[Union[ColumnStackedPercentSeries, XYSeries]] = columns
 
     @property
     def as_dict(self) -&gt; Dict:
