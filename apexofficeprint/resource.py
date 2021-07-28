@@ -96,7 +96,7 @@ class Resource(ABC):
 
     @staticmethod
     def from_base64(base64string: str, filetype: str) -> 'Base64Resource':
-        """Create a Resource from a base64 string and a file type (extension).
+        """Create a Base64Resource from a base64 string and a file type (extension).
 
         Args:
             base64string (str): base64 encoded string

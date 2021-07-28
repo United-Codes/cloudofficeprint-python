@@ -247,7 +247,7 @@ class FTPToken(CloudAccessToken):
             host (str): Host name or IP address of the FTP/SFTP server.
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
             port (int, optional): Port number of the FTP/SFTP server. Defaults to None.
-            user (str, optional):User name for the FTP/SFTP server. Defaults to None.
+            user (str, optional): User name for the FTP/SFTP server. Defaults to None.
             password (str, optional): Password for the user. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(&#34;sftp&#34; if sftp else &#34;ftp&#34;)
@@ -834,7 +834,8 @@ def service(self) -&gt; str:
 <dd>whether to use SFTP (else FTP). Defaults to False.</dd>
 <dt><strong><code>port</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>Port number of the FTP/SFTP server. Defaults to None.</dd>
-<dt>user (str, optional):User name for the FTP/SFTP server. Defaults to None.</dt>
+<dt><strong><code>user</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>User name for the FTP/SFTP server. Defaults to None.</dd>
 <dt><strong><code>password</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Password for the user. Defaults to None.</dd>
 </dl></div>
@@ -851,7 +852,7 @@ def service(self) -&gt; str:
             host (str): Host name or IP address of the FTP/SFTP server.
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
             port (int, optional): Port number of the FTP/SFTP server. Defaults to None.
-            user (str, optional):User name for the FTP/SFTP server. Defaults to None.
+            user (str, optional): User name for the FTP/SFTP server. Defaults to None.
             password (str, optional): Password for the user. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(&#34;sftp&#34; if sftp else &#34;ftp&#34;)

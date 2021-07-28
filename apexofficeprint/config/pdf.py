@@ -5,10 +5,7 @@ class PDFOptions:
     """Class of optional PDF options.
 
     The properties of this class define all possible PDF output options.
-    All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.
-
-    The getters for the properties return the value the server uses as default value if the value is set to None.
-    These default values are not passed to the JSON or dict representation of the object and thus not explicitly sent to the AOP server.
+    All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.    
     """
 
     def __init__(self,
@@ -47,7 +44,7 @@ class PDFOptions:
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
-            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file.
+            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -137,7 +134,6 @@ class PDFOptions:
         """Set page_margin
 
         Either set the position for all margin positions (if position is None) or set a specific one.
-        The setter for the page_margin property sets the margin for all positions.
 
         Args:
             value (int): page margin in px
@@ -181,4 +177,4 @@ class PDFOptions:
         Args:
             value (str): the page orientation
         """
-        self._landscape = True if value == "landscape" else False
+        self._landscape = value == "landscape"

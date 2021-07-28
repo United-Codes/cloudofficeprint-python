@@ -74,7 +74,7 @@ class Command:
         """The dict representation of this command, but 'pre' is prepended to the keys. This is used for pre-conversion commands.
 
         Returns:
-            Dict[str, str]: dict representation of this command, with 'pre' prepended
+            Dict[str, str]: dict representation of this command, with 'pre' prepended to the keys
         """
         return {"pre_" + k: v for k, v in self._dict.items()}
 
@@ -83,7 +83,7 @@ class Command:
         """The dict representation of this command, but 'post' is prepended to the keys. This is used for post-process, post-conversion and post-merge commands.
 
         Returns:
-            Dict[str, str]: dict representation of this command, with 'post' prepended
+            Dict[str, str]: dict representation of this command, with 'post' prepended to the keys
         """
         return {"post_" + k: v for k, v in self._dict.items()}
 
@@ -143,6 +143,7 @@ class Commands:
         return result
 
 class ServerConfig:
+    """Class for configuring the server options."""
     def __init__(self,
                  api_key: str = None,
                  logging: Mapping = None,
@@ -269,7 +270,7 @@ class Server:
         """Sends a GET request to server-url/supported_template_mimetypes.
 
         Returns:
-            Dict: json of the mime types of templates that AOP supports.
+            Dict: JSON of the mime types of templates that AOP supports.
         """
         self._raise_if_unreachable()
         return json.loads(requests.get(urljoin(self.url, 'supported_template_mimetypes'), proxies=self.config.proxies if self.config is not None else None).text)
@@ -291,7 +292,7 @@ class Server:
         """Sends a GET request to server-url/supported_prepend_mimetypes.
 
         Returns:
-            Dict: json of the supported prepend file mime types.
+            Dict: JSON of the supported prepend file mime types.
         """
         self._raise_if_unreachable()
         return json.loads(requests.get(urljoin(self.url, 'supported_prepend_mimetypes'), proxies=self.config.proxies if self.config is not None else None).text)
@@ -300,7 +301,7 @@ class Server:
         """Sends a GET request to server-url/supported_append_mimetypes.
 
         Returns:
-            Dict: json of the supported append file mime types.
+            Dict: JSON of the supported append file mime types.
         """
         self._raise_if_unreachable()
         return json.loads(requests.get(urljoin(self.url, 'supported_append_mimetypes'), proxies=self.config.proxies if self.config is not None else None).text)

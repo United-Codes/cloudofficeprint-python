@@ -99,7 +99,7 @@ class CellStyleXlsx(CellStyle):
             font_color (str, optional): hex color e.g: #00ff00. Defaults to None.
             font_italic (bool, optional): Whether or not the text is in italic. Defaults to None.
             font_bold (bool, optional): Whether or not the text is in bold. Defaults to None.
-            font_strike (bool, optional): Whether or not the text is striked. Defaults to None.
+            font_strike (bool, optional): Whether or not the text is struck. Defaults to None.
             font_underline (bool, optional): Whether or not the text is underlined. Defaults to None.
             font_superscript (bool, optional): Whether or not the text is in superscript. Defaults to None.
             font_subscript (bool, optional): Whether or not the text is in subscript. Defaults to None.
@@ -384,18 +384,18 @@ class Hyperlink(Element):
             self.name: self.url
         }
 
-        if self.text:
+        if self.text is not None:
             result[self.name + "_text"] = self.text
 
         return result
 
 
 class TableOfContents(Element):
-    def __init__(self, name: str, title: str, depth: int = None, tab_leader: str = None):
+    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
         """
         Args:
             name (str): The name for this element.
-            title (str): Title of the table of contents. Default is 'Contents'.
+            title (str): Title of the table of contents. Defaults to None.
             depth (int, optional): The depth of heading to be shown, default 3. Defaults to None.
             tab_leader (str, optional): How the space between title and page number should be filled. Can be "hyphen", "underscore", or "dot" (default). Defaults to None.
         """
@@ -498,7 +498,7 @@ class StyledProperty(Property):
             bold (bool, optional): Whether or not the text should be bold. Defaults to None.
             italic (bool, optional): Whether or not the text should be italic. Defaults to None.
             underline (bool, optional): Whether or not the text should be underlined. Defaults to None.
-            strikethrough (bool, optional): Whether or not the text should be striked through. Defaults to None.
+            strikethrough (bool, optional): Whether or not the text should be struckthrough. Defaults to None.
             highlight_color (str, optional): The color in which the text should be highlighted. Defaults to None.
         """
         super().__init__(name, value)
@@ -601,12 +601,12 @@ class D3Code(Element):
         """
         Args:
             name (str): The name for this element.
-            code (str): The JSON encoded code for generating a D3 image.
+            code (str): The JSON-encoded code for generating a D3 image.
             data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
         """
         super().__init__(name)
         self.code: str = code
-        self.data = data
+        self.data: str = data
         
 
     @property
@@ -659,8 +659,8 @@ class AOPChart(Element):
     """The class for an AOPChart. This is used for chart templating."""
     def __init__(self,
                  name: str,
-                 x_data: Iterable,
-                 y_datas: Union[Iterable[Iterable], Mapping[str, Iterable]],
+                 x_data: Iterable[Union[str, int, float, Mapping]],
+                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
                  date: AOPChartDateOptions = None,
                  title: str = None,
                  x_title: str = None,
@@ -670,9 +670,10 @@ class AOPChart(Element):
         """
         Args:
             name (str): The name for this element.
-            x_data (Iterable): The data for the x-axis. Format : ["day 1", "day 2", "day 3", "day 4", "day 5"] or
+            x_data (Iterable[Union[str, int, float, Mapping]]): The data for the x-axis. Format : ["day 1", "day 2", "day 3", "day 4", "day 5"] or
                 [{"value": "day 1"}, {"value": "day 2"}, {"value": "day 3"}, {"value": "day 4"}, {"value": "day 5"}]
-            y_datas (Union[Iterable[Iterable], Mapping[str, Iterable]]): The data for the y-axis in the same format as x_data.
+            y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):
+                The data for the y-axis in the same format as x_data.
             date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
             title (str, optional): The title of the chart. Defaults to None.
             x_title (str, optional): The title for the x-axis. Defaults to None.
@@ -964,6 +965,10 @@ class ElementCollection(list, Element):
     def element_to_element_collection(cls, element: Element, name: str = "") -> 'ElementCollection':
         """Generate an element collection from an element and a name.
 
+        Args:
+            element (Element): the element that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to ''.
+
         Returns:
             ElementCollection: the generated element collection from an element and a name
         """
@@ -972,6 +977,10 @@ class ElementCollection(list, Element):
     @classmethod
     def from_mapping(cls, mapping: Mapping, name: str = "") -> 'ElementCollection':
         """Generate an element collection from a mapping and a name.
+
+        Args:
+            mapping (Mapping): the mapping that needs to be converted to an element collection
+            name (str): The name of the element collection. Defaults to ''.
 
         Returns:
             ElementCollection: an element collection generated from the given mapping and name
@@ -984,6 +993,10 @@ class ElementCollection(list, Element):
     @classmethod
     def from_json(cls, json_str: str, name: str = "") -> 'ElementCollection':
         """Generate an element collection from a JSON string.
+
+        Args:
+            json_str (str): the json string that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to ''.
 
         Returns:
             ElementCollection: an element collection generated from the given JSON string and name
