@@ -39,7 +39,7 @@ combined_data.add_all(text_tags)
 ```
 
 ### The server
-An AOP server is configured as a `config.Server`. It takes an url and an optional `config.ServerConfig` which allows for various server configuration options. If you're using APEX Office Print Cloud edition, you will need to use this to declare your API key.
+An AOP server is configured as a `config.Server`. It takes a url and an optional `config.ServerConfig` which allows for various server configuration options. If you're using APEX Office Print Cloud edition, you will need to use this to declare your API key.
 
 ```python
 server = aop.config.Server(

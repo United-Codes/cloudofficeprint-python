@@ -313,7 +313,7 @@ class Image(Element):
             width: Union[int, str]=None,
             height: Union[int, str]=None
         ) -> 'Image':
-        """Generate an Image object from an URL.
+        """Generate an Image object from a URL.
 
         Args:
             name (str): The name of the image element.
@@ -334,7 +334,7 @@ class Image(Element):
             height (Union[int, str]): The height of the image (for non-proportional scaling).
 
         Returns:
-            Image: the generated Image object from an URL
+            Image: the generated Image object from a URL
         """
         return Image(
             name,
