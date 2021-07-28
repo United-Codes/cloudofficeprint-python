@@ -8,6 +8,7 @@ class Image(Element, ABC):
 
     def __init__(self,
                  name: str,
+                 source: str,
                  max_width: Union[int, str]=None,
                  max_height: Union[int, str]=None,
                  alt_text: str=None,
@@ -20,6 +21,7 @@ class Image(Element, ABC):
         """
         Args:
             name (str): The name of the image element.
+            source (str): The source for the image: base64 or URL.
             max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
             max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
             alt_text (str): The alternative text for the image, used when the image can't be loaded.
@@ -36,6 +38,7 @@ class Image(Element, ABC):
             height (Union[int, str]): The height of the image (for non-proportional scaling).
         """
         super().__init__(name)
+        self.source: str = source
         self.max_width: Union[int, str] = max_width
         self.max_height: Union[int, str] = max_height
         self.alt_text: str = alt_text
@@ -133,6 +136,16 @@ class Image(Element, ABC):
             result["_height"] = self.height
 
         return result
+    
+    @property
+    def as_dict(self) -> Dict:
+        result = {
+            self.name: self.source,
+        }
+
+        for suffix, value in self._dict_suffixes.items():
+            result[self.name + suffix] = value
+        return result
 
     @staticmethod
     def from_file(name: str, path: str) -> 'ImageBase64':
@@ -220,18 +233,7 @@ class ImageUrl(Image):
             width (Union[int, str], optional): The width of the image (for non-proportional scaling). Defaults to None.
             height (Union[int, str], optional): The height of the image (for non-proportional scaling). Defaults to None.
         """
-        super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
-        self.url_source: str = url_source
-
-    @property
-    def as_dict(self) -> Dict:
-        result = {
-            self.name: self.url_source,
-        }
-
-        for suffix, value in self._dict_suffixes.items():
-            result[self.name + suffix] = value
-        return result
+        super().__init__(name, url_source, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
 
 
 class ImageBase64(Image):
@@ -267,16 +269,4 @@ class ImageBase64(Image):
             width (Union[int, str], optional): The width of the image (for non-proportional scaling). Defaults to None.
             height (Union[int, str], optional): The height of the image (for non-proportional scaling). Defaults to None.
         """
-        super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
-        self.base64: str = base64str
-
-    @property
-    def as_dict(self) -> Dict:
-        result = {
-            self.name: self.base64
-        }
-
-        for suffix, value in self._dict_suffixes.items():
-            result[self.name + suffix] = value
-
-        return result
+        super().__init__(name, base64str, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
