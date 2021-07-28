@@ -5,7 +5,7 @@ This project provides a Python interface for APEX Office Print.
 To install the APEX Office Print Python package, you can type in your terminal:  
 `pip install apexofficeprint`
 
-You also need to have the requests-library installed (https://docs.python-requests.org/en/master/). This can be installed in your terminal:  
+You also need to have the requests-library installed (https://docs.python-requests.org/en/master/). This can be installed through your terminal:  
 `pip install requests`
 
 # Usage
@@ -48,7 +48,7 @@ collection.add(text)
 ```
 
 ## AOP server
-The template and the data need to be sent to an AOP server that merges both. This can be done by setting up the AOP server and creating a print job in the same Python file:
+The template and the data need to be sent to an AOP server that merges both. This can be done by setting up the configuration for AOP server and passing it to the print job instance:
 ```python
 ...
 SERVER_URL = "https://api.apexofficeprint.com/"
@@ -77,7 +77,7 @@ response.to_file('PATH_OF_OUTPUT_FILE')
 <!-- TODO: change this link to Github link -->
 
 # Other examples
-We also made some bigger examples. The current examples are:
+Going through the other examples is also recommended as this gives you a good idea on how to use the SDK. The current examples are:
 - order_confirmation_example.py
 - pdfsignature_example.py
 - solar_system_example.py
@@ -87,14 +87,14 @@ We also made some bigger examples. The current examples are:
 The examples can be found in the parent directory of the project on [Github](https://github.com/United-Codes/apexofficeprint-python). Each example also has its own folder containing the used templates, the generated output files and a markdown file with explanation when needed.
 
 # Documentation
-The documentation for this SDK can be seen by double clicking the file `index.html` in the folder `docs/apexofficeprint/` on [Github](https://github.com/United-Codes/apexofficeprint-python).
+The documentation for this SDK can be found inside the `docs/apexofficeprint/` folder on [Github](https://github.com/United-Codes/apexofficeprint-python).
 
 The full APEX Office Print documentation can be found at the [AOP docs](http://www.apexofficeprint.com/docs/).
 
-# Tests
+# Tests 
 To check if everything works, you can run the tests.
 
-## How to run the tests
+## Running the tests
 1. Open a terminal in the parent directory of this project, which can be found on [Github](https://github.com/United-Codes/apexofficeprint-python).
 2. Type in the terminal: `python test.py`
 3. The tests succeeded if nothing is printed to the terminal
