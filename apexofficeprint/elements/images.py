@@ -147,53 +147,205 @@ class Image(Element):
         return result
 
     @staticmethod
-    def from_file(name: str, path: str) -> 'Image':
+    def from_file(
+            name: str,
+            path: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -> 'Image':
         """Generate an Image object from a local file.
 
         Args:
             name (str): The name of the image element.
             path (str): The path to the local image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can't be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be "square";
+                Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+                Behind Text : In order to use this property, wrap option should be "behind";
+                In Front of Text : In order to use this property, wrap option should be "front".
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
 
         Returns:
             Image: the generated Image object from a local file
         """
-        return Image(name, file_utils.read_file_as_base64(path))
+        return Image(
+            name,
+            file_utils.read_file_as_base64(path),
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
 
     @staticmethod
-    def from_raw(name: str, data: bytes) -> 'Image':
+    def from_raw(
+            name: str,
+            data: bytes,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -> 'Image':
         """Generate an Image object from raw data.
 
         Args:
             name (str): The name of the image element.
             data (bytes): The raw data for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can't be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be "square";
+                Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+                Behind Text : In order to use this property, wrap option should be "behind";
+                In Front of Text : In order to use this property, wrap option should be "front".
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
 
         Returns:
             Image: the generated Image object from raw data
         """
-        return Image(name, file_utils.raw_to_base64(data))
+        return Image(
+            name,
+            file_utils.raw_to_base64(data),
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
 
     @staticmethod
-    def from_base64(name: str, base64str: str) -> 'Image':
+    def from_base64(
+            name: str,
+            base64str: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -> 'Image':
         """Generate an Image object from a base64 string.
 
         Args:
             name (str): The name of the image element.
             base64str (str): The base64 string for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can't be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be "square";
+                Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+                Behind Text : In order to use this property, wrap option should be "behind";
+                In Front of Text : In order to use this property, wrap option should be "front".
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
 
         Returns:
             Image: the generated Image object from a base64 string
         """
-        return Image(name, base64str)
+        return Image(
+            name,
+            base64str,
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
 
     @staticmethod
-    def from_url(name: str, url_source: str) -> 'Image':
+    def from_url(
+            name: str,
+            url_source: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -> 'Image':
         """Generate an Image object from an URL.
 
         Args:
             name (str): The name of the image element.
             url (str): The URL for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can't be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be "square";
+                Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+                Behind Text : In order to use this property, wrap option should be "behind";
+                In Front of Text : In order to use this property, wrap option should be "front".
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
 
         Returns:
             Image: the generated Image object from an URL
         """
-        return Image(name, url_source)
+        return Image(
+            name,
+            url_source,
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
