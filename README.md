@@ -88,7 +88,7 @@ The examples can be found in the parent directory of the project on [Github](htt
 The documentation for this SDK can be found inside the `docs/apexofficeprint/` folder on [Github](https://github.com/United-Codes/apexofficeprint-python). If you want to generate this documentation yourself, you can run the following command (after installing pdoc: `pip install pdoc3`) in the project directory:  
 `pdoc --html --force --output-dir docs/ apexofficeprint/`
 
-The full APEX Office Print documentation can be found at the [AOP docs](http://www.apexofficeprint.com/docs/).
+The full APEX Office Print documentation can be found at the [AOP docs](https://www.apexofficeprint.com/docs/).
 
 # Tests 
 To check if everything works, you can run the tests.

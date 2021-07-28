@@ -497,7 +497,7 @@ class LineSeries(XYSeries):
             color (str, optional): The color in which the series should be shown on a chart.
                 Can be html/css colors or hex values. Defaults to None.
             line_width (str, optional): Thickness of the connecting line in em, pt, px, cm or in. Defaults to None.
-            line_style (str, optional): Style of the line. Supported options can be found online on the [AOP documentation](http://www.apexofficeprint.com/docs/#line). Defaults to None.
+            line_style (str, optional): Style of the line. Supported options can be found online on the [AOP documentation](https://www.apexofficeprint.com/docs/#line). Defaults to None.
         """
         super().__init__(x, y, name, color)
         self.smooth: bool = smooth

@@ -9,7 +9,7 @@ class Code(Element, ABC):
         Args:
             name (str): The name for this Code object (AOP tag).
             data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](http://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
+            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](https://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
         """
         super().__init__(name)
         self.data: str = data
@@ -65,7 +65,7 @@ class BarCode(Code):
         Args:
             name (str): The name for this Code object (AOP tag).
             data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](http://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
+            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](https://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
             height (int, optional): The height for the generated code. The default is 200 for QR, 50 for the rest. Defaults to None.
             width (int, optional): The width for the generated code. The default is 200. Defaults to None.
             errorcorrectlevel (str, optional): The level of which the QR code should be recoverable. The options are:
@@ -128,7 +128,7 @@ class QRCode(Code):
         Args:
             name (str): The name for this Code object (AOP tag).
             data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](http://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
+            type (str): For the different types of QR-codes and barcodes, we refer to the [AOP documentation](https://www.apexofficeprint.com/docs/#barcode-qrcode-tags).
         """
         super().__init__(name, data, type)
 
