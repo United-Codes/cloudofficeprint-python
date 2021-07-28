@@ -494,7 +494,7 @@ class VCardQRCode(QRCode):
         return result
 
 
-class MeCard(QRCode):
+class MeCardQRCode(QRCode):
     """This class is a subclass of QRCode and is used to generate a MeCard QR-code element"""
     def __init__(
         self,

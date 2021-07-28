@@ -186,7 +186,7 @@ def test_qr_code_v_card():
     assert v_card.as_dict == v_card_expected
 
 def test_qr_code_me_card():
-    me_card = aop.elements.MeCard(
+    me_card = aop.elements.MeCardQRCode(
         name='name',
         first_name='first_name',
         last_name='last_name',
