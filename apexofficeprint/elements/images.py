@@ -1,10 +1,9 @@
-from abc import ABC, abstractmethod
 from typing import Dict, FrozenSet, Union
 from ..own_utils import file_utils
 from .elements import Element
 
-class Image(Element, ABC):
-    """The abstract base class for image elements."""
+class Image(Element):
+    """The class for image elements."""
 
     def __init__(self,
                  name: str,
@@ -136,7 +135,7 @@ class Image(Element, ABC):
             result["_height"] = self.height
 
         return result
-    
+
     @property
     def as_dict(self) -> Dict:
         result = {
@@ -148,7 +147,7 @@ class Image(Element, ABC):
         return result
 
     @staticmethod
-    def from_file(name: str, path: str) -> 'ImageBase64':
+    def from_file(name: str, path: str) -> 'Image':
         """Generate an Image object from a local file.
 
         Args:
@@ -156,12 +155,12 @@ class Image(Element, ABC):
             path (str): The path to the local image.
 
         Returns:
-            ImageBase64: the generated Image object from a local file
+            Image: the generated Image object from a local file
         """
-        return ImageBase64(name, file_utils.read_file_as_base64(path))
+        return Image(name, file_utils.read_file_as_base64(path))
 
     @staticmethod
-    def from_raw(name: str, data: bytes) -> 'ImageBase64':
+    def from_raw(name: str, data: bytes) -> 'Image':
         """Generate an Image object from raw data.
 
         Args:
@@ -169,12 +168,12 @@ class Image(Element, ABC):
             data (bytes): The raw data for the image.
 
         Returns:
-            ImageBase64: the generated Image object from raw data
+            Image: the generated Image object from raw data
         """
-        return ImageBase64(name, file_utils.raw_to_base64(data))
+        return Image(name, file_utils.raw_to_base64(data))
 
     @staticmethod
-    def from_base64(name: str, base64str: str) -> 'ImageBase64':
+    def from_base64(name: str, base64str: str) -> 'Image':
         """Generate an Image object from a base64 string.
 
         Args:
@@ -182,12 +181,12 @@ class Image(Element, ABC):
             base64str (str): The base64 string for the image.
 
         Returns:
-            ImageBase64: the generated Image object from a base64 string
+            Image: the generated Image object from a base64 string
         """
-        return ImageBase64(name, base64str)
+        return Image(name, base64str)
 
     @staticmethod
-    def from_url(name: str, url_source: str) -> 'ImageUrl':
+    def from_url(name: str, url_source: str) -> 'Image':
         """Generate an Image object from an URL.
 
         Args:
@@ -195,78 +194,6 @@ class Image(Element, ABC):
             url (str): The URL for the image.
 
         Returns:
-            ImageUrl: the generated Image object from an URL
+            Image: the generated Image object from an URL
         """
-        return ImageUrl(name, url_source)
-
-
-class ImageUrl(Image):
-    """The class for images that are created from a URL."""
-    def __init__(self,
-                 name: str,
-                 url_source: str,
-                 max_width: Union[int, str] = None,
-                 max_height: Union[int, str] = None,
-                 alt_text: str = "",
-                 wrap_text: str = None,
-                 rotation: int = None,
-                 transparency: Union[int, str] = None,
-                 url: str = None,
-                 width: Union[int, str] = None,
-                 height: Union[int, str] = None):
-        """
-        Args:
-            name (str): The name of the image element.
-            url_source (str): The URL from where the image needs to be loaded.
-            max_width (Union[int, str], optional): The maximum width of the image (for proportional scaling). Defaults to None.
-            max_height (Union[int, str], optional): The maximum height of the image (for proportional scaling). Defaults to None.
-            alt_text (str, optional): The alternative text for the image, used when the image can't be loaded. Defaults to "".
-            wrap_text (str, optional): The wrapping mode of the text around the image. The options are:
-                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
-                Square : In order to use this property, wrap option should be "square";
-                Top and Bottom : In order to use this property, wrap option should be "top-bottom";
-                Behind Text : In order to use this property, wrap option should be "behind";
-                In Front of Text : In order to use this property, wrap option should be "front". Defaults to None.
-            rotation (int, optional): The rotation of the image in degrees. Defaults to None.
-            transparency (Union[int, str], optional): The transparency of the image in percent. Defaults to None.
-            url (str, optional): The URL to load when the image is clicked. Defaults to None.
-            width (Union[int, str], optional): The width of the image (for non-proportional scaling). Defaults to None.
-            height (Union[int, str], optional): The height of the image (for non-proportional scaling). Defaults to None.
-        """
-        super().__init__(name, url_source, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
-
-
-class ImageBase64(Image):
-    """The class for images that are created from a base64 string."""
-    def __init__(self,
-                 name: str,
-                 base64str: str,
-                 max_width: Union[int, str] = None,
-                 max_height: Union[int, str] = None,
-                 alt_text: str = None,
-                 wrap_text: str = "inline",
-                 rotation: int = None,
-                 transparency: Union[int, str] = None,
-                 url: str = None,
-                 width: Union[int, str] = None,
-                 height: Union[int, str] = None):
-        """
-        Args:
-            name (str): The name of the image element.
-            base64str (str): The base64 string for the image.
-            max_width (Union[int, str], optional): The maximum width of the image (for proportional scaling). Defaults to None.
-            max_height (Union[int, str], optional): The maximum height of the image (for proportional scaling). Defaults to None.
-            alt_text (str, optional): The alternative text for the image, used when the image can't be loaded. Defaults to "".
-            wrap_text (str, optional): The wrapping mode of the text around the image. The options are:
-                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
-                Square : In order to use this property, wrap option should be "square";
-                Top and Bottom : In order to use this property, wrap option should be "top-bottom";
-                Behind Text : In order to use this property, wrap option should be "behind";
-                In Front of Text : In order to use this property, wrap option should be "front". Defaults to None.
-            rotation (int, optional): The rotation of the image in degrees. Defaults to None.
-            transparency (Union[int, str], optional): The transparency of the image in percent. Defaults to None.
-            url (str, optional): The URL to load when the image is clicked. Defaults to None.
-            width (Union[int, str], optional): The width of the image (for non-proportional scaling). Defaults to None.
-            height (Union[int, str], optional): The height of the image (for non-proportional scaling). Defaults to None.
-        """
-        super().__init__(name, base64str, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
+        return Image(name, url_source)
