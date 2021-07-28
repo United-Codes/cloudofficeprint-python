@@ -8,15 +8,15 @@ class Image(Element, ABC):
 
     def __init__(self,
                  name: str,
-                 max_width: Union[int, str],
-                 max_height: Union[int, str],
-                 alt_text: str,
-                 wrap_text: str,
-                 rotation: int,
-                 transparency: Union[int, str],
-                 url: str,
-                 width: Union[int, str],
-                 height: Union[int, str]):
+                 max_width: Union[int, str]=None,
+                 max_height: Union[int, str]=None,
+                 alt_text: str=None,
+                 wrap_text: str=None,
+                 rotation: int=None,
+                 transparency: Union[int, str]=None,
+                 url: str=None,
+                 width: Union[int, str]=None,
+                 height: Union[int, str]=None):
         """
         Args:
             name (str): The name of the image element.
@@ -113,23 +113,23 @@ class Image(Element, ABC):
         """
         result = {}
 
-        if self.max_width:
+        if self.max_width is not None:
             result["_max_width"] = self.max_width
-        if self.max_height:
+        if self.max_height is not None:
             result["_max_height"] = self.max_height
-        if self._alt_text:
+        if self._alt_text is not None:
             result["_alt_text"] = self._alt_text
-        if self._wrap_text:
+        if self._wrap_text is not None:
             result["_wrap_text"] = self._wrap_text
-        if self._rotation:
+        if self._rotation is not None:
             result["_rotation"] = self._rotation
-        if self.transparency:
+        if self.transparency is not None:
             result["_transparency"] = self.transparency
-        if self.url:
+        if self.url is not None:
             result["_url"] = self.url
-        if self.width:
+        if self.width is not None:
             result["_width"] = self.width
-        if self.height:
+        if self.height is not None:
             result["_height"] = self.height
 
         return result
