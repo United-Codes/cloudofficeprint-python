@@ -1,8 +1,8 @@
 import apexofficeprint as aop
 
 TEMPLATE_PATH = "./examples/order_confirmation_example/data/template.docx"
-SERVER_URL = "http://apexofficeprint.com/dev/"
-API_KEY = "1FC7446D926A2E3CE0530100007F2364"
+SERVER_URL = "https://api.apexofficeprint.com/"
+API_KEY = "YOUR_API_KEY"  # Replace by your own API key
 
 template = aop.Resource.from_local_file(TEMPLATE_PATH)
 

@@ -174,7 +174,7 @@ class Image(Element, ABC):
         return ImageBase64(name, base64str)
 
     @staticmethod
-    def from_url(name: str, url: str) -> 'ImageUrl':
+    def from_url(name: str, url: str) -> 'ImageUrl': # TODO: url_source
         """Generate an Image object from an URL.
 
         Args:

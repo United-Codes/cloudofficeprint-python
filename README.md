@@ -49,7 +49,7 @@ The template and the data need to be sent to an AOP server that merges both. Thi
 ```python
 ...
 SERVER_URL = "https://api.apexofficeprint.com/"
-API_KEY = "{YOUR_API_KEY}"
+API_KEY = "YOUR_API_KEY"  # Replace by your own API key
 
 # Add server
 server = aop.config.Server(

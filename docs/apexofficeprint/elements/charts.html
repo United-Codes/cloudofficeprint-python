@@ -1053,8 +1053,8 @@ class CombinedChart(Chart):
                 options.update(options)
 
         super().__init__(name, options)
-        self.charts = charts
-        self.secondaryCharts = secondaryCharts
+        self.charts: Iterable[Chart] = charts
+        self.secondaryCharts: Iterable[Chart] = secondaryCharts
 
     def _get_modified_chart_dicts(self) -&gt; List[Dict]:
         &#34;&#34;&#34;Remove the chart options from all charts in this combined chart object.
@@ -2622,8 +2622,8 @@ def as_dict(self) -&gt; Dict:
                 options.update(options)
 
         super().__init__(name, options)
-        self.charts = charts
-        self.secondaryCharts = secondaryCharts
+        self.charts: Iterable[Chart] = charts
+        self.secondaryCharts: Iterable[Chart] = secondaryCharts
 
     def _get_modified_chart_dicts(self) -&gt; List[Dict]:
         &#34;&#34;&#34;Remove the chart options from all charts in this combined chart object.

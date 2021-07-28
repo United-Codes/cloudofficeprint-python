@@ -202,7 +202,7 @@ class Image(Element, ABC):
         return ImageBase64(name, base64str)
 
     @staticmethod
-    def from_url(name: str, url: str) -&gt; &#39;ImageUrl&#39;:
+    def from_url(name: str, url: str) -&gt; &#39;ImageUrl&#39;: # TODO: url_source
         &#34;&#34;&#34;Generate an Image object from an URL.
 
         Args:
@@ -525,7 +525,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
         return ImageBase64(name, base64str)
 
     @staticmethod
-    def from_url(name: str, url: str) -&gt; &#39;ImageUrl&#39;:
+    def from_url(name: str, url: str) -&gt; &#39;ImageUrl&#39;: # TODO: url_source
         &#34;&#34;&#34;Generate an Image object from an URL.
 
         Args:
@@ -676,7 +676,7 @@ def from_raw(name: str, data: bytes) -&gt; &#39;ImageBase64&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-def from_url(name: str, url: str) -&gt; &#39;ImageUrl&#39;:
+def from_url(name: str, url: str) -&gt; &#39;ImageUrl&#39;: # TODO: url_source
     &#34;&#34;&#34;Generate an Image object from an URL.
 
     Args:

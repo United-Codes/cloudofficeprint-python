@@ -3,10 +3,12 @@
 import apexofficeprint as aop
 
 # Setup AOP server
-SERVER_URL = "http://apexofficeprint.com/dev/"
+SERVER_URL = "https://api.apexofficeprint.com/"
+API_KEY = "YOUR_API_KEY"  # Replace by your own API key
 
 server = aop.config.Server(
-    SERVER_URL
+    SERVER_URL,
+    aop.config.ServerConfig(api_key=API_KEY)
 )
 
 # Create empty element collection

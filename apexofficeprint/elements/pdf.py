@@ -166,7 +166,7 @@ class PDFTexts(Element):
         """
         super().__init__(PDFText._identifier())
         self.texts = texts
-    
+
     @property
     def as_dict(self) -> Dict:
         result = {}

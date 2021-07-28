@@ -10,8 +10,10 @@ import asyncio
 ###
 
 TEMPLATE_PATH = "./tests/data/template.docx"
-SERVER_URL = "http://apexofficeprint.com/dev/"
-API_KEY = "1C511A58ECC73874E0530100007FD01A"
+SERVER_URL = "https://api.apexofficeprint.com/"
+API_KEY = "YOUR_API_KEY"  # Replace by your own API key
+# NOTE: the API_KEY for this server object is only needed when running the functions `test_async()` and `test_full_json()`.
+#   The other tests check if the generated JSON is as expected.
 
 # Add server
 server = aop.config.Server(
