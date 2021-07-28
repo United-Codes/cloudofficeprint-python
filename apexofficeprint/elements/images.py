@@ -174,7 +174,7 @@ class Image(Element, ABC):
         return ImageBase64(name, base64str)
 
     @staticmethod
-    def from_url(name: str, url: str) -> 'ImageUrl': # TODO: url_source
+    def from_url(name: str, url_source: str) -> 'ImageUrl':
         """Generate an Image object from an URL.
 
         Args:
@@ -184,26 +184,27 @@ class Image(Element, ABC):
         Returns:
             ImageUrl: the generated Image object from an URL
         """
-        return ImageUrl(name, url)
+        return ImageUrl(name, url_source)
 
 
 class ImageUrl(Image):
     """The class for images that are created from a URL."""
     def __init__(self,
                  name: str,
-                 url: str,
+                 url_source: str,
                  max_width: Union[int, str] = None,
                  max_height: Union[int, str] = None,
                  alt_text: str = "",
                  wrap_text: str = None,
                  rotation: int = None,
                  transparency: Union[int, str] = None,
+                 url: str = None,
                  width: Union[int, str] = None,
                  height: Union[int, str] = None):
         """
         Args:
             name (str): The name of the image element.
-            url (str): The URL from where the image needs to be loaded.
+            url_source (str): The URL from where the image needs to be loaded.
             max_width (Union[int, str], optional): The maximum width of the image (for proportional scaling). Defaults to None.
             max_height (Union[int, str], optional): The maximum height of the image (for proportional scaling). Defaults to None.
             alt_text (str, optional): The alternative text for the image, used when the image can't be loaded. Defaults to "".
@@ -215,15 +216,17 @@ class ImageUrl(Image):
                 In Front of Text : In order to use this property, wrap option should be "front". Defaults to None.
             rotation (int, optional): The rotation of the image in degrees. Defaults to None.
             transparency (Union[int, str], optional): The transparency of the image in percent. Defaults to None.
+            url (str, optional): The URL to load when the image is clicked. Defaults to None.
             width (Union[int, str], optional): The width of the image (for non-proportional scaling). Defaults to None.
             height (Union[int, str], optional): The height of the image (for non-proportional scaling). Defaults to None.
         """
         super().__init__(name, max_width, max_height, alt_text, wrap_text, rotation, transparency, url, width, height)
+        self.url_source: str = url_source
 
     @property
     def as_dict(self) -> Dict:
         result = {
-            self.name: self.url,
+            self.name: self.url_source,
         }
 
         for suffix, value in self._dict_suffixes.items():

@@ -228,7 +228,7 @@ def test_text_box():
 
 def test_element_collection():
     data = aop.elements.ElementCollection('data') # Name doesn't get used
-    element1 = aop.elements.Image.from_url('image1', 'url')
+    element1 = aop.elements.Image.from_url('image1', 'url_source')
     element1.alt_text = 'alt_text'
     data.add(element1)
     element2 = aop.elements.ForEach(
@@ -237,9 +237,8 @@ def test_element_collection():
     )
     data.add(element2)
     data_expected = {
-        'image1': 'url',
+        'image1': 'url_source',
         'image1_alt_text': 'alt_text',
-        'image1_url': 'url',
         'loop': [
             {
                 'prop': 'value1'
@@ -271,9 +270,8 @@ def test_element_collection():
         name='test_name' # Doesn't get used
     )
     collection_expected = {
-        'image1': 'url',
-        'image1_alt_text': 'alt_text',
-        'image1_url': 'url'
+        'image1': 'url_source',
+        'image1_alt_text': 'alt_text'
     }
     assert collection.as_dict == collection_expected
 

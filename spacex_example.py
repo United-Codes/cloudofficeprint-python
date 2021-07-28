@@ -28,10 +28,10 @@ def shorten_description(input: str) -> str:
     return input.split('.')[0] + '.'
 
 
-# IMAGE_MAX_HEIGHT = 250  # pptx, xlsx
-# IMAGE_MAX_WIDTH = 400  # pptx, xlsx
-IMAGE_MAX_HEIGHT = 500  # docx
-IMAGE_MAX_WIDTH = 640  # docx
+IMAGE_MAX_HEIGHT = 250  # pptx, xlsx
+IMAGE_MAX_WIDTH = 400  # pptx, xlsx
+# IMAGE_MAX_HEIGHT = 500  # docx
+# IMAGE_MAX_WIDTH = 640  # docx
 
 
 # Get SpaceX data from https://docs.spacexdata.com
@@ -265,9 +265,10 @@ data.add(ship_data)
 
 # Create printjob
 printjob = aop.PrintJob(
-    # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
+    # NOTE: change IMAGE_MAX_HEIGHT and IMAGE_MAX_WIDTH at the beginning of this script according to filetype
+    template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
     # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.xlsx'), # For xlsx
-    template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
+    # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
     data=data,
     server=server
 )

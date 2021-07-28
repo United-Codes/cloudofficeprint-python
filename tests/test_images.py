@@ -33,18 +33,19 @@ def test_image_base64():
 def test_image_url():
     image = aop.elements.ImageUrl(
         name='image1',
-        url='url',
+        url_source='url_source',
         max_width=50,
         max_height=45,
         alt_text='alt_text',
         wrap_text='wrap_text',
         rotation=45,
         transparency=50,
+        url='url',
         width=30,
         height=25
     )
     image_expected = {
-        'image1': 'url',
+        'image1': 'url_source',
         'image1_max_width': 50,
         'image1_max_height': 45,
         'image1_alt_text': 'alt_text',
