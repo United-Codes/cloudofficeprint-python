@@ -94,7 +94,7 @@ class BarCode(Code):
         self.padding_width: int = padding_width
         self.padding_height: int = padding_height
         self.extra_options: str = extra_options
-    
+
     @property
     def _dict_suffixes(self) -> Dict:
         result = super()._dict_suffixes
@@ -157,7 +157,7 @@ class QRCode(Code):
         self.auto_color: bool = None
         self.auto_color_dark: str = None
         self.auto_color_light: str = None
-    
+
     def set_dotscale(self, dotscale: float):
         """
         Args:
@@ -226,7 +226,7 @@ class QRCode(Code):
     def set_po_tl_color(self, po_tl_color: str):
         """
         Args:
-            po_tl_color (str): Position Outer color - Top Left """
+            po_tl_color (str): Position Outer color - Top Left"""
         self.po_tl_color = po_tl_color
     def set_pi_tl_color(self, pi_tl_color: str):
         """
@@ -372,9 +372,10 @@ class WiFiQRCode(QRCode):
 
         if self.wifi_password is not None:
             result['_wifi_password'] = self.wifi_password
-        if self.wifi_hidden is not None:
+        if self.wifi_encryption is not None:
             result['_wifi_encryption'] = self.wifi_encryption
-        result['_wifi_hidden'] = self.wifi_hidden
+        if self.wifi_hidden is not None:
+            result['_wifi_hidden'] = self.wifi_hidden
 
         return result
     
