@@ -165,7 +165,7 @@ class PDFTexts(Element):
             texts (Iterable[PDFText]): An iterable consisting of `PDFText`-objects.
         """
         super().__init__(PDFText._identifier())
-        self.texts = texts
+        self.texts: Iterable[PDFText] = texts
 
     @property
     def as_dict(self) -> Dict:

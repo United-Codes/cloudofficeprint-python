@@ -193,7 +193,7 @@ class PDFTexts(Element):
             texts (Iterable[PDFText]): An iterable consisting of `PDFText`-objects.
         &#34;&#34;&#34;
         super().__init__(PDFText._identifier())
-        self.texts = texts
+        self.texts: Iterable[PDFText] = texts
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -699,7 +699,7 @@ Element name is fixed and important to the server, so multiple will just overwri
             texts (Iterable[PDFText]): An iterable consisting of `PDFText`-objects.
         &#34;&#34;&#34;
         super().__init__(PDFText._identifier())
-        self.texts = texts
+        self.texts: Iterable[PDFText] = texts
 
     @property
     def as_dict(self) -&gt; Dict:

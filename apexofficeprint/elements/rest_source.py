@@ -15,7 +15,7 @@ class RESTSource(ABC):
         self.datasource: str = datasource
         self.endpoint: str = endpoint
         self.filename: str = filename
-        self.headers: str = headers
+        self.headers: List[Mapping[str, str]] = headers
         self.auth: str = auth
         
     

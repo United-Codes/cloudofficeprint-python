@@ -205,7 +205,7 @@ class PrintJob:
             result["templates"] = templates_list
 
         # If verbose mode is activated, print the result to the terminal
-        if self.aop_verbose == True:
+        if self.aop_verbose:
             print('The JSON data that is sent to the AOP server:\n')
             pprint(result)
 

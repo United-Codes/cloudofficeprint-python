@@ -460,7 +460,7 @@ and the <code><a title="apexofficeprint.PrintJob.execute" href="#apexofficeprint
             result[&#34;templates&#34;] = templates_list
 
         # If verbose mode is activated, print the result to the terminal
-        if self.aop_verbose == True:
+        if self.aop_verbose:
             print(&#39;The JSON data that is sent to the AOP server:\n&#39;)
             pprint(result)
 
@@ -617,7 +617,7 @@ def as_dict(self) -&gt; Dict:
         result[&#34;templates&#34;] = templates_list
 
     # If verbose mode is activated, print the result to the terminal
-    if self.aop_verbose == True:
+    if self.aop_verbose:
         print(&#39;The JSON data that is sent to the AOP server:\n&#39;)
         pprint(result)
 
