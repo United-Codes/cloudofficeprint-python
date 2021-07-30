@@ -174,11 +174,7 @@ class PDFTexts(Element):
             # If there already is text for this page -> update entry in dictionary
             #   else -> create new entry in dictionary
             if str(txt.page) in result:
-                if type(result[str(txt.page)]) == list:
-                    result[str(txt.page)].append(txt._inner_dict)
-                else:
-                    # If there already is text for this page, but not yet in a list -> make a list
-                    result[str(txt.page)] = [result[str(txt.page)], txt._inner_dict]
+                result[str(txt.page)].append(txt._inner_dict)
             else:
                 result[str(txt.page)] = [txt._inner_dict]
         return {self.name: [result]}
@@ -208,11 +204,7 @@ class PDFImages(Element):
             # If there already is an image for this page -> update entry in dictionary
             #   else -> create new entry in dictionary
             if str(img.page) in result:
-                if type(result[str(img.page)]) == list:
-                    result[str(img.page)].append(img._inner_dict)
-                else:
-                    # If there already is an image for this page, but not yet in a list -> make a list
-                    result[str(img.page)] = [result[str(img.page)], img._inner_dict]
+                result[str(img.page)].append(img._inner_dict)
             else:
                 result[str(img.page)] = [img._inner_dict]
         return {self.name: [result]}
@@ -229,7 +221,7 @@ class PDFFormData(Element):
     def __init__(self, form_data: Mapping[str, Union[str, bool]]):
         """
         Args:
-            form_data (Mapping[str, Union[str, bool]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
+            form_data (Mapping[str, Union[str, bool, int, float]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
         """
         super().__init__(PDFFormData._identifier())
         self.form_data = form_data

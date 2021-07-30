@@ -101,8 +101,8 @@ def test_qr_code_wifi():
     wifi = aop.elements.WiFiQRCode(
         name='name',
         ssid='ssid',
-        wifi_password='password',
         wifi_encryption='WPA',
+        wifi_password='password',
         wifi_hidden=False
     )
     wifi_expected = {

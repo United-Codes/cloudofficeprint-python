@@ -1019,10 +1019,9 @@ class CombinedChart(Chart):
         if options is None:
             all_options = [chart.options.as_dict for chart in (
                 tuple(charts) + tuple(secondaryCharts)) if chart.options is not None]
-            options = {}
             # use reversed() to give the first charts precedence (they overwrite the others)
-            for options in reversed(all_options):
-                options.update(options)
+            for opt in reversed(all_options):
+                options = opt
 
         super().__init__(name, options)
         self.charts: Iterable[Chart] = charts

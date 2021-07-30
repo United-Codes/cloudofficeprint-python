@@ -881,12 +881,12 @@ def test_chart_aop():
         name='aop_chart',
         x_data=('a', 'b', 'c'),
         y_datas=((1, 2, 3), (4, 5, 6)),
-        title='aop_chart_title',
         date=aop.elements.AOPChartDateOptions(
             format='d/m/yyyy',
             unit='days',
             step=1
         ),
+        title='aop_chart_title',
         x_title='x-axis',
         y_title='y-axis',
         y2_title='y2-axis',
@@ -935,12 +935,12 @@ def test_chart_aop():
             'first_series': (1, 2, 3),
             'second_series': (4, 5, 6)
         },
-        title='aop_chart_title',
         date=aop.elements.AOPChartDateOptions(
             format='d/m/yyyy',
             unit='days',
             step=1
         ),
+        title='aop_chart_title',
         x_title='x-axis',
         y_title='y-axis',
         y2_title='y2-axis',

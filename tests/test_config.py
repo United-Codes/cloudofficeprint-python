@@ -55,7 +55,7 @@ def test_pdf_options():
 
 
 def test_printer():
-    printer = aop.config.server.Printer(
+    printer = aop.config.Printer(
         location='location',
         version='version',
         requester='requester',

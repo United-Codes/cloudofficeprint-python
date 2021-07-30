@@ -1,6 +1,6 @@
 import json
 from copy import deepcopy
-from typing import Union, Iterable, Mapping, Set, FrozenSet, Dict, List
+from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 
 
@@ -597,16 +597,16 @@ class Watermark(Property):
 
 
 class D3Code(Element):
-    def __init__(self, name: str, code: str, data: str = None):
+    def __init__(self, name: str, code: str, data: Any = None):
         """
         Args:
             name (str): The name for this element.
             code (str): The JSON-encoded code for generating a D3 image.
-            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
+            data (Any, optional): The data that the code will have access to. Defaults to None.
         """
         super().__init__(name)
         self.code: str = code
-        self.data: str = data
+        self.data: Any = data
         
 
     @property
