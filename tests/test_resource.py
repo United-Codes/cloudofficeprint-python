@@ -11,9 +11,19 @@ def test_resource_base64():
     }
     assert resource.template_dict == resource_expected
 
+def test_resource_raw():
+    local_path = str(pathlib.Path().resolve()) + '/tests/data/template.docx'
+    with open(local_path, "rb") as f:
+            content = f.read()
+    resource = aop.Resource.from_raw(content, 'docx')
+    resource_expected = {
+        'file': file_utils.raw_to_base64(content),
+        'template_type': 'docx'
+    }
+    assert resource.template_dict == resource_expected
+
 
 def test_resource_local_file():
-    """Also serves as a test for raw resource, because from_local_file uses raw resource"""
     local_path = str(pathlib.Path().resolve()) + '/tests/data/template.docx'
     resource = aop.Resource.from_local_file(local_path)
     with open(local_path, "rb") as f:
@@ -66,6 +76,7 @@ def test_resource_html():
 
 def run():
     test_resource_base64()
+    test_resource_raw()
     test_resource_local_file()
     test_resource_server_path()
     test_resource_url()
