@@ -67,7 +67,7 @@ class PrintJob:
             Response: `Response`-object
         """
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))
+        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={"Content-type": "application/json"}))
 
     async def execute_async(self) -> Response:
         """Async version of `PrintJob.execute`
