@@ -7,8 +7,8 @@ def test_printjob():
 
     template = aop.Resource.from_local_file('./tests/data/template.docx')
     template_main = aop.Resource.from_local_file('./tests/data/template_prepend_append_subtemplate.docx')
-    template_base64 = template.base64
-    template_main_base64 = template_main.base64
+    template_base64 = template.data
+    template_main_base64 = template_main.data
     
     data = aop.elements.ElementCollection('data')
     text_tag = aop.elements.Property('textTag1', 'test_text_tag1')

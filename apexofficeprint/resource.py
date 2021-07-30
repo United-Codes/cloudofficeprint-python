@@ -121,8 +121,8 @@ class Resource(ABC):
         return RawResource(raw_data, filetype)
 
     @staticmethod
-    def from_local_file(local_path: str) -> 'RawResource':
-        """Create a RawResource with the contents of a local file.
+    def from_local_file(local_path: str) -> 'Base64Resource':
+        """Create a Base64Resource with the contents of a local file.
 
         Throws IOError if it can't read the file.
         The filetype is determined by the extension of the file.
@@ -131,12 +131,10 @@ class Resource(ABC):
             local_path (str): path to local file
 
         Returns:
-            RawResource: the created Resource
+            Base64Resource: the created Resource
         """
-        f = open(local_path, "rb")
-        file_content = f.read()
-        f.close()
-        return RawResource(file_content, type_utils.path_to_extension(local_path))
+        base64string: str = file_utils.read_file_as_base64(local_path)
+        return Base64Resource(base64string, type_utils.path_to_extension(local_path))
 
     @staticmethod
     def from_server_path(path: str) -> 'ServerPathResource':
