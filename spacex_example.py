@@ -30,8 +30,10 @@ def shorten_description(input: str) -> str:
 
 IMAGE_MAX_HEIGHT = 250  # pptx, xlsx
 IMAGE_MAX_WIDTH = 400  # pptx, xlsx
+CHART_WIDTH = 800,  # pptx, xlsx
 # IMAGE_MAX_HEIGHT = 500  # docx
 # IMAGE_MAX_WIDTH = 640  # docx
+# CHART_WIDTH = 650 # docx
 
 
 # Get SpaceX data from https://docs.spacexdata.com
@@ -122,8 +124,7 @@ rockets_chart_options = aop.elements.ChartOptions(
         title_style=aop.elements.ChartTextStyle(color='black'),
         major_grid_lines=True
     ),
-    # width=800,  # pptx and xlsx
-    width=650,  # docx
+    width=CHART_WIDTH,
     height=300,
     rounded_corners=True,
     border=False,

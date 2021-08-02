@@ -35,7 +35,6 @@ cust = aop.elements.ElementCollection.from_mapping({
 data.add_all(cust)
 
 # Order information
-order_list = []
 
 ## Order 1
 order1 = aop.elements.ElementCollection.from_mapping({
@@ -123,7 +122,7 @@ product2.add(image)
 products = aop.elements.ForEach('product', [product1, product2])
 order2.add(products)
 
-## Add order_list to an object list
+## Add orders to an object list
 orders = aop.elements.ForEach('orders', [order1, order2])
 
 ## Add orders to data
