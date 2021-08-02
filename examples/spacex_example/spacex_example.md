@@ -522,7 +522,7 @@ Now that our template is finished, we have to process the data used by the templ
 The beauty of AOP is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
 
 ## Setup
-First we create a new Python file and import the APEX Office Print library and the `requests`-library:
+First we create a new Python file and import the APEX Office Print library and the [requests](https://pypi.org/project/requests/)-library:
 
 ```python
 import apexofficeprint as aop
@@ -773,7 +773,7 @@ for launch_pad in launch_pads:
 launch_pad_data = aop.elements.ForEach('launch_pads', launch_pad_list)
 data.add(launch_pad_data)
 ```
-Here we didn't add Wikipedia hyperlinks, because there are not available in the API data.
+Here we didn't add Wikipedia hyperlinks, because they are not available in the API data.
 
 ## Landing pads
 
@@ -864,4 +864,4 @@ Finally we actually send this printjob to an AOP server and save the response in
 ```python
 printjob.execute().to_file('./examples/spacex_example/output')
 ```
-The resulting file can now be found in the specified folder. We will not add the result in this markdown file, but the result can be seen in the files `output.pptx`, `output.xlsx` and `output.docx` that can be found in the folder `examples/spacex_example`.
+The resulting file can now be found in the specified folder. We will not add the result in this markdown file, but the result can be seen in the files `output.pptx`, `output.xlsx` and `output.docx` which can be found in the folder `examples/spacex_example`.
