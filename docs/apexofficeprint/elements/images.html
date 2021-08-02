@@ -1,0 +1,1288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>apexofficeprint.elements.images API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>apexofficeprint.elements.images</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import Dict, FrozenSet, Union
+from ..own_utils import file_utils
+from .elements import Element
+
+class Image(Element):
+    &#34;&#34;&#34;The class for image elements.&#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 source: str,
+                 max_width: Union[int, str]=None,
+                 max_height: Union[int, str]=None,
+                 alt_text: str=None,
+                 wrap_text: str=None,
+                 rotation: int=None,
+                 transparency: Union[int, str]=None,
+                 url: str=None,
+                 width: Union[int, str]=None,
+                 height: Union[int, str]=None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name of the image element.
+            source (str): The source for the image: base64 or URL.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.source: str = source
+        self.max_width: Union[int, str] = max_width
+        self.max_height: Union[int, str] = max_height
+        self.alt_text: str = alt_text
+        self.wrap_text: str = wrap_text
+        self.rotation: int = rotation
+        self.transparency: Union[int, str] = transparency
+        self.url: str = url
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+
+    @property
+    def alt_text(self) -&gt; str:
+        &#34;&#34;&#34;Getter for alt_text
+
+        Returns:
+            str: alternative text
+        &#34;&#34;&#34;
+        return self._alt_text
+
+    @alt_text.setter
+    def alt_text(self, value: str):
+        &#34;&#34;&#34;Setter for alt_text
+
+        Args:
+            value (str): new value for alt_text
+        &#34;&#34;&#34;
+        self._alt_text = None if value == &#34;&#34; else value
+
+    @property
+    def wrap_text(self) -&gt; str:
+        &#34;&#34;&#34;Getter for wrap_text
+
+        Returns:
+            str: the wrapping mode of the text around the image
+        &#34;&#34;&#34;
+        return self._wrap_text if self._wrap_text else &#34;inline&#34;
+
+    @wrap_text.setter
+    def wrap_text(self, value: str):
+        &#34;&#34;&#34;Setter for wrap_text
+
+        Args:
+            value (str): new value for wrap_text
+        &#34;&#34;&#34;
+        self._wrap_text = None if value == &#34;inline&#34; else value
+
+    @property
+    def rotation(self) -&gt; int:
+        &#34;&#34;&#34;Getter for rotation
+
+        Returns:
+            int: The image rotation in degrees
+        &#34;&#34;&#34;
+        return self._rotation if self._rotation else 0
+
+    @rotation.setter
+    def rotation(self, value: int):
+        &#34;&#34;&#34;Setter for rotation
+
+        Args:
+            value (int): new value for rotation
+        &#34;&#34;&#34;
+        self._rotation = None if value == 0 else value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{%&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def _dict_suffixes(self) -&gt; Dict:
+        &#34;&#34;&#34;The suffixes that need to be appended to this element&#39;s name in the dict representation of this Image object.
+
+        Returns:
+            Dict: the suffixes that need to be appended to this element&#39;s name in the dict representation of this Image object
+        &#34;&#34;&#34;
+        result = {}
+
+        if self.max_width is not None:
+            result[&#34;_max_width&#34;] = self.max_width
+        if self.max_height is not None:
+            result[&#34;_max_height&#34;] = self.max_height
+        if self._alt_text is not None:
+            result[&#34;_alt_text&#34;] = self._alt_text
+        if self._wrap_text is not None:
+            result[&#34;_wrap_text&#34;] = self._wrap_text
+        if self._rotation is not None:
+            result[&#34;_rotation&#34;] = self._rotation
+        if self.transparency is not None:
+            result[&#34;_transparency&#34;] = self.transparency
+        if self.url is not None:
+            result[&#34;_url&#34;] = self.url
+        if self.width is not None:
+            result[&#34;_width&#34;] = self.width
+        if self.height is not None:
+            result[&#34;_height&#34;] = self.height
+
+        return result
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.source,
+        }
+
+        for suffix, value in self._dict_suffixes.items():
+            result[self.name + suffix] = value
+        return result
+
+    @staticmethod
+    def from_file(
+            name: str,
+            path: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from a local file.
+
+        Args:
+            name (str): The name of the image element.
+            path (str): The path to the local image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from a local file
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            file_utils.read_file_as_base64(path),
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
+
+    @staticmethod
+    def from_raw(
+            name: str,
+            data: bytes,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from raw data.
+
+        Args:
+            name (str): The name of the image element.
+            data (bytes): The raw data for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from raw data
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            file_utils.raw_to_base64(data),
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
+
+    @staticmethod
+    def from_base64(
+            name: str,
+            base64str: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from a base64 string.
+
+        Args:
+            name (str): The name of the image element.
+            base64str (str): The base64 string for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from a base64 string
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            base64str,
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
+
+    @staticmethod
+    def from_url(
+            name: str,
+            url_source: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from a URL.
+
+        Args:
+            name (str): The name of the image element.
+            url (str): The URL for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from a URL
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            url_source,
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="apexofficeprint.elements.images.Image"><code class="flex name class">
+<span>class <span class="ident">Image</span></span>
+<span>(</span><span>name: str, source: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class for image elements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the image element.</dd>
+<dt><strong><code>source</code></strong> :&ensp;<code>str</code></dt>
+<dd>The source for the image: base64 or URL.</dd>
+<dt><strong><code>max_width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum width of the image (for proportional scaling).</dd>
+<dt><strong><code>max_height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum height of the image (for proportional scaling).</dd>
+<dt><strong><code>alt_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The alternative text for the image, used when the image can't be loaded.</dd>
+<dt><strong><code>wrap_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The wrapping mode of the text around the image. The options are:
+In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+Square : In order to use this property, wrap option should be "square";
+Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+Behind Text : In order to use this property, wrap option should be "behind";
+In Front of Text : In order to use this property, wrap option should be "front".</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code></dt>
+<dd>The rotation of the image in degrees.</dd>
+<dt><strong><code>transparency</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The transparency of the image in percent.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL to load when the image is clicked.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The width of the image (for non-proportional scaling).</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The height of the image (for non-proportional scaling).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Image(Element):
+    &#34;&#34;&#34;The class for image elements.&#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 source: str,
+                 max_width: Union[int, str]=None,
+                 max_height: Union[int, str]=None,
+                 alt_text: str=None,
+                 wrap_text: str=None,
+                 rotation: int=None,
+                 transparency: Union[int, str]=None,
+                 url: str=None,
+                 width: Union[int, str]=None,
+                 height: Union[int, str]=None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name of the image element.
+            source (str): The source for the image: base64 or URL.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.source: str = source
+        self.max_width: Union[int, str] = max_width
+        self.max_height: Union[int, str] = max_height
+        self.alt_text: str = alt_text
+        self.wrap_text: str = wrap_text
+        self.rotation: int = rotation
+        self.transparency: Union[int, str] = transparency
+        self.url: str = url
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+
+    @property
+    def alt_text(self) -&gt; str:
+        &#34;&#34;&#34;Getter for alt_text
+
+        Returns:
+            str: alternative text
+        &#34;&#34;&#34;
+        return self._alt_text
+
+    @alt_text.setter
+    def alt_text(self, value: str):
+        &#34;&#34;&#34;Setter for alt_text
+
+        Args:
+            value (str): new value for alt_text
+        &#34;&#34;&#34;
+        self._alt_text = None if value == &#34;&#34; else value
+
+    @property
+    def wrap_text(self) -&gt; str:
+        &#34;&#34;&#34;Getter for wrap_text
+
+        Returns:
+            str: the wrapping mode of the text around the image
+        &#34;&#34;&#34;
+        return self._wrap_text if self._wrap_text else &#34;inline&#34;
+
+    @wrap_text.setter
+    def wrap_text(self, value: str):
+        &#34;&#34;&#34;Setter for wrap_text
+
+        Args:
+            value (str): new value for wrap_text
+        &#34;&#34;&#34;
+        self._wrap_text = None if value == &#34;inline&#34; else value
+
+    @property
+    def rotation(self) -&gt; int:
+        &#34;&#34;&#34;Getter for rotation
+
+        Returns:
+            int: The image rotation in degrees
+        &#34;&#34;&#34;
+        return self._rotation if self._rotation else 0
+
+    @rotation.setter
+    def rotation(self, value: int):
+        &#34;&#34;&#34;Setter for rotation
+
+        Args:
+            value (int): new value for rotation
+        &#34;&#34;&#34;
+        self._rotation = None if value == 0 else value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{%&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def _dict_suffixes(self) -&gt; Dict:
+        &#34;&#34;&#34;The suffixes that need to be appended to this element&#39;s name in the dict representation of this Image object.
+
+        Returns:
+            Dict: the suffixes that need to be appended to this element&#39;s name in the dict representation of this Image object
+        &#34;&#34;&#34;
+        result = {}
+
+        if self.max_width is not None:
+            result[&#34;_max_width&#34;] = self.max_width
+        if self.max_height is not None:
+            result[&#34;_max_height&#34;] = self.max_height
+        if self._alt_text is not None:
+            result[&#34;_alt_text&#34;] = self._alt_text
+        if self._wrap_text is not None:
+            result[&#34;_wrap_text&#34;] = self._wrap_text
+        if self._rotation is not None:
+            result[&#34;_rotation&#34;] = self._rotation
+        if self.transparency is not None:
+            result[&#34;_transparency&#34;] = self.transparency
+        if self.url is not None:
+            result[&#34;_url&#34;] = self.url
+        if self.width is not None:
+            result[&#34;_width&#34;] = self.width
+        if self.height is not None:
+            result[&#34;_height&#34;] = self.height
+
+        return result
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.source,
+        }
+
+        for suffix, value in self._dict_suffixes.items():
+            result[self.name + suffix] = value
+        return result
+
+    @staticmethod
+    def from_file(
+            name: str,
+            path: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from a local file.
+
+        Args:
+            name (str): The name of the image element.
+            path (str): The path to the local image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from a local file
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            file_utils.read_file_as_base64(path),
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
+
+    @staticmethod
+    def from_raw(
+            name: str,
+            data: bytes,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from raw data.
+
+        Args:
+            name (str): The name of the image element.
+            data (bytes): The raw data for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from raw data
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            file_utils.raw_to_base64(data),
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
+
+    @staticmethod
+    def from_base64(
+            name: str,
+            base64str: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from a base64 string.
+
+        Args:
+            name (str): The name of the image element.
+            base64str (str): The base64 string for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from a base64 string
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            base64str,
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )
+
+    @staticmethod
+    def from_url(
+            name: str,
+            url_source: str,
+            max_width: Union[int, str]=None,
+            max_height: Union[int, str]=None,
+            alt_text: str=None,
+            wrap_text: str=None,
+            rotation: int=None,
+            transparency: Union[int, str]=None,
+            url: str=None,
+            width: Union[int, str]=None,
+            height: Union[int, str]=None
+        ) -&gt; &#39;Image&#39;:
+        &#34;&#34;&#34;Generate an Image object from a URL.
+
+        Args:
+            name (str): The name of the image element.
+            url (str): The URL for the image.
+            max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+            max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+            alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+            wrap_text (str): The wrapping mode of the text around the image. The options are:
+                In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+                Square : In order to use this property, wrap option should be &#34;square&#34;;
+                Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+                Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+                In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+            rotation (int): The rotation of the image in degrees.
+            transparency (Union[int, str]): The transparency of the image in percent.
+            url (str): The URL to load when the image is clicked.
+            width (Union[int, str]): The width of the image (for non-proportional scaling).
+            height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+        Returns:
+            Image: the generated Image object from a URL
+        &#34;&#34;&#34;
+        return Image(
+            name,
+            url_source,
+            max_width,
+            max_height,
+            alt_text,
+            wrap_text,
+            rotation,
+            transparency,
+            url,
+            width,
+            height,
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="elements.html#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="apexofficeprint.elements.images.Image.from_base64"><code class="name flex">
+<span>def <span class="ident">from_base64</span></span>(<span>name: str, base64str: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an Image object from a base64 string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the image element.</dd>
+<dt><strong><code>base64str</code></strong> :&ensp;<code>str</code></dt>
+<dd>The base64 string for the image.</dd>
+<dt><strong><code>max_width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum width of the image (for proportional scaling).</dd>
+<dt><strong><code>max_height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum height of the image (for proportional scaling).</dd>
+<dt><strong><code>alt_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The alternative text for the image, used when the image can't be loaded.</dd>
+<dt><strong><code>wrap_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The wrapping mode of the text around the image. The options are:
+In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+Square : In order to use this property, wrap option should be "square";
+Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+Behind Text : In order to use this property, wrap option should be "behind";
+In Front of Text : In order to use this property, wrap option should be "front".</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code></dt>
+<dd>The rotation of the image in degrees.</dd>
+<dt><strong><code>transparency</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The transparency of the image in percent.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL to load when the image is clicked.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The width of the image (for non-proportional scaling).</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The height of the image (for non-proportional scaling).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></code></dt>
+<dd>the generated Image object from a base64 string</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def from_base64(
+        name: str,
+        base64str: str,
+        max_width: Union[int, str]=None,
+        max_height: Union[int, str]=None,
+        alt_text: str=None,
+        wrap_text: str=None,
+        rotation: int=None,
+        transparency: Union[int, str]=None,
+        url: str=None,
+        width: Union[int, str]=None,
+        height: Union[int, str]=None
+    ) -&gt; &#39;Image&#39;:
+    &#34;&#34;&#34;Generate an Image object from a base64 string.
+
+    Args:
+        name (str): The name of the image element.
+        base64str (str): The base64 string for the image.
+        max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+        max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+        alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+        wrap_text (str): The wrapping mode of the text around the image. The options are:
+            In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+            Square : In order to use this property, wrap option should be &#34;square&#34;;
+            Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+            Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+            In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+        rotation (int): The rotation of the image in degrees.
+        transparency (Union[int, str]): The transparency of the image in percent.
+        url (str): The URL to load when the image is clicked.
+        width (Union[int, str]): The width of the image (for non-proportional scaling).
+        height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+    Returns:
+        Image: the generated Image object from a base64 string
+    &#34;&#34;&#34;
+    return Image(
+        name,
+        base64str,
+        max_width,
+        max_height,
+        alt_text,
+        wrap_text,
+        rotation,
+        transparency,
+        url,
+        width,
+        height,
+    )</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.images.Image.from_file"><code class="name flex">
+<span>def <span class="ident">from_file</span></span>(<span>name: str, path: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an Image object from a local file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the image element.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>The path to the local image.</dd>
+<dt><strong><code>max_width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum width of the image (for proportional scaling).</dd>
+<dt><strong><code>max_height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum height of the image (for proportional scaling).</dd>
+<dt><strong><code>alt_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The alternative text for the image, used when the image can't be loaded.</dd>
+<dt><strong><code>wrap_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The wrapping mode of the text around the image. The options are:
+In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+Square : In order to use this property, wrap option should be "square";
+Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+Behind Text : In order to use this property, wrap option should be "behind";
+In Front of Text : In order to use this property, wrap option should be "front".</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code></dt>
+<dd>The rotation of the image in degrees.</dd>
+<dt><strong><code>transparency</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The transparency of the image in percent.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL to load when the image is clicked.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The width of the image (for non-proportional scaling).</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The height of the image (for non-proportional scaling).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></code></dt>
+<dd>the generated Image object from a local file</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def from_file(
+        name: str,
+        path: str,
+        max_width: Union[int, str]=None,
+        max_height: Union[int, str]=None,
+        alt_text: str=None,
+        wrap_text: str=None,
+        rotation: int=None,
+        transparency: Union[int, str]=None,
+        url: str=None,
+        width: Union[int, str]=None,
+        height: Union[int, str]=None
+    ) -&gt; &#39;Image&#39;:
+    &#34;&#34;&#34;Generate an Image object from a local file.
+
+    Args:
+        name (str): The name of the image element.
+        path (str): The path to the local image.
+        max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+        max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+        alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+        wrap_text (str): The wrapping mode of the text around the image. The options are:
+            In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+            Square : In order to use this property, wrap option should be &#34;square&#34;;
+            Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+            Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+            In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+        rotation (int): The rotation of the image in degrees.
+        transparency (Union[int, str]): The transparency of the image in percent.
+        url (str): The URL to load when the image is clicked.
+        width (Union[int, str]): The width of the image (for non-proportional scaling).
+        height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+    Returns:
+        Image: the generated Image object from a local file
+    &#34;&#34;&#34;
+    return Image(
+        name,
+        file_utils.read_file_as_base64(path),
+        max_width,
+        max_height,
+        alt_text,
+        wrap_text,
+        rotation,
+        transparency,
+        url,
+        width,
+        height,
+    )</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.images.Image.from_raw"><code class="name flex">
+<span>def <span class="ident">from_raw</span></span>(<span>name: str, data: bytes, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an Image object from raw data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the image element.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>The raw data for the image.</dd>
+<dt><strong><code>max_width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum width of the image (for proportional scaling).</dd>
+<dt><strong><code>max_height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum height of the image (for proportional scaling).</dd>
+<dt><strong><code>alt_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The alternative text for the image, used when the image can't be loaded.</dd>
+<dt><strong><code>wrap_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The wrapping mode of the text around the image. The options are:
+In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+Square : In order to use this property, wrap option should be "square";
+Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+Behind Text : In order to use this property, wrap option should be "behind";
+In Front of Text : In order to use this property, wrap option should be "front".</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code></dt>
+<dd>The rotation of the image in degrees.</dd>
+<dt><strong><code>transparency</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The transparency of the image in percent.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL to load when the image is clicked.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The width of the image (for non-proportional scaling).</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The height of the image (for non-proportional scaling).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></code></dt>
+<dd>the generated Image object from raw data</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def from_raw(
+        name: str,
+        data: bytes,
+        max_width: Union[int, str]=None,
+        max_height: Union[int, str]=None,
+        alt_text: str=None,
+        wrap_text: str=None,
+        rotation: int=None,
+        transparency: Union[int, str]=None,
+        url: str=None,
+        width: Union[int, str]=None,
+        height: Union[int, str]=None
+    ) -&gt; &#39;Image&#39;:
+    &#34;&#34;&#34;Generate an Image object from raw data.
+
+    Args:
+        name (str): The name of the image element.
+        data (bytes): The raw data for the image.
+        max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+        max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+        alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+        wrap_text (str): The wrapping mode of the text around the image. The options are:
+            In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+            Square : In order to use this property, wrap option should be &#34;square&#34;;
+            Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+            Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+            In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+        rotation (int): The rotation of the image in degrees.
+        transparency (Union[int, str]): The transparency of the image in percent.
+        url (str): The URL to load when the image is clicked.
+        width (Union[int, str]): The width of the image (for non-proportional scaling).
+        height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+    Returns:
+        Image: the generated Image object from raw data
+    &#34;&#34;&#34;
+    return Image(
+        name,
+        file_utils.raw_to_base64(data),
+        max_width,
+        max_height,
+        alt_text,
+        wrap_text,
+        rotation,
+        transparency,
+        url,
+        width,
+        height,
+    )</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.images.Image.from_url"><code class="name flex">
+<span>def <span class="ident">from_url</span></span>(<span>name: str, url_source: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an Image object from a URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the image element.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL for the image.</dd>
+<dt><strong><code>max_width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum width of the image (for proportional scaling).</dd>
+<dt><strong><code>max_height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The maximum height of the image (for proportional scaling).</dd>
+<dt><strong><code>alt_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The alternative text for the image, used when the image can't be loaded.</dd>
+<dt><strong><code>wrap_text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The wrapping mode of the text around the image. The options are:
+In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+Square : In order to use this property, wrap option should be "square";
+Top and Bottom : In order to use this property, wrap option should be "top-bottom";
+Behind Text : In order to use this property, wrap option should be "behind";
+In Front of Text : In order to use this property, wrap option should be "front".</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code></dt>
+<dd>The rotation of the image in degrees.</dd>
+<dt><strong><code>transparency</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The transparency of the image in percent.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL to load when the image is clicked.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The width of the image (for non-proportional scaling).</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
+<dd>The height of the image (for non-proportional scaling).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></code></dt>
+<dd>the generated Image object from a URL</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def from_url(
+        name: str,
+        url_source: str,
+        max_width: Union[int, str]=None,
+        max_height: Union[int, str]=None,
+        alt_text: str=None,
+        wrap_text: str=None,
+        rotation: int=None,
+        transparency: Union[int, str]=None,
+        url: str=None,
+        width: Union[int, str]=None,
+        height: Union[int, str]=None
+    ) -&gt; &#39;Image&#39;:
+    &#34;&#34;&#34;Generate an Image object from a URL.
+
+    Args:
+        name (str): The name of the image element.
+        url (str): The URL for the image.
+        max_width (Union[int, str]): The maximum width of the image (for proportional scaling).
+        max_height (Union[int, str]): The maximum height of the image (for proportional scaling).
+        alt_text (str): The alternative text for the image, used when the image can&#39;t be loaded.
+        wrap_text (str): The wrapping mode of the text around the image. The options are:
+            In line with text: This option is the default. If no wrap option specified images will wrapped in line with text;
+            Square : In order to use this property, wrap option should be &#34;square&#34;;
+            Top and Bottom : In order to use this property, wrap option should be &#34;top-bottom&#34;;
+            Behind Text : In order to use this property, wrap option should be &#34;behind&#34;;
+            In Front of Text : In order to use this property, wrap option should be &#34;front&#34;.
+        rotation (int): The rotation of the image in degrees.
+        transparency (Union[int, str]): The transparency of the image in percent.
+        url (str): The URL to load when the image is clicked.
+        width (Union[int, str]): The width of the image (for non-proportional scaling).
+        height (Union[int, str]): The height of the image (for non-proportional scaling).
+
+    Returns:
+        Image: the generated Image object from a URL
+    &#34;&#34;&#34;
+    return Image(
+        name,
+        url_source,
+        max_width,
+        max_height,
+        alt_text,
+        wrap_text,
+        rotation,
+        transparency,
+        url,
+        width,
+        height,
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="apexofficeprint.elements.images.Image.alt_text"><code class="name">var <span class="ident">alt_text</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Getter for alt_text</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>alternative text</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def alt_text(self) -&gt; str:
+    &#34;&#34;&#34;Getter for alt_text
+
+    Returns:
+        str: alternative text
+    &#34;&#34;&#34;
+    return self._alt_text</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.images.Image.rotation"><code class="name">var <span class="ident">rotation</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Getter for rotation</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The image rotation in degrees</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rotation(self) -&gt; int:
+    &#34;&#34;&#34;Getter for rotation
+
+    Returns:
+        int: The image rotation in degrees
+    &#34;&#34;&#34;
+    return self._rotation if self._rotation else 0</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.images.Image.wrap_text"><code class="name">var <span class="ident">wrap_text</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Getter for wrap_text</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>the wrapping mode of the text around the image</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def wrap_text(self) -&gt; str:
+    &#34;&#34;&#34;Getter for wrap_text
+
+    Returns:
+        str: the wrapping mode of the text around the image
+    &#34;&#34;&#34;
+    return self._wrap_text if self._wrap_text else &#34;inline&#34;</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="elements.html#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="elements.html#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="elements.html#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="elements.html#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="apexofficeprint.elements" href="index.html">apexofficeprint.elements</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="apexofficeprint.elements.images.Image" href="#apexofficeprint.elements.images.Image">Image</a></code></h4>
+<ul class="two-column">
+<li><code><a title="apexofficeprint.elements.images.Image.alt_text" href="#apexofficeprint.elements.images.Image.alt_text">alt_text</a></code></li>
+<li><code><a title="apexofficeprint.elements.images.Image.from_base64" href="#apexofficeprint.elements.images.Image.from_base64">from_base64</a></code></li>
+<li><code><a title="apexofficeprint.elements.images.Image.from_file" href="#apexofficeprint.elements.images.Image.from_file">from_file</a></code></li>
+<li><code><a title="apexofficeprint.elements.images.Image.from_raw" href="#apexofficeprint.elements.images.Image.from_raw">from_raw</a></code></li>
+<li><code><a title="apexofficeprint.elements.images.Image.from_url" href="#apexofficeprint.elements.images.Image.from_url">from_url</a></code></li>
+<li><code><a title="apexofficeprint.elements.images.Image.rotation" href="#apexofficeprint.elements.images.Image.rotation">rotation</a></code></li>
+<li><code><a title="apexofficeprint.elements.images.Image.wrap_text" href="#apexofficeprint.elements.images.Image.wrap_text">wrap_text</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

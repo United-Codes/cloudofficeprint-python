@@ -1,0 +1,3511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>apexofficeprint.elements.elements API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>apexofficeprint.elements.elements</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import json
+from copy import deepcopy
+from typing import Union, Iterable, Mapping, Set, FrozenSet, Dict, List
+from abc import abstractmethod, ABC
+
+
+class CellStyle(ABC):
+    &#34;&#34;&#34;Abstract base class for a cell style&#34;&#34;&#34;
+    def __init__(self):
+        pass
+
+    def get_dict(self, property_name: str) -&gt; Dict:
+        &#34;&#34;&#34;Get the dict representation of this cell style.
+
+        Args:
+            property_name (str): The name of the property for which you want to define the cell style
+
+        Returns:
+            Dict: dict representation of this cell style
+        &#34;&#34;&#34;
+        result = {}
+        for suffix, value in self._dict_suffixes.items():
+            result[property_name + suffix] = value
+        return result
+
+    @property
+    @abstractmethod
+    def _dict_suffixes(self) -&gt; Dict:
+        &#34;&#34;&#34;Get the dict representation of the suffixes that need to be appended to the name of this property in this CellStyle object&#39;s dict representation.
+
+        Returns:
+            Dict: the dict representation of the suffixes that need to be appended to the name of this property in this CellStyle object&#39;s dict representation
+        &#34;&#34;&#34;
+        return {}
+
+
+class CellStyleDocx(CellStyle):
+    &#34;&#34;&#34;Cell styling settings for docx templates&#34;&#34;&#34;
+    def __init__(self, cell_background_color: str=None, width: Union[int, str]=None):
+        &#34;&#34;&#34;
+        Args:
+            cell_background_color (str, optional): The background color of the cell. Defaults to None.
+            width (Union[int, str], optional): The width of the cell. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.cell_background_color: str = cell_background_color
+        self.width: Union[int, str] = width
+
+    @property
+    def _dict_suffixes(self):
+        result = super()._dict_suffixes
+
+        if self.cell_background_color is not None:
+            result[&#39;_cell_background_color&#39;] = self.cell_background_color
+        if self.width is not None:
+            result[&#39;_width&#39;] = self.width
+        
+        return result
+
+
+class CellStyleXlsx(CellStyle):
+    &#34;&#34;&#34;Cell styling settings for xlsx templates&#34;&#34;&#34;
+    def __init__(
+        self,
+        cell_locked: bool=None,
+        cell_hidden: bool=None,
+        cell_background: str=None,
+        font_name: str=None,
+        font_size: Union[int, str]=None,
+        font_color: str=None,
+        font_italic: bool=None,
+        font_bold: bool=None,
+        font_strike: bool=None,
+        font_underline: bool=None,
+        font_superscript: bool=None,
+        font_subscript: bool=None,
+        border_top: str=None,
+        border_top_color: str=None,
+        border_bottom: str=None,
+        border_bottom_color: str=None,
+        border_left: str=None,
+        border_left_color: str=None,
+        border_right: str=None,
+        border_right_color: str=None,
+        border_diagonal: str=None,
+        border_diagonal_direction: str=None,
+        border_diagonal_color: str=None,
+        text_h_alignment: str=None,
+        text_v_alignment: str=None,
+        text_rotation: Union[int, str]=None
+    ):
+        &#34;&#34;&#34;
+        Args:
+            cell_locked (bool, optional): Whether or not the cell is locked. Defaults to None.
+            cell_hidden (bool, optional): Whether or not the cell is hidden. Defaults to None.
+            cell_background (str, optional): hex color e.g: #ff0000. Defaults to None.
+            font_name (str, optional): name of the font e.g: Arial. Defaults to None.
+            font_size (Union[int, str], optional): The size of the font. Defaults to None.
+            font_color (str, optional): hex color e.g: #00ff00. Defaults to None.
+            font_italic (bool, optional): Whether or not the text is in italic. Defaults to None.
+            font_bold (bool, optional): Whether or not the text is in bold. Defaults to None.
+            font_strike (bool, optional): Whether or not the text is struck. Defaults to None.
+            font_underline (bool, optional): Whether or not the text is underlined. Defaults to None.
+            font_superscript (bool, optional): Whether or not the text is in superscript. Defaults to None.
+            font_subscript (bool, optional): Whether or not the text is in subscript. Defaults to None.
+            border_top (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_top_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_bottom (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_bottom_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_left (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_left_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_right (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_right_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_diagonal (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_diagonal_direction (str, optional): [up-wards|down-wards| both]. Defaults to None.
+            border_diagonal_color (str, optional): hex color e.g: #000000. Defaults to None.
+            text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
+            text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
+            text_rotation (Union[int, str], optional): rotation of text value from 0-90 degrees. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.cell_locked: bool = cell_locked
+        self.cell_hidden: bool = cell_hidden
+        self.cell_background: str = cell_background
+        self.font_name: str = font_name
+        self.font_size: Union[int, str] = font_size
+        self.font_color: str = font_color
+        self.font_italic: bool = font_italic
+        self.font_bold: bool = font_bold
+        self.font_strike: bool = font_strike
+        self.font_underline: bool = font_underline
+        self.font_superscript: bool = font_superscript
+        self.font_subscript: bool = font_subscript
+        self.border_top: str = border_top
+        self.border_top_color: str = border_top_color
+        self.border_bottom: str = border_bottom
+        self.border_bottom_color: str = border_bottom_color
+        self.border_left: str = border_left
+        self.border_left_color: str = border_left_color
+        self.border_right: str = border_right
+        self.border_right_color: str = border_right_color
+        self.border_diagonal: str = border_diagonal
+        self.border_diagonal_direction: str = border_diagonal_direction
+        self.border_diagonal_color: str = border_diagonal_color
+        self.text_h_alignment: str = text_h_alignment
+        self.text_v_alignment: str = text_v_alignment
+        self.text_rotation: Union[int, str] = text_rotation
+
+    @property
+    def _dict_suffixes(self):
+        result = super()._dict_suffixes
+
+        if self.cell_locked is not None:
+            result[&#39;_cell_locked&#39;] = self.cell_locked
+        if self.cell_hidden is not None:
+            result[&#39;_cell_hidden&#39;] = self.cell_hidden
+        if self.cell_background is not None:
+            result[&#39;_cell_background&#39;] = self.cell_background
+        if self.font_name is not None:
+            result[&#39;_font_name&#39;] = self.font_name
+        if self.font_size is not None:
+            result[&#39;_font_size&#39;] = self.font_size
+        if self.font_color is not None:
+            result[&#39;_font_color&#39;] = self.font_color
+        if self.font_italic is not None:
+            result[&#39;_font_italic&#39;] = self.font_italic
+        if self.font_bold is not None:
+            result[&#39;_font_bold&#39;] = self.font_bold
+        if self.font_strike is not None:
+            result[&#39;_font_strike&#39;] = self.font_strike
+        if self.font_underline is not None:
+            result[&#39;_font_underline&#39;] = self.font_underline
+        if self.font_superscript is not None:
+            result[&#39;_font_superscript&#39;] = self.font_superscript
+        if self.font_subscript is not None:
+            result[&#39;_font_subscript&#39;] = self.font_subscript
+        if self.border_top is not None:
+            result[&#39;_border_top&#39;] = self.border_top
+        if self.border_top_color is not None:
+            result[&#39;_border_top_color&#39;] = self.border_top_color
+        if self.border_bottom is not None:
+            result[&#39;_border_bottom&#39;] = self.border_bottom
+        if self.border_bottom_color is not None:
+            result[&#39;_border_bottom_color&#39;] = self.border_bottom_color
+        if self.border_left is not None:
+            result[&#39;_border_left&#39;] = self.border_left
+        if self.border_left_color is not None:
+            result[&#39;_border_left_color&#39;] = self.border_left_color
+        if self.border_right is not None:
+            result[&#39;_border_right&#39;] = self.border_right
+        if self.border_right_color is not None:
+            result[&#39;_border_right_color&#39;] = self.border_right_color
+        if self.border_diagonal is not None:
+            result[&#39;_border_diagonal&#39;] = self.border_diagonal
+        if self.border_diagonal_direction is not None:
+            result[&#39;_border_diagonal_direction&#39;] = self.border_diagonal_direction
+        if self.border_diagonal_color is not None:
+            result[&#39;_border_diagonal_color&#39;] = self.border_diagonal_color
+        if self.text_h_alignment is not None:
+            result[&#39;_text_h_alignment&#39;] = self.text_h_alignment
+        if self.text_v_alignment is not None:
+            result[&#39;_text_v_alignment&#39;] = self.text_v_alignment
+        if self.text_rotation is not None:
+            result[&#39;_text_rotation&#39;] = self.text_rotation
+        
+        return result
+
+
+class Element(ABC):
+    &#34;&#34;&#34; The abstract base class for elements.&#34;&#34;&#34;
+
+    def __init__(self, name: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name of this element.
+        &#34;&#34;&#34;
+        self.name = name
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Get the string representation of this object.
+
+        Returns:
+            str: string representation of this object
+        &#34;&#34;&#34;
+        return self.json
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;Get the JSON representation of this object.
+
+        Returns:
+            str: JSON representation of this object
+        &#34;&#34;&#34;
+        return self.json
+
+    @property
+    def json(self) -&gt; str:
+        &#34;&#34;&#34;JSON representation of this `Element`.
+
+        Isomorphic with the dict representation (`Element.as_dict`).
+
+        Returns:
+            str: JSON representation
+        &#34;&#34;&#34;
+        return json.dumps(self.as_dict)
+
+    @property
+    @abstractmethod
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;Dictionary representation of this `Element`.
+
+        Isomorphic with the JSON representation (`Element.json`).
+
+        Returns:
+            Dict: dictionary representation
+        &#34;&#34;&#34;
+        pass
+
+    @property
+    @abstractmethod
+    def available_tags(self) -&gt; FrozenSet[str]:
+        &#34;&#34;&#34;A `frozenset` containing all available template tags this `Element` reacts to.
+
+        Returns:
+            FrozenSet[str]: set of tags associated with this `Element`
+        &#34;&#34;&#34;
+        pass
+
+
+class Property(Element):
+    &#34;&#34;&#34;The most basic `Element`. It simply consists of a name and a value.
+
+    In a template, `{name}` is replaced by `value`.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property. Note: the general purpose for this value-field is the value as a string,
+                but this can be of any type, for example a dict.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value: Union[int, str] = value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        return {
+            self.name: self.value
+        }
+
+
+class CellStyleProperty(Property):
+    def __init__(self, name: str, value: str, cell_style: CellStyle):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property
+            value (str): The value for this property
+            cell_style (CellStyle): Cell style as a `CellStyle`.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.cell_style: CellStyle = cell_style
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&#34; + self.name + &#34;$}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        for suffix, value in self.cell_style._dict_suffixes.items():
+            result[self.name + suffix] = value
+
+        return result
+
+
+class Html(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{_&#34; + self.name + &#34;}&#34;})
+
+
+class RightToLeft(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&lt;&#34; + self.name + &#34;}&#34;})
+
+
+class FootNote(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{+&#34; + self.name + &#34;}&#34;})
+
+
+class Hyperlink(Element):
+    def __init__(self, name: str, url: str, text: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            url (str): The URL for the hyperlink.
+            text (str, optional): The text for the hyperlink. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.url: str = url
+        self.text: str = text
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{*&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.url
+        }
+
+        if self.text is not None:
+            result[self.name + &#34;_text&#34;] = self.text
+
+        return result
+
+
+class TableOfContents(Element):
+    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            title (str): Title of the table of contents. Defaults to None.
+            depth (int, optional): The depth of heading to be shown, default 3. Defaults to None.
+            tab_leader (str, optional): How the space between title and page number should be filled. Can be &#34;hyphen&#34;, &#34;underscore&#34;, or &#34;dot&#34; (default). Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.title: str = title
+        self.depth: int = depth
+        self.tab_leader: str = tab_leader
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{~&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = dict()
+
+        if self.title:
+            result[self.name + &#34;_title&#34;] = self.title
+        if self.depth:
+            result[self.name + &#34;_show_level&#34;] = self.depth
+        if self.tab_leader:
+            result[self.name + &#34;_tab_leader&#34;] = self.tab_leader
+
+        return result
+
+
+class Raw(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{@&#34; + self.name + &#34;}&#34;})
+
+
+class Span(Property):
+    def __init__(self, name: str, value: str, columns: int, rows: int):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+            columns (int): The amount of columns to span.
+            rows (int): The amount of rows to span.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.columns = columns
+        self.rows = rows
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&#34; + self.name + &#34;#}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        return {
+            self.name: self.value,
+            self.name + &#34;_row_span&#34;: self.rows,
+            self.name + &#34;_col_span&#34;: self.columns
+        }
+
+
+class Formula(Property):
+    def __init__(self, name: str, formula: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            formula (str): The formula.
+        &#34;&#34;&#34;
+        super().__init__(name, formula)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&gt;&#34; + self.name + &#34;}&#34;})
+
+
+class StyledProperty(Property):
+    def __init__(self,
+                 name: str,
+                 value: str,
+                 font: str = None,
+                 font_size: Union[str, int] = None,
+                 font_color: str = None,
+                 bold: bool = None,
+                 italic: bool = None,
+                 underline: bool = None,
+                 strikethrough: bool = None,
+                 highlight_color: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+            font (str, optional): The font. Defaults to None.
+            font_size (Union[str, int], optional): The font size. Defaults to None.
+            font_color (str, optional): The font color. Defaults to None.
+            bold (bool, optional): Whether or not the text should be bold. Defaults to None.
+            italic (bool, optional): Whether or not the text should be italic. Defaults to None.
+            underline (bool, optional): Whether or not the text should be underlined. Defaults to None.
+            strikethrough (bool, optional): Whether or not the text should be struckthrough. Defaults to None.
+            highlight_color (str, optional): The color in which the text should be highlighted. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.font: str = font
+        self.font_size: Union[str, int] = font_size
+        self.font_color: str = font_color
+        self.bold: bool = bold
+        self.italic: bool = italic
+        self.underline: bool = underline
+        self.strikethrough: bool = strikethrough
+        self.highlight_color: str = highlight_color
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{style &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        if self.font is not None:
+            result[self.name + &#34;_font_family&#34;] = self.font
+        if self.font_size is not None:
+            result[self.name + &#34;_font_size&#34;] = self.font_size
+        if self.font_color is not None:
+            result[self.name + &#34;_font_color&#34;] = self.font_color
+        if self.bold is not None:
+            result[self.name + &#34;_bold&#34;] = self.bold
+        if self.italic is not None:
+            result[self.name + &#34;_italic&#34;] = self.italic
+        if self.underline is not None:
+            result[self.name + &#34;_underline&#34;] = self.underline
+        if self.strikethrough is not None:
+            result[self.name + &#34;_strikethrough&#34;] = self.strikethrough
+        if self.highlight_color is not None:
+            result[self.name + &#34;_highlight&#34;] = self.highlight_color
+
+        return result
+
+
+class Watermark(Property):
+    def __init__(self,
+                 name: str,
+                 text: str,
+                 color: str = None,
+                 font: str = None,
+                 width: Union[int, str] = None,
+                 height: Union[int, str] = None,
+                 opacity: float = None,
+                 rotation: int = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            text (str): The text for the watermark.
+            color (str, optional): The color for the watermark. Defaults to None.
+            font (str, optional): The font for the watermark. Defaults to None.
+            width (Union[int, str], optional): The width of the watermark. Defaults to None.
+            height (Union[int, str], optional): The height of the watermark. Defaults to None.
+            opacity (float, optional): The opacity of the watermark. Defaults to None.
+            rotation (int, optional): The rotation of the watermark. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name, text)
+        self.color: str = color
+        self.font: str = font
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+        self.opacity: float = opacity
+        self.rotation: int = rotation
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{watermark &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        if self.color is not None:
+            result[self.name + &#34;_color&#34;] = self.color
+        if self.font is not None:
+            result[self.name + &#34;_font&#34;] = self.font
+        if self.width is not None:
+            result[self.name + &#34;_width&#34;] = self.width
+        if self.height is not None:
+            result[self.name + &#34;_height&#34;] = self.height
+        if self.opacity is not None:
+            result[self.name + &#34;_opacity&#34;] = self.opacity
+        if self.rotation is not None:
+            result[self.name + &#34;_rotation&#34;] = self.rotation
+
+        return result
+
+
+class D3Code(Element):
+    def __init__(self, name: str, code: str, data: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            code (str): The JSON-encoded code for generating a D3 image.
+            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.code: str = code
+        self.data: str = data
+        
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{$d3 &#34; + self.name + &#34;}&#34;})
+    
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.code
+        }
+
+        if self.data is not None:
+            result[self.name + &#39;_data&#39;] = self.data
+        
+        return result
+
+class AOPChartDateOptions:
+    &#34;&#34;&#34;Date options for an AOPChart (different from ChartDateOptions in charts.py).&#34;&#34;&#34;
+    def __init__(self,
+                 format: str = None,
+                 unit: str = None,
+                 step: Union[int, str] = None):
+        &#34;&#34;&#34;
+        Args:
+            format (str, optional): The format to display the date on the chart&#39;s axis. Defaults to None.
+            unit (str, optional): The unit to be used for spacing the axis values. Defaults to None.
+            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined). 
+                This option is not supported in LibreOffice. Defaults to None.
+        &#34;&#34;&#34;
+        self.format: str = format
+        self.unit: str = unit
+        self.step: Union[int, str] = step
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {}
+
+        if self.format is not None:
+            result[&#34;format&#34;] = self.format
+        if self.unit is not None:
+            result[&#34;unit&#34;] = self.unit
+        if self.step is not None:
+            result[&#34;step&#34;] = self.step
+
+        return result
+
+
+class AOPChart(Element):
+    &#34;&#34;&#34;The class for an AOPChart. This is used for chart templating.&#34;&#34;&#34;
+    def __init__(self,
+                 name: str,
+                 x_data: Iterable[Union[str, int, float, Mapping]],
+                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
+                 date: AOPChartDateOptions = None,
+                 title: str = None,
+                 x_title: str = None,
+                 y_title: str = None,
+                 y2_title: str = None,
+                 x2_title: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            x_data (Iterable[Union[str, int, float, Mapping]]): The data for the x-axis. Format : [&#34;day 1&#34;, &#34;day 2&#34;, &#34;day 3&#34;, &#34;day 4&#34;, &#34;day 5&#34;] or
+                [{&#34;value&#34;: &#34;day 1&#34;}, {&#34;value&#34;: &#34;day 2&#34;}, {&#34;value&#34;: &#34;day 3&#34;}, {&#34;value&#34;: &#34;day 4&#34;}, {&#34;value&#34;: &#34;day 5&#34;}]
+            y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):
+                The data for the y-axis in the same format as x_data.
+            date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+            title (str, optional): The title of the chart. Defaults to None.
+            x_title (str, optional): The title for the x-axis. Defaults to None.
+            y_title (str, optional): The title for the y-axis. Defaults to None.
+            y2_title (str, optional): The title for the second y-axis. Defaults to None.
+            x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+        Raises:
+            TypeError: raise error when the input data for the y-axis is not valid
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.x_data: List = list(x_data)
+
+        self.y_datas: Dict[str, Iterable[Union[str, int, float]]] = None
+        &#34;&#34;&#34;If the argument &#39;y_datas&#39; is of type Iterable[Iterable], then default names (e.g. series 1, series 2, ...) will be used.&#34;&#34;&#34;
+        if isinstance(y_datas, Mapping):
+            self.y_datas = {
+                name: list(data) for name, data in y_datas.items()
+            }
+        elif isinstance(y_datas, Iterable):
+            self.y_datas = {
+                f&#34;series {i+1}&#34;: list(data) for i, data in enumerate(y_datas)
+            }
+        else:
+            raise TypeError(
+                f&#39;Expected Mapping or Iterable for y_data, got &#34;{type(y_datas)}&#34;&#39;)
+
+        self.date: AOPChartDateOptions = date
+        self.title: str = title
+        self.x_title: str = x_title
+        self.y_title: str = y_title
+        self.x2_title: str = x2_title
+        self.y2_title: str = y2_title
+
+    @classmethod
+    def from_dataframe(cls,
+                       name: str,
+                       data: &#39;pandas.DataFrame&#39;,
+                       date: AOPChartDateOptions = None,
+                       title: str = None,
+                       x_title: str = None,
+                       y_title: str = None,
+                       y2_title: str = None,
+                       x2_title: str = None) -&gt; &#39;AOPChart&#39;:
+        &#34;&#34;&#34;Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            name (str): The name for this element.
+            data (pandas.DataFrame): The data for this AOPChart in a Pandas dataframe
+            date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+            title (str, optional): The title for the chart. Defaults to None.
+            x_title (str, optional): The title for the x-axis. Defaults to None.
+            y_title (str, optional): The title for the y-axis. Defaults to None.
+            y2_title (str, optional): The title for the second y-axis. Defaults to None.
+            x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+        Returns:
+            AOPChart: the AOPChart object generated from the dataframe
+        &#34;&#34;&#34;
+        x_data = list(data.iloc[:, 0])
+
+        y_frame = data.iloc[:, 1:]
+        y_datas = {}
+        for col_name, col_data in y_frame.iteritems():
+            y_datas[col_name] = col_data
+
+        return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            &#34;xAxis&#34;: {
+                &#34;data&#34;: self.x_data,
+            },
+            &#34;yAxis&#34;: {
+                &#34;series&#34;: [{
+                    &#34;name&#34;: name,
+                    &#34;data&#34;: data
+                } for name, data in self.y_datas.items()]
+            }
+        }
+
+        if self.title is not None:
+            result[&#34;title&#34;] = self.title
+        if self.date is not None:
+            result[&#39;xAxis&#39;][&#39;date&#39;] = self.date.as_dict
+        if self.x_title is not None:
+            result[&#34;xAxis&#34;][&#34;title&#34;] = self.x_title
+        if self.y_title is not None:
+            result[&#34;yAxis&#34;][&#34;title&#34;] = self.y_title
+        if self.x2_title is not None:
+            result[&#39;x2Axis&#39;] = {}
+            result[&#34;x2Axis&#34;][&#34;title&#34;] = self.x2_title
+        if self.y2_title is not None:
+            result[&#39;y2Axis&#39;] = {}
+            result[&#34;y2Axis&#34;][&#34;title&#34;] = self.y2_title
+
+        return {self.name: result}
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{aopchart &#34; + self.name + &#34;}&#34;})
+
+
+class PageBreak(Property):
+    &#34;&#34;&#34;The class for a page break property.&#34;&#34;&#34;
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (Union[str, bool]): Value should be set to &#39;page&#39; or &#39;pagebreak&#39; for PageBreak, &#39;column&#39; or &#39;columnbreak&#39; for column breaks.
+                If set to True (default) it will create a pagebreak.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+    
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?&#34; + self.name + &#34;}&#34;})
+
+
+class MarkdownContent(Property):
+    &#34;&#34;&#34;The class for markdown content.&#34;&#34;&#34;
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): Holds the Markdown content.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{_&#34; + self.name + &#34;_}&#34;})
+
+
+class TextBox(Element):
+    &#34;&#34;&#34;This tag will allow you to insert a text box starting in the cell containing the tag in Excel.&#34;&#34;&#34;
+    def __init__(self,
+    name: str,
+    value: str,
+    font: str=None,
+    font_color: str=None,
+    font_size: Union[int, str]=None,
+    transparency: Union[int, str]=None,
+    width: Union[int, str]=None,
+    height: Union[int, str]=None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            value (str): The value for this element.
+            font (str, optional): The font. Defaults to None.
+            font_color (str, optional): The font color. Defaults to None.
+            font_size (Union[int, str], optional): The font size. Defaults to None.
+            transparency (Union[int, str], optional): The transparency. Defaults to None.
+            width (Union[int, str], optional): The width of the text box. Defaults to None.
+            height (Union[int, str], optional): The height of the text box. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value: str = value
+        self.font: str = font
+        self.font_color: str = font_color
+        self.font_size: Union[int, str] = font_size
+        self.transparency: Union[int, str] = transparency
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+    
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{tbox &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        if self.font is not None:
+            result[self.name + &#39;_font&#39;] = self.font
+        if self.font_color is not None:
+            result[self.name + &#39;_font_color&#39;] = self.font_color
+        if self.font_size is not None:
+            result[self.name + &#39;_font_size&#39;] = self.font_size
+        if self.transparency is not None:
+            result[self.name + &#39;_transparency&#39;] = self.transparency
+        if self.width is not None:
+            result[self.name + &#39;_width&#39;] = self.width
+        if self.height is not None:
+            result[self.name + &#39;_height&#39;] = self.height
+
+        return result
+
+
+class ElementCollection(list, Element):
+    &#34;&#34;&#34;A collection used to group multiple elements together.
+    It can contain nested `ElementCollection`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
+    Its name is used as a key name when nested, but ignored for all purposes when it&#39;s the outer ElementCollection.
+    &#34;&#34;&#34;
+    def __init__(self, name: str = &#34;&#34;, elements: Iterable[Element] = ()):
+        &#34;&#34;&#34;
+        Args:
+            name (str, optional): The name for this element collection. Not used for the outer ElementCollection, but needed for nested ElementCollections Defaults to &#34;&#34;.
+            elements (Iterable[Element], optional): An iterable containing the elements that need to be added to this collection. Defaults to ().
+        &#34;&#34;&#34;
+        list.__init__(self, elements)
+        Element.__init__(self, name)
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str: The string representation for this object.
+        &#34;&#34;&#34;
+        return self.json
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str: The JSON representation for this object.
+        &#34;&#34;&#34;
+        return self.json
+
+    def copy(self) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;
+        Returns:
+            ElementCollection: A copy of this element collection.
+        &#34;&#34;&#34;
+        return self.__class__(self)
+
+    def deepcopy(self) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;
+        Returns:
+            ElementCollection: A deep copy of this element collection.
+        &#34;&#34;&#34;
+        return deepcopy(self)
+
+    @property
+    def json(self):
+        return json.dumps(self.as_dict)
+
+    def add(self, element: Element):
+        &#34;&#34;&#34;Add an element to this element collection object.
+
+        Args:
+            element (Element): the element to add to this collection
+        &#34;&#34;&#34;
+        self.append(element)
+
+    def add_all(self, obj: &#39;ElementCollection&#39;):
+        &#34;&#34;&#34;Add all the elements in the given collection to this collection.
+
+        Args:
+            obj (ElementCollection): the collection of which the elements need to be added to this element collection object
+        &#34;&#34;&#34;
+        for element in obj:
+            self.add(element)
+
+    def remove_element_by_name(self, element_name: str):
+        &#34;&#34;&#34;Remove an element from this element collection object by its name.
+
+        Args:
+            element_name (str): the name of the element that needs to be removed
+        &#34;&#34;&#34;
+        self.remove(
+            next(element for element in self if element.name == element_name)
+        )
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;Merge the `ElementCollection`&#39;s contents as one dict.
+
+        Returns:
+            Dict: merged element
+        &#34;&#34;&#34;
+        result = {}
+        for element in self:
+            if isinstance(element, ElementCollection):
+                result.update({element.name: element.as_dict})
+            else:
+                result.update(element.as_dict)
+        return result
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        result = set()
+        for element in self:
+            result |= element.available_tags
+        return frozenset(result)
+
+    @classmethod
+    def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;Generate an element collection from an element and a name.
+
+        Args:
+            element (Element): the element that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+        Returns:
+            ElementCollection: the generated element collection from an element and a name
+        &#34;&#34;&#34;
+        return cls.from_mapping(element.as_dict, name)
+
+    @classmethod
+    def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;Generate an element collection from a mapping and a name.
+
+        Args:
+            mapping (Mapping): the mapping that needs to be converted to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+        Returns:
+            ElementCollection: an element collection generated from the given mapping and name
+        &#34;&#34;&#34;
+        result_set = set()
+        for key, value in mapping.items():
+            result_set.add(Property(key, value))
+        return cls(name, result_set)
+
+    @classmethod
+    def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;Generate an element collection from a JSON string.
+
+        Args:
+            json_str (str): the json string that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+        Returns:
+            ElementCollection: an element collection generated from the given JSON string and name
+        &#34;&#34;&#34;
+        return cls.from_mapping(json.loads(json_str), name)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="apexofficeprint.elements.elements.AOPChart"><code class="flex name class">
+<span>class <span class="ident">AOPChart</span></span>
+<span>(</span><span>name: str, x_data: Iterable[Union[str, int, float, Mapping]], y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]], date: <a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class for an AOPChart. This is used for chart templating.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>x_data</code></strong> :&ensp;<code>Iterable[Union[str, int, float, Mapping]]</code></dt>
+<dd>The data for the x-axis. Format : ["day 1", "day 2", "day 3", "day 4", "day 5"] or
+[{"value": "day 1"}, {"value": "day 2"}, {"value": "day 3"}, {"value": "day 4"}, {"value": "day 5"}]</dd>
+<dt>y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):</dt>
+<dt>The data for the y-axis in the same format as x_data.</dt>
+<dt><strong><code>date</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a></code>, optional</dt>
+<dd>The date options for the chart. Defaults to None.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title of the chart. Defaults to None.</dd>
+<dt><strong><code>x_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the x-axis. Defaults to None.</dd>
+<dt><strong><code>y_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the y-axis. Defaults to None.</dd>
+<dt><strong><code>y2_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the second y-axis. Defaults to None.</dd>
+<dt><strong><code>x2_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the second x-axis. Defaults to None.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>TypeError</code></dt>
+<dd>raise error when the input data for the y-axis is not valid</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AOPChart(Element):
+    &#34;&#34;&#34;The class for an AOPChart. This is used for chart templating.&#34;&#34;&#34;
+    def __init__(self,
+                 name: str,
+                 x_data: Iterable[Union[str, int, float, Mapping]],
+                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
+                 date: AOPChartDateOptions = None,
+                 title: str = None,
+                 x_title: str = None,
+                 y_title: str = None,
+                 y2_title: str = None,
+                 x2_title: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            x_data (Iterable[Union[str, int, float, Mapping]]): The data for the x-axis. Format : [&#34;day 1&#34;, &#34;day 2&#34;, &#34;day 3&#34;, &#34;day 4&#34;, &#34;day 5&#34;] or
+                [{&#34;value&#34;: &#34;day 1&#34;}, {&#34;value&#34;: &#34;day 2&#34;}, {&#34;value&#34;: &#34;day 3&#34;}, {&#34;value&#34;: &#34;day 4&#34;}, {&#34;value&#34;: &#34;day 5&#34;}]
+            y_datas (Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]]):
+                The data for the y-axis in the same format as x_data.
+            date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+            title (str, optional): The title of the chart. Defaults to None.
+            x_title (str, optional): The title for the x-axis. Defaults to None.
+            y_title (str, optional): The title for the y-axis. Defaults to None.
+            y2_title (str, optional): The title for the second y-axis. Defaults to None.
+            x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+        Raises:
+            TypeError: raise error when the input data for the y-axis is not valid
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.x_data: List = list(x_data)
+
+        self.y_datas: Dict[str, Iterable[Union[str, int, float]]] = None
+        &#34;&#34;&#34;If the argument &#39;y_datas&#39; is of type Iterable[Iterable], then default names (e.g. series 1, series 2, ...) will be used.&#34;&#34;&#34;
+        if isinstance(y_datas, Mapping):
+            self.y_datas = {
+                name: list(data) for name, data in y_datas.items()
+            }
+        elif isinstance(y_datas, Iterable):
+            self.y_datas = {
+                f&#34;series {i+1}&#34;: list(data) for i, data in enumerate(y_datas)
+            }
+        else:
+            raise TypeError(
+                f&#39;Expected Mapping or Iterable for y_data, got &#34;{type(y_datas)}&#34;&#39;)
+
+        self.date: AOPChartDateOptions = date
+        self.title: str = title
+        self.x_title: str = x_title
+        self.y_title: str = y_title
+        self.x2_title: str = x2_title
+        self.y2_title: str = y2_title
+
+    @classmethod
+    def from_dataframe(cls,
+                       name: str,
+                       data: &#39;pandas.DataFrame&#39;,
+                       date: AOPChartDateOptions = None,
+                       title: str = None,
+                       x_title: str = None,
+                       y_title: str = None,
+                       y2_title: str = None,
+                       x2_title: str = None) -&gt; &#39;AOPChart&#39;:
+        &#34;&#34;&#34;Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+        Args:
+            name (str): The name for this element.
+            data (pandas.DataFrame): The data for this AOPChart in a Pandas dataframe
+            date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+            title (str, optional): The title for the chart. Defaults to None.
+            x_title (str, optional): The title for the x-axis. Defaults to None.
+            y_title (str, optional): The title for the y-axis. Defaults to None.
+            y2_title (str, optional): The title for the second y-axis. Defaults to None.
+            x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+        Returns:
+            AOPChart: the AOPChart object generated from the dataframe
+        &#34;&#34;&#34;
+        x_data = list(data.iloc[:, 0])
+
+        y_frame = data.iloc[:, 1:]
+        y_datas = {}
+        for col_name, col_data in y_frame.iteritems():
+            y_datas[col_name] = col_data
+
+        return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            &#34;xAxis&#34;: {
+                &#34;data&#34;: self.x_data,
+            },
+            &#34;yAxis&#34;: {
+                &#34;series&#34;: [{
+                    &#34;name&#34;: name,
+                    &#34;data&#34;: data
+                } for name, data in self.y_datas.items()]
+            }
+        }
+
+        if self.title is not None:
+            result[&#34;title&#34;] = self.title
+        if self.date is not None:
+            result[&#39;xAxis&#39;][&#39;date&#39;] = self.date.as_dict
+        if self.x_title is not None:
+            result[&#34;xAxis&#34;][&#34;title&#34;] = self.x_title
+        if self.y_title is not None:
+            result[&#34;yAxis&#34;][&#34;title&#34;] = self.y_title
+        if self.x2_title is not None:
+            result[&#39;x2Axis&#39;] = {}
+            result[&#34;x2Axis&#34;][&#34;title&#34;] = self.x2_title
+        if self.y2_title is not None:
+            result[&#39;y2Axis&#39;] = {}
+            result[&#34;y2Axis&#34;][&#34;title&#34;] = self.y2_title
+
+        return {self.name: result}
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{aopchart &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.AOPChart.from_dataframe"><code class="name flex">
+<span>def <span class="ident">from_dataframe</span></span>(<span>name: str, data: pandas.DataFrame, date: <a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None) ‑> <a title="apexofficeprint.elements.elements.AOPChart" href="#apexofficeprint.elements.elements.AOPChart">AOPChart</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Construct an AOPChart object from a <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Pandas dataframe</a>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>The data for this AOPChart in a Pandas dataframe</dd>
+<dt><strong><code>date</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a></code>, optional</dt>
+<dd>The date options for the chart. Defaults to None.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the chart. Defaults to None.</dd>
+<dt><strong><code>x_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the x-axis. Defaults to None.</dd>
+<dt><strong><code>y_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the y-axis. Defaults to None.</dd>
+<dt><strong><code>y2_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the second y-axis. Defaults to None.</dd>
+<dt><strong><code>x2_title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The title for the second x-axis. Defaults to None.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.elements.AOPChart" href="#apexofficeprint.elements.elements.AOPChart">AOPChart</a></code></dt>
+<dd>the AOPChart object generated from the dataframe</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_dataframe(cls,
+                   name: str,
+                   data: &#39;pandas.DataFrame&#39;,
+                   date: AOPChartDateOptions = None,
+                   title: str = None,
+                   x_title: str = None,
+                   y_title: str = None,
+                   y2_title: str = None,
+                   x2_title: str = None) -&gt; &#39;AOPChart&#39;:
+    &#34;&#34;&#34;Construct an AOPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+
+    Args:
+        name (str): The name for this element.
+        data (pandas.DataFrame): The data for this AOPChart in a Pandas dataframe
+        date (AOPChartDateOptions, optional): The date options for the chart. Defaults to None.
+        title (str, optional): The title for the chart. Defaults to None.
+        x_title (str, optional): The title for the x-axis. Defaults to None.
+        y_title (str, optional): The title for the y-axis. Defaults to None.
+        y2_title (str, optional): The title for the second y-axis. Defaults to None.
+        x2_title (str, optional): The title for the second x-axis. Defaults to None.
+
+    Returns:
+        AOPChart: the AOPChart object generated from the dataframe
+    &#34;&#34;&#34;
+    x_data = list(data.iloc[:, 0])
+
+    y_frame = data.iloc[:, 1:]
+    y_datas = {}
+    for col_name, col_data in y_frame.iteritems():
+        y_datas[col_name] = col_data
+
+    return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.AOPChart.y_datas"><code class="name">var <span class="ident">y_datas</span></code></dt>
+<dd>
+<div class="desc"><p>If the argument 'y_datas' is of type Iterable[Iterable], then default names (e.g. series 1, series 2, &hellip;) will be used.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.AOPChartDateOptions"><code class="flex name class">
+<span>class <span class="ident">AOPChartDateOptions</span></span>
+<span>(</span><span>format: str = None, unit: str = None, step: Union[int, str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Date options for an AOPChart (different from ChartDateOptions in charts.py).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>format</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The format to display the date on the chart's axis. Defaults to None.</dd>
+<dt><strong><code>unit</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The unit to be used for spacing the axis values. Defaults to None.</dd>
+<dt><strong><code>step</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>How many of the above unit should be used for spacing the axis values (automatic if undefined).
+This option is not supported in LibreOffice. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AOPChartDateOptions:
+    &#34;&#34;&#34;Date options for an AOPChart (different from ChartDateOptions in charts.py).&#34;&#34;&#34;
+    def __init__(self,
+                 format: str = None,
+                 unit: str = None,
+                 step: Union[int, str] = None):
+        &#34;&#34;&#34;
+        Args:
+            format (str, optional): The format to display the date on the chart&#39;s axis. Defaults to None.
+            unit (str, optional): The unit to be used for spacing the axis values. Defaults to None.
+            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined). 
+                This option is not supported in LibreOffice. Defaults to None.
+        &#34;&#34;&#34;
+        self.format: str = format
+        self.unit: str = unit
+        self.step: Union[int, str] = step
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {}
+
+        if self.format is not None:
+            result[&#34;format&#34;] = self.format
+        if self.unit is not None:
+            result[&#34;unit&#34;] = self.unit
+        if self.step is not None:
+            result[&#34;step&#34;] = self.step
+
+        return result</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.AOPChartDateOptions.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_dict(self) -&gt; Dict:
+    result = {}
+
+    if self.format is not None:
+        result[&#34;format&#34;] = self.format
+    if self.unit is not None:
+        result[&#34;unit&#34;] = self.unit
+    if self.step is not None:
+        result[&#34;step&#34;] = self.step
+
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="apexofficeprint.elements.elements.CellStyle"><code class="flex name class">
+<span>class <span class="ident">CellStyle</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract base class for a cell style</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CellStyle(ABC):
+    &#34;&#34;&#34;Abstract base class for a cell style&#34;&#34;&#34;
+    def __init__(self):
+        pass
+
+    def get_dict(self, property_name: str) -&gt; Dict:
+        &#34;&#34;&#34;Get the dict representation of this cell style.
+
+        Args:
+            property_name (str): The name of the property for which you want to define the cell style
+
+        Returns:
+            Dict: dict representation of this cell style
+        &#34;&#34;&#34;
+        result = {}
+        for suffix, value in self._dict_suffixes.items():
+            result[property_name + suffix] = value
+        return result
+
+    @property
+    @abstractmethod
+    def _dict_suffixes(self) -&gt; Dict:
+        &#34;&#34;&#34;Get the dict representation of the suffixes that need to be appended to the name of this property in this CellStyle object&#39;s dict representation.
+
+        Returns:
+            Dict: the dict representation of the suffixes that need to be appended to the name of this property in this CellStyle object&#39;s dict representation
+        &#34;&#34;&#34;
+        return {}</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.CellStyleDocx" href="#apexofficeprint.elements.elements.CellStyleDocx">CellStyleDocx</a></li>
+<li><a title="apexofficeprint.elements.elements.CellStyleXlsx" href="#apexofficeprint.elements.elements.CellStyleXlsx">CellStyleXlsx</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.CellStyle.get_dict"><code class="name flex">
+<span>def <span class="ident">get_dict</span></span>(<span>self, property_name: str) ‑> Dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the dict representation of this cell style.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>property_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the property for which you want to define the cell style</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>dict representation of this cell style</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_dict(self, property_name: str) -&gt; Dict:
+    &#34;&#34;&#34;Get the dict representation of this cell style.
+
+    Args:
+        property_name (str): The name of the property for which you want to define the cell style
+
+    Returns:
+        Dict: dict representation of this cell style
+    &#34;&#34;&#34;
+    result = {}
+    for suffix, value in self._dict_suffixes.items():
+        result[property_name + suffix] = value
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="apexofficeprint.elements.elements.CellStyleDocx"><code class="flex name class">
+<span>class <span class="ident">CellStyleDocx</span></span>
+<span>(</span><span>cell_background_color: str = None, width: Union[int, str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Cell styling settings for docx templates</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>cell_background_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The background color of the cell. Defaults to None.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The width of the cell. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CellStyleDocx(CellStyle):
+    &#34;&#34;&#34;Cell styling settings for docx templates&#34;&#34;&#34;
+    def __init__(self, cell_background_color: str=None, width: Union[int, str]=None):
+        &#34;&#34;&#34;
+        Args:
+            cell_background_color (str, optional): The background color of the cell. Defaults to None.
+            width (Union[int, str], optional): The width of the cell. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.cell_background_color: str = cell_background_color
+        self.width: Union[int, str] = width
+
+    @property
+    def _dict_suffixes(self):
+        result = super()._dict_suffixes
+
+        if self.cell_background_color is not None:
+            result[&#39;_cell_background_color&#39;] = self.cell_background_color
+        if self.width is not None:
+            result[&#39;_width&#39;] = self.width
+        
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.CellStyle.get_dict" href="#apexofficeprint.elements.elements.CellStyle.get_dict">get_dict</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.CellStyleProperty"><code class="flex name class">
+<span>class <span class="ident">CellStyleProperty</span></span>
+<span>(</span><span>name: str, value: str, cell_style: <a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property</dd>
+<dt><strong><code>cell_style</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></code></dt>
+<dd>Cell style as a <code><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></code>.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CellStyleProperty(Property):
+    def __init__(self, name: str, value: str, cell_style: CellStyle):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property
+            value (str): The value for this property
+            cell_style (CellStyle): Cell style as a `CellStyle`.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.cell_style: CellStyle = cell_style
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&#34; + self.name + &#34;$}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        for suffix, value in self.cell_style._dict_suffixes.items():
+            result[self.name + suffix] = value
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.CellStyleXlsx"><code class="flex name class">
+<span>class <span class="ident">CellStyleXlsx</span></span>
+<span>(</span><span>cell_locked: bool = None, cell_hidden: bool = None, cell_background: str = None, font_name: str = None, font_size: Union[int, str] = None, font_color: str = None, font_italic: bool = None, font_bold: bool = None, font_strike: bool = None, font_underline: bool = None, font_superscript: bool = None, font_subscript: bool = None, border_top: str = None, border_top_color: str = None, border_bottom: str = None, border_bottom_color: str = None, border_left: str = None, border_left_color: str = None, border_right: str = None, border_right_color: str = None, border_diagonal: str = None, border_diagonal_direction: str = None, border_diagonal_color: str = None, text_h_alignment: str = None, text_v_alignment: str = None, text_rotation: Union[int, str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Cell styling settings for xlsx templates</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>cell_locked</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the cell is locked. Defaults to None.</dd>
+<dt><strong><code>cell_hidden</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the cell is hidden. Defaults to None.</dd>
+<dt><strong><code>cell_background</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #ff0000. Defaults to None.</dd>
+<dt><strong><code>font_name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>name of the font e.g: Arial. Defaults to None.</dd>
+<dt><strong><code>font_size</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The size of the font. Defaults to None.</dd>
+<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #00ff00. Defaults to None.</dd>
+<dt><strong><code>font_italic</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text is in italic. Defaults to None.</dd>
+<dt><strong><code>font_bold</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text is in bold. Defaults to None.</dd>
+<dt><strong><code>font_strike</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text is struck. Defaults to None.</dd>
+<dt><strong><code>font_underline</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text is underlined. Defaults to None.</dd>
+<dt><strong><code>font_superscript</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text is in superscript. Defaults to None.</dd>
+<dt><strong><code>font_subscript</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text is in subscript. Defaults to None.</dd>
+<dt><strong><code>border_top</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.</dd>
+<dt><strong><code>border_top_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #000000. Defaults to None.</dd>
+<dt><strong><code>border_bottom</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.</dd>
+<dt><strong><code>border_bottom_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #000000. Defaults to None.</dd>
+<dt><strong><code>border_left</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.</dd>
+<dt><strong><code>border_left_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #000000. Defaults to None.</dd>
+<dt><strong><code>border_right</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.</dd>
+<dt><strong><code>border_right_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #000000. Defaults to None.</dd>
+<dt><strong><code>border_diagonal</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.</dd>
+<dt><strong><code>border_diagonal_direction</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[up-wards|down-wards| both]. Defaults to None.</dd>
+<dt><strong><code>border_diagonal_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>hex color e.g: #000000. Defaults to None.</dd>
+<dt><strong><code>text_h_alignment</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[top|bottom|center|justify]. Defaults to None.</dd>
+<dt><strong><code>text_v_alignment</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>[top|bottom|center|justify]. Defaults to None.</dd>
+<dt><strong><code>text_rotation</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>rotation of text value from 0-90 degrees. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CellStyleXlsx(CellStyle):
+    &#34;&#34;&#34;Cell styling settings for xlsx templates&#34;&#34;&#34;
+    def __init__(
+        self,
+        cell_locked: bool=None,
+        cell_hidden: bool=None,
+        cell_background: str=None,
+        font_name: str=None,
+        font_size: Union[int, str]=None,
+        font_color: str=None,
+        font_italic: bool=None,
+        font_bold: bool=None,
+        font_strike: bool=None,
+        font_underline: bool=None,
+        font_superscript: bool=None,
+        font_subscript: bool=None,
+        border_top: str=None,
+        border_top_color: str=None,
+        border_bottom: str=None,
+        border_bottom_color: str=None,
+        border_left: str=None,
+        border_left_color: str=None,
+        border_right: str=None,
+        border_right_color: str=None,
+        border_diagonal: str=None,
+        border_diagonal_direction: str=None,
+        border_diagonal_color: str=None,
+        text_h_alignment: str=None,
+        text_v_alignment: str=None,
+        text_rotation: Union[int, str]=None
+    ):
+        &#34;&#34;&#34;
+        Args:
+            cell_locked (bool, optional): Whether or not the cell is locked. Defaults to None.
+            cell_hidden (bool, optional): Whether or not the cell is hidden. Defaults to None.
+            cell_background (str, optional): hex color e.g: #ff0000. Defaults to None.
+            font_name (str, optional): name of the font e.g: Arial. Defaults to None.
+            font_size (Union[int, str], optional): The size of the font. Defaults to None.
+            font_color (str, optional): hex color e.g: #00ff00. Defaults to None.
+            font_italic (bool, optional): Whether or not the text is in italic. Defaults to None.
+            font_bold (bool, optional): Whether or not the text is in bold. Defaults to None.
+            font_strike (bool, optional): Whether or not the text is struck. Defaults to None.
+            font_underline (bool, optional): Whether or not the text is underlined. Defaults to None.
+            font_superscript (bool, optional): Whether or not the text is in superscript. Defaults to None.
+            font_subscript (bool, optional): Whether or not the text is in subscript. Defaults to None.
+            border_top (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_top_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_bottom (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_bottom_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_left (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_left_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_right (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_right_color (str, optional): hex color e.g: #000000. Defaults to None.
+            border_diagonal (str, optional): [dashed / dashDot / hair / dashDotDot / dotted / mediumDashDot / mediumDashed / mediumDashDotDot / slantDashDot / medium / double / thick ]. Defaults to None.
+            border_diagonal_direction (str, optional): [up-wards|down-wards| both]. Defaults to None.
+            border_diagonal_color (str, optional): hex color e.g: #000000. Defaults to None.
+            text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
+            text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
+            text_rotation (Union[int, str], optional): rotation of text value from 0-90 degrees. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.cell_locked: bool = cell_locked
+        self.cell_hidden: bool = cell_hidden
+        self.cell_background: str = cell_background
+        self.font_name: str = font_name
+        self.font_size: Union[int, str] = font_size
+        self.font_color: str = font_color
+        self.font_italic: bool = font_italic
+        self.font_bold: bool = font_bold
+        self.font_strike: bool = font_strike
+        self.font_underline: bool = font_underline
+        self.font_superscript: bool = font_superscript
+        self.font_subscript: bool = font_subscript
+        self.border_top: str = border_top
+        self.border_top_color: str = border_top_color
+        self.border_bottom: str = border_bottom
+        self.border_bottom_color: str = border_bottom_color
+        self.border_left: str = border_left
+        self.border_left_color: str = border_left_color
+        self.border_right: str = border_right
+        self.border_right_color: str = border_right_color
+        self.border_diagonal: str = border_diagonal
+        self.border_diagonal_direction: str = border_diagonal_direction
+        self.border_diagonal_color: str = border_diagonal_color
+        self.text_h_alignment: str = text_h_alignment
+        self.text_v_alignment: str = text_v_alignment
+        self.text_rotation: Union[int, str] = text_rotation
+
+    @property
+    def _dict_suffixes(self):
+        result = super()._dict_suffixes
+
+        if self.cell_locked is not None:
+            result[&#39;_cell_locked&#39;] = self.cell_locked
+        if self.cell_hidden is not None:
+            result[&#39;_cell_hidden&#39;] = self.cell_hidden
+        if self.cell_background is not None:
+            result[&#39;_cell_background&#39;] = self.cell_background
+        if self.font_name is not None:
+            result[&#39;_font_name&#39;] = self.font_name
+        if self.font_size is not None:
+            result[&#39;_font_size&#39;] = self.font_size
+        if self.font_color is not None:
+            result[&#39;_font_color&#39;] = self.font_color
+        if self.font_italic is not None:
+            result[&#39;_font_italic&#39;] = self.font_italic
+        if self.font_bold is not None:
+            result[&#39;_font_bold&#39;] = self.font_bold
+        if self.font_strike is not None:
+            result[&#39;_font_strike&#39;] = self.font_strike
+        if self.font_underline is not None:
+            result[&#39;_font_underline&#39;] = self.font_underline
+        if self.font_superscript is not None:
+            result[&#39;_font_superscript&#39;] = self.font_superscript
+        if self.font_subscript is not None:
+            result[&#39;_font_subscript&#39;] = self.font_subscript
+        if self.border_top is not None:
+            result[&#39;_border_top&#39;] = self.border_top
+        if self.border_top_color is not None:
+            result[&#39;_border_top_color&#39;] = self.border_top_color
+        if self.border_bottom is not None:
+            result[&#39;_border_bottom&#39;] = self.border_bottom
+        if self.border_bottom_color is not None:
+            result[&#39;_border_bottom_color&#39;] = self.border_bottom_color
+        if self.border_left is not None:
+            result[&#39;_border_left&#39;] = self.border_left
+        if self.border_left_color is not None:
+            result[&#39;_border_left_color&#39;] = self.border_left_color
+        if self.border_right is not None:
+            result[&#39;_border_right&#39;] = self.border_right
+        if self.border_right_color is not None:
+            result[&#39;_border_right_color&#39;] = self.border_right_color
+        if self.border_diagonal is not None:
+            result[&#39;_border_diagonal&#39;] = self.border_diagonal
+        if self.border_diagonal_direction is not None:
+            result[&#39;_border_diagonal_direction&#39;] = self.border_diagonal_direction
+        if self.border_diagonal_color is not None:
+            result[&#39;_border_diagonal_color&#39;] = self.border_diagonal_color
+        if self.text_h_alignment is not None:
+            result[&#39;_text_h_alignment&#39;] = self.text_h_alignment
+        if self.text_v_alignment is not None:
+            result[&#39;_text_v_alignment&#39;] = self.text_v_alignment
+        if self.text_rotation is not None:
+            result[&#39;_text_rotation&#39;] = self.text_rotation
+        
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.CellStyle.get_dict" href="#apexofficeprint.elements.elements.CellStyle.get_dict">get_dict</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.D3Code"><code class="flex name class">
+<span>class <span class="ident">D3Code</span></span>
+<span>(</span><span>name: str, code: str, data: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The abstract base class for elements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>code</code></strong> :&ensp;<code>str</code></dt>
+<dd>The JSON-encoded code for generating a D3 image.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The JSON-encoded data that the code will have access to. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class D3Code(Element):
+    def __init__(self, name: str, code: str, data: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            code (str): The JSON-encoded code for generating a D3 image.
+            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.code: str = code
+        self.data: str = data
+        
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{$d3 &#34; + self.name + &#34;}&#34;})
+    
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.code
+        }
+
+        if self.data is not None:
+            result[self.name + &#39;_data&#39;] = self.data
+        
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Element"><code class="flex name class">
+<span>class <span class="ident">Element</span></span>
+<span>(</span><span>name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The abstract base class for elements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of this element.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Element(ABC):
+    &#34;&#34;&#34; The abstract base class for elements.&#34;&#34;&#34;
+
+    def __init__(self, name: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name of this element.
+        &#34;&#34;&#34;
+        self.name = name
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Get the string representation of this object.
+
+        Returns:
+            str: string representation of this object
+        &#34;&#34;&#34;
+        return self.json
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;Get the JSON representation of this object.
+
+        Returns:
+            str: JSON representation of this object
+        &#34;&#34;&#34;
+        return self.json
+
+    @property
+    def json(self) -&gt; str:
+        &#34;&#34;&#34;JSON representation of this `Element`.
+
+        Isomorphic with the dict representation (`Element.as_dict`).
+
+        Returns:
+            str: JSON representation
+        &#34;&#34;&#34;
+        return json.dumps(self.as_dict)
+
+    @property
+    @abstractmethod
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;Dictionary representation of this `Element`.
+
+        Isomorphic with the JSON representation (`Element.json`).
+
+        Returns:
+            Dict: dictionary representation
+        &#34;&#34;&#34;
+        pass
+
+    @property
+    @abstractmethod
+    def available_tags(self) -&gt; FrozenSet[str]:
+        &#34;&#34;&#34;A `frozenset` containing all available template tags this `Element` reacts to.
+
+        Returns:
+            FrozenSet[str]: set of tags associated with this `Element`
+        &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.charts.Chart" href="charts.html#apexofficeprint.elements.charts.Chart">Chart</a></li>
+<li><a title="apexofficeprint.elements.codes.Code" href="codes.html#apexofficeprint.elements.codes.Code">Code</a></li>
+<li><a title="apexofficeprint.elements.elements.AOPChart" href="#apexofficeprint.elements.elements.AOPChart">AOPChart</a></li>
+<li><a title="apexofficeprint.elements.elements.D3Code" href="#apexofficeprint.elements.elements.D3Code">D3Code</a></li>
+<li><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></li>
+<li><a title="apexofficeprint.elements.elements.Hyperlink" href="#apexofficeprint.elements.elements.Hyperlink">Hyperlink</a></li>
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.TableOfContents" href="#apexofficeprint.elements.elements.TableOfContents">TableOfContents</a></li>
+<li><a title="apexofficeprint.elements.elements.TextBox" href="#apexofficeprint.elements.elements.TextBox">TextBox</a></li>
+<li><a title="apexofficeprint.elements.images.Image" href="images.html#apexofficeprint.elements.images.Image">Image</a></li>
+<li><a title="apexofficeprint.elements.loops.ForEach" href="loops.html#apexofficeprint.elements.loops.ForEach">ForEach</a></li>
+<li><a title="apexofficeprint.elements.pdf.PDFFormData" href="pdf.html#apexofficeprint.elements.pdf.PDFFormData">PDFFormData</a></li>
+<li><a title="apexofficeprint.elements.pdf.PDFImages" href="pdf.html#apexofficeprint.elements.pdf.PDFImages">PDFImages</a></li>
+<li><a title="apexofficeprint.elements.pdf.PDFTexts" href="pdf.html#apexofficeprint.elements.pdf.PDFTexts">PDFTexts</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.Element.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dd>
+<div class="desc"><p>Dictionary representation of this <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>.</p>
+<p>Isomorphic with the JSON representation (<code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">Element.json</a></code>).</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>dictionary representation</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def as_dict(self) -&gt; Dict:
+    &#34;&#34;&#34;Dictionary representation of this `Element`.
+
+    Isomorphic with the JSON representation (`Element.json`).
+
+    Returns:
+        Dict: dictionary representation
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.Element.available_tags"><code class="name">var <span class="ident">available_tags</span> : FrozenSet[str]</code></dt>
+<dd>
+<div class="desc"><p>A <code>frozenset</code> containing all available template tags this <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code> reacts to.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>FrozenSet[str]</code></dt>
+<dd>set of tags associated with this <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def available_tags(self) -&gt; FrozenSet[str]:
+    &#34;&#34;&#34;A `frozenset` containing all available template tags this `Element` reacts to.
+
+    Returns:
+        FrozenSet[str]: set of tags associated with this `Element`
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.Element.json"><code class="name">var <span class="ident">json</span> : str</code></dt>
+<dd>
+<div class="desc"><p>JSON representation of this <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>.</p>
+<p>Isomorphic with the dict representation (<code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">Element.as_dict</a></code>).</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>JSON representation</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self) -&gt; str:
+    &#34;&#34;&#34;JSON representation of this `Element`.
+
+    Isomorphic with the dict representation (`Element.as_dict`).
+
+    Returns:
+        str: JSON representation
+    &#34;&#34;&#34;
+    return json.dumps(self.as_dict)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection"><code class="flex name class">
+<span>class <span class="ident">ElementCollection</span></span>
+<span>(</span><span>name: str = '', elements: Iterable[<a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a>] = ())</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A collection used to group multiple elements together.
+It can contain nested <code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code>s and should be used to pass multiple <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>s as PrintJob data, as well as to allow for nested elements.
+Its name is used as a key name when nested, but ignored for all purposes when it's the outer ElementCollection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The name for this element collection. Not used for the outer ElementCollection, but needed for nested ElementCollections Defaults to "".</dd>
+<dt><strong><code>elements</code></strong> :&ensp;<code>Iterable[<a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a>]</code>, optional</dt>
+<dd>An iterable containing the elements that need to be added to this collection. Defaults to ().</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ElementCollection(list, Element):
+    &#34;&#34;&#34;A collection used to group multiple elements together.
+    It can contain nested `ElementCollection`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
+    Its name is used as a key name when nested, but ignored for all purposes when it&#39;s the outer ElementCollection.
+    &#34;&#34;&#34;
+    def __init__(self, name: str = &#34;&#34;, elements: Iterable[Element] = ()):
+        &#34;&#34;&#34;
+        Args:
+            name (str, optional): The name for this element collection. Not used for the outer ElementCollection, but needed for nested ElementCollections Defaults to &#34;&#34;.
+            elements (Iterable[Element], optional): An iterable containing the elements that need to be added to this collection. Defaults to ().
+        &#34;&#34;&#34;
+        list.__init__(self, elements)
+        Element.__init__(self, name)
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str: The string representation for this object.
+        &#34;&#34;&#34;
+        return self.json
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str: The JSON representation for this object.
+        &#34;&#34;&#34;
+        return self.json
+
+    def copy(self) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;
+        Returns:
+            ElementCollection: A copy of this element collection.
+        &#34;&#34;&#34;
+        return self.__class__(self)
+
+    def deepcopy(self) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;
+        Returns:
+            ElementCollection: A deep copy of this element collection.
+        &#34;&#34;&#34;
+        return deepcopy(self)
+
+    @property
+    def json(self):
+        return json.dumps(self.as_dict)
+
+    def add(self, element: Element):
+        &#34;&#34;&#34;Add an element to this element collection object.
+
+        Args:
+            element (Element): the element to add to this collection
+        &#34;&#34;&#34;
+        self.append(element)
+
+    def add_all(self, obj: &#39;ElementCollection&#39;):
+        &#34;&#34;&#34;Add all the elements in the given collection to this collection.
+
+        Args:
+            obj (ElementCollection): the collection of which the elements need to be added to this element collection object
+        &#34;&#34;&#34;
+        for element in obj:
+            self.add(element)
+
+    def remove_element_by_name(self, element_name: str):
+        &#34;&#34;&#34;Remove an element from this element collection object by its name.
+
+        Args:
+            element_name (str): the name of the element that needs to be removed
+        &#34;&#34;&#34;
+        self.remove(
+            next(element for element in self if element.name == element_name)
+        )
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;Merge the `ElementCollection`&#39;s contents as one dict.
+
+        Returns:
+            Dict: merged element
+        &#34;&#34;&#34;
+        result = {}
+        for element in self:
+            if isinstance(element, ElementCollection):
+                result.update({element.name: element.as_dict})
+            else:
+                result.update(element.as_dict)
+        return result
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        result = set()
+        for element in self:
+            result |= element.available_tags
+        return frozenset(result)
+
+    @classmethod
+    def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;Generate an element collection from an element and a name.
+
+        Args:
+            element (Element): the element that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+        Returns:
+            ElementCollection: the generated element collection from an element and a name
+        &#34;&#34;&#34;
+        return cls.from_mapping(element.as_dict, name)
+
+    @classmethod
+    def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;Generate an element collection from a mapping and a name.
+
+        Args:
+            mapping (Mapping): the mapping that needs to be converted to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+        Returns:
+            ElementCollection: an element collection generated from the given mapping and name
+        &#34;&#34;&#34;
+        result_set = set()
+        for key, value in mapping.items():
+            result_set.add(Property(key, value))
+        return cls(name, result_set)
+
+    @classmethod
+    def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+        &#34;&#34;&#34;Generate an element collection from a JSON string.
+
+        Args:
+            json_str (str): the json string that needs to be transformed to an element collection
+            name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+        Returns:
+            ElementCollection: an element collection generated from the given JSON string and name
+        &#34;&#34;&#34;
+        return cls.from_mapping(json.loads(json_str), name)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.list</li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.ElementCollection.element_to_element_collection"><code class="name flex">
+<span>def <span class="ident">element_to_element_collection</span></span>(<span>element: <a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a>, name: str = '') ‑> <a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an element collection from an element and a name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code></dt>
+<dd>the element that needs to be transformed to an element collection</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the element collection. Defaults to ''.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
+<dd>the generated element collection from an element and a name</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    &#34;&#34;&#34;Generate an element collection from an element and a name.
+
+    Args:
+        element (Element): the element that needs to be transformed to an element collection
+        name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+    Returns:
+        ElementCollection: the generated element collection from an element and a name
+    &#34;&#34;&#34;
+    return cls.from_mapping(element.as_dict, name)</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection.from_json"><code class="name flex">
+<span>def <span class="ident">from_json</span></span>(<span>json_str: str, name: str = '') ‑> <a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an element collection from a JSON string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_str</code></strong> :&ensp;<code>str</code></dt>
+<dd>the json string that needs to be transformed to an element collection</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the element collection. Defaults to ''.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
+<dd>an element collection generated from the given JSON string and name</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    &#34;&#34;&#34;Generate an element collection from a JSON string.
+
+    Args:
+        json_str (str): the json string that needs to be transformed to an element collection
+        name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+    Returns:
+        ElementCollection: an element collection generated from the given JSON string and name
+    &#34;&#34;&#34;
+    return cls.from_mapping(json.loads(json_str), name)</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection.from_mapping"><code class="name flex">
+<span>def <span class="ident">from_mapping</span></span>(<span>mapping: Mapping, name: str = '') ‑> <a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an element collection from a mapping and a name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>mapping</code></strong> :&ensp;<code>Mapping</code></dt>
+<dd>the mapping that needs to be converted to an element collection</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the element collection. Defaults to ''.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
+<dd>an element collection generated from the given mapping and name</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    &#34;&#34;&#34;Generate an element collection from a mapping and a name.
+
+    Args:
+        mapping (Mapping): the mapping that needs to be converted to an element collection
+        name (str): The name of the element collection. Defaults to &#39;&#39;.
+
+    Returns:
+        ElementCollection: an element collection generated from the given mapping and name
+    &#34;&#34;&#34;
+    result_set = set()
+    for key, value in mapping.items():
+        result_set.add(Property(key, value))
+    return cls(name, result_set)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.ElementCollection.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dd>
+<div class="desc"><p>Merge the <code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code>'s contents as one dict.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>merged element</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_dict(self) -&gt; Dict:
+    &#34;&#34;&#34;Merge the `ElementCollection`&#39;s contents as one dict.
+
+    Returns:
+        Dict: merged element
+    &#34;&#34;&#34;
+    result = {}
+    for element in self:
+        if isinstance(element, ElementCollection):
+            result.update({element.name: element.as_dict})
+        else:
+            result.update(element.as_dict)
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="apexofficeprint.elements.elements.ElementCollection.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>self, element: <a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add an element to this element collection object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code></dt>
+<dd>the element to add to this collection</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(self, element: Element):
+    &#34;&#34;&#34;Add an element to this element collection object.
+
+    Args:
+        element (Element): the element to add to this collection
+    &#34;&#34;&#34;
+    self.append(element)</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection.add_all"><code class="name flex">
+<span>def <span class="ident">add_all</span></span>(<span>self, obj: <a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add all the elements in the given collection to this collection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>obj</code></strong> :&ensp;<code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
+<dd>the collection of which the elements need to be added to this element collection object</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_all(self, obj: &#39;ElementCollection&#39;):
+    &#34;&#34;&#34;Add all the elements in the given collection to this collection.
+
+    Args:
+        obj (ElementCollection): the collection of which the elements need to be added to this element collection object
+    &#34;&#34;&#34;
+    for element in obj:
+        self.add(element)</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection.copy"><code class="name flex">
+<span>def <span class="ident">copy</span></span>(<span>self) ‑> <a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
+<dd>A copy of this element collection.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy(self) -&gt; &#39;ElementCollection&#39;:
+    &#34;&#34;&#34;
+    Returns:
+        ElementCollection: A copy of this element collection.
+    &#34;&#34;&#34;
+    return self.__class__(self)</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection.deepcopy"><code class="name flex">
+<span>def <span class="ident">deepcopy</span></span>(<span>self) ‑> <a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></dt>
+<dd>A deep copy of this element collection.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deepcopy(self) -&gt; &#39;ElementCollection&#39;:
+    &#34;&#34;&#34;
+    Returns:
+        ElementCollection: A deep copy of this element collection.
+    &#34;&#34;&#34;
+    return deepcopy(self)</code></pre>
+</details>
+</dd>
+<dt id="apexofficeprint.elements.elements.ElementCollection.remove_element_by_name"><code class="name flex">
+<span>def <span class="ident">remove_element_by_name</span></span>(<span>self, element_name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove an element from this element collection object by its name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>the name of the element that needs to be removed</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_element_by_name(self, element_name: str):
+    &#34;&#34;&#34;Remove an element from this element collection object by its name.
+
+    Args:
+        element_name (str): the name of the element that needs to be removed
+    &#34;&#34;&#34;
+    self.remove(
+        next(element for element in self if element.name == element_name)
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.FootNote"><code class="flex name class">
+<span>class <span class="ident">FootNote</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FootNote(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{+&#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Formula"><code class="flex name class">
+<span>class <span class="ident">Formula</span></span>
+<span>(</span><span>name: str, formula: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>formula</code></strong> :&ensp;<code>str</code></dt>
+<dd>The formula.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Formula(Property):
+    def __init__(self, name: str, formula: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            formula (str): The formula.
+        &#34;&#34;&#34;
+        super().__init__(name, formula)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&gt;&#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Html"><code class="flex name class">
+<span>class <span class="ident">Html</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Html(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{_&#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Hyperlink"><code class="flex name class">
+<span>class <span class="ident">Hyperlink</span></span>
+<span>(</span><span>name: str, url: str, text: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The abstract base class for elements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL for the hyperlink.</dd>
+<dt><strong><code>text</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The text for the hyperlink. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Hyperlink(Element):
+    def __init__(self, name: str, url: str, text: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            url (str): The URL for the hyperlink.
+            text (str, optional): The text for the hyperlink. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.url: str = url
+        self.text: str = text
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{*&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.url
+        }
+
+        if self.text is not None:
+            result[self.name + &#34;_text&#34;] = self.text
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.MarkdownContent"><code class="flex name class">
+<span>class <span class="ident">MarkdownContent</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class for markdown content.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>Holds the Markdown content.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MarkdownContent(Property):
+    &#34;&#34;&#34;The class for markdown content.&#34;&#34;&#34;
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): Holds the Markdown content.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{_&#34; + self.name + &#34;_}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.PageBreak"><code class="flex name class">
+<span>class <span class="ident">PageBreak</span></span>
+<span>(</span><span>name: str, value: Union[str, bool])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class for a page break property.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>Union[str, bool]</code></dt>
+<dd>Value should be set to 'page' or 'pagebreak' for PageBreak, 'column' or 'columnbreak' for column breaks.
+If set to True (default) it will create a pagebreak.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PageBreak(Property):
+    &#34;&#34;&#34;The class for a page break property.&#34;&#34;&#34;
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (Union[str, bool]): Value should be set to &#39;page&#39; or &#39;pagebreak&#39; for PageBreak, &#39;column&#39; or &#39;columnbreak&#39; for column breaks.
+                If set to True (default) it will create a pagebreak.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+    
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?&#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Property"><code class="flex name class">
+<span>class <span class="ident">Property</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property. Note: the general purpose for this value-field is the value as a string,
+but this can be of any type, for example a dict.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Property(Element):
+    &#34;&#34;&#34;The most basic `Element`. It simply consists of a name and a value.
+
+    In a template, `{name}` is replaced by `value`.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property. Note: the general purpose for this value-field is the value as a string,
+                but this can be of any type, for example a dict.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value: Union[int, str] = value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        return {
+            self.name: self.value
+        }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.CellStyleProperty" href="#apexofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></li>
+<li><a title="apexofficeprint.elements.elements.FootNote" href="#apexofficeprint.elements.elements.FootNote">FootNote</a></li>
+<li><a title="apexofficeprint.elements.elements.Formula" href="#apexofficeprint.elements.elements.Formula">Formula</a></li>
+<li><a title="apexofficeprint.elements.elements.Html" href="#apexofficeprint.elements.elements.Html">Html</a></li>
+<li><a title="apexofficeprint.elements.elements.MarkdownContent" href="#apexofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
+<li><a title="apexofficeprint.elements.elements.PageBreak" href="#apexofficeprint.elements.elements.PageBreak">PageBreak</a></li>
+<li><a title="apexofficeprint.elements.elements.Raw" href="#apexofficeprint.elements.elements.Raw">Raw</a></li>
+<li><a title="apexofficeprint.elements.elements.RightToLeft" href="#apexofficeprint.elements.elements.RightToLeft">RightToLeft</a></li>
+<li><a title="apexofficeprint.elements.elements.Span" href="#apexofficeprint.elements.elements.Span">Span</a></li>
+<li><a title="apexofficeprint.elements.elements.StyledProperty" href="#apexofficeprint.elements.elements.StyledProperty">StyledProperty</a></li>
+<li><a title="apexofficeprint.elements.elements.Watermark" href="#apexofficeprint.elements.elements.Watermark">Watermark</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Raw"><code class="flex name class">
+<span>class <span class="ident">Raw</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Raw(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{@&#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.RightToLeft"><code class="flex name class">
+<span>class <span class="ident">RightToLeft</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RightToLeft(Property):
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&lt;&#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Span"><code class="flex name class">
+<span>class <span class="ident">Span</span></span>
+<span>(</span><span>name: str, value: str, columns: int, rows: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property.</dd>
+<dt><strong><code>columns</code></strong> :&ensp;<code>int</code></dt>
+<dd>The amount of columns to span.</dd>
+<dt><strong><code>rows</code></strong> :&ensp;<code>int</code></dt>
+<dd>The amount of rows to span.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Span(Property):
+    def __init__(self, name: str, value: str, columns: int, rows: int):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+            columns (int): The amount of columns to span.
+            rows (int): The amount of rows to span.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.columns = columns
+        self.rows = rows
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{&#34; + self.name + &#34;#}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        return {
+            self.name: self.value,
+            self.name + &#34;_row_span&#34;: self.rows,
+            self.name + &#34;_col_span&#34;: self.columns
+        }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.StyledProperty"><code class="flex name class">
+<span>class <span class="ident">StyledProperty</span></span>
+<span>(</span><span>name: str, value: str, font: str = None, font_size: Union[str, int] = None, font_color: str = None, bold: bool = None, italic: bool = None, underline: bool = None, strikethrough: bool = None, highlight_color: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property.</dd>
+<dt><strong><code>font</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font. Defaults to None.</dd>
+<dt><strong><code>font_size</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
+<dd>The font size. Defaults to None.</dd>
+<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font color. Defaults to None.</dd>
+<dt><strong><code>bold</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text should be bold. Defaults to None.</dd>
+<dt><strong><code>italic</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text should be italic. Defaults to None.</dd>
+<dt><strong><code>underline</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text should be underlined. Defaults to None.</dd>
+<dt><strong><code>strikethrough</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text should be struckthrough. Defaults to None.</dd>
+<dt><strong><code>highlight_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The color in which the text should be highlighted. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StyledProperty(Property):
+    def __init__(self,
+                 name: str,
+                 value: str,
+                 font: str = None,
+                 font_size: Union[str, int] = None,
+                 font_color: str = None,
+                 bold: bool = None,
+                 italic: bool = None,
+                 underline: bool = None,
+                 strikethrough: bool = None,
+                 highlight_color: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (str): The value for this property.
+            font (str, optional): The font. Defaults to None.
+            font_size (Union[str, int], optional): The font size. Defaults to None.
+            font_color (str, optional): The font color. Defaults to None.
+            bold (bool, optional): Whether or not the text should be bold. Defaults to None.
+            italic (bool, optional): Whether or not the text should be italic. Defaults to None.
+            underline (bool, optional): Whether or not the text should be underlined. Defaults to None.
+            strikethrough (bool, optional): Whether or not the text should be struckthrough. Defaults to None.
+            highlight_color (str, optional): The color in which the text should be highlighted. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.font: str = font
+        self.font_size: Union[str, int] = font_size
+        self.font_color: str = font_color
+        self.bold: bool = bold
+        self.italic: bool = italic
+        self.underline: bool = underline
+        self.strikethrough: bool = strikethrough
+        self.highlight_color: str = highlight_color
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{style &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        if self.font is not None:
+            result[self.name + &#34;_font_family&#34;] = self.font
+        if self.font_size is not None:
+            result[self.name + &#34;_font_size&#34;] = self.font_size
+        if self.font_color is not None:
+            result[self.name + &#34;_font_color&#34;] = self.font_color
+        if self.bold is not None:
+            result[self.name + &#34;_bold&#34;] = self.bold
+        if self.italic is not None:
+            result[self.name + &#34;_italic&#34;] = self.italic
+        if self.underline is not None:
+            result[self.name + &#34;_underline&#34;] = self.underline
+        if self.strikethrough is not None:
+            result[self.name + &#34;_strikethrough&#34;] = self.strikethrough
+        if self.highlight_color is not None:
+            result[self.name + &#34;_highlight&#34;] = self.highlight_color
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.TableOfContents"><code class="flex name class">
+<span>class <span class="ident">TableOfContents</span></span>
+<span>(</span><span>name: str, title: str = None, depth: int = None, tab_leader: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The abstract base class for elements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title of the table of contents. Defaults to None.</dd>
+<dt><strong><code>depth</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The depth of heading to be shown, default 3. Defaults to None.</dd>
+<dt><strong><code>tab_leader</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>How the space between title and page number should be filled. Can be "hyphen", "underscore", or "dot" (default). Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TableOfContents(Element):
+    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            title (str): Title of the table of contents. Defaults to None.
+            depth (int, optional): The depth of heading to be shown, default 3. Defaults to None.
+            tab_leader (str, optional): How the space between title and page number should be filled. Can be &#34;hyphen&#34;, &#34;underscore&#34;, or &#34;dot&#34; (default). Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.title: str = title
+        self.depth: int = depth
+        self.tab_leader: str = tab_leader
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{~&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = dict()
+
+        if self.title:
+            result[self.name + &#34;_title&#34;] = self.title
+        if self.depth:
+            result[self.name + &#34;_show_level&#34;] = self.depth
+        if self.tab_leader:
+            result[self.name + &#34;_tab_leader&#34;] = self.tab_leader
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.TextBox"><code class="flex name class">
+<span>class <span class="ident">TextBox</span></span>
+<span>(</span><span>name: str, value: str, font: str = None, font_color: str = None, font_size: Union[int, str] = None, transparency: Union[int, str] = None, width: Union[int, str] = None, height: Union[int, str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tag will allow you to insert a text box starting in the cell containing the tag in Excel.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this element.</dd>
+<dt><strong><code>font</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font. Defaults to None.</dd>
+<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font color. Defaults to None.</dd>
+<dt><strong><code>font_size</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The font size. Defaults to None.</dd>
+<dt><strong><code>transparency</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The transparency. Defaults to None.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The width of the text box. Defaults to None.</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The height of the text box. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextBox(Element):
+    &#34;&#34;&#34;This tag will allow you to insert a text box starting in the cell containing the tag in Excel.&#34;&#34;&#34;
+    def __init__(self,
+    name: str,
+    value: str,
+    font: str=None,
+    font_color: str=None,
+    font_size: Union[int, str]=None,
+    transparency: Union[int, str]=None,
+    width: Union[int, str]=None,
+    height: Union[int, str]=None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            value (str): The value for this element.
+            font (str, optional): The font. Defaults to None.
+            font_color (str, optional): The font color. Defaults to None.
+            font_size (Union[int, str], optional): The font size. Defaults to None.
+            transparency (Union[int, str], optional): The transparency. Defaults to None.
+            width (Union[int, str], optional): The width of the text box. Defaults to None.
+            height (Union[int, str], optional): The height of the text box. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value: str = value
+        self.font: str = font
+        self.font_color: str = font_color
+        self.font_size: Union[int, str] = font_size
+        self.transparency: Union[int, str] = transparency
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+    
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{tbox &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        if self.font is not None:
+            result[self.name + &#39;_font&#39;] = self.font
+        if self.font_color is not None:
+            result[self.name + &#39;_font_color&#39;] = self.font_color
+        if self.font_size is not None:
+            result[self.name + &#39;_font_size&#39;] = self.font_size
+        if self.transparency is not None:
+            result[self.name + &#39;_transparency&#39;] = self.transparency
+        if self.width is not None:
+            result[self.name + &#39;_width&#39;] = self.width
+        if self.height is not None:
+            result[self.name + &#39;_height&#39;] = self.height
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="apexofficeprint.elements.elements.Watermark"><code class="flex name class">
+<span>class <span class="ident">Watermark</span></span>
+<span>(</span><span>name: str, text: str, color: str = None, font: str = None, width: Union[int, str] = None, height: Union[int, str] = None, opacity: float = None, rotation: int = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The most basic <code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
+<p>In a template, <code>{name}</code> is replaced by <code>value</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
+<dd>The text for the watermark.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The color for the watermark. Defaults to None.</dd>
+<dt><strong><code>font</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font for the watermark. Defaults to None.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The width of the watermark. Defaults to None.</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>The height of the watermark. Defaults to None.</dd>
+<dt><strong><code>opacity</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The opacity of the watermark. Defaults to None.</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The rotation of the watermark. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Watermark(Property):
+    def __init__(self,
+                 name: str,
+                 text: str,
+                 color: str = None,
+                 font: str = None,
+                 width: Union[int, str] = None,
+                 height: Union[int, str] = None,
+                 opacity: float = None,
+                 rotation: int = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            text (str): The text for the watermark.
+            color (str, optional): The color for the watermark. Defaults to None.
+            font (str, optional): The font for the watermark. Defaults to None.
+            width (Union[int, str], optional): The width of the watermark. Defaults to None.
+            height (Union[int, str], optional): The height of the watermark. Defaults to None.
+            opacity (float, optional): The opacity of the watermark. Defaults to None.
+            rotation (int, optional): The rotation of the watermark. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(name, text)
+        self.color: str = color
+        self.font: str = font
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+        self.opacity: float = opacity
+        self.rotation: int = rotation
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{watermark &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+
+        if self.color is not None:
+            result[self.name + &#34;_color&#34;] = self.color
+        if self.font is not None:
+            result[self.name + &#34;_font&#34;] = self.font
+        if self.width is not None:
+            result[self.name + &#34;_width&#34;] = self.width
+        if self.height is not None:
+            result[self.name + &#34;_height&#34;] = self.height
+        if self.opacity is not None:
+            result[self.name + &#34;_opacity&#34;] = self.opacity
+        if self.rotation is not None:
+            result[self.name + &#34;_rotation&#34;] = self.rotation
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="apexofficeprint.elements.elements.Property.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Property.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="apexofficeprint.elements" href="index.html">apexofficeprint.elements</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.AOPChart" href="#apexofficeprint.elements.elements.AOPChart">AOPChart</a></code></h4>
+<ul class="">
+<li><code><a title="apexofficeprint.elements.elements.AOPChart.from_dataframe" href="#apexofficeprint.elements.elements.AOPChart.from_dataframe">from_dataframe</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.AOPChart.y_datas" href="#apexofficeprint.elements.elements.AOPChart.y_datas">y_datas</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.AOPChartDateOptions" href="#apexofficeprint.elements.elements.AOPChartDateOptions">AOPChartDateOptions</a></code></h4>
+<ul class="">
+<li><code><a title="apexofficeprint.elements.elements.AOPChartDateOptions.as_dict" href="#apexofficeprint.elements.elements.AOPChartDateOptions.as_dict">as_dict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.CellStyle" href="#apexofficeprint.elements.elements.CellStyle">CellStyle</a></code></h4>
+<ul class="">
+<li><code><a title="apexofficeprint.elements.elements.CellStyle.get_dict" href="#apexofficeprint.elements.elements.CellStyle.get_dict">get_dict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.CellStyleDocx" href="#apexofficeprint.elements.elements.CellStyleDocx">CellStyleDocx</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.CellStyleProperty" href="#apexofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.CellStyleXlsx" href="#apexofficeprint.elements.elements.CellStyleXlsx">CellStyleXlsx</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.D3Code" href="#apexofficeprint.elements.elements.D3Code">D3Code</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Element" href="#apexofficeprint.elements.elements.Element">Element</a></code></h4>
+<ul class="">
+<li><code><a title="apexofficeprint.elements.elements.Element.as_dict" href="#apexofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.available_tags" href="#apexofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.Element.json" href="#apexofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.ElementCollection" href="#apexofficeprint.elements.elements.ElementCollection">ElementCollection</a></code></h4>
+<ul class="">
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.add" href="#apexofficeprint.elements.elements.ElementCollection.add">add</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.add_all" href="#apexofficeprint.elements.elements.ElementCollection.add_all">add_all</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.as_dict" href="#apexofficeprint.elements.elements.ElementCollection.as_dict">as_dict</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.copy" href="#apexofficeprint.elements.elements.ElementCollection.copy">copy</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.deepcopy" href="#apexofficeprint.elements.elements.ElementCollection.deepcopy">deepcopy</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.element_to_element_collection" href="#apexofficeprint.elements.elements.ElementCollection.element_to_element_collection">element_to_element_collection</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.from_json" href="#apexofficeprint.elements.elements.ElementCollection.from_json">from_json</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.from_mapping" href="#apexofficeprint.elements.elements.ElementCollection.from_mapping">from_mapping</a></code></li>
+<li><code><a title="apexofficeprint.elements.elements.ElementCollection.remove_element_by_name" href="#apexofficeprint.elements.elements.ElementCollection.remove_element_by_name">remove_element_by_name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.FootNote" href="#apexofficeprint.elements.elements.FootNote">FootNote</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Formula" href="#apexofficeprint.elements.elements.Formula">Formula</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Html" href="#apexofficeprint.elements.elements.Html">Html</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Hyperlink" href="#apexofficeprint.elements.elements.Hyperlink">Hyperlink</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.MarkdownContent" href="#apexofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.PageBreak" href="#apexofficeprint.elements.elements.PageBreak">PageBreak</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Property" href="#apexofficeprint.elements.elements.Property">Property</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Raw" href="#apexofficeprint.elements.elements.Raw">Raw</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.RightToLeft" href="#apexofficeprint.elements.elements.RightToLeft">RightToLeft</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Span" href="#apexofficeprint.elements.elements.Span">Span</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.StyledProperty" href="#apexofficeprint.elements.elements.StyledProperty">StyledProperty</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.TableOfContents" href="#apexofficeprint.elements.elements.TableOfContents">TableOfContents</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.TextBox" href="#apexofficeprint.elements.elements.TextBox">TextBox</a></code></h4>
+</li>
+<li>
+<h4><code><a title="apexofficeprint.elements.elements.Watermark" href="#apexofficeprint.elements.elements.Watermark">Watermark</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

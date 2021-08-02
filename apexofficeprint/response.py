@@ -3,7 +3,7 @@ Module containing the Response class, which is also exposed at package level.
 """
 
 import requests
-from ._utils import type_utils
+from .own_utils import type_utils
 from os.path import splitext
 
 class Response():
@@ -23,12 +23,20 @@ class Response():
 
     @property
     def mimetype(self) -> str:
-        """Mime type of this response."""
+        """Mime type of this response.
+
+        Returns:
+            str: mime type of this response
+        """
         return self._mimetype
 
     @property
     def filetype(self) -> str:
-        """File type (extension) of this response. E.g. "docx"."""
+        """File type (extension) of this response. E.g. "docx".
+
+        Returns:
+            str: file type of this response
+        """
         return type_utils.mimetype_to_extension(self.mimetype)
 
     @property

@@ -6,6 +6,6 @@ They are to be used with `apexofficeprint.printjob.PrintJob`.
 """
 
 from .cloud import *
-from .output import OutputConfig
+from .output import *
 from .pdf import *
-from .server import Server, ServerConfig
+from .server import *

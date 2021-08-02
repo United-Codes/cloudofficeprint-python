@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import Dict, List
 from abc import ABC, abstractmethod
 
 __all__ = [
@@ -23,28 +23,59 @@ class CloudAccessToken(ABC):
     """Abstract base class for classes used to specify cloud access information for outputting to a cloud service."""
 
     def __init__(self, service: str):
+        """
+        Args:
+            service (str): name of the cloud service
+
+        Raises:
+            ValueError: raise error if the given name for the cloud service is not known
+        """
+        if not self.is_valid_service(service):
+            raise ValueError(f'Unsupported cloud service "{service}".')
         self._service = service
 
     @property
     def service(self) -> str:
-        """Which cloud service is being used."""
+        """Returns which cloud service is being used.
+
+        Returns:
+            str: which cloud service is being used
+        """
         return self._service
 
     @service.setter
     def service(self, value: str):
+        """Setter for self._service
+
+        Args:
+            value (str): new value for self._service
+
+        Raises:
+            ValueError: raise error if the given name for the cloud service is not known
+        """
         if not self.is_valid_service(value):
             raise ValueError(f'Unsupported cloud service "{value}".')
         self._service = value
 
     @property
     @abstractmethod
-    def as_dict(self) -> dict:
-        """The cloud access token as a dict, for building the json."""
-        pass
+    def as_dict(self) -> Dict:
+        """The cloud access token as a dict, for building the JSON.
+
+        Returns:
+            Dict: dict representation for this cloud access token
+        """
+        return {
+            "output_location": self.service
+        }
 
     @property
     def json(self) -> str:
-        """The cloud access token as AOP-compatible json data."""
+        """The cloud access token as JSON.
+
+        Returns:
+            str: JSON representation for this cloud access token
+        """
         return json.dumps(self.as_dict)
 
     @staticmethod
@@ -140,18 +171,18 @@ class OAuthToken(CloudAccessToken):
         """
         Args:
             service (str): `CloudAccessToken.service`
-            token (str): `OAuthToken.token`
+            token (str): OAuth token
         """
         super().__init__(service)
         self.token: str = token
-        """OAuth token"""
 
     @property
-    def as_dict(self):
-        return {
-            "output_location": self.service,
+    def as_dict(self) -> Dict:
+        result = super().as_dict
+        result.update({
             "cloud_access_token": self.token
-        }
+        })
+        return result
 
 
 class AWSToken(CloudAccessToken):
@@ -160,24 +191,23 @@ class AWSToken(CloudAccessToken):
     def __init__(self, key_id: str, secret_key: str):
         """
         Args:
-            key_id (str): `AWSToken.key_id`
-            secret_key (str): `AWSToken.secret_key`
+            key_id (str): AWS access key ID
+            secret_key (str): AWS secret key
         """
         super().__init__("aws_s3")
         self.key_id: str = key_id
-        """AWS access key ID"""
         self.secret_key: str = secret_key
-        """AWS secret key"""
 
     @property
-    def as_dict(self):
-        return {
-            "output_location": self.service,
+    def as_dict(self) -> Dict:
+        result = super().as_dict
+        result.update({
             "cloud_access_token": {
                 "access_key": self.key_id,
                 "secret_access_key": self.secret_key
             }
-        }
+        })
+        return result
 
 
 class FTPToken(CloudAccessToken):
@@ -186,24 +216,20 @@ class FTPToken(CloudAccessToken):
     def __init__(self, host: str, sftp: bool = False, port: int = None, user: str = None, password: str = None):
         """
         Args:
-            host (str): `FTPToken.host`
+            host (str): Host name or IP address of the FTP/SFTP server.
             sftp (bool, optional): whether to use SFTP (else FTP). Defaults to False.
-            port (int, optional): `FTPToken.port`. Defaults to None.
-            user (str, optional): `FTPToken.user`. Defaults to None.
-            password (str, optional): `FTPToken.password`. Defaults to None.
+            port (int, optional): Port number of the FTP/SFTP server. Defaults to None.
+            user (str, optional): User name for the FTP/SFTP server. Defaults to None.
+            password (str, optional): Password for the user. Defaults to None.
         """
         super().__init__("sftp" if sftp else "ftp")
         self.host: str = host
-        """Host name or IP address of the FTP/SFTP server."""
         self.port: int = port
-        """Port number of the FTP/SFTP server."""
         self.user: str = user
-        """User name for the FTP/SFTP server."""
         self.password: str = password
-        """Password for `FTPToken.user`."""
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> Dict:
         cloud_access_token = {
             "host": self.host
         }
@@ -214,7 +240,9 @@ class FTPToken(CloudAccessToken):
         if self.password is not None:
             cloud_access_token["password"] = self.password
 
-        return {
-            "output_location": self.service,
+        result = super().as_dict
+        result.update({
             "cloud_access_token": cloud_access_token
-        }
+        })
+
+        return result
