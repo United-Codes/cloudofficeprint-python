@@ -290,55 +290,55 @@ class QRCode(Code):
         result = super()._dict_suffixes
 
         if self.dotscale is not None:
-            result['_dotscale'] = self.dotscale
+            result['_qr_dotscale'] = self.dotscale
         if self.logo is not None:
-            result['_logo'] = self.logo
+            result['_qr_logo'] = self.logo
         if self.background_image is not None:
-            result['_background_image'] = self.background_image
+            result['_qr_background_image'] = self.background_image
         if self.color_dark is not None:
-            result['_color_dark'] = self.color_dark
+            result['_qr_color_dark'] = self.color_dark
         if self.color_light is not None:
-            result['_color_light'] = self.color_light
+            result['_qr_color_light'] = self.color_light
         if self.logo_width is not None:
-            result['_logo_width'] = self.logo_width
+            result['_qr_logo_width'] = self.logo_width
         if self.logo_height is not None:
-            result['_logo_height'] = self.logo_height
+            result['_qr_logo_height'] = self.logo_height
         if self.logo_background_color is not None:
-            result['_logo_background_color'] = self.logo_background_color
+            result['_qr_logo_background_color'] = self.logo_background_color
         if self.quiet_zone is not None:
-            result['_quiet_zone'] = self.quiet_zone
+            result['_qr_quiet_zone'] = self.quiet_zone
         if self.quiet_zone_color is not None:
-            result['_quiet_zone_color'] = self.quiet_zone_color
+            result['_qr_quiet_zone_color'] = self.quiet_zone_color
         if self.background_image_alpha is not None:
-            result['_background_image_alpha'] = self.background_image_alpha
+            result['_qr_background_image_alpha'] = self.background_image_alpha
         if self.po_color is not None:
-            result['_po_color'] = self.po_color
+            result['_qr_po_color'] = self.po_color
         if self.pi_color is not None:
-            result['_pi_color'] = self.pi_color
+            result['_qr_pi_color'] = self.pi_color
         if self.po_tl_color is not None:
-            result['_po_tl_color'] = self.po_tl_color
+            result['_qr_po_tl_color'] = self.po_tl_color
         if self.pi_tl_color is not None:
-            result['_pi_tl_color'] = self.pi_tl_color
+            result['_qr_pi_tl_color'] = self.pi_tl_color
         if self.po_tr_color is not None:
-            result['_po_tr_color'] = self.po_tr_color
+            result['_qr_po_tr_color'] = self.po_tr_color
         if self.pi_tr_color is not None:
-            result['_pi_tr_color'] = self.pi_tr_color
+            result['_qr_pi_tr_color'] = self.pi_tr_color
         if self.po_bl_color is not None:
-            result['_po_bl_color'] = self.po_bl_color
+            result['_qr_po_bl_color'] = self.po_bl_color
         if self.pi_bl_color is not None:
-            result['_pi_bl_color'] = self.pi_bl_color
+            result['_qr_pi_bl_color'] = self.pi_bl_color
         if self.timing_v_color is not None:
-            result['_timing_v_color'] = self.timing_v_color
+            result['_qr_timing_v_color'] = self.timing_v_color
         if self.timing_h_color is not None:
-            result['_timing_h_color'] = self.timing_h_color
+            result['_qr_timing_h_color'] = self.timing_h_color
         if self.timing_color is not None:
-            result['_timing_color'] = self.timing_color
+            result['_qr_timing_color'] = self.timing_color
         if self.auto_color is not None:
-            result['_auto_color'] = self.auto_color
+            result['_qr_auto_color'] = self.auto_color
         if self.auto_color_dark is not None:
-            result['_auto_color_dark'] = self.auto_color_dark
+            result['_qr_auto_color_dark'] = self.auto_color_dark
         if self.auto_color_light is not None:
-            result['_auto_color_light'] = self.auto_color_light
+            result['_qr_auto_color_light'] = self.auto_color_light
 
         return result
 
