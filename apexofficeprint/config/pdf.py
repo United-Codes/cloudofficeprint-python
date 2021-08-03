@@ -5,7 +5,7 @@ class PDFOptions:
     """Class of optional PDF options.
 
     The properties of this class define all possible PDF output options.
-    All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.    
+    All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.
     """
 
     def __init__(self,
@@ -54,15 +54,15 @@ class PDFOptions:
         self.merge_making_even: bool = merge_making_even
         self.modify_password: str = modify_password
         self.password_protection_flag: int = password_protection_flag
-        self.lock_form = lock_form
-        self.copies = copies
-        self.page_format = page_format
-        self.merge = merge
-        self.page_margin = page_margin
+        self.lock_form: bool = lock_form
+        self.copies: int = copies
+        self.page_format: str = page_format
+        self.merge: bool = merge
+        self.page_margin: Union[int, dict] = page_margin
         self.sign_certificate: str = sign_certificate
-        self._landscape = landscape
-        self.identify_form_fields = identify_form_fields
-        self.split = split
+        self._landscape: bool = landscape
+        self.identify_form_fields: bool = identify_form_fields
+        self.split: bool = split
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.

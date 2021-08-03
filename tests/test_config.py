@@ -54,6 +54,20 @@ def test_pdf_options():
     assert conf.as_dict == conf_expected
 
 
+def test_csv_options():
+    csv_opts = aop.config.CsvOptions(
+        'text_delim',
+        'field_sep',
+        'char_set'
+    )
+    csv_opts_expected = {
+        'output_text_delimiter': 'text_delim',
+        'output_field_separator': 'field_sep',
+        'output_character_set': 'char_set',
+    }
+    assert csv_opts.as_dict == csv_opts_expected
+
+
 def test_printer():
     printer = aop.config.Printer(
         location='location',
@@ -187,6 +201,7 @@ def test_route_paths():
 
 def run():
     test_pdf_options()
+    test_csv_options()
     test_printer()
     test_cloud_access_tokens()
     test_commands()
