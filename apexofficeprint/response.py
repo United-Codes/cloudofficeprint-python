@@ -51,6 +51,24 @@ class Response():
         """
         return self._bytes
 
+    def to_string(self) -> str:
+        """Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type 'count_tags').
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        """
+        try:
+            return self._bytes.decode('utf-8')
+        except UnicodeDecodeError as err:
+            print("""The method 'to_string()' cannot be called on this object.
+            The server response is probably not a string (e.g. JSON).
+            To get the bytes of the response, use the property 'binary' instead.""")
+            raise err
+
     def to_file(self, path: str):
         """Write the response to a file at the given path without extension.
 
