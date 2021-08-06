@@ -9,7 +9,7 @@ You also need to have the requests-library installed (https://docs.python-reques
 `pip install requests`
 
 # Usage
-1. Create a template (docx, xlsx, pptx, HTML, md, txt, csv)
+1. Create a template (docx, xlsx, pptx, HTML, md, txt, csv), for the possible tags, click [here](http://www.apexofficeprint.com/docs/#templates).
 2. Create the input data with this Python SDK
 3. Send template and data to an AOP server and save the response to a file with this Python SDK
 
@@ -45,7 +45,7 @@ collection.add(text)
 ```
 
 ## AOP server
-The template and the data need to be sent to an AOP server that merges both. This can be done by setting up the configuration for AOP server and passing it to the print job instance:
+The template and the data need to be sent to an AOP server that merges both. This can be done by setting up the configuration for AOP server and passing it to the print job instance. You can get your API key by signing up at https://www.apexofficeprint.com.
 ```python
 ...
 SERVER_URL = "https://api.apexofficeprint.com/"
