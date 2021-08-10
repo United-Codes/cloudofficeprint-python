@@ -202,11 +202,7 @@ class PDFTexts(Element):
             # If there already is text for this page -&gt; update entry in dictionary
             #   else -&gt; create new entry in dictionary
             if str(txt.page) in result:
-                if type(result[str(txt.page)]) == list:
-                    result[str(txt.page)].append(txt._inner_dict)
-                else:
-                    # If there already is text for this page, but not yet in a list -&gt; make a list
-                    result[str(txt.page)] = [result[str(txt.page)], txt._inner_dict]
+                result[str(txt.page)].append(txt._inner_dict)
             else:
                 result[str(txt.page)] = [txt._inner_dict]
         return {self.name: [result]}
@@ -236,11 +232,7 @@ class PDFImages(Element):
             # If there already is an image for this page -&gt; update entry in dictionary
             #   else -&gt; create new entry in dictionary
             if str(img.page) in result:
-                if type(result[str(img.page)]) == list:
-                    result[str(img.page)].append(img._inner_dict)
-                else:
-                    # If there already is an image for this page, but not yet in a list -&gt; make a list
-                    result[str(img.page)] = [result[str(img.page)], img._inner_dict]
+                result[str(img.page)].append(img._inner_dict)
             else:
                 result[str(img.page)] = [img._inner_dict]
         return {self.name: [result]}
@@ -257,7 +249,7 @@ class PDFFormData(Element):
     def __init__(self, form_data: Mapping[str, Union[str, bool]]):
         &#34;&#34;&#34;
         Args:
-            form_data (Mapping[str, Union[str, bool]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
+            form_data (Mapping[str, Union[str, bool, int, float]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
         &#34;&#34;&#34;
         super().__init__(PDFFormData._identifier())
         self.form_data = form_data
@@ -299,7 +291,7 @@ There can only be one of this <code>Element</code>.
 Element name is fixed and important to the server, so multiple will just overwrite.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>form_data</code></strong> :&ensp;<code>Mapping[str, Union[str, bool]]</code></dt>
+<dt><strong><code>form_data</code></strong> :&ensp;<code>Mapping[str, Union[str, bool, int, float]]</code></dt>
 <dd>a mapping containing the keys and values of the fields that need to be entered in the PDF form</dd>
 </dl></div>
 <details class="source">
@@ -314,7 +306,7 @@ Element name is fixed and important to the server, so multiple will just overwri
     def __init__(self, form_data: Mapping[str, Union[str, bool]]):
         &#34;&#34;&#34;
         Args:
-            form_data (Mapping[str, Union[str, bool]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
+            form_data (Mapping[str, Union[str, bool, int, float]]): a mapping containing the keys and values of the fields that need to be entered in the PDF form
         &#34;&#34;&#34;
         super().__init__(PDFFormData._identifier())
         self.form_data = form_data
@@ -476,11 +468,7 @@ Element name is fixed and important to the server, so multiple will just overwri
             # If there already is an image for this page -&gt; update entry in dictionary
             #   else -&gt; create new entry in dictionary
             if str(img.page) in result:
-                if type(result[str(img.page)]) == list:
-                    result[str(img.page)].append(img._inner_dict)
-                else:
-                    # If there already is an image for this page, but not yet in a list -&gt; make a list
-                    result[str(img.page)] = [result[str(img.page)], img._inner_dict]
+                result[str(img.page)].append(img._inner_dict)
             else:
                 result[str(img.page)] = [img._inner_dict]
         return {self.name: [result]}
@@ -708,11 +696,7 @@ Element name is fixed and important to the server, so multiple will just overwri
             # If there already is text for this page -&gt; update entry in dictionary
             #   else -&gt; create new entry in dictionary
             if str(txt.page) in result:
-                if type(result[str(txt.page)]) == list:
-                    result[str(txt.page)].append(txt._inner_dict)
-                else:
-                    # If there already is text for this page, but not yet in a list -&gt; make a list
-                    result[str(txt.page)] = [result[str(txt.page)], txt._inner_dict]
+                result[str(txt.page)].append(txt._inner_dict)
             else:
                 result[str(txt.page)] = [txt._inner_dict]
         return {self.name: [result]}

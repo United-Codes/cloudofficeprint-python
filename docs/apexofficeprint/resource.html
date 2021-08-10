@@ -155,8 +155,8 @@ class Resource(ABC):
         return RawResource(raw_data, filetype)
 
     @staticmethod
-    def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
-        &#34;&#34;&#34;Create a RawResource with the contents of a local file.
+    def from_local_file(local_path: str) -&gt; &#39;Base64Resource&#39;:
+        &#34;&#34;&#34;Create a Base64Resource with the contents of a local file.
 
         Throws IOError if it can&#39;t read the file.
         The filetype is determined by the extension of the file.
@@ -165,12 +165,10 @@ class Resource(ABC):
             local_path (str): path to local file
 
         Returns:
-            RawResource: the created Resource
+            Base64Resource: the created Resource
         &#34;&#34;&#34;
-        f = open(local_path, &#34;rb&#34;)
-        file_content = f.read()
-        f.close()
-        return RawResource(file_content, type_utils.path_to_extension(local_path))
+        base64string: str = file_utils.read_file_as_base64(local_path)
+        return Base64Resource(base64string, type_utils.path_to_extension(local_path))
 
     @staticmethod
     def from_server_path(path: str) -&gt; &#39;ServerPathResource&#39;:
@@ -793,8 +791,8 @@ def base64(self) -&gt; str:
         return RawResource(raw_data, filetype)
 
     @staticmethod
-    def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
-        &#34;&#34;&#34;Create a RawResource with the contents of a local file.
+    def from_local_file(local_path: str) -&gt; &#39;Base64Resource&#39;:
+        &#34;&#34;&#34;Create a Base64Resource with the contents of a local file.
 
         Throws IOError if it can&#39;t read the file.
         The filetype is determined by the extension of the file.
@@ -803,12 +801,10 @@ def base64(self) -&gt; str:
             local_path (str): path to local file
 
         Returns:
-            RawResource: the created Resource
+            Base64Resource: the created Resource
         &#34;&#34;&#34;
-        f = open(local_path, &#34;rb&#34;)
-        file_content = f.read()
-        f.close()
-        return RawResource(file_content, type_utils.path_to_extension(local_path))
+        base64string: str = file_utils.read_file_as_base64(local_path)
+        return Base64Resource(base64string, type_utils.path_to_extension(local_path))
 
     @staticmethod
     def from_server_path(path: str) -&gt; &#39;ServerPathResource&#39;:
@@ -940,10 +936,10 @@ def from_html(htmlstring: str, landscape: bool = False) -&gt; &#39;HTMLResource&
 </details>
 </dd>
 <dt id="apexofficeprint.resource.Resource.from_local_file"><code class="name flex">
-<span>def <span class="ident">from_local_file</span></span>(<span>local_path: str) ‑> <a title="apexofficeprint.resource.RawResource" href="#apexofficeprint.resource.RawResource">RawResource</a></span>
+<span>def <span class="ident">from_local_file</span></span>(<span>local_path: str) ‑> <a title="apexofficeprint.resource.Base64Resource" href="#apexofficeprint.resource.Base64Resource">Base64Resource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a RawResource with the contents of a local file.</p>
+<div class="desc"><p>Create a Base64Resource with the contents of a local file.</p>
 <p>Throws IOError if it can't read the file.
 The filetype is determined by the extension of the file.</p>
 <h2 id="args">Args</h2>
@@ -953,7 +949,7 @@ The filetype is determined by the extension of the file.</p>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="apexofficeprint.resource.RawResource" href="#apexofficeprint.resource.RawResource">RawResource</a></code></dt>
+<dt><code><a title="apexofficeprint.resource.Base64Resource" href="#apexofficeprint.resource.Base64Resource">Base64Resource</a></code></dt>
 <dd>the created Resource</dd>
 </dl></div>
 <details class="source">
@@ -961,8 +957,8 @@ The filetype is determined by the extension of the file.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
-    &#34;&#34;&#34;Create a RawResource with the contents of a local file.
+def from_local_file(local_path: str) -&gt; &#39;Base64Resource&#39;:
+    &#34;&#34;&#34;Create a Base64Resource with the contents of a local file.
 
     Throws IOError if it can&#39;t read the file.
     The filetype is determined by the extension of the file.
@@ -971,12 +967,10 @@ def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
         local_path (str): path to local file
 
     Returns:
-        RawResource: the created Resource
+        Base64Resource: the created Resource
     &#34;&#34;&#34;
-    f = open(local_path, &#34;rb&#34;)
-    file_content = f.read()
-    f.close()
-    return RawResource(file_content, type_utils.path_to_extension(local_path))</code></pre>
+    base64string: str = file_utils.read_file_as_base64(local_path)
+    return Base64Resource(base64string, type_utils.path_to_extension(local_path))</code></pre>
 </details>
 </dd>
 <dt id="apexofficeprint.resource.Resource.from_raw"><code class="name flex">

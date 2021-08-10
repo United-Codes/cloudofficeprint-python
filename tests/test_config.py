@@ -58,12 +58,12 @@ def test_csv_options():
     csv_opts = aop.config.CsvOptions(
         'text_delim',
         'field_sep',
-        'char_set'
+        5
     )
     csv_opts_expected = {
         'output_text_delimiter': 'text_delim',
         'output_field_separator': 'field_sep',
-        'output_character_set': 'char_set',
+        'output_character_set': 5,
     }
     assert csv_opts.as_dict == csv_opts_expected
 

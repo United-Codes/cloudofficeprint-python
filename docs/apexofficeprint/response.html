@@ -80,6 +80,24 @@ class Response():
         &#34;&#34;&#34;
         return self._bytes
 
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        &#34;&#34;&#34;
+        try:
+            return self._bytes.decode(&#39;utf-8&#39;)
+        except UnicodeDecodeError as err:
+            print(&#34;&#34;&#34;The method &#39;to_string()&#39; cannot be called on this object.
+            The server response is probably not a string (e.g. JSON).
+            To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
+            raise err
+
     def to_file(self, path: str):
         &#34;&#34;&#34;Write the response to a file at the given path without extension.
 
@@ -171,6 +189,24 @@ class Response():
             bytes: response file as binary
         &#34;&#34;&#34;
         return self._bytes
+
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        &#34;&#34;&#34;
+        try:
+            return self._bytes.decode(&#39;utf-8&#39;)
+        except UnicodeDecodeError as err:
+            print(&#34;&#34;&#34;The method &#39;to_string()&#39; cannot be called on this object.
+            The server response is probably not a string (e.g. JSON).
+            To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
+            raise err
 
     def to_file(self, path: str):
         &#34;&#34;&#34;Write the response to a file at the given path without extension.
@@ -307,6 +343,45 @@ You should only specify the extension in the path if you have some reason to spe
     outfile.close()</code></pre>
 </details>
 </dd>
+<dt id="apexofficeprint.response.Response.to_string"><code class="name flex">
+<span>def <span class="ident">to_string</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the string representation of this buffer.
+Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>err</code></dt>
+<dd>raise error is bytes cannot be decoded in utf-8</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>string representation of this buffer</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_string(self) -&gt; str:
+    &#34;&#34;&#34;Return the string representation of this buffer.
+    Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+    Raises:
+        err: raise error is bytes cannot be decoded in utf-8
+
+    Returns:
+        str: string representation of this buffer
+    &#34;&#34;&#34;
+    try:
+        return self._bytes.decode(&#39;utf-8&#39;)
+    except UnicodeDecodeError as err:
+        print(&#34;&#34;&#34;The method &#39;to_string()&#39; cannot be called on this object.
+        The server response is probably not a string (e.g. JSON).
+        To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
+        raise err</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -332,6 +407,7 @@ You should only specify the extension in the path if you have some reason to spe
 <li><code><a title="apexofficeprint.response.Response.filetype" href="#apexofficeprint.response.Response.filetype">filetype</a></code></li>
 <li><code><a title="apexofficeprint.response.Response.mimetype" href="#apexofficeprint.response.Response.mimetype">mimetype</a></code></li>
 <li><code><a title="apexofficeprint.response.Response.to_file" href="#apexofficeprint.response.Response.to_file">to_file</a></code></li>
+<li><code><a title="apexofficeprint.response.Response.to_string" href="#apexofficeprint.response.Response.to_string">to_string</a></code></li>
 </ul>
 </li>
 </ul>

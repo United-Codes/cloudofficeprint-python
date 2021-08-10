@@ -322,7 +322,7 @@ and the <code><a title="apexofficeprint.PrintJob.execute" href="#apexofficeprint
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))
+        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
 
     async def execute_async(self) -&gt; Response:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
@@ -672,7 +672,7 @@ def json(self) -&gt; str:
         Response: `Response`-object
     &#34;&#34;&#34;
     self.server._raise_if_unreachable()
-    return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))</code></pre>
+    return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))</code></pre>
 </details>
 </dd>
 <dt id="apexofficeprint.PrintJob.execute_async"><code class="name flex">
@@ -832,8 +832,8 @@ def json(self) -&gt; str:
         return RawResource(raw_data, filetype)
 
     @staticmethod
-    def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
-        &#34;&#34;&#34;Create a RawResource with the contents of a local file.
+    def from_local_file(local_path: str) -&gt; &#39;Base64Resource&#39;:
+        &#34;&#34;&#34;Create a Base64Resource with the contents of a local file.
 
         Throws IOError if it can&#39;t read the file.
         The filetype is determined by the extension of the file.
@@ -842,12 +842,10 @@ def json(self) -&gt; str:
             local_path (str): path to local file
 
         Returns:
-            RawResource: the created Resource
+            Base64Resource: the created Resource
         &#34;&#34;&#34;
-        f = open(local_path, &#34;rb&#34;)
-        file_content = f.read()
-        f.close()
-        return RawResource(file_content, type_utils.path_to_extension(local_path))
+        base64string: str = file_utils.read_file_as_base64(local_path)
+        return Base64Resource(base64string, type_utils.path_to_extension(local_path))
 
     @staticmethod
     def from_server_path(path: str) -&gt; &#39;ServerPathResource&#39;:
@@ -979,10 +977,10 @@ def from_html(htmlstring: str, landscape: bool = False) -&gt; &#39;HTMLResource&
 </details>
 </dd>
 <dt id="apexofficeprint.Resource.from_local_file"><code class="name flex">
-<span>def <span class="ident">from_local_file</span></span>(<span>local_path: str) ‑> <a title="apexofficeprint.resource.RawResource" href="resource.html#apexofficeprint.resource.RawResource">RawResource</a></span>
+<span>def <span class="ident">from_local_file</span></span>(<span>local_path: str) ‑> <a title="apexofficeprint.resource.Base64Resource" href="resource.html#apexofficeprint.resource.Base64Resource">Base64Resource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a RawResource with the contents of a local file.</p>
+<div class="desc"><p>Create a Base64Resource with the contents of a local file.</p>
 <p>Throws IOError if it can't read the file.
 The filetype is determined by the extension of the file.</p>
 <h2 id="args">Args</h2>
@@ -992,7 +990,7 @@ The filetype is determined by the extension of the file.</p>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>RawResource</code></dt>
+<dt><code>Base64Resource</code></dt>
 <dd>the created Resource</dd>
 </dl></div>
 <details class="source">
@@ -1000,8 +998,8 @@ The filetype is determined by the extension of the file.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
-    &#34;&#34;&#34;Create a RawResource with the contents of a local file.
+def from_local_file(local_path: str) -&gt; &#39;Base64Resource&#39;:
+    &#34;&#34;&#34;Create a Base64Resource with the contents of a local file.
 
     Throws IOError if it can&#39;t read the file.
     The filetype is determined by the extension of the file.
@@ -1010,12 +1008,10 @@ def from_local_file(local_path: str) -&gt; &#39;RawResource&#39;:
         local_path (str): path to local file
 
     Returns:
-        RawResource: the created Resource
+        Base64Resource: the created Resource
     &#34;&#34;&#34;
-    f = open(local_path, &#34;rb&#34;)
-    file_content = f.read()
-    f.close()
-    return RawResource(file_content, type_utils.path_to_extension(local_path))</code></pre>
+    base64string: str = file_utils.read_file_as_base64(local_path)
+    return Base64Resource(base64string, type_utils.path_to_extension(local_path))</code></pre>
 </details>
 </dd>
 <dt id="apexofficeprint.Resource.from_raw"><code class="name flex">
@@ -1328,6 +1324,24 @@ def template_json(self) -&gt; str:
         &#34;&#34;&#34;
         return self._bytes
 
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        &#34;&#34;&#34;
+        try:
+            return self._bytes.decode(&#39;utf-8&#39;)
+        except UnicodeDecodeError as err:
+            print(&#34;&#34;&#34;The method &#39;to_string()&#39; cannot be called on this object.
+            The server response is probably not a string (e.g. JSON).
+            To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
+            raise err
+
     def to_file(self, path: str):
         &#34;&#34;&#34;Write the response to a file at the given path without extension.
 
@@ -1463,6 +1477,45 @@ You should only specify the extension in the path if you have some reason to spe
     outfile.close()</code></pre>
 </details>
 </dd>
+<dt id="apexofficeprint.Response.to_string"><code class="name flex">
+<span>def <span class="ident">to_string</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the string representation of this buffer.
+Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>err</code></dt>
+<dd>raise error is bytes cannot be decoded in utf-8</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>string representation of this buffer</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_string(self) -&gt; str:
+    &#34;&#34;&#34;Return the string representation of this buffer.
+    Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+    Raises:
+        err: raise error is bytes cannot be decoded in utf-8
+
+    Returns:
+        str: string representation of this buffer
+    &#34;&#34;&#34;
+    try:
+        return self._bytes.decode(&#39;utf-8&#39;)
+    except UnicodeDecodeError as err:
+        print(&#34;&#34;&#34;The method &#39;to_string()&#39; cannot be called on this object.
+        The server response is probably not a string (e.g. JSON).
+        To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
+        raise err</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -1533,6 +1586,7 @@ You should only specify the extension in the path if you have some reason to spe
 <li><code><a title="apexofficeprint.Response.filetype" href="#apexofficeprint.Response.filetype">filetype</a></code></li>
 <li><code><a title="apexofficeprint.Response.mimetype" href="#apexofficeprint.Response.mimetype">mimetype</a></code></li>
 <li><code><a title="apexofficeprint.Response.to_file" href="#apexofficeprint.Response.to_file">to_file</a></code></li>
+<li><code><a title="apexofficeprint.Response.to_string" href="#apexofficeprint.Response.to_string">to_string</a></code></li>
 </ul>
 </li>
 </ul>

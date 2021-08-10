@@ -28,7 +28,7 @@
 </summary>
 <pre><code class="python">import json
 from copy import deepcopy
-from typing import Union, Iterable, Mapping, Set, FrozenSet, Dict, List
+from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 
 
@@ -625,16 +625,16 @@ class Watermark(Property):
 
 
 class D3Code(Element):
-    def __init__(self, name: str, code: str, data: str = None):
+    def __init__(self, name: str, code: str, data: Any = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             code (str): The JSON-encoded code for generating a D3 image.
-            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
+            data (Any, optional): The data that the code will have access to. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.code: str = code
-        self.data: str = data
+        self.data: Any = data
         
 
     @property
@@ -1799,7 +1799,7 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="apexofficeprint.elements.elements.D3Code"><code class="flex name class">
 <span>class <span class="ident">D3Code</span></span>
-<span>(</span><span>name: str, code: str, data: str = None)</span>
+<span>(</span><span>name: str, code: str, data: Any = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The abstract base class for elements.</p>
@@ -1809,24 +1809,24 @@ def as_dict(self) -&gt; Dict:
 <dd>The name for this element.</dd>
 <dt><strong><code>code</code></strong> :&ensp;<code>str</code></dt>
 <dd>The JSON-encoded code for generating a D3 image.</dd>
-<dt><strong><code>data</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The JSON-encoded data that the code will have access to. Defaults to None.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>Any</code>, optional</dt>
+<dd>The data that the code will have access to. Defaults to None.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class D3Code(Element):
-    def __init__(self, name: str, code: str, data: str = None):
+    def __init__(self, name: str, code: str, data: Any = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             code (str): The JSON-encoded code for generating a D3 image.
-            data (str, optional): The JSON-encoded data that the code will have access to. Defaults to None.
+            data (Any, optional): The data that the code will have access to. Defaults to None.
         &#34;&#34;&#34;
         super().__init__(name)
         self.code: str = code
-        self.data: str = data
+        self.data: Any = data
         
 
     @property

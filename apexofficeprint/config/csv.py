@@ -13,7 +13,7 @@ class CsvOptions:
         self,
         text_delimiter: str = None,
         field_separator: str = None,
-        character_set: str = None,
+        character_set: int = None,
     ):
         """
         Args:
@@ -26,7 +26,7 @@ class CsvOptions:
         """
         self.text_delimiter: str = text_delimiter
         self.field_separator: str = field_separator
-        self.character_set: str = character_set
+        self.character_set: int = character_set
     
     def __str__(self) -> str:
         """Get the string representation of these csv options.

@@ -96,7 +96,7 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))
+        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
 
     async def execute_async(self) -&gt; Response:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
@@ -325,7 +325,7 @@ and the <code><a title="apexofficeprint.printjob.PrintJob.execute" href="#apexof
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))
+        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
 
     async def execute_async(self) -&gt; Response:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
@@ -675,7 +675,7 @@ def json(self) -&gt; str:
         Response: `Response`-object
     &#34;&#34;&#34;
     self.server._raise_if_unreachable()
-    return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict))</code></pre>
+    return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))</code></pre>
 </details>
 </dd>
 <dt id="apexofficeprint.printjob.PrintJob.execute_async"><code class="name flex">
