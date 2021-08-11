@@ -41,10 +41,10 @@ async def test_async():
     }))
 
     # create a print job with default output config
-    printjob = aop.PrintJob(template, {
+    printjob = aop.PrintJob({
         "output1": data1,
         "output2": data2
-    }, server)
+    }, server, template)
 
     try:
         coroutine = printjob.execute_async()

@@ -31,9 +31,9 @@ class PrintJob:
     """
 
     def __init__(self,
-                 template: Resource,
                  data: Union[Element, Mapping[str, Element], RESTSource],
                  server: Server,
+                 template: Resource = None,
                  output_config: OutputConfig = OutputConfig(),
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
@@ -41,9 +41,9 @@ class PrintJob:
                  aop_verbose: bool = False):
         """
         Args:
-            template (Resource): Template to use for this print job.
             data (Union[Element, Mapping[str, Element], RESTSource]): This is either: An `Element` (e.g. an `ElementCollection`); A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it "file0".
             server (Server): Server to be used for this print job.
+            template (Resource): Template to use for this print job.
             output_config (OutputConfig, optional): Output configuration to be used for this print job. Defaults to `OutputConfig`().
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
@@ -170,11 +170,16 @@ class PrintJob:
         # (e.g. PDFConfigs are just appended at this "output" level)
         result["output"] = self.output_config.as_dict
 
-        result["template"] = self.template.template_dict
+        if self.template:
+            result["template"] = self.template.template_dict
 
         # If output_type is not specified, set this to the template filetype
+        # If no template found: default docx
         if 'output_type' not in self.output_config.as_dict.keys():
-            result['output']['output_type'] = result['template']['template_type']
+            if self.template:
+                result['output']['output_type'] = result['template']['template_type']
+            else:
+                result['output']['output_type'] = 'docx'
 
         if isinstance(self.data, Mapping):
             result["files"] = [{

@@ -24,9 +24,9 @@ conf = aop.config.OutputConfig(
 
 # Create print job
 printjob = aop.PrintJob(
-    template=aop.Resource.from_local_file('./examples/pdfsignature_example/pdfsignature_template.pdf'),
     data=collection,
     server=server,
+    template=aop.Resource.from_local_file('./examples/pdfsignature_example/pdfsignature_template.pdf'),
     output_config=conf
 )
 

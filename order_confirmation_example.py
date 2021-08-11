@@ -130,7 +130,7 @@ data.add(orders)
 
 # Merge template and data to generate the output file
 conf = aop.config.OutputConfig('pdf') # Optional
-printjob = aop.PrintJob(template, data, server, conf)
+printjob = aop.PrintJob(data, server, template, conf)
 
 try:
     res = printjob.execute()

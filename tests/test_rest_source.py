@@ -52,9 +52,9 @@ def test_rest_source_printjob():
         auth='username:password'
     )
     pj = aop.PrintJob(
-        template=aop.Resource.from_base64('test_base64', 'docx'),
         data=data,
-        server=server
+        server=server,
+        template=aop.Resource.from_base64('test_base64', 'docx'),
     )
     pj_expected = {
         'tool': 'python',

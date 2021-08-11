@@ -24,9 +24,9 @@ def test_printjob():
     output_conf = aop.config.OutputConfig(filetype='pdf')
 
     printjob = aop.PrintJob(
-        template=template_main,
         data=data,
         server=server,
+        template=template_main,
         output_config=output_conf,
         subtemplates=subtemplates,
         prepend_files=[prepend_file],

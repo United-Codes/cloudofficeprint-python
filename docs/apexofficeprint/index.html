@@ -62,7 +62,7 @@ combined_data.add_all(text_tags)
 </code></pre>
 <h3 id="print-job">Print job</h3>
 <p><code><a title="apexofficeprint.PrintJob" href="#apexofficeprint.PrintJob">PrintJob</a></code> combines template, data, server and an optional output configuration (<code>config.OutputConfig</code>) and can execute itself on the AOP server. An example using the variables declared above:</p>
-<pre><code class="python">printjob = aop.PrintJob(template, combined_data, server)
+<pre><code class="python">printjob = aop.PrintJob(combined_data, server, template)
 printjob.execute()
 </code></pre>
 <p>A print job can be executed asynchronously as well.</p>

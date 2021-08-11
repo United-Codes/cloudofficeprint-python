@@ -52,7 +52,7 @@ server = aop.config.Server(
 `PrintJob` combines template, data, server and an optional output configuration (`config.OutputConfig`) and can execute itself on the AOP server. An example using the variables declared above:
 
 ```python
-printjob = aop.PrintJob(template, combined_data, server)
+printjob = aop.PrintJob(combined_data, server, template)
 printjob.execute()
 ```
 

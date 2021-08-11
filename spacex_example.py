@@ -267,11 +267,11 @@ data.add(ship_data)
 # Create printjob
 printjob = aop.PrintJob(
     # NOTE: change IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH and CHART_WIDTH at the beginning of this script according to filetype
+    data=data,
+    server=server,
     template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
     # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.xlsx'), # For xlsx
     # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
-    data=data,
-    server=server
 )
 
 printjob.execute().to_file('./examples/spacex_example/output')

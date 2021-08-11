@@ -59,9 +59,9 @@ server = aop.config.Server(
 
 # Create print job
 printjob = aop.PrintJob(
-    template=aop.Resource.from_local_file('PATH_TO_TEMPLATE_FILE'),
     data=collection,
-    server=server
+    server=server,
+    template=aop.Resource.from_local_file('PATH_TO_TEMPLATE_FILE'),
 )
 
 # Execute print job and save response to file

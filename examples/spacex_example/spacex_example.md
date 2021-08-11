@@ -851,11 +851,11 @@ Here we didn't shorten the description to one sentence, since there is no descri
 Now that we have the template and the data ready, it is time to let AOP merge them together. In the Python SDK this is implemented by creating a printjob:
 ```python
 printjob = aop.PrintJob(
+    data=data,
+    server=server,
     template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
     # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.xlsx'), # For xlsx
     # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
-    data=data,
-    server=server
 )
 ```
 We loaded the template from a local file, passed in our data element collection and our server object.

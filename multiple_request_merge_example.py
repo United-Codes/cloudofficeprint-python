@@ -40,11 +40,11 @@ output_files: List[aop.Response] = []
 for i in range(10):
     # Create print job with 10 data elements
     printjob = aop.PrintJob(
-        template=aop.Resource.from_local_file('./examples/multiple_request_merge_example/template.docx'),
         data={
             k[0]: k[1] for k in list(data.items())[i*10: (i+1)*10] # Select 10 data elements from the data
         },
         server=server,
+        template=aop.Resource.from_local_file('./examples/multiple_request_merge_example/template.docx'),
         output_config=conf
     )
 
@@ -67,9 +67,9 @@ for response in output_files:
 ## As the template we pick the first PDF in the resources-list
 ## The other 9 PDFs from the resources-list can be added to append_files (or prepend_files)
 printjob = aop.PrintJob(
-    template=resources[0],
     data=aop.elements.Property('not_used', 'not_used'),
     server=server,
+    template=resources[0],
     append_files=resources[1:]
 )
 printjob.execute().to_file('./examples/multiple_request_merge_example/output')
