@@ -149,7 +149,7 @@ server = aop.config.Server(
 `PrintJob` combines template, data, server and an optional output configuration (`config.OutputConfig`) and can execute itself on the AOP server. An example using the variables declared above:
 
 ```python
-printjob = aop.PrintJob(template, combined_data, server)
+printjob = aop.PrintJob(combined_data, server, template)
 printjob.execute()
 ```
 
@@ -249,7 +249,7 @@ __all__ = [
 <dl>
 <dt id="apexofficeprint.PrintJob"><code class="flex name class">
 <span>class <span class="ident">PrintJob</span></span>
-<span>(</span><span>template: <a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>, data: Union[<a title="apexofficeprint.elements.elements.Element" href="elements/elements.html#apexofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="apexofficeprint.elements.elements.Element" href="elements/elements.html#apexofficeprint.elements.elements.Element">Element</a>], <a title="apexofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#apexofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="apexofficeprint.config.server.Server" href="config/server.html#apexofficeprint.config.server.Server">Server</a>, output_config: <a title="apexofficeprint.config.output.OutputConfig" href="config/output.html#apexofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;apexofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>] = [], aop_verbose: bool = False)</span>
+<span>(</span><span>data: Union[<a title="apexofficeprint.elements.elements.Element" href="elements/elements.html#apexofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="apexofficeprint.elements.elements.Element" href="elements/elements.html#apexofficeprint.elements.elements.Element">Element</a>], <a title="apexofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#apexofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="apexofficeprint.config.server.Server" href="config/server.html#apexofficeprint.config.server.Server">Server</a>, template: <a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a> = None, output_config: <a title="apexofficeprint.config.output.OutputConfig" href="config/output.html#apexofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;apexofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="apexofficeprint.resource.Resource" href="resource.html#apexofficeprint.resource.Resource">Resource</a>] = [], aop_verbose: bool = False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>A print job for a AOP server.</p>
@@ -257,12 +257,12 @@ __all__ = [
 and the <code><a title="apexofficeprint.PrintJob.execute" href="#apexofficeprint.PrintJob.execute">PrintJob.execute()</a></code> method to combine all these and send a request to the AOP server.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>template</code></strong> :&ensp;<code><a title="apexofficeprint.Resource" href="#apexofficeprint.Resource">Resource</a></code></dt>
-<dd>Template to use for this print job.</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>Union[Element, Mapping[str, Element], RESTSource]</code></dt>
 <dd>This is either: An <code>Element</code> (e.g. an <code>ElementCollection</code>); A mapping, containing file names as keys and an <code>Element</code> as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it "file0".</dd>
 <dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
 <dd>Server to be used for this print job.</dd>
+<dt><strong><code>template</code></strong> :&ensp;<code><a title="apexofficeprint.Resource" href="#apexofficeprint.Resource">Resource</a></code></dt>
+<dd>Template to use for this print job.</dd>
 <dt><strong><code>output_config</code></strong> :&ensp;<code>OutputConfig</code>, optional</dt>
 <dd>Output configuration to be used for this print job. Defaults to <code>OutputConfig</code>().</dd>
 <dt><strong><code>subtemplates</code></strong> :&ensp;<code>Dict[str, <a title="apexofficeprint.Resource" href="#apexofficeprint.Resource">Resource</a>]</code>, optional</dt>
@@ -286,9 +286,9 @@ and the <code><a title="apexofficeprint.PrintJob.execute" href="#apexofficeprint
     &#34;&#34;&#34;
 
     def __init__(self,
-                 template: Resource,
                  data: Union[Element, Mapping[str, Element], RESTSource],
                  server: Server,
+                 template: Resource = None,
                  output_config: OutputConfig = OutputConfig(),
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
@@ -296,9 +296,9 @@ and the <code><a title="apexofficeprint.PrintJob.execute" href="#apexofficeprint
                  aop_verbose: bool = False):
         &#34;&#34;&#34;
         Args:
-            template (Resource): Template to use for this print job.
             data (Union[Element, Mapping[str, Element], RESTSource]): This is either: An `Element` (e.g. an `ElementCollection`); A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it &#34;file0&#34;.
             server (Server): Server to be used for this print job.
+            template (Resource): Template to use for this print job.
             output_config (OutputConfig, optional): Output configuration to be used for this print job. Defaults to `OutputConfig`().
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
@@ -425,11 +425,16 @@ and the <code><a title="apexofficeprint.PrintJob.execute" href="#apexofficeprint
         # (e.g. PDFConfigs are just appended at this &#34;output&#34; level)
         result[&#34;output&#34;] = self.output_config.as_dict
 
-        result[&#34;template&#34;] = self.template.template_dict
+        if self.template:
+            result[&#34;template&#34;] = self.template.template_dict
 
         # If output_type is not specified, set this to the template filetype
+        # If no template found: default docx
         if &#39;output_type&#39; not in self.output_config.as_dict.keys():
-            result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+            if self.template:
+                result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+            else:
+                result[&#39;output&#39;][&#39;output_type&#39;] = &#39;docx&#39;
 
         if isinstance(self.data, Mapping):
             result[&#34;files&#34;] = [{
@@ -582,11 +587,16 @@ def as_dict(self) -&gt; Dict:
     # (e.g. PDFConfigs are just appended at this &#34;output&#34; level)
     result[&#34;output&#34;] = self.output_config.as_dict
 
-    result[&#34;template&#34;] = self.template.template_dict
+    if self.template:
+        result[&#34;template&#34;] = self.template.template_dict
 
     # If output_type is not specified, set this to the template filetype
+    # If no template found: default docx
     if &#39;output_type&#39; not in self.output_config.as_dict.keys():
-        result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+        if self.template:
+            result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+        else:
+            result[&#39;output&#39;][&#39;output_type&#39;] = &#39;docx&#39;
 
     if isinstance(self.data, Mapping):
         result[&#34;files&#34;] = [{

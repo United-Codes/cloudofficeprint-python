@@ -986,6 +986,7 @@ class StockChart(Chart):
 
 def _replace_key_recursive(obj: Dict, old_key: str, new_key: str) -> Dict:
     """Recursively replace the keys in a (possibly) nested dictionary with a new name.
+    Objects with key "options" will not be modified (y-axis stays y-axis).
 
     Args:
         obj (Dict): input dictionary
@@ -997,7 +998,8 @@ def _replace_key_recursive(obj: Dict, old_key: str, new_key: str) -> Dict:
     """
     for key, value in obj.items():
         if isinstance(value, dict):
-            obj[key] = _replace_key_recursive(value, old_key, new_key)
+            if key != 'options':
+                obj[key] = _replace_key_recursive(value, old_key, new_key)
         elif isinstance(value, list):
             for i in range(len(value)):
                 value[i] = _replace_key_recursive(value[i], old_key, new_key)
@@ -1014,22 +1016,14 @@ class CombinedChart(Chart):
             name (str): The name of the chart.
             charts (Iterable[Chart]): Charts for the first y-axis.
             secondaryCharts (Iterable[Chart], optional): Charts for the secondary y-axis. Defaults to None.
-            options (ChartOptions, optional): The options for the chart. If not defined, the chartoptions of the first chart that has options will be used. Defaults to None.
+            options (ChartOptions, optional): The options for the chart. Defaults to None.
         """
-        if options is None:
-            all_options = [chart.options.as_dict for chart in (
-                tuple(charts) + tuple(secondaryCharts)) if chart.options is not None]
-            # use reversed() to give the first charts precedence (they overwrite the others)
-            for opt in reversed(all_options):
-                options = opt
-
         super().__init__(name, options)
         self.charts: Iterable[Chart] = charts
         self.secondaryCharts: Iterable[Chart] = secondaryCharts
 
     def _get_modified_chart_dicts(self) -> List[Dict]:
-        """Remove the chart options from all charts in this combined chart object.
-        Replace the y-axis with the y2-axis for the secondary charts.
+        """Replace the y-axis with the y2-axis for the secondary charts.
         Add the dict representation for each chart to a list and return that list.
 
         Returns:
@@ -1041,12 +1035,10 @@ class CombinedChart(Chart):
         for chart in primary_list:
             chart_dict_full = chart.as_dict
             chart_dict = chart_dict_full[chart.name]
-            chart_dict.pop("options", None)
             dict_list.append(chart_dict)
         for chart in secondary_list:
             chart_dict_full = chart.as_dict
             chart_dict = chart_dict_full[chart.name]
-            chart_dict.pop("options", None)
             dict_list.append(_replace_key_recursive(chart_dict, "y", "y2"))
         return dict_list
 

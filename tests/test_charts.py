@@ -819,6 +819,17 @@ def test_chart_combined():
                             'symbol': 'square'
                         }
                     ],
+                    'options': {
+                        'axis':{
+                            'x':{
+                            },
+                            'y':{
+                            }
+                        },
+                        'width':50,
+                        'backgroundColor':'gray',
+                        'backgroundOpacity':50
+                    },
                     'type': 'line'
                 },
                 {
@@ -858,18 +869,20 @@ def test_chart_combined():
                             'name': 'bar2'
                         }
                     ],
+                    'options': {
+                        'axis':{
+                            'x':{
+                            },
+                            'y':{
+                            }
+                        },
+                        'width':100,
+                        'height':100,
+                        'roundedCorners':False
+                    },
                     'type': 'bar'
                 }
             ],
-            'options': {
-                'axis': {
-                    'x': {},
-                    'y': {}
-                },
-                'width': 50,
-                'backgroundColor': 'gray',
-                'backgroundOpacity': 50
-            },
             'type': 'multiple'
         }
     }
