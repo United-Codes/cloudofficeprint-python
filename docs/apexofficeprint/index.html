@@ -25,16 +25,16 @@
 <p>This Python package provides a programmatic interface with an <a href="https://www.apexofficeprint.com">APEX Office Print</a> server.</p>
 <h2 id="usage">Usage</h2>
 <p>The examples below call this package aop.</p>
-<pre><code class="python">import apexofficeprint as aop
+<pre><code class="language-python">import apexofficeprint as aop
 </code></pre>
 <h3 id="templates">Templates</h3>
 <p>Templates are represented by <code><a title="apexofficeprint.Resource" href="#apexofficeprint.Resource">Resource</a></code>. The simplest way to obtain a <code><a title="apexofficeprint.Resource" href="#apexofficeprint.Resource">Resource</a></code> is to load from a local path.</p>
-<pre><code class="python">template = aop.Resource.from_local_file(&quot;./path/to/template.docx&quot;)
+<pre><code class="language-python">template = aop.Resource.from_local_file(&quot;./path/to/template.docx&quot;)
 </code></pre>
 <h3 id="render-elements">Render elements</h3>
 <p>Most render elements encapsulate the data for a single tag. An <code>elements.ElementCollection</code> is an element which represents a collection of elements.</p>
 <p>Combining a simple line chart and some text tags:</p>
-<pre><code class="python">line = aop.elements.LineChart(
+<pre><code class="language-python">line = aop.elements.LineChart(
     &quot;linechart&quot;,
     aop.elements.LineSeries([1, 2, 3, 4], [1, 2, 3, 4], color=&quot;green&quot;),
     aop.elements.XYSeries([1, 2, 3, 4], [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;])
@@ -55,25 +55,25 @@ combined_data.add_all(text_tags)
 </code></pre>
 <h3 id="the-server">The server</h3>
 <p>An AOP server is configured as a <code>config.Server</code>. It takes a url and an optional <code>config.ServerConfig</code> which allows for various server configuration options. If you're using APEX Office Print Cloud edition, you will need to use this to declare your API key.</p>
-<pre><code class="python">server = aop.config.Server(
+<pre><code class="language-python">server = aop.config.Server(
     &quot;http://server.url.com/&quot;,
     aop.config.ServerConfig(api_key = &quot;YOUR_API_KEY&quot;)
 )
 </code></pre>
 <h3 id="print-job">Print job</h3>
 <p><code><a title="apexofficeprint.PrintJob" href="#apexofficeprint.PrintJob">PrintJob</a></code> combines template, data, server and an optional output configuration (<code>config.OutputConfig</code>) and can execute itself on the AOP server. An example using the variables declared above:</p>
-<pre><code class="python">printjob = aop.PrintJob(combined_data, server, template)
+<pre><code class="language-python">printjob = aop.PrintJob(combined_data, server, template)
 printjob.execute()
 </code></pre>
 <p>A print job can be executed asynchronously as well.</p>
-<pre><code class="python">import asyncio
+<pre><code class="language-python">import asyncio
 coroutine = printjob.execute_async()
 # simply await your result when you need it
 result = await coroutine
 </code></pre>
 <h3 id="full-json-available">Full JSON available</h3>
 <p>If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server for you (requests are made using <a href="https://requests.readthedocs.io/en/master/">requests</a>).</p>
-<pre><code class="python">json_data = open(&quot;./path/to/data.json&quot;, &quot;r&quot;).read()
+<pre><code class="language-python">json_data = open(&quot;./path/to/data.json&quot;, &quot;r&quot;).read()
 aop.PrintJob.execute_full_json(
         json_data, server
     ).to_file(&quot;./test/from_full_json_output&quot;)
@@ -81,7 +81,7 @@ aop.PrintJob.execute_full_json(
 <h3 id="server-errors">Server errors</h3>
 <p>In case the AOP server returns an error, <code><a title="apexofficeprint.PrintJob" href="#apexofficeprint.PrintJob">PrintJob</a></code> will throw one as well.
 You can catch it and get either its user-readable message or an encoded stack trace that can be passed to AOP support.</p>
-<pre><code class="python">try:
+<pre><code class="language-python">try:
     # execute some previously constructed printjob
     printjob.execute()
 except aop.exceptions.AOPError as err:
