@@ -31,7 +31,7 @@ First we create a new file and import the APEX Office Print library:
 import apexofficeprint as aop
 ```
 
-Then we load the template explained in the [template section](#template) and set up the AOP server.
+Then we load the template explained in the [template section](#template) and set up the AOP server:
 ```python
 TEMPLATE_PATH = "./examples/order_confirmation_example/data/template.docx"
 SERVER_URL = "https://api.apexofficeprint.com/"
@@ -46,7 +46,7 @@ server = aop.config.Server(
 ```
 If you have an AOP server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
 
-We also need to create the main element-collection object that contains all our data.
+We also need to create the main element-collection object that contains all our data:
 ```python
 data = aop.elements.ElementCollection('data')
 ```
