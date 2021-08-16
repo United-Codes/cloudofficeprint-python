@@ -2,12 +2,13 @@
 There is a limit on how much data can be sent to an AOP server at once. Let's say you have a template for product specifications and you want to generate one merged PDF file for 50.000 different products. It is possible that you cannot send all the data for all the products at once to the AOP server. In this example we will show you how you can split one big merge request into multiple smaller merge requests.
 
 # Template
-A simple template will be used since the goal of this example is to show how you can split one big merge request into a few smaller ones. The template will contain one simple tag {test}. Tags are used in a template to let the AOP server know what needs to be replaced by data. In this case, the simple tag {test} will be replaced by whatever value is given to the AOP server for the tag with key 'test'. In this example we use a template with filetype docx, but this can be any of the allowed template types (see [here](https://www.apexofficeprint.com/docs/#tag-overview)).
+A simple template will be used since the goal of this example is to show how you can split one big merge request into a few smaller ones. The template will contain one simple tag {test}. Tags are used in a template as placeholders to let the AOP server know what needs to be replaced by data. In this case, the simple tag {test} will be replaced by whatever value is given to the AOP server for the tag with key 'test'. In this example we use a template with filetype docx, but this can be any of the allowed template types (see [here](https://www.apexofficeprint.com/docs/#tag-overview)).
 
 <img src="./template.png" width="600" />
 <!-- TODO: change this link to Github link -->
 
 # Code (SDK)
+NOTE: For an overview of all the possibilities of this SDK, we refer to the documentation on our [website](https://cloudofficeprint.com/docs).
 First we create a new file and import the APEX Office Print library:
 ```python
 import apexofficeprint as aop
@@ -54,7 +55,7 @@ for i in range(10):
             k[0]: k[1] for k in list(data.items())[i*10: (i+1)*10] # Select 10 data elements from the data
         },
         server=server,
-        template=aop.Resource.from_local_file('./output'),
+        template=aop.Resource.from_local_file('./examples/multiple_request_merge_example/template.docx'),
         output_config=conf
     )
 
@@ -83,5 +84,5 @@ printjob = aop.PrintJob(
     template=resources[0],
     append_files=resources[1:]
 )
-printjob.execute().to_file('./output')
+printjob.execute().to_file('./examples/multiple_request_merge_example/output')
 ```
