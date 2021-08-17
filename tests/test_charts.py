@@ -1,13 +1,14 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
 
 """This file contains tests for all the possible charts"""
 
+
 def test_chart_options():
-    x_axis = aop.elements.ChartAxisOptions(
+    x_axis = cop.elements.ChartAxisOptions(
         orientation='minMax',
         min=5,
         max=10,
-        date=aop.elements.ChartDateOptions(
+        date=cop.elements.ChartDateOptions(
             format='unix',
             code='mm/yy',
             unit='months',
@@ -15,13 +16,13 @@ def test_chart_options():
         ),
         title='title_x',
         values=True,
-        values_style=aop.elements.ChartTextStyle(
+        values_style=cop.elements.ChartTextStyle(
             italic=True,
             bold=True,
             color='red',
             font='Arial'
         ),
-        title_style=aop.elements.ChartTextStyle(
+        title_style=cop.elements.ChartTextStyle(
             italic=True,
             bold=False,
             color='blue',
@@ -34,19 +35,19 @@ def test_chart_options():
         minor_unit=1,
         formatCode='General'
     )
-    y_axis = aop.elements.ChartAxisOptions(
+    y_axis = cop.elements.ChartAxisOptions(
         orientation='minMax',
         min=5,
         max=10,
         title='title_y',
         values=True,
-        values_style=aop.elements.ChartTextStyle(
+        values_style=cop.elements.ChartTextStyle(
             italic=True,
             bold=True,
             color='red',
             font='Arial'
         ),
-        title_style=aop.elements.ChartTextStyle(
+        title_style=cop.elements.ChartTextStyle(
             italic=True,
             bold=False,
             color='blue',
@@ -60,7 +61,7 @@ def test_chart_options():
         formatCode='General'
     )
     y2_axis = y_axis
-    options = aop.elements.ChartOptions(
+    options = cop.elements.ChartOptions(
         x_axis=x_axis,
         y_axis=y_axis,
         y2_axis=y2_axis,
@@ -71,7 +72,7 @@ def test_chart_options():
         background_color='green',
         background_opacity=50,
         title='title_chart',
-        title_style=aop.elements.ChartTextStyle(
+        title_style=cop.elements.ChartTextStyle(
             italic=False,
             bold=True,
             color='red',
@@ -81,7 +82,7 @@ def test_chart_options():
     )
     options.set_legend(
         position='l',
-        style=aop.elements.ChartTextStyle(
+        style=cop.elements.ChartTextStyle(
             italic=True,
             bold=True,
             color='blue',
@@ -100,86 +101,86 @@ def test_chart_options():
     options_expected = {
         'axis': {
             'x': {
-                    'orientation': 'minMax',
-                    'min': 5,
-                    'max': 10,
-                    'type': 'date',
-                    'date': {
+                'orientation': 'minMax',
+                'min': 5,
+                'max': 10,
+                'type': 'date',
+                'date': {
                         'format': 'unix',
                         'code': 'mm/yy',
                         'unit': 'months',
                         'step': 1,
-                    },
-                    'title': 'title_x',
-                    'showValues': True,
-                    'valuesStyle': {
-                        'italic': True,
-                        'bold': True,
-                        'color': 'red',
-                        'font': 'Arial',
-                    },
-                    'titleStyle': {
-                        'italic': True,
-                        'bold': False,
-                        'color': 'blue',
-                        'font': 'Arial',
-                    },
-                    'titleRotation': 45,
-                    'majorGridlines': True,
-                    'majorUnit': 2,
-                    'minorGridlines': True,
-                    'minorUnit': 1,
-                    'formatCode': 'General',
+                },
+                'title': 'title_x',
+                'showValues': True,
+                'valuesStyle': {
+                    'italic': True,
+                    'bold': True,
+                    'color': 'red',
+                    'font': 'Arial',
+                },
+                'titleStyle': {
+                    'italic': True,
+                    'bold': False,
+                    'color': 'blue',
+                    'font': 'Arial',
+                },
+                'titleRotation': 45,
+                'majorGridlines': True,
+                'majorUnit': 2,
+                'minorGridlines': True,
+                'minorUnit': 1,
+                'formatCode': 'General',
             },
             'y': {
-                    'orientation': 'minMax',
-                    'min': 5,
-                    'max': 10,
-                    'title': 'title_y',
-                    'showValues': True,
-                    'valuesStyle': {
-                        'italic': True,
-                        'bold': True,
-                        'color': 'red',
-                        'font': 'Arial',
-                    },
-                    'titleStyle': {
-                        'italic': True,
-                        'bold': False,
-                        'color': 'blue',
-                        'font': 'Arial',
-                    },
-                    'titleRotation': 45,
-                    'majorGridlines': True,
-                    'majorUnit': 2,
-                    'minorGridlines': True,
-                    'minorUnit': 1,
-                    'formatCode': 'General',
+                'orientation': 'minMax',
+                'min': 5,
+                'max': 10,
+                'title': 'title_y',
+                'showValues': True,
+                'valuesStyle': {
+                    'italic': True,
+                    'bold': True,
+                    'color': 'red',
+                    'font': 'Arial',
+                },
+                'titleStyle': {
+                    'italic': True,
+                    'bold': False,
+                    'color': 'blue',
+                    'font': 'Arial',
+                },
+                'titleRotation': 45,
+                'majorGridlines': True,
+                'majorUnit': 2,
+                'minorGridlines': True,
+                'minorUnit': 1,
+                'formatCode': 'General',
             },
             'y2': {
-                    'orientation': 'minMax',
-                    'min': 5,
-                    'max': 10,
-                    'title': 'title_y',
-                    'showValues': True,
-                    'valuesStyle': {
-                        'italic': True,
-                        'bold': True,
-                        'color': 'red',
-                        'font': 'Arial',
-                    },
-                    'titleStyle': {
-                        'italic': True,
-                        'bold': False,
-                        'color': 'blue',
-                        'font': 'Arial',
-                    },
-                    'titleRotation': 45,
-                    'majorGridlines': True,
-                    'majorUnit': 2,
-                    'minorGridlines': True,
-                    'minorUnit': 1,
-                    'formatCode': 'General',
+                'orientation': 'minMax',
+                'min': 5,
+                'max': 10,
+                'title': 'title_y',
+                'showValues': True,
+                'valuesStyle': {
+                    'italic': True,
+                    'bold': True,
+                    'color': 'red',
+                    'font': 'Arial',
+                },
+                'titleStyle': {
+                    'italic': True,
+                    'bold': False,
+                    'color': 'blue',
+                    'font': 'Arial',
+                },
+                'titleRotation': 45,
+                'majorGridlines': True,
+                'majorUnit': 2,
+                'minorGridlines': True,
+                'minorUnit': 1,
+                'formatCode': 'General',
             },
         },
         'width': 500,
@@ -222,7 +223,7 @@ def test_chart_options():
 
 def test_chart_line():
     """Test for LineChart. Also serves as a test for RadarChart (RadarSeries is equivalent to LineSeries)"""
-    line1 = aop.elements.LineSeries(
+    line1 = cop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='line1',
@@ -233,7 +234,7 @@ def test_chart_line():
         line_width='0.2cm',
         line_style='sysDashDotDot'
     )
-    line2 = aop.elements.LineSeries(
+    line2 = cop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='line2',
@@ -244,7 +245,7 @@ def test_chart_line():
         line_width='2px',
         line_style='sysDash'
     )
-    line_chart = aop.elements.LineChart(
+    line_chart = cop.elements.LineChart(
         name='test_name',
         lines=(line1, line2)
     )
@@ -309,19 +310,19 @@ def test_chart_bar():
     BarStackedChart, BarStackedPercentChart, ColumnChart, ColumnStackedChart, ColumnStackedPercentChart 
     and ScatterChart because their constructors take the same argument types (i.e. XYSeries).
     """
-    bars1 = aop.elements.BarSeries(
+    bars1 = cop.elements.BarSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='bars1',
         color='red'
     )
-    bars2 = aop.elements.BarSeries(
+    bars2 = cop.elements.BarSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='bars2',
         color='blue'
     )
-    bar_chart = aop.elements.BarChart(
+    bar_chart = cop.elements.BarChart(
         name='bar_chart',
         bars=(bars1, bars2)
     )
@@ -375,19 +376,19 @@ def test_chart_pie():
     """Test for PieChart. Also serves as the test for Pie3DChart and DoughnutChart, 
     because their constructors take the same argument types (i.e. PieSeries).
     """
-    pies1 = aop.elements.PieSeries(
+    pies1 = cop.elements.PieSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='pies1',
         colors=('red', None, 'blue')
     )
-    pies2 = aop.elements.PieSeries(
+    pies2 = cop.elements.PieSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='pies2',
         colors=('green', 'blue', None)
     )
-    pies_chart = aop.elements.PieChart(
+    pies_chart = cop.elements.PieChart(
         name='pie_chart',
         pies=(pies1, pies2)
     )
@@ -441,21 +442,21 @@ def test_chart_pie():
 
 def test_chart_area():
     """Test for AreaChart"""
-    area1 = aop.elements.AreaSeries(
+    area1 = cop.elements.AreaSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='area1',
         color='red',
         opacity=50
     )
-    area2 = aop.elements.AreaSeries(
+    area2 = cop.elements.AreaSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='area2',
         color='blue',
         opacity=80
     )
-    area_chart = aop.elements.AreaChart(
+    area_chart = cop.elements.AreaChart(
         name='area_chart',
         areas=(area1, area2)
     )
@@ -509,21 +510,21 @@ def test_chart_area():
 
 def test_chart_bubble():
     """Test for BubbleChart"""
-    bubble1 = aop.elements.BubbleSeries(
+    bubble1 = cop.elements.BubbleSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         sizes=(5, 6, 2),
         name='bubble1',
         color='red'
     )
-    bubble2 = aop.elements.BubbleSeries(
+    bubble2 = cop.elements.BubbleSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         sizes=(5, 6, 2),
         name='bubble2',
         color='blue'
     )
-    bubble_chart = aop.elements.BubbleChart(
+    bubble_chart = cop.elements.BubbleChart(
         name='bubble_chart',
         bubbles=(bubble1, bubble2)
     )
@@ -581,7 +582,7 @@ def test_chart_bubble():
 
 def test_chart_stock():
     """Test for StockChart"""
-    stock1 = aop.elements.StockSeries(
+    stock1 = cop.elements.StockSeries(
         x=(1, 2, 3),
         high=(4, 5, 6),
         low=(7, 8, 9),
@@ -590,7 +591,7 @@ def test_chart_stock():
         volume=(16, 17, 18),
         name='stock1'
     )
-    stock2 = aop.elements.StockSeries(
+    stock2 = cop.elements.StockSeries(
         x=(1, 2, 3),
         high=(4, 5, 6),
         low=(7, 8, 9),
@@ -599,7 +600,7 @@ def test_chart_stock():
         volume=(16, 17, 18),
         name='stock2'
     )
-    stock_chart = aop.elements.StockChart(
+    stock_chart = cop.elements.StockChart(
         name='stock_chart',
         stocks=(stock1, stock2)
     )
@@ -672,68 +673,68 @@ def test_chart_stock():
 
 
 def test_chart_combined():
-    axis = aop.elements.ChartAxisOptions()
-    column1 = aop.elements.ColumnSeries(
+    axis = cop.elements.ChartAxisOptions()
+    column1 = cop.elements.ColumnSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='column1'
     )
-    column2 = aop.elements.ColumnSeries(
+    column2 = cop.elements.ColumnSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='column2'
     )
-    column_chart = aop.elements.ColumnChart(
+    column_chart = cop.elements.ColumnChart(
         name='column_chart',
         columns=(column1, column2)
     )
-    line1 = aop.elements.LineSeries(
+    line1 = cop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='line1',
         symbol='square'
     )
-    line2 = aop.elements.LineSeries(
+    line2 = cop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='line2',
         symbol='square'
     )
-    line_chart_options = aop.elements.ChartOptions(
+    line_chart_options = cop.elements.ChartOptions(
         x_axis=axis,
         y_axis=axis,
         width=50,
         background_color='gray',
         background_opacity=50
     )
-    line_chart = aop.elements.LineChart(
+    line_chart = cop.elements.LineChart(
         name='line_chart',
         lines=(line1, line2),
         options=line_chart_options
     )
-    bar1 = aop.elements.BarSeries(
+    bar1 = cop.elements.BarSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
         name='bar1'
     )
-    bar2 = aop.elements.BarSeries(
+    bar2 = cop.elements.BarSeries(
         x=('a', 'b', 'c'),
         y=(4, 5, 6),
         name='bar2'
     )
-    bar_chart_options = aop.elements.ChartOptions(
+    bar_chart_options = cop.elements.ChartOptions(
         x_axis=axis,
         y_axis=axis,
         width=100,
         height=100,
         rounded_corners=False
     )
-    bar_chart = aop.elements.BarChart(
+    bar_chart = cop.elements.BarChart(
         name='bar_chart',
         bars=(bar1, bar2),
         options=bar_chart_options
     )
-    combined_chart = aop.elements.CombinedChart(
+    combined_chart = cop.elements.CombinedChart(
         name='combined_chart',
         charts=(column_chart, line_chart),
         secondaryCharts=(bar_chart,)
@@ -820,15 +821,15 @@ def test_chart_combined():
                         }
                     ],
                     'options': {
-                        'axis':{
-                            'x':{
+                        'axis': {
+                            'x': {
                             },
-                            'y':{
+                            'y': {
                             }
                         },
-                        'width':50,
-                        'backgroundColor':'gray',
-                        'backgroundOpacity':50
+                        'width': 50,
+                        'backgroundColor': 'gray',
+                        'backgroundOpacity': 50
                     },
                     'type': 'line'
                 },
@@ -870,15 +871,15 @@ def test_chart_combined():
                         }
                     ],
                     'options': {
-                        'axis':{
-                            'x':{
+                        'axis': {
+                            'x': {
                             },
-                            'y':{
+                            'y': {
                             }
                         },
-                        'width':100,
-                        'height':100,
-                        'roundedCorners':False
+                        'width': 100,
+                        'height': 100,
+                        'roundedCorners': False
                     },
                     'type': 'bar'
                 }
@@ -889,24 +890,24 @@ def test_chart_combined():
     assert combined_chart.as_dict == combined_chart_expected
 
 
-def test_chart_aop():
-    aop_chart = aop.elements.AOPChart(
-        name='aop_chart',
+def test_chart_cop():
+    cop_chart = cop.elements.COPChart(
+        name='cop_chart',
         x_data=('a', 'b', 'c'),
         y_datas=((1, 2, 3), (4, 5, 6)),
-        date=aop.elements.AOPChartDateOptions(
+        date=cop.elements.COPChartDateOptions(
             format='d/m/yyyy',
             unit='days',
             step=1
         ),
-        title='aop_chart_title',
+        title='cop_chart_title',
         x_title='x-axis',
         y_title='y-axis',
         y2_title='y2-axis',
         x2_title='x2-axis'
     )
-    aop_chart_expected = {
-        'aop_chart': {
+    cop_chart_expected = {
+        'cop_chart': {
             'xAxis': {
                 'data': ['a', 'b', 'c'],
                 'title': 'x-axis',
@@ -929,7 +930,7 @@ def test_chart_aop():
                 ],
                 'title': 'y-axis'
             },
-            'title': 'aop_chart_title',
+            'title': 'cop_chart_title',
             'x2Axis': {
                 'title': 'x2-axis'
             },
@@ -938,29 +939,29 @@ def test_chart_aop():
             }
         }
     }
-    assert aop_chart.as_dict == aop_chart_expected
+    assert cop_chart.as_dict == cop_chart_expected
 
     # Test for y_datas = dictionary
-    aop_chart = aop.elements.AOPChart(
-        name='aop_chart',
+    cop_chart = cop.elements.COPChart(
+        name='cop_chart',
         x_data=('a', 'b', 'c'),
         y_datas={
             'first_series': (1, 2, 3),
             'second_series': (4, 5, 6)
         },
-        date=aop.elements.AOPChartDateOptions(
+        date=cop.elements.COPChartDateOptions(
             format='d/m/yyyy',
             unit='days',
             step=1
         ),
-        title='aop_chart_title',
+        title='cop_chart_title',
         x_title='x-axis',
         y_title='y-axis',
         y2_title='y2-axis',
         x2_title='x2-axis'
     )
-    aop_chart_expected = {
-        'aop_chart': {
+    cop_chart_expected = {
+        'cop_chart': {
             'xAxis': {
                 'data': ['a', 'b', 'c'],
                 'title': 'x-axis',
@@ -983,7 +984,7 @@ def test_chart_aop():
                 ],
                 'title': 'y-axis'
             },
-            'title': 'aop_chart_title',
+            'title': 'cop_chart_title',
             'x2Axis': {
                 'title': 'x2-axis'
             },
@@ -992,7 +993,8 @@ def test_chart_aop():
             }
         }
     }
-    assert aop_chart.as_dict == aop_chart_expected
+    assert cop_chart.as_dict == cop_chart_expected
+
 
 def run():
     test_chart_options()
@@ -1003,7 +1005,8 @@ def run():
     test_chart_bubble()
     test_chart_stock()
     test_chart_combined()
-    test_chart_aop()
+    test_chart_cop()
+
 
 if __name__ == '__main__':
     run()

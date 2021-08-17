@@ -1,9 +1,9 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
 
 
 def test_barcodes():
     """Test class BarCode, a subclass of class Code"""
-    barcode = aop.elements.BarCode(
+    barcode = cop.elements.BarCode(
         name='name',
         data='data',
         type='ean13',
@@ -32,9 +32,10 @@ def test_barcodes():
     }
     assert barcode.as_dict == barcode_expected
 
+
 def test_qr_code():
     """Test styling options for qr-code class"""
-    qr = aop.elements.QRCode(
+    qr = cop.elements.QRCode(
         name='name',
         data='data',
         type='qrcode'
@@ -97,8 +98,9 @@ def test_qr_code():
     }
     assert qr.as_dict == qr_expected
 
+
 def test_qr_code_wifi():
-    wifi = aop.elements.WiFiQRCode(
+    wifi = cop.elements.WiFiQRCode(
         name='name',
         ssid='ssid',
         wifi_encryption='WPA',
@@ -114,8 +116,9 @@ def test_qr_code_wifi():
     }
     assert wifi.as_dict == wifi_expected
 
+
 def test_qr_code_telephone():
-    telephone_number = aop.elements.TelephoneNumberQRCode(
+    telephone_number = cop.elements.TelephoneNumberQRCode(
         name='name',
         number='+32_test_number'
     )
@@ -125,8 +128,9 @@ def test_qr_code_telephone():
     }
     assert telephone_number.as_dict == telephone_number_expected
 
+
 def test_qr_code_email():
-    email = aop.elements.EmailQRCode(
+    email = cop.elements.EmailQRCode(
         name='name',
         receiver='receiver',
         cc='cc',
@@ -144,8 +148,9 @@ def test_qr_code_email():
     }
     assert email.as_dict == email_expected
 
+
 def test_qr_code_sms():
-    sms = aop.elements.SMSQRCode(
+    sms = cop.elements.SMSQRCode(
         name='name',
         receiver='receiver',
         sms_body='sms_body'
@@ -157,8 +162,9 @@ def test_qr_code_sms():
     }
     assert sms.as_dict == sms_expected
 
+
 def test_qr_code_url():
-    url = aop.elements.URLQRCode(
+    url = cop.elements.URLQRCode(
         name='name',
         url='url'
     )
@@ -168,8 +174,9 @@ def test_qr_code_url():
     }
     assert url.as_dict == url_expected
 
+
 def test_qr_code_v_card():
-    v_card = aop.elements.VCardQRCode(
+    v_card = cop.elements.VCardQRCode(
         name='name',
         first_name='first_name',
         last_name='last_name',
@@ -185,8 +192,9 @@ def test_qr_code_v_card():
     }
     assert v_card.as_dict == v_card_expected
 
+
 def test_qr_code_me_card():
-    me_card = aop.elements.MeCardQRCode(
+    me_card = cop.elements.MeCardQRCode(
         name='name',
         first_name='first_name',
         last_name='last_name',
@@ -214,8 +222,9 @@ def test_qr_code_me_card():
     }
     assert me_card.as_dict == me_card_expected
 
+
 def test_qr_code_geolocation():
-    geolocation = aop.elements.GeolocationQRCode(
+    geolocation = cop.elements.GeolocationQRCode(
         name='name',
         latitude='latitude',
         longitude='longitude',
@@ -229,8 +238,9 @@ def test_qr_code_geolocation():
     }
     assert geolocation.as_dict == geolocation_expected
 
+
 def test_qr_code_event():
-    event = aop.elements.EventQRCode(
+    event = cop.elements.EventQRCode(
         name='name',
         summary='summary',
         startdate='startdate',
@@ -257,6 +267,7 @@ def run():
     test_qr_code_me_card()
     test_qr_code_geolocation()
     test_qr_code_event()
+
 
 if __name__ == '__main__':
     run()

@@ -1,29 +1,31 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
 from test import server
+
 
 def test_printjob():
     """Test all options for printjob"""
-    prepend_file = aop.Resource.from_local_file('./tests/data/template.docx')
+    prepend_file = cop.Resource.from_local_file('./tests/data/template.docx')
 
-    template = aop.Resource.from_local_file('./tests/data/template.docx')
-    template_main = aop.Resource.from_local_file('./tests/data/template_prepend_append_subtemplate.docx')
+    template = cop.Resource.from_local_file('./tests/data/template.docx')
+    template_main = cop.Resource.from_local_file(
+        './tests/data/template_prepend_append_subtemplate.docx')
     template_base64 = template.data
     template_main_base64 = template_main.data
-    
-    data = aop.elements.ElementCollection('data')
-    text_tag = aop.elements.Property('textTag1', 'test_text_tag1')
+
+    data = cop.elements.ElementCollection('data')
+    text_tag = cop.elements.Property('textTag1', 'test_text_tag1')
     data.add(text_tag)
 
-    append_file = aop.Resource.from_local_file('./tests/data/template.docx')
+    append_file = cop.Resource.from_local_file('./tests/data/template.docx')
 
     subtemplates = {
         'sub1': template,
         'sub2': template
     }
 
-    output_conf = aop.config.OutputConfig(filetype='pdf')
+    output_conf = cop.config.OutputConfig(filetype='pdf')
 
-    printjob = aop.PrintJob(
+    printjob = cop.PrintJob(
         data=data,
         server=server,
         template=template_main,
@@ -39,7 +41,7 @@ def test_printjob():
                 'file_source': 'base64',
                 'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             }
-            ],
+        ],
         'files': [
             {
                 'data': {
@@ -78,7 +80,7 @@ def test_printjob():
                 'name': 'sub2'
             }
         ],
-        'python_sdk_version': aop.printjob.STATIC_OPTS['python_sdk_version']
+        'python_sdk_version': cop.printjob.STATIC_OPTS['python_sdk_version']
     }
     assert printjob.as_dict == printjob_expected
     # printjob.execute().to_file("tests/data/prepend_append_subtemplate_test") # Works as expected

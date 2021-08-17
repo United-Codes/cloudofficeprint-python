@@ -1,9 +1,9 @@
 # About
-In this file we are going to show you how you can use the APEX Office Print (AOP) Python SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with the Python SDK and finally let APEX Office Print do the work to merge your template with the data. 
+In this file we are going to show you how you can use the Cloud (Cloud Office Print) Python SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with the Python SDK and finally let Cloud do the work to merge your template with the data. 
 
 In this example, we are going to use SpaceX data to fill a template we are going to make. The SpaceX data can be received by sending an HTTP-request to an API. The (non-official) API used in this example is https://docs.spacexdata.com/.
 
-Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the spacexdata-API and process this data with this Python SDK. Finally we send the template together with the data to an AOP server and save the response into our output file.
+Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the spacexdata-API and process this data with this Python SDK. Finally we send the template together with the data to an Cloud Office Print server and save the response into our output file.
 
 # Input data (API)
 The data we use comes from https://docs.spacexdata.com/. More specifically we will use SpaceX data about their company, rockets, dragons, launch pads, landing pads and ships that assist SpaceX launches. Let us have a look at the available data for the different components.
@@ -356,7 +356,7 @@ The response is a JSON array with information about all the ships. One element o
 ```
 
 # Template
-Now we will build the template. We can create templates in different file extensions, namely docx, xlsx, pptx, html, md, txt and csv. In this example we will build a template of filetype pptx, xlsx and docx. The template has to follow a specific structure which can be found at the official AOP documentation: https://www.apexofficeprint.com/docs/.
+Now we will build the template. We can create templates in different file extensions, namely docx, xlsx, pptx, html, md, txt and csv. In this example we will build a template of filetype pptx, xlsx and docx. The template has to follow a specific structure which can be found at the official Cloud Office Print documentation: https://www.cloudofficeprint.com/docs/.
 
 ## pptx
 We will build the template in Google Slides. After choosing a pretty theme, we create the title slide. On this slide, we want the title of our presentation and the source where we got the data from. The title slide looks like this:
@@ -364,7 +364,7 @@ We will build the template in Google Slides. After choosing a pretty theme, we c
 <img src="./imgs/pptx_template/slide1.png" width="600" />
 <!-- TODO: change this link to Github link -->
 
-Here we encounter our first placeholder/tag: `{*data_source}`. Tags are defined by surrounding a variable name with curly brackets. This is the way we let the AOP server know that data needs to replace this placeholder. We will see what that data is in the section [Process input data](#process-input-data). In this specific case, we used a hyperlink-tag `{*hyperlink}`.
+Here we encounter our first placeholder/tag: `{*data_source}`. Tags are defined by surrounding a variable name with curly brackets. This is the way we let the Cloud Office Print server know that data needs to replace this placeholder. We will see what that data is in the section [Process input data](#process-input-data). In this specific case, we used a hyperlink-tag `{*hyperlink}`.
 
 Note: to minimize the modifications to the input data (see [Input Data (API)](#input-data-api)), it is important to use as variable names the keys available in the input data if possible.
 
@@ -373,7 +373,7 @@ Next we want a slide that gives information about the company itself:
 <img src="./imgs/pptx_template/slide2.png" width="600" />
 <!-- TODO: change this link to Github link -->
 
-Again, the placeholders will be replaced with data by the AOP server. Since the data given to the AOP server will be in JSON-format (see [Process input data](#process-input-data)), it is possible to reach a subfield of an entry by using `entry.subfield`. So if `headquarters` is a JSON object like this:
+Again, the placeholders will be replaced with data by the Cloud Office Print server. Since the data given to the Cloud Office Print server will be in JSON-format (see [Process input data](#process-input-data)), it is possible to reach a subfield of an entry by using `entry.subfield`. So if `headquarters` is a JSON object like this:
 ```json
 "headquarters": {
     "address": "",
@@ -456,7 +456,7 @@ The 'rockets'-tab contains the rockets description in the left top. It also cont
 <img src="./imgs/xlsx_template/tab2.png" width="600" />
 <!-- TODO: change this link to Github link -->
 
-We use the loop tags `{#rockets}...{/rockets}` to loop through the 'rockets'-array. The AOP server will repeat everything inside the loop tags on a new row for each object in the array.
+We use the loop tags `{#rockets}...{/rockets}` to loop through the 'rockets'-array. The Cloud Office Print server will repeat everything inside the loop tags on a new row for each object in the array.
 
 ### Dragons
 <img src="./imgs/xlsx_template/tab3.png" width="600" />
@@ -519,31 +519,31 @@ We also want to show a chart of the cost per launch for each rocket:
 # Process input data (Python SDK)
 Now that our template is finished, we have to process the data used by the template. That is where the Python SDK comes into play. In this section we will explain in detail all the Python code needed to generate the data to fill in the template. The full Python code can also be found in the file `spacex_example.py`.
 
-The beauty of AOP is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
+The beauty of Cloud Office Print is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
 
 ## Setup
-First we create a new Python file and import the APEX Office Print library and the [requests](https://pypi.org/project/requests/)-library:
+First we create a new Python file and import the Cloud library and the [requests](https://pypi.org/project/requests/)-library:
 
 ```python
-import apexofficeprint as aop
+import cloudofficeprint as cop
 import requests
 ```
 
-Then we need to set up the AOP server where we will send our template and data to:
+Then we need to set up the Cloud Office Print server where we will send our template and data to:
 ```python
-SERVER_URL = "https://api.apexofficeprint.com/"
+SERVER_URL = "https://api.cloudofficeprint.com/"
 API_KEY = "YOUR_API_KEY"  # Replace by your own API key
 
-server = aop.config.Server(
+server = cop.config.Server(
     SERVER_URL,
-    aop.config.ServerConfig(api_key=API_KEY)
+    cop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you have an AOP server running on localhost (e.g. on-premise version), replace the server url by the localhost url: `http://localhost:8010`
+If you have an Cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: `http://localhost:8010`
 
 We also need to create the main element-collection object that contains all our data:
 ```python
-data = aop.elements.ElementCollection()
+data = cop.elements.ElementCollection()
 ```
 
 Lastly we write a function that return the first sentence of a text input. This is used when we only want to display the first sentence of a discription:
@@ -572,9 +572,9 @@ ships = requests.get('https://api.spacexdata.com/v4/ships').json()
 ```
 
 ## Title slide
-The template title slide contains the title of our presentation and a hyperlink-tag `{*data_source}`. Now we need to add the data for this tag in our Python code by creating an AOP element (hyperlink) and adding this to the main data collection:
+The template title slide contains the title of our presentation and a hyperlink-tag `{*data_source}`. Now we need to add the data for this tag in our Python code by creating an Cloud Office Print element (hyperlink) and adding this to the main data collection:
 ```python
-data_source = aop.elements.Hyperlink(
+data_source = cop.elements.Hyperlink(
     name='data_source',
     url='https://docs.spacexdata.com',
     text='Data source'
@@ -586,11 +586,11 @@ The tag `{*data_source}` will be replaced by the text 'Data source' and this tex
 ## Company
 We see why we said in [Template](#template) to use as the variable names inside the tags, the name of the keys available in the responses of [Input data (API)](#input-data-api). Now we can just add the data received from the SpaceX-API to our data collection and this data can be accessed by the template:
 ```python
-data.add_all(aop.elements.ElementCollection.from_mapping(info))
+data.add_all(cop.elements.ElementCollection.from_mapping(info))
 ```
 The only thing we need to create ourselves is the SpaceX-website hyperlink:
 ```python
-website = aop.elements.Hyperlink(
+website = cop.elements.Hyperlink(
     name='spacex_website',
     url=info['links']['website'],
     text='Website'
@@ -604,7 +604,7 @@ We now add all the information about SpaceX's rockets to our main element collec
 ### Description
 First we add the description for the tag `{rockets_description}`:
 ```python
-rockets_description = aop.elements.Property('rockets_description', 'Data about the rockets built by SpaceX')
+rockets_description = cop.elements.Property('rockets_description', 'Data about the rockets built by SpaceX')
 data.add(rockets_description)
 ```
 
@@ -617,21 +617,21 @@ rocket_list = []
 We cannot just add the rocket data to our element collection, because we need to do some processing on it. We want the images to be accessible with the tag `{%image}` and we want to choose the size of these images. We also want to add a hyperlink for their Wikipedia page and we want to shorten their description to one sentence. The code for this is the following:
 ```python
 for rocket in rockets:
-    collec = aop.elements.ElementCollection.from_mapping(rocket)
+    collec = cop.elements.ElementCollection.from_mapping(rocket)
 
-    img = aop.elements.Image.from_url('image', rocket['flickr_images'][0])
+    img = cop.elements.Image.from_url('image', rocket['flickr_images'][0])
     img.max_height = 250
     img.max_width = 400
     collec.add(img)
 
-    hyper = aop.elements.Hyperlink(
+    hyper = cop.elements.Hyperlink(
         name='wikipedia',
         url=rocket['wikipedia'],
         text='Wikipedia'
     )
     collec.add(hyper)
 
-    short_description = aop.elements.Property('description', shorten_description(rocket['description']))
+    short_description = cop.elements.Property('description', shorten_description(rocket['description']))
     collec.add(short_description)  # Overwrites the current description
 
     rocket_list.append(collec)
@@ -640,7 +640,7 @@ We loop through all the rockets and for each rocket, we first create an element 
 
 Now we need to make an element of the rocket list. Because we use `{!rockets}` in our template to loop over all the rockets, the name of this loop-element needs to be 'rockets'. Finally we add this loop-element to the main data collection:
 ```python
-rocket_data = aop.elements.ForEach('rockets', rocket_list)
+rocket_data = cop.elements.ForEach('rockets', rocket_list)
 data.add(rocket_data)
 ```
 
@@ -656,7 +656,7 @@ for rocket in rockets:
 ```
 Each chart can contain multiple data series. Since we only want to show the cost per launch for the rockets, we only need one series. Let's say we want our chart to show the data in vertical bars, then we can use this code:
 ```python
-cost_series = aop.elements.ColumnSeries(
+cost_series = cop.elements.ColumnSeries(
     x=x,
     y=cost_y,
     name='Cost per launch',
@@ -667,15 +667,15 @@ We also specify the name of the series (showed in the legend) and the color of t
 
 Next we want to choose the style of our chart, so we create an element for chart options:
 ```python
-rockets_chart_options = aop.elements.ChartOptions(
-    x_axis=aop.elements.ChartAxisOptions(
+rockets_chart_options = cop.elements.ChartOptions(
+    x_axis=cop.elements.ChartAxisOptions(
         title='Rocket',
-        title_style=aop.elements.ChartTextStyle(color='black')
+        title_style=cop.elements.ChartTextStyle(color='black')
     ),
-    y_axis=aop.elements.ChartAxisOptions(
+    y_axis=cop.elements.ChartAxisOptions(
         title='Cost ($)',
         title_rotation=-90,
-        title_style=aop.elements.ChartTextStyle(color='black'),
+        title_style=cop.elements.ChartTextStyle(color='black'),
         major_grid_lines=True
     ),
     width=800,
@@ -691,14 +691,14 @@ We also create styling elements for the axes, which include the title of the axi
 Next we would like to have a legend showing on the right side of the chart:
 ```python
 rockets_chart_options.set_legend(
-    style=aop.elements.ChartTextStyle(color='black')
+    style=cop.elements.ChartTextStyle(color='black')
 )
 ```
 The color of the text in the legend is chosen to be black and its position is on the right side of the chart by default.
 
 Now we create the actual chart with the series created earlier and the chart options and add this to the main element collection (data). Because the tag used in our template is `{$rockets_chart}`, the name of the chart element should be 'rockets_chart':
 ```python
-rockets_chart = aop.elements.ColumnChart(
+rockets_chart = cop.elements.ColumnChart(
     name='rockets_chart',
     columns=(cost_series,),
     options=rockets_chart_options
@@ -713,7 +713,7 @@ The dragons data can be added in the same way as the rockets.
 
 ### Description
 ```python
-data.add(aop.elements.Property('dragons_description', 'Data about the dragon capsules of SpaceX'))
+data.add(cop.elements.Property('dragons_description', 'Data about the dragon capsules of SpaceX'))
 ```
 
 ### Main loop
@@ -722,26 +722,26 @@ dragon_list = []
 
 ## Add dragon images, wikipedia hyperlink and shortened description for each dragon
 for dragon in dragons:
-    collec = aop.elements.ElementCollection.from_mapping(dragon)
+    collec = cop.elements.ElementCollection.from_mapping(dragon)
     
-    img = aop.elements.Image.from_url('image', dragon['flickr_images'][0])
+    img = cop.elements.Image.from_url('image', dragon['flickr_images'][0])
     img.max_height = 250
     img.max_width = 400
     collec.add(img)
 
-    hyper = aop.elements.Hyperlink(
+    hyper = cop.elements.Hyperlink(
         name='wikipedia',
         url=dragon['wikipedia'],
         text='Wikipedia'
     )
     collec.add(hyper)
 
-    short_description = aop.elements.Property('description', shorten_description(dragon['description']))
+    short_description = cop.elements.Property('description', shorten_description(dragon['description']))
     collec.add(short_description)  # Overwrites the current description
 
     dragon_list.append(collec)
 
-dragon_data = aop.elements.ForEach('dragons', dragon_list)
+dragon_data = cop.elements.ForEach('dragons', dragon_list)
 data.add(dragon_data)
 ```
 
@@ -749,7 +749,7 @@ data.add(dragon_data)
 
 ### Description
 ```python
-data.add(aop.elements.Property('launch_pads_description', "Data about SpaceX's launch pads"))
+data.add(cop.elements.Property('launch_pads_description', "Data about SpaceX's launch pads"))
 ```
 
 ### Main loop
@@ -758,19 +758,19 @@ launch_pad_list = []
 
 ## Add launch pad images, wikipedia hyperlink and shortened description for each launch_pad
 for launch_pad in launch_pads:
-    collec = aop.elements.ElementCollection.from_mapping(launch_pad)
+    collec = cop.elements.ElementCollection.from_mapping(launch_pad)
     
-    img = aop.elements.Image.from_url('image', launch_pad['images']['large'][0])
+    img = cop.elements.Image.from_url('image', launch_pad['images']['large'][0])
     img.max_height = 250
     img.max_width = 400
     collec.add(img)
 
-    short_description = aop.elements.Property('details', shorten_description(launch_pad['details']))
+    short_description = cop.elements.Property('details', shorten_description(launch_pad['details']))
     collec.add(short_description)  # Overwrites the current description
 
     launch_pad_list.append(collec)
 
-launch_pad_data = aop.elements.ForEach('launch_pads', launch_pad_list)
+launch_pad_data = cop.elements.ForEach('launch_pads', launch_pad_list)
 data.add(launch_pad_data)
 ```
 Here we didn't add Wikipedia hyperlinks, because they are not available in the API data.
@@ -779,7 +779,7 @@ Here we didn't add Wikipedia hyperlinks, because they are not available in the A
 
 ### Description
 ```python
-data.add(aop.elements.Property('landing_pads_description', "Data about SpaceX's landing pads"))
+data.add(cop.elements.Property('landing_pads_description', "Data about SpaceX's landing pads"))
 ```
 
 ### Main loop
@@ -788,26 +788,26 @@ landing_pad_list = []
 
 ## Add landing pad images, wikipedia hyperlink and shortened description for each landing pad
 for landing_pad in landing_pads:
-    collec = aop.elements.ElementCollection.from_mapping(landing_pad)
+    collec = cop.elements.ElementCollection.from_mapping(landing_pad)
     
-    img = aop.elements.Image.from_url('image', landing_pad['images']['large'][0])
+    img = cop.elements.Image.from_url('image', landing_pad['images']['large'][0])
     img.max_height = 250
     img.max_width = 400
     collec.add(img)
 
-    hyper = aop.elements.Hyperlink(
+    hyper = cop.elements.Hyperlink(
         name='wikipedia',
         url=landing_pad['wikipedia'],
         text='Wikipedia'
     )
     collec.add(hyper)
 
-    short_description = aop.elements.Property('details', shorten_description(landing_pad['details']))
+    short_description = cop.elements.Property('details', shorten_description(landing_pad['details']))
     collec.add(short_description)  # Overwrites the current description
 
     landing_pad_list.append(collec)
 
-landing_pad_data = aop.elements.ForEach('landing_pads', landing_pad_list)
+landing_pad_data = cop.elements.ForEach('landing_pads', landing_pad_list)
 
 data.add(landing_pad_data)
 ```
@@ -816,7 +816,7 @@ data.add(landing_pad_data)
 
 ### Description
 ```python
-data.add(aop.elements.Property('ships_description', 'Data about the ships that assist SpaceX launches, including ASDS drone ships, tugs, fairing recovery ships, and various support ships'))
+data.add(cop.elements.Property('ships_description', 'Data about the ships that assist SpaceX launches, including ASDS drone ships, tugs, fairing recovery ships, and various support ships'))
 ```
 
 ### Main loop
@@ -825,14 +825,14 @@ ship_list = []
 
 ## Add ship images and website hyperlink for each ship
 for ship in ships:
-    collec = aop.elements.ElementCollection.from_mapping(ship)
+    collec = cop.elements.ElementCollection.from_mapping(ship)
     
-    img = aop.elements.Image.from_url('image', ship['image'])
+    img = cop.elements.Image.from_url('image', ship['image'])
     img.max_height = 250
     img.max_width = 400
     collec.add(img)
 
-    hyper = aop.elements.Hyperlink(
+    hyper = cop.elements.Hyperlink(
         name='website',
         url=ship['link'],
         text='Website'
@@ -841,26 +841,26 @@ for ship in ships:
 
     ship_list.append(collec)
 
-ship_data = aop.elements.ForEach('ships', ship_list)
+ship_data = cop.elements.ForEach('ships', ship_list)
 data.add(ship_data)
 ```
 Here we didn't shorten the description to one sentence, since there is no description available for the ships in the API data.
 
 
-# AOP server and response
-Now that we have the template and the data ready, it is time to let AOP merge them together. In the Python SDK this is implemented by creating a printjob:
+# Cloud Office Print server and response
+Now that we have the template and the data ready, it is time to let Cloud Office Print merge them together. In the Python SDK this is implemented by creating a printjob:
 ```python
-printjob = aop.PrintJob(
+printjob = cop.PrintJob(
     data=data,
     server=server,
-    template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
-    # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.xlsx'), # For xlsx
-    # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
+    template=cop.Resource.from_local_file('./examples/spacex_example/spacex_template.pptx'), # For pptx
+    # template=cop.Resource.from_local_file('./examples/spacex_example/spacex_template.xlsx'), # For xlsx
+    # template=cop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
 )
 ```
 We loaded the template from a local file and passed in our data element collection and our server object.
 
-Finally we actually send this printjob to an AOP server and save the response into our output file:
+Finally we actually send this printjob to an Cloud Office Print server and save the response into our output file:
 ```python
 printjob.execute().to_file('./examples/spacex_example/output')
 ```

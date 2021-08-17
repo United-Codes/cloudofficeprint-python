@@ -4,7 +4,7 @@ PYTHON = python3
 
 help:
 	@echo "*----------------------------------*"
-	@echo "| apexofficeprint-python make help |"
+	@echo "| cloudofficeprint-python make help |"
 	@echo "*----------------------------------*"
 	@echo
 	@echo "package:             build the package"
@@ -25,7 +25,7 @@ clean-docs:
 	rm -rf docs/html/
 
 docs: clean-docs
-	pdoc --html -o ./docs/html --template-dir ./docs/templates apexofficeprint/
+	pdoc --html -o ./docs/html --template-dir ./docs/templates cloudofficeprint/
 
 docs-live:
-	pdoc --html -f -o ./docs/html --template-dir ./docs/templates apexofficeprint/ --http localhost:8080
+	pdoc --html -f -o ./docs/html --template-dir ./docs/templates cloudofficeprint/ --http localhost:8080

@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="apexofficeprint",
+    name="cloudofficeprint",
     version="21.1",
     author="United Codes",
     author_email="info@united-codes.com",
-    description="python interface for apexofficeprint",
+    description="python interface for cloudofficeprint",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/United-Codes/apexofficeprint-python",
+    url="https://github.com/United-Codes/cloudofficeprint-python",
     packages=setuptools.find_packages(),
     license="GNU",
     classifiers=[

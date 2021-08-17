@@ -1,7 +1,8 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
+
 
 def test_image():
-    image = aop.elements.Image(
+    image = cop.elements.Image(
         name='image1',
         source='url_source',
         max_width=50,

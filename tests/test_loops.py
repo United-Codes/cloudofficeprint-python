@@ -1,23 +1,23 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
 
 
 def test_for_each():
     """Also serves as the tests for Labels, ForEachSlide, ForEachInline, ForEachHorizontal and ForEachTableRow. """
-    element1 = aop.elements.ElementCollection.from_mapping(
+    element1 = cop.elements.ElementCollection.from_mapping(
         {
             'a': 1,
             'b': 2,
             'c': 3
         }
     )
-    element2 = aop.elements.ElementCollection.from_mapping(
+    element2 = cop.elements.ElementCollection.from_mapping(
         {
             'a': 4,
             'b': 5,
             'c': 6
         }
     )
-    loop = aop.elements.ForEach(
+    loop = cop.elements.ForEach(
         name='loop_name',
         content=(element1, element2)
     )
@@ -39,7 +39,7 @@ def test_for_each():
 
 
 def test_for_each_sheet():
-    element1 = aop.elements.ElementCollection.from_mapping(
+    element1 = cop.elements.ElementCollection.from_mapping(
         {
             "sheet_name": "John Dulles",
             "sheet_dynamic_print_area": True,
@@ -71,7 +71,7 @@ def test_for_each_sheet():
             ]
         }
     )
-    element2 = aop.elements.ElementCollection.from_mapping(
+    element2 = cop.elements.ElementCollection.from_mapping(
         {
             "sheet_name": "William Hartsfield",
             "cust_first_name": "William",
@@ -108,12 +108,12 @@ def test_for_each_sheet():
             ]
         }
     )
-    loop1 = aop.elements.ForEachSheet(
+    loop1 = cop.elements.ForEachSheet(
         name='customers',
         content=(element1, element2)
     )
 
-    element1 = aop.elements.ElementCollection.from_mapping(
+    element1 = cop.elements.ElementCollection.from_mapping(
         {
             "sheet_dynamic_print_area": True,
             "cust_first_name": "John",
@@ -144,7 +144,7 @@ def test_for_each_sheet():
             ]
         }
     )
-    element2 = aop.elements.ElementCollection.from_mapping(
+    element2 = cop.elements.ElementCollection.from_mapping(
         {
             "cust_first_name": "William",
             "cust_last_name": "Hartsfield",
@@ -180,10 +180,9 @@ def test_for_each_sheet():
             ]
         }
     )
-    loop2 = aop.elements.ForEachSheet(
+    loop2 = cop.elements.ForEachSheet(
         name='customers',
-        content=
-        {
+        content={
             'John Dulles': element1,
             'William Hartsfield': element2
         }
@@ -192,69 +191,69 @@ def test_for_each_sheet():
     loop_expected = {
         "customers": [
             {
-            "sheet_name": "John Dulles",
-            "sheet_dynamic_print_area": True,
-            "cust_first_name": "John",
-            "cust_last_name": "Dulles",
-            "cust_city": "Sterling",
-            "orders": [
-                {
-                "order_total": 2380,
-                "order_name": "Order 1",
-                "product": [
+                "sheet_name": "John Dulles",
+                "sheet_dynamic_print_area": True,
+                "cust_first_name": "John",
+                "cust_last_name": "Dulles",
+                "cust_city": "Sterling",
+                "orders": [
                     {
-                    "product_name": "Business Shirt",
-                    "quantity": 3,
-                    "unit_price": 50
-                    },
-                    {
-                    "product_name": "Trousers",
-                    "quantity": 3,
-                    "unit_price": 80
-                    },
-                    {
-                    "product_name": "Jacket",
-                    "quantity": 3,
-                    "unit_price": 150
+                        "order_total": 2380,
+                        "order_name": "Order 1",
+                        "product": [
+                            {
+                                "product_name": "Business Shirt",
+                                "quantity": 3,
+                                "unit_price": 50
+                            },
+                            {
+                                "product_name": "Trousers",
+                                "quantity": 3,
+                                "unit_price": 80
+                            },
+                            {
+                                "product_name": "Jacket",
+                                "quantity": 3,
+                                "unit_price": 150
+                            }
+                        ]
                     }
                 ]
-                }
-            ]
             },
             {
-            "sheet_name": "William Hartsfield",
-            "cust_first_name": "William",
-            "cust_last_name": "Hartsfield",
-            "cust_city": "Atlanta",
-            "orders": [
-                {
-                "order_total": 1640,
-                "order_name": "Order 1",
-                "product": [
+                "sheet_name": "William Hartsfield",
+                "cust_first_name": "William",
+                "cust_last_name": "Hartsfield",
+                "cust_city": "Atlanta",
+                "orders": [
                     {
-                    "product_name": "Blouse",
-                    "quantity": 4,
-                    "unit_price": 60
+                        "order_total": 1640,
+                        "order_name": "Order 1",
+                        "product": [
+                            {
+                                "product_name": "Blouse",
+                                "quantity": 4,
+                                "unit_price": 60
+                            },
+                            {
+                                "product_name": "Skirt",
+                                "quantity": 4,
+                                "unit_price": 80
+                            }
+                        ]
                     },
                     {
-                    "product_name": "Skirt",
-                    "quantity": 4,
-                    "unit_price": 80
+                        "order_total": 730,
+                        "order_name": "Order 2",
+                        "product": [
+                            {
+                                "product_name": "Blouse",
+                                "quantity": 4,
+                                "unit_price": 60
+                            }
+                        ]
                     }
                 ]
-                },
-                {
-                "order_total": 730,
-                "order_name": "Order 2",
-                "product": [
-                    {
-                    "product_name": "Blouse",
-                    "quantity": 4,
-                    "unit_price": 60
-                    }
-                ]
-                }
-            ]
             }
         ]
     }

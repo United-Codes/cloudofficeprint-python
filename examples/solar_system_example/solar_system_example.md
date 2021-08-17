@@ -1,9 +1,9 @@
 # About
-In this file we are going to show you how you can use this APEX Office Print (AOP) SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with this SDK and finally let APEX Office Print do the work to merge your template with the data. 
+In this file we are going to show you how you can use this Cloud (Cloud Office Print) SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with this SDK and finally let Cloud do the work to merge your template with the data. 
 
 In this example, we are going to use solar system data to fill a template we are going to make. The solary system data can be received by sending an HTTP-request to an API. The API used in this example is https://api.le-systeme-solaire.net.
 
-Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the solar system API and process this data with this SDK. Finally we send the template together with the data to an AOP server and save the response into our output file.
+Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the solar system API and process this data with this SDK. Finally we send the template together with the data to an Cloud Office Print server and save the response into our output file.
 
 # Input data (API)
 The data we use comes from https://api.le-systeme-solaire.net. The data that interests us is about the bodies of the solar system and more specifically the planets and dwarf planets in our solar system. If we go to the URL https://api.le-systeme-solaire.net/rest/bodies, we retrieve a JSON array containing objects for each body in the solar system. One such object may look like this:
@@ -55,7 +55,7 @@ The data we use comes from https://api.le-systeme-solaire.net. The data that int
 ```
 
 # Template
-Now we will build the template. We can create templates in different file extensions, namely docx, xlsx, pptx, html, md, txt and csv. In this example we will build a template of filetype pptx and docx. The template has to follow a specific structure which can be found at the official AOP documentation: https://www.apexofficeprint.com/docs/.
+Now we will build the template. We can create templates in different file extensions, namely docx, xlsx, pptx, html, md, txt and csv. In this example we will build a template of filetype pptx and docx. The template has to follow a specific structure which can be found at the official Cloud Office Print documentation: https://www.cloudofficeprint.com/docs/.
 
 ## pptx
 We will build the template in Google Slides. After choosing a pretty theme, we create the title slide. On this slide, we want the title of our presentation and the source where we got the data from. The title slide looks like this:
@@ -63,7 +63,7 @@ We will build the template in Google Slides. After choosing a pretty theme, we c
 <img src="./imgs/pptx_title.png" width="600" />
 <!-- TODO: change this link to Github link -->
 
-Here we encounter our first placeholder/tag: `{*data source}`. Tags are defined by surrounding a variable name with curly brackets. This is the way we let the AOP server know that data needs to replace this placeholder. We will see what that data is in the section [Process input data](#process-input-data). In this specific case, we used a hyperlink-tag `{*hyperlink}`.
+Here we encounter our first placeholder/tag: `{*data source}`. Tags are defined by surrounding a variable name with curly brackets. This is the way we let the Cloud Office Print server know that data needs to replace this placeholder. We will see what that data is in the section [Process input data](#process-input-data). In this specific case, we used a hyperlink-tag `{*hyperlink}`.
 
 Note: to minimize the modifications to the input data (see [Input Data (API)](#input-data-api)), it is important to use as variable names the keys available in the input data if possible.
 
@@ -72,7 +72,7 @@ Next, we want to have a slide for each planet with information about this planet
 <img src="./imgs/pptx_planets.png" width="600" />
 <!-- TODO: change this link to Github link -->
 
-Again, the placeholders will be replaced with data by the AOP server. Since the data given to the AOP server will be in JSON-format (see [Process input data](#process-input-data)), it is possible to reach a subfield of an entry by using `entry.subfield`. So if `mass` is a JSON object like this:
+Again, the placeholders will be replaced with data by the Cloud Office Print server. Since the data given to the Cloud Office Print server will be in JSON-format (see [Process input data](#process-input-data)), it is possible to reach a subfield of an entry by using `entry.subfield`. So if `mass` is a JSON object like this:
 ```json
 "mass": {
     "massValue": ...,
@@ -99,29 +99,29 @@ The template for the "docx"-filetype is very similar to the template for the "pp
 # Process input data (SDK)
 Now that our template is finished, we have to process the data used by the template. That is where this SDK comes into play. In this section we will explain in detail all the code needed to generate the data to fill in the template. The full code can also be found in the example file itself.
 
-The beauty of AOP is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
+The beauty of Cloud Office Print is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
 
 ## Setup
-First we create a new file and import the APEX Office Print library:
+First we create a new file and import the Cloud library:
 ```python
-import apexofficeprint as aop
+import cloudofficeprint as cop
 import requests
 ```
-Then we need to set up the AOP server where we will send our template and data to:
+Then we need to set up the Cloud Office Print server where we will send our template and data to:
 ```python
-SERVER_URL = "https://api.apexofficeprint.com/"
+SERVER_URL = "https://api.cloudofficeprint.com/"
 API_KEY = "YOUR_API_KEY"  # Replace by your own API key
 
-server = aop.config.Server(
+server = cop.config.Server(
     SERVER_URL,
-    aop.config.ServerConfig(api_key=API_KEY)
+    cop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you have an AOP server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
+If you have an Cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
 
 We also need to create the main element-collection object that contains all our data:
 ```python
-data = aop.elements.ElementCollection()
+data = cop.elements.ElementCollection()
 ```
 
 ## Import data
@@ -131,13 +131,13 @@ res = requests.get('https://api.le-systeme-solaire.net/rest/bodies/').json()
 ```
 
 ## Title slide
-The template title slide contains a normal tag for the title `{main_title}` and a hyperlink-tag `{*data_source}`. Now we need to add the data for these tags in our code by creating an AOP element (property and hyperlink) and adding this to the main data collection:
+The template title slide contains a normal tag for the title `{main_title}` and a hyperlink-tag `{*data_source}`. Now we need to add the data for these tags in our code by creating an Cloud Office Print element (property and hyperlink) and adding this to the main data collection:
 ```python
 # Add the title to the data
-data.add(aop.elements.Property('main_title', 'The solar system'))
+data.add(cop.elements.Property('main_title', 'The solar system'))
 
 # Add the source for the data
-data.add(aop.elements.Hyperlink(
+data.add(cop.elements.Hyperlink(
     name='data_source',
     url='https://api.le-systeme-solaire.net/rest/bodies/',
     text='Data source'
@@ -146,17 +146,17 @@ data.add(aop.elements.Hyperlink(
 The tag `{main_title}` will be replaced by 'The solar system' and the tag `{*data_source}` will be replaced by the text 'Data source' and this text will have a hyperlink to the URL 'https://docs.spacexdata.com'.
 
 ## Planets
-The data for the planets needs to be put in a loop-element so that the AOP server can iterate over all the planets. We also process the body-array so that we only have the bodies that are planets in our data.
+The data for the planets needs to be put in a loop-element so that the Cloud Office Print server can iterate over all the planets. We also process the body-array so that we only have the bodies that are planets in our data.
 ```python
 planet_list = []
 
 for body in res['bodies']:
     if body['isPlanet']:
-        collec = aop.elements.ElementCollection.from_mapping(body)
+        collec = cop.elements.ElementCollection.from_mapping(body)
 
         planet_list.append(collec)
 
-planets = aop.elements.ForEach('planets', planet_list)
+planets = cop.elements.ForEach('planets', planet_list)
 data.add(planets)
 ```
 
@@ -167,7 +167,7 @@ Finally we need to add the data for the planet radius chart. A chart consists of
 color = [None for _ in planet_list]
 color[0] = '#7298d4'
 
-radius_series = aop.elements.PieSeries(
+radius_series = cop.elements.PieSeries(
     x=[planet['name'] for planet in planets.as_dict['planets']],
     y=[planet['equaRadius'] for planet in planets.as_dict['planets']],
     name='radius',
@@ -176,12 +176,12 @@ radius_series = aop.elements.PieSeries(
 ```
 We then create options for the pie chart. We disable the border around the chart and specify the color of the chart legend's text:
 ```python
-radius_chart_options = aop.elements.ChartOptions(
+radius_chart_options = cop.elements.ChartOptions(
     border=False
 )
 
 radius_chart_options.set_legend(
-    style=aop.elements.ChartTextStyle(
+    style=cop.elements.ChartTextStyle(
         color='black'
     )
 )
@@ -189,7 +189,7 @@ radius_chart_options.set_legend(
 Finally, we create the 3D pie chart itself and add it to the element collection:
 ```python
 # Create the 3D pie chart
-radius_chart = aop.elements.Pie3DChart(
+radius_chart = cop.elements.Pie3DChart(
     name='planet_radius_chart',
     pies=(radius_series,),
     options=radius_chart_options
@@ -197,20 +197,20 @@ radius_chart = aop.elements.Pie3DChart(
 data.add(radius_chart)
 ```
 
-# AOP server and response
-Now that we have the template and the data ready, it is time to let AOP merge them together. In the SDK this is implemented by creating a print job:
+# Cloud Office Print server and response
+Now that we have the template and the data ready, it is time to let Cloud Office Print merge them together. In the SDK this is implemented by creating a print job:
 ```python
-printjob = aop.PrintJob(
+printjob = cop.PrintJob(
     data=data,
     server=server,
-    template=aop.Resource.from_local_file(
+    template=cop.Resource.from_local_file(
         './examples/solar_system_example/pptx/solar_system_template.pptx'),  # pptx
-    # template=aop.Resource.from_local_file('./examples/solar_system_example/docx/solar_system_template.docx'),  # docx
+    # template=cop.Resource.from_local_file('./examples/solar_system_example/docx/solar_system_template.docx'),  # docx
 )
 ```
 We loaded the template from a local file and passed in our data element collection and our server object.
 
-Finally we actually send this printjob to an AOP server and save the response into our output file:
+Finally we actually send this printjob to an Cloud Office Print server and save the response into our output file:
 ```python
 printjob.execute().to_file('./examples/solar_system_example/pptx/output')
 # printjob.execute().to_file('./examples/solar_system_example/docx/output')

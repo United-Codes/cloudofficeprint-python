@@ -1,9 +1,9 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
 
 
 def test_property():
     """Test for Property. Also serves as a test for Html, RightToLeft, FootNote, Raw, Formula, PageBreak and MarkdownContent."""
-    prop = aop.elements.Property(
+    prop = cop.elements.Property(
         name='name',
         value='value'
     )
@@ -14,11 +14,11 @@ def test_property():
 
 
 def test_cell_style_property_docx():
-    style = aop.elements.CellStyleDocx(
+    style = cop.elements.CellStyleDocx(
         cell_background_color='#eb4034',
         width=10
     )
-    style_property = aop.elements.CellStyleProperty(
+    style_property = cop.elements.CellStyleProperty(
         name='name',
         value='value',
         cell_style=style
@@ -32,7 +32,7 @@ def test_cell_style_property_docx():
 
 
 def test_cell_style_property_xlsx():
-    style = aop.elements.CellStyleXlsx(
+    style = cop.elements.CellStyleXlsx(
         cell_locked=True,
         cell_hidden=False,
         cell_background='#ff0000',
@@ -60,7 +60,7 @@ def test_cell_style_property_xlsx():
         text_v_alignment='justify',
         text_rotation=45
     )
-    style_property = aop.elements.CellStyleProperty(
+    style_property = cop.elements.CellStyleProperty(
         name='name',
         value='value',
         cell_style=style
@@ -98,7 +98,7 @@ def test_cell_style_property_xlsx():
 
 
 def test_hyperlink():
-    hyperlink = aop.elements.Hyperlink(
+    hyperlink = cop.elements.Hyperlink(
         name='hyperlink',
         url='url',
         text='hyperlink_text'
@@ -111,7 +111,7 @@ def test_hyperlink():
 
 
 def test_table_of_content():
-    toc = aop.elements.TableOfContents(
+    toc = cop.elements.TableOfContents(
         name='table',
         title='contents',
         depth=4,
@@ -126,7 +126,7 @@ def test_table_of_content():
 
 
 def test_span():
-    span = aop.elements.Span(
+    span = cop.elements.Span(
         name='span_name',
         value='This cell will span 2 rows and 3 columns',
         columns=3,
@@ -141,7 +141,7 @@ def test_span():
 
 
 def test_styled_property():
-    styled_prop = aop.elements.StyledProperty(
+    styled_prop = cop.elements.StyledProperty(
         name='cust_first_name',
         value='DemoCustomerName',
         font='NanumMyeongjo',
@@ -162,13 +162,13 @@ def test_styled_property():
         'cust_first_name_italic': True,
         'cust_first_name_underline': False,
         'cust_first_name_strikethrough': False,
-        'cust_first_name_highlight':'darkMagenta'
+        'cust_first_name_highlight': 'darkMagenta'
     }
     assert styled_prop.as_dict == styled_prop_expected
 
 
 def test_watermark():
-    watermark = aop.elements.Watermark(
+    watermark = cop.elements.Watermark(
         name='wm_name',
         text='wm_text',
         color='red',
@@ -191,7 +191,7 @@ def test_watermark():
 
 
 def test_d3_code():
-    d3 = aop.elements.D3Code(
+    d3 = cop.elements.D3Code(
         name='d3_code',
         code='test_code',
         data=['a', 1, 2, 3, 'b']
@@ -204,7 +204,7 @@ def test_d3_code():
 
 
 def test_text_box():
-    tbox = aop.elements.TextBox(
+    tbox = cop.elements.TextBox(
         name='tbox_name',
         value='tbox_value',
         font='Arial',
@@ -227,13 +227,14 @@ def test_text_box():
 
 
 def test_element_collection():
-    data = aop.elements.ElementCollection('data') # Name doesn't get used
-    element1 = aop.elements.Image.from_url('image1', 'url_source')
+    data = cop.elements.ElementCollection('data')  # Name doesn't get used
+    element1 = cop.elements.Image.from_url('image1', 'url_source')
     element1.alt_text = 'alt_text'
     data.add(element1)
-    element2 = aop.elements.ForEach(
+    element2 = cop.elements.ForEach(
         name='loop',
-        content=(aop.elements.Property('prop', 'value1'), aop.elements.Property('prop', 'value2'))
+        content=(cop.elements.Property('prop', 'value1'),
+                 cop.elements.Property('prop', 'value2'))
     )
     data.add(element2)
     data_expected = {
@@ -265,9 +266,9 @@ def test_element_collection():
 
     assert data.as_dict == data_expected
 
-    collection = aop.elements.ElementCollection.element_to_element_collection(
+    collection = cop.elements.ElementCollection.element_to_element_collection(
         element=element1,
-        name='test_name' # Doesn't get used
+        name='test_name'  # Doesn't get used
     )
     collection_expected = {
         'image1': 'url_source',
@@ -288,7 +289,7 @@ def run():
     test_d3_code()
     test_text_box()
     test_element_collection()
-    # AOP charts get tested in test_charts.py
+    # COP charts get tested in test_charts.py
 
 
 if __name__ == '__main__':

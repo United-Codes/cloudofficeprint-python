@@ -1,10 +1,11 @@
-import apexofficeprint as aop
+import cloudofficeprint as cop
 
 from test import server
 
+
 def test_pdf_options():
     """Test class PDFOptions in combination with OutputConfig"""
-    pdf_opts = aop.config.PDFOptions(
+    pdf_opts = cop.config.PDFOptions(
         read_password='test_pw',
         watermark='test_watermark',
         page_width=500,
@@ -23,7 +24,7 @@ def test_pdf_options():
         identify_form_fields=True,
         split=True)
     pdf_opts.set_page_margin_at(6, 'top')
-    conf = aop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
+    conf = cop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
     conf_expected = {
         'output_type': 'pdf',
         'output_encoding': 'raw',
@@ -55,7 +56,7 @@ def test_pdf_options():
 
 
 def test_csv_options():
-    csv_opts = aop.config.CsvOptions(
+    csv_opts = cop.config.CsvOptions(
         'text_delim',
         'field_sep',
         5
@@ -69,7 +70,7 @@ def test_csv_options():
 
 
 def test_printer():
-    printer = aop.config.Printer(
+    printer = cop.config.Printer(
         location='location',
         version='version',
         requester='requester',
@@ -87,7 +88,8 @@ def test_printer():
 def test_cloud_access_tokens():
     """Test cloud access for output file: OAuthToken, AWSToken, FTPToken and SFTPToken"""
     # OAuthToken
-    o_auth_token = aop.config.CloudAccessToken.from_OAuth('dropbox', 'dummy_token')
+    o_auth_token = cop.config.CloudAccessToken.from_OAuth(
+        'dropbox', 'dummy_token')
     o_auth_token_expected = {
         'output_location': 'dropbox',
         'cloud_access_token': 'dummy_token'
@@ -95,7 +97,8 @@ def test_cloud_access_tokens():
     assert o_auth_token.as_dict == o_auth_token_expected
 
     # AWSToken
-    aws_token = aop.config.CloudAccessToken.from_AWS('AWS_access_key_id', 'AWS_secter_access_key')
+    aws_token = cop.config.CloudAccessToken.from_AWS(
+        'AWS_access_key_id', 'AWS_secter_access_key')
     aws_token_expected = {
         "output_location": 'aws_s3',
         "cloud_access_token": {
@@ -106,7 +109,8 @@ def test_cloud_access_tokens():
     assert aws_token.as_dict == aws_token_expected
 
     # FTPToken & SFTPToken
-    ftp_token = aop.config.CloudAccessToken.from_FTP('host_name', 35, 'dummy_user', 'dummy_pw')
+    ftp_token = cop.config.CloudAccessToken.from_FTP(
+        'host_name', 35, 'dummy_user', 'dummy_pw')
     ftp_cloud_access_token = {
         'host': 'host_name',
         'port': 35,
@@ -117,7 +121,8 @@ def test_cloud_access_tokens():
         "output_location": 'ftp',
         "cloud_access_token": ftp_cloud_access_token
     }
-    sftp_token = aop.config.CloudAccessToken.from_SFTP('host_name', 35, 'dummy_user', 'dummy_pw')
+    sftp_token = cop.config.CloudAccessToken.from_SFTP(
+        'host_name', 35, 'dummy_user', 'dummy_pw')
     sftp_token_expected = {
         "output_location": 'sftp',
         "cloud_access_token": ftp_cloud_access_token
@@ -129,11 +134,11 @@ def test_cloud_access_tokens():
 def test_commands():
     """Test post-process, conversion and merge commands"""
     # post_process
-    post_process_command = aop.config.Command(
+    post_process_command = cop.config.Command(
         command='echo_post',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        parameters={"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
     )
-    post_process_commands = aop.config.Commands(
+    post_process_commands = cop.config.Commands(
         post_process=post_process_command,
         post_process_return=False,
         post_process_delete_delay=1500
@@ -143,46 +148,46 @@ def test_commands():
             "command": "echo_post",
             "return_output": False,
             "delete_delay": 1500,
-            "command_parameters": { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+            "command_parameters": {"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
         }
     }
     assert post_process_commands._dict == post_process_expected
 
     # conversion
-    pre_conversion_command = aop.config.Command(
+    pre_conversion_command = cop.config.Command(
         command='echo_pre',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        parameters={"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
     )
-    post_conversion_command = aop.config.Command(
+    post_conversion_command = cop.config.Command(
         command='echo_post',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        parameters={"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
     )
-    conversion_commands = aop.config.Commands(
+    conversion_commands = cop.config.Commands(
         pre_conversion=pre_conversion_command,
         post_conversion=post_conversion_command
     )
     conversion_expected = {
         'conversion': {
             'pre_command': 'echo_pre',
-            'pre_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" },
+            'pre_command_parameters': {"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"},
             'post_command': 'echo_post',
-            'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+            'post_command_parameters': {"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
         }
     }
     assert conversion_commands._dict == conversion_expected
 
     # merge
-    post_merge_command = aop.config.Command(
+    post_merge_command = cop.config.Command(
         command='echo_post',
-        parameters={ "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+        parameters={"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
     )
-    post_merge_commands = aop.config.Commands(
+    post_merge_commands = cop.config.Commands(
         post_merge=post_merge_command
     )
     post_merge_expected = {
         'merge': {
             'post_command': 'echo_post',
-            'post_command_parameters': { "p1":"Parameter1", "p2": "Parameter2" , "p3": "Parameter3" }
+            'post_command_parameters': {"p1": "Parameter1", "p2": "Parameter2", "p3": "Parameter3"}
         }
     }
     assert post_merge_commands._dict == post_merge_expected
@@ -192,7 +197,7 @@ def test_route_paths():
     """Test output types of route path functions"""
     assert type(server.get_version_soffice()) == str
     assert type(server.get_version_officetopdf()) == str
-    assert type(server.get_version_aop()) == str
+    assert type(server.get_version_cop()) == str
     assert type(server.get_supported_template_mimetypes()) == dict
     assert type(server.get_supported_output_mimetypes('docx')) == dict
     assert type(server.get_supported_prepend_mimetypes()) == dict
@@ -206,6 +211,7 @@ def run():
     test_cloud_access_tokens()
     test_commands()
     test_route_paths()
+
 
 if __name__ == '__main__':
     run()
