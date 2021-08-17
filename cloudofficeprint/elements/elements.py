@@ -780,7 +780,7 @@ class COPChart(Element):
 
     @property
     def available_tags(self) -> FrozenSet[str]:
-        return frozenset({"{COPChart " + self.name + "}"})
+        return frozenset({"{aopchart " + self.name + "}"})
 
 
 class PageBreak(Property):

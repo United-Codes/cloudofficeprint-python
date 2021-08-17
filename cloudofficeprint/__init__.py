@@ -39,7 +39,7 @@ combined_data.add_all(text_tags)
 ```
 
 ### The server
-An Cloud Office Print server is configured as a `config.Server`. It takes a url and an optional `config.ServerConfig` which allows for various server configuration options. If you're using Cloud Cloud edition, you will need to use this to declare your API key.
+A cloud Office Print server is configured as a `config.Server`. It takes a url and an optional `config.ServerConfig` which allows for various server configuration options. If you're using Cloud Cloud edition, you will need to use this to declare your API key.
 
 ```python
 server = cop.config.Server(

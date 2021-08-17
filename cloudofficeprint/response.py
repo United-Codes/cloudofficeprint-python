@@ -10,7 +10,7 @@ from os.path import splitext
 class Response():
     """The Response class serves as a container for and interface with the Cloud Office Print server's response to a printjob request.
 
-    The Cloud Office Print server can also throw an error, in which case you will be dealing with an cloudofficeprint.exceptions.COPError instead of this class.
+    The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
     """
 
     def __init__(self, response: requests.Response):

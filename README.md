@@ -11,7 +11,7 @@ You also need to have the requests-library installed (https://docs.python-reques
 # Usage
 1. Create a template (docx, xlsx, pptx, HTML, md, txt, csv), for the possible tags, click [here](http://www.cloudofficeprint.com/docs/#templates).
 2. Create the input data with this Python SDK
-3. Send template and data to an Cloud Office Print server and save the response to a file with this Python SDK
+3. Send template and data to a cloud Office Print server and save the response to a file with this Python SDK
 
 To see the JSON-data that is sent to the Cloud Office Print server, you can turn on verbose-mode by setting the argument `cop_verbose` to `True` when creating a `PrintJob`.
 
@@ -45,7 +45,7 @@ collection.add(text)
 ```
 
 ## Cloud Office Print server
-The template and the data need to be sent to an Cloud Office Print server that merges both. This can be done by setting up the configuration for Cloud Office Print server and passing it to the print job instance. You can get your API key by signing up at https://www.cloudofficeprint.com.
+The template and the data need to be sent to a cloud Office Print server that merges both. This can be done by setting up the configuration for Cloud Office Print server and passing it to the print job instance. You can get your API key by signing up at https://www.cloudofficeprint.com.
 ```python
 ...
 SERVER_URL = "https://api.cloudofficeprint.com/"

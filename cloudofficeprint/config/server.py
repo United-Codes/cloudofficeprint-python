@@ -157,7 +157,7 @@ class ServerConfig:
                  cop_remote_debug: bool = False):
         """
         Args:
-            api_key (str, optional): API key to use for communicating with an Cloud Office Print server. Defaults to None.
+            api_key (str, optional): API key to use for communicating with a cloud Office Print server. Defaults to None.
             logging (Mapping, optional): Additional key/value pairs you would like to have logged into server_printjob.log on the server. (To be used with the --enable_printlog server flag). Defaults to None.
             printer (Printer, optional): IP printer to use with this server. See the Cloud Office Print docs for more info and supported printers. Defaults to None.
             commands (Commands, optional): Configuration for the various command hooks offered. Defaults to None.

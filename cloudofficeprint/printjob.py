@@ -92,7 +92,7 @@ class PrintJob:
         """If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
         Args:
-            json_data (str): full JSON data that needs to be sent to an Cloud Office Print server
+            json_data (str): full JSON data that needs to be sent to a cloud Office Print server
             server (Server): `Server`-object
 
         Returns:
@@ -106,7 +106,7 @@ class PrintJob:
         """Async version of `Printjob.execute_full_json`
 
         Args:
-            json_data (str): full JSON data that needs to be sent to an Cloud Office Print server
+            json_data (str): full JSON data that needs to be sent to a cloud Office Print server
             server (Server): `Server`-object
 
         Returns:

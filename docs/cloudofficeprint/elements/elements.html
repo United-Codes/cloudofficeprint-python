@@ -808,7 +808,7 @@ class COPChart(Element):
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
-        return frozenset({&#34;{COPChart &#34; + self.name + &#34;}&#34;})
+        return frozenset({&#34;{aopchart &#34; + self.name + &#34;}&#34;})
 
 
 class PageBreak(Property):
@@ -1208,7 +1208,7 @@ class ElementCollection(list, Element):
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
-        return frozenset({&#34;{COPChart &#34; + self.name + &#34;}&#34;})</code></pre>
+        return frozenset({&#34;{aopchart &#34; + self.name + &#34;}&#34;})</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
