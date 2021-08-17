@@ -169,7 +169,7 @@ color[0] = '#7298d4'
 
 radius_series = aop.elements.PieSeries(
     x=[planet['name'] for planet in planets.as_dict['planets']],
-    y=[planet['meanRadius'] for planet in planets.as_dict['planets']],
+    y=[planet['equaRadius'] for planet in planets.as_dict['planets']],
     name='radius',
     colors=color
 )

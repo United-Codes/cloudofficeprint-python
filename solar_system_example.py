@@ -47,7 +47,7 @@ color[0] = '#7298d4'
 
 radius_series = aop.elements.PieSeries(
     x=[planet['name'] for planet in planets.as_dict['planets']],
-    y=[planet['meanRadius'] for planet in planets.as_dict['planets']],
+    y=[planet['equaRadius'] for planet in planets.as_dict['planets']],
     name='radius',
     colors=color
 )
@@ -75,7 +75,8 @@ printjob = aop.PrintJob(
     server=server,
     template=aop.Resource.from_local_file(
         './examples/solar_system_example/pptx/solar_system_template.pptx'),  # pptx
-    # template=aop.Resource.from_local_file('./examples/solar_system_example/docx/solar_system_template.docx'),  # docx
+    # template=aop.Resource.from_local_file(
+    #     './examples/solar_system_example/docx/solar_system_template.docx'),  # docx
 )
 printjob.execute().to_file('./examples/solar_system_example/pptx/output')
 # printjob.execute().to_file('./examples/solar_system_example/docx/output')
