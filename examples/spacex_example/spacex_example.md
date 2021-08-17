@@ -1,7 +1,7 @@
 # About
 In this file we are going to show you how you can use the APEX Office Print (AOP) Python SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with the Python SDK and finally let APEX Office Print do the work to merge your template with the data. 
 
-In this example, we are going to use SpaceX data to fill a template we are going to made. The SpaceX data can be received by sending an HTTP-request to an API. The (non-official) API used in this example is https://docs.spacexdata.com/.
+In this example, we are going to use SpaceX data to fill a template we are going to make. The SpaceX data can be received by sending an HTTP-request to an API. The (non-official) API used in this example is https://docs.spacexdata.com/.
 
 Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the spacexdata-API and process this data with this Python SDK. Finally we send the template together with the data to an AOP server and save the response into our output file.
 
@@ -858,7 +858,7 @@ printjob = aop.PrintJob(
     # template=aop.Resource.from_local_file('./examples/spacex_example/spacex_template.docx'), # For docx
 )
 ```
-We loaded the template from a local file, passed in our data element collection and our server object.
+We loaded the template from a local file and passed in our data element collection and our server object.
 
 Finally we actually send this printjob to an AOP server and save the response into our output file:
 ```python

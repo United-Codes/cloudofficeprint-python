@@ -73,7 +73,8 @@ data.add(radius_chart)
 printjob = aop.PrintJob(
     data=data,
     server=server,
-    template=aop.Resource.from_local_file('./examples/solar_system_example/pptx/solar_system_template.pptx'),  # pptx
+    template=aop.Resource.from_local_file(
+        './examples/solar_system_example/pptx/solar_system_template.pptx'),  # pptx
     # template=aop.Resource.from_local_file('./examples/solar_system_example/docx/solar_system_template.docx'),  # docx
 )
 printjob.execute().to_file('./examples/solar_system_example/pptx/output')
