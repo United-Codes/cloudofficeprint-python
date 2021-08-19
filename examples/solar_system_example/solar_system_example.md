@@ -60,8 +60,7 @@ Now we will build the template. We can create templates in different file extens
 ## pptx
 We will build the template in Google Slides. After choosing a pretty theme, we create the title slide. On this slide, we want the title of our presentation and the source where we got the data from. The title slide looks like this:
 
-<img src="./imgs/pptx_title.png" width="600" />
-<!-- TODO: change this link to Github link -->
+<img src="https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/solar_system_example/imgs/pptx_title.png" width="600" />
 
 Here we encounter our first placeholder/tag: `{*data source}`. Tags are defined by surrounding a variable name with curly brackets. This is the way we let the Cloud Office Print server know that data needs to replace this placeholder. We will see what that data is in the section [Process input data](#process-input-data). In this specific case, we used a hyperlink-tag `{*hyperlink}`.
 
@@ -69,8 +68,7 @@ Note: to minimize the modifications to the input data (see [Input Data (API)](#i
 
 Next, we want to have a slide for each planet with information about this planet. Since all planets have the same parameters (such as mass, density, gravity etc.), we want to specify one template slide and use this for each planet. This template slide looks like this:
 
-<img src="./imgs/pptx_planets.png" width="600" />
-<!-- TODO: change this link to Github link -->
+<img src="https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/solar_system_example/imgs/pptx_planets.png" width="600" />
 
 Again, the placeholders will be replaced with data by the Cloud Office Print server. Since the data given to the Cloud Office Print server will be in JSON-format (see [Process input data](#process-input-data)), it is possible to reach a subfield of an entry by using `entry.subfield`. So if `mass` is a JSON object like this:
 ```json
@@ -85,16 +83,14 @@ The thing of replicating a certain template slide for each object in a list is e
 
 It might be interesting to plot the radius for each of the planets on a chart. This is the slide used for that:
 
-<img src="./imgs/pptx_chart.png" width="600" />
-<!-- TODO: change this link to Github link -->
+<img src="https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/solar_system_example/imgs/pptx_chart.png" width="600" />
 
 The tag `{$planet_radius_chart}` is used to insert a chart at the place of this placeholder. The data for the chart can be generated using this SDK.
 
 ## docx
 The template for the "docx"-filetype is very similar to the template for the "pptx"-filetype in the sense that they use the same parameters. For this template we want to generate a table containing information about the planets in the solar system. The template looks like this:
 
-<img src="./imgs/docx.png" width="600" />
-<!-- TODO: change this link to Github link -->
+<img src="https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/solar_system_example/imgs/docx.png" width="600" />
 
 # Process input data (SDK)
 Now that our template is finished, we have to process the data used by the template. That is where this SDK comes into play. In this section we will explain in detail all the code needed to generate the data to fill in the template. The full code can also be found in the example file itself.
@@ -220,5 +216,4 @@ The resulting file can now be found in the specified folder.
 # Result
 For the "pptx" output file, we will not add the result in this text, but the output file can be found in the folder of this example. The "docx" output file will look like this:
 
-<img src="./imgs/docx_result.png" width="600" />
-<!-- TODO: change this link to Github link -->
+<img src="https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/solar_system_example/imgs/docx_result.png" width="600" />

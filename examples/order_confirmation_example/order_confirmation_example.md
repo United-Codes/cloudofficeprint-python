@@ -1,17 +1,13 @@
 # About
 In this example we are going to show you how to use this SDK to generate an order confirmation for buying products from a company. The resulting output file will look like this:
 
-![](./imgs/output_imgs/output-1.jpg)
-<!-- TODO: change this link to Github link -->
-![](./imgs/output_imgs/output-2.jpg)
-<!-- TODO: change this link to Github link -->
+![](https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/order_confirmation_example/imgs/output_imgs/output-1.jpg)
+![](https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/order_confirmation_example/imgs/output_imgs/output-2.jpg)
 
 # Template
 The template we are using is the following:
-![](./imgs/template_imgs/template-1.jpg)
-<!-- TODO: change this link to Github link -->
-![](./imgs/template_imgs/template-2.jpg)
-<!-- TODO: change this link to Github link -->
+![](https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/order_confirmation_example/imgs/template_imgs/template-1.jpg)
+![](https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/examples/order_confirmation_example/imgs/template_imgs/template-2.jpg)
 
 ## Tags
 Tags are used in a template as placeholders to let the Cloud Office Print server know what needs to be replaced by data. The tags used in this example are:
