@@ -8,7 +8,7 @@ For the template we use a PDF file which we want to be signed. The content of th
 # Code
 NOTE: For an overview of all the possibilities of this SDK, we refer to the documentation on our [website](https://cloudofficeprint.com/docs).
 ## Setup
-First we create a new file and import the Cloud library:
+First we create a new file and import the Cloud Office Print library:
 ```python
 import cloudofficeprint as cop
 ```

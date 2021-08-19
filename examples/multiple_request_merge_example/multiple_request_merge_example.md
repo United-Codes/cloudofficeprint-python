@@ -8,7 +8,7 @@ A simple template will be used since the goal of this example is to show how you
 
 # Code (SDK)
 NOTE: For an overview of all the possibilities of this SDK, we refer to the documentation on our [website](https://cloudofficeprint.com/docs).
-First we create a new file and import the Cloud library:
+First we create a new file and import the Cloud Office Print library:
 ```python
 import cloudofficeprint as cop
 ```

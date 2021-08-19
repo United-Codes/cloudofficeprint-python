@@ -98,7 +98,7 @@ Now that our template is finished, we have to process the data used by the templ
 The beauty of Cloud Office Print is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
 
 ## Setup
-First we create a new file and import the Cloud library:
+First we create a new file and import the Cloud Office Print library:
 ```python
 import cloudofficeprint as cop
 import requests
