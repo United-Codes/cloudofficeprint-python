@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cloudofficeprint",
-    version="21.1",
+    version="21.2.0",
     author="United Codes",
     author_email="info@united-codes.com",
-    description="python interface for cloudofficeprint",
+    description="Python interface for Cloud Office Print",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/United-Codes/cloudofficeprint-python",
@@ -20,5 +20,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.7',
-    install_requires=['requests']
+    install_requires=['requests'],
 )

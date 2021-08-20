@@ -1,5 +1,4 @@
 import cloudofficeprint as cop
-import asyncio
 
 ###
 #   Main file to run all the tests in the 'tests'-folder.
