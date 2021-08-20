@@ -84,7 +84,7 @@ The examples can be found in the parent directory of the project on [Github](htt
 
 # Documentation
 
-The documentation for this SDK can be found inside the `docs/cloudofficeprint/` folder on [Github](https://github.com/United-Codes/cloudofficeprint-python).
+The documentation for this SDK can be found inside the `docs/cloudofficeprint/` folder on [Github](https://github.com/United-Codes/cloudofficeprint-python). Open the index.html file in a browser.
 
 The documentation for Cloud Office Print can be found at the [Cloud Office Print docs](https://www.cloudofficeprint.com/docs/).
 
