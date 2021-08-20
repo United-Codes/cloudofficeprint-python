@@ -44,7 +44,7 @@ collection.add(text)
 ```
 
 ## Cloud Office Print server
-The template and the data need to be sent to a Cloud Office Print server that merges both. This can be done by setting up the configuration for Cloud Office Print server and passing it to the print job instance. You can get your API key by signing up at https://www.cloudofficeprint.com.
+The template and the data need to be sent to a Cloud Office Print server that merges both. This can be done by setting up the configuration for a Cloud Office Print server and passing it to the print job instance. You can get your API key by signing up at https://www.cloudofficeprint.com.
 ```python
 ...
 SERVER_URL = "https://api.cloudofficeprint.com/"
@@ -67,6 +67,7 @@ printjob = cop.PrintJob(
 response = printjob.execute()
 response.to_file('PATH_OF_OUTPUT_FILE')
 ```
+where `PATH_TO_TEMPLATE_FILE` is the (relative) path to your template file (e.g. `./data/template.docx`) and `PATH_OF_OUTPUT_FILE` is the (relative) path where you want the output file to be stored (e.g. `./output/output_file`).
 
 ## Result
 <img src="https://raw.githubusercontent.com/United-Codes/cloudofficeprint-python/master/imgs/hello_world_output.png" width="600" />
@@ -83,25 +84,18 @@ The examples can be found in the parent directory of the project on [Github](htt
 
 # Documentation
 
-The documentation for this SDK can be found inside the `docs/cloudofficeprint/` folder on [Github](https://github.com/United-Codes/cloudofficeprint-python). If you want to generate this documentation yourself, you can run the following command (after installing pdoc: `pip install pdoc3`) in the project directory:  
-`pdoc --html --force --output-dir docs/ cloudofficeprint/`
+The documentation for this SDK can be found inside the `docs/cloudofficeprint/` folder on [Github](https://github.com/United-Codes/cloudofficeprint-python).
 
-The full Cloud Office Print documentation can be found at the [Cloud Office Print docs](https://www.cloudofficeprint.com/docs/).
+The documentation for Cloud Office Print can be found at the [Cloud Office Print docs](https://www.cloudofficeprint.com/docs/).
 
-# Tests 
-To check if everything works, you can run the tests.
 
-## Running the tests
-1. Open a terminal in the parent directory of this project, which can be found on [Github](https://github.com/United-Codes/cloudofficeprint-python).
-2. Type in the terminal: `python test.py`
-3. The tests succeeded if nothing is printed to the terminal
+# Development
 
-# Contributing
-
-## Useful VS Code extensions
-- `njpwerner.autodocstring`: Python docstring generator, uses Google-style docs by default.
-
-## pdoc
+## Documentation
+To generate the documentation, you can run the following command (after installing pdoc: `pip install pdoc3`) in the project directory:
+```bash
+pdoc --html --force --output-dir docs/ cloudofficeprint/
+```
 [pdoc](https://pdoc3.github.io/pdoc/) is used for documentation generation.
 Things to keep in mind when writing docs (some of these are non-standard):
 - Docstrings are inherited from `super()`.
@@ -110,3 +104,15 @@ Things to keep in mind when writing docs (some of these are non-standard):
 - You can use markdown in the docstrings, along with the generated google-style docs.
   - Doing something like \``ClassName`\` (with backticks, which are generally for inline code) makes pdoc look for the reference and try to hyperlink it in the generated docs.</br>
   This works with any object, useful methods or instance variables of a class too.
+
+## Tests
+There are tests for all classes and methods. The tests check if the JSON that needs to be sent to the server is as expected. To run the tests:
+1. Open a terminal in the parent directory of this project, which can be found on [Github](https://github.com/United-Codes/cloudofficeprint-python).
+2. Type in the terminal:
+    ```bash
+    python test.py
+    ```
+3. The tests succeeded if nothing is printed to the terminal
+
+## Useful Visual Studio Code extensions
+- `njpwerner.autodocstring`: Python docstring generator, uses Google-style docs by default.
