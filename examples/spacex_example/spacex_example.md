@@ -1,9 +1,9 @@
 # About
-In this file we are going to show you how you can use the Cloud (Cloud Office Print) Python SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with the Python SDK and finally let Cloud do the work to merge your template with the data. 
+In this file we are going to show you how you can use the Cloud Office Print Python SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with the Python SDK and finally let Cloud Office Print do the work to merge your template with the data. 
 
 In this example, we are going to use SpaceX data to fill a template we are going to make. The SpaceX data can be received by sending an HTTP-request to an API. The (non-official) API used in this example is https://docs.spacexdata.com/.
 
-Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the spacexdata-API and process this data with this Python SDK. Finally we send the template together with the data to a cloud Office Print server and save the response into our output file.
+Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the spacexdata-API and process this data with this Python SDK. Finally we send the template together with the data to a Cloud Office Print server and save the response into our output file.
 
 # Input data (API)
 The data we use comes from https://docs.spacexdata.com/. More specifically we will use SpaceX data about their company, rockets, dragons, launch pads, landing pads and ships that assist SpaceX launches. Let us have a look at the available data for the different components.
@@ -496,7 +496,7 @@ Now that our template is finished, we have to process the data used by the templ
 The beauty of Cloud Office Print is that the data created by the Python SDK can be used in all templates of different file extensions while using the same tags.
 
 ## Setup
-First we create a new Python file and import the Cloud library and the [requests](https://pypi.org/project/requests/)-library:
+First we create a new Python file and import the Cloud Office Print library and the [requests](https://pypi.org/project/requests/)-library:
 
 ```python
 import cloudofficeprint as cop
@@ -513,7 +513,7 @@ server = cop.config.Server(
     cop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you have a cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: `http://localhost:8010`
+If you have a Cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: `http://localhost:8010`
 
 We also need to create the main element-collection object that contains all our data:
 ```python
@@ -546,7 +546,7 @@ ships = requests.get('https://api.spacexdata.com/v4/ships').json()
 ```
 
 ## Title slide
-The template title slide contains the title of our presentation and a hyperlink-tag `{*data_source}`. Now we need to add the data for this tag in our Python code by creating a cloud Office Print element (hyperlink) and adding this to the main data collection:
+The template title slide contains the title of our presentation and a hyperlink-tag `{*data_source}`. Now we need to add the data for this tag in our Python code by creating a Cloud Office Print element (hyperlink) and adding this to the main data collection:
 ```python
 data_source = cop.elements.Hyperlink(
     name='data_source',
@@ -834,7 +834,7 @@ printjob = cop.PrintJob(
 ```
 We loaded the template from a local file and passed in our data element collection and our server object.
 
-Finally we actually send this printjob to a cloud Office Print server and save the response into our output file:
+Finally we actually send this printjob to a Cloud Office Print server and save the response into our output file:
 ```python
 printjob.execute().to_file('./examples/spacex_example/output')
 ```

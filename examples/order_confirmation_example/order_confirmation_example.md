@@ -40,7 +40,7 @@ server = cop.config.Server(
     cop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you have a cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
+If you have a Cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
 
 We also need to create the main element-collection object that contains all our data:
 ```python
@@ -177,7 +177,7 @@ data.add(orders)
 ```
 
 ## Print job
-Finally, we create a print job to send our template and data to a cloud Office Print server and we save the server response file to our computer:
+Finally, we create a print job to send our template and data to a Cloud Office Print server and we save the server response file to our computer:
 ```python
 conf = cop.config.OutputConfig('pdf') # Optional output configuration
 printjob = cop.PrintJob(data, server, template, conf)

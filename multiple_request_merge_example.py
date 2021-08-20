@@ -1,6 +1,6 @@
 """This is an example of how you can merge the output files generated from a single template using multiple requests.
 This approach is useful if you are dealing with a lot of output files that need to be merged.
-There is a limit on how much data can be sent to a cloud Office Print server, so this is useful to split one big request into multiple smaller ones.
+There is a limit on how much data can be sent to a Cloud Office Print server, so this is useful to split one big request into multiple smaller ones.
 This example will take a minute to run.
 """
 

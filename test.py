@@ -67,7 +67,7 @@ def test_full_json():
 
 if __name__ == "__main__":
     # These two tests are commented out by default because they take longer than the others,
-    #   because they send the template and data to a cloud Office Print server and then save its response.
+    #   because they send the template and data to a Cloud Office Print server and then save its response.
     # asyncio.run(test_async())  # Works as expected
     # test_full_json()  # Works as expected
 

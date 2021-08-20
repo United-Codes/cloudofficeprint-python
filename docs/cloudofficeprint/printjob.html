@@ -48,7 +48,7 @@ from pprint import pprint
 STATIC_OPTS = {
     &#34;tool&#34;: &#34;python&#34;,
     # &#34;version&#34;: &#34;18.2&#34;, # optional: version of Cloud Office Print JSON format
-    &#34;python_sdk_version&#34;: &#34;21.1&#34;,
+    &#34;python_sdk_version&#34;: &#34;21.2.0&#34;,
 }
 
 
@@ -121,7 +121,7 @@ class PrintJob:
         &#34;&#34;&#34;If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
         Args:
-            json_data (str): full JSON data that needs to be sent to a cloud Office Print server
+            json_data (str): full JSON data that needs to be sent to a Cloud Office Print server
             server (Server): `Server`-object
 
         Returns:
@@ -135,7 +135,7 @@ class PrintJob:
         &#34;&#34;&#34;Async version of `Printjob.execute_full_json`
 
         Args:
-            json_data (str): full JSON data that needs to be sent to a cloud Office Print server
+            json_data (str): full JSON data that needs to be sent to a Cloud Office Print server
             server (Server): `Server`-object
 
         Returns:
@@ -356,7 +356,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
         &#34;&#34;&#34;If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
         Args:
-            json_data (str): full JSON data that needs to be sent to a cloud Office Print server
+            json_data (str): full JSON data that needs to be sent to a Cloud Office Print server
             server (Server): `Server`-object
 
         Returns:
@@ -370,7 +370,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
         &#34;&#34;&#34;Async version of `Printjob.execute_full_json`
 
         Args:
-            json_data (str): full JSON data that needs to be sent to a cloud Office Print server
+            json_data (str): full JSON data that needs to be sent to a Cloud Office Print server
             server (Server): `Server`-object
 
         Returns:
@@ -491,7 +491,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>json_data</code></strong> :&ensp;<code>str</code></dt>
-<dd>full JSON data that needs to be sent to a cloud Office Print server</dd>
+<dd>full JSON data that needs to be sent to a Cloud Office Print server</dd>
 <dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
 <dd><code>Server</code>-object</dd>
 </dl>
@@ -509,7 +509,7 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
     &#34;&#34;&#34;If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
     Args:
-        json_data (str): full JSON data that needs to be sent to a cloud Office Print server
+        json_data (str): full JSON data that needs to be sent to a Cloud Office Print server
         server (Server): `Server`-object
 
     Returns:
@@ -527,7 +527,7 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>json_data</code></strong> :&ensp;<code>str</code></dt>
-<dd>full JSON data that needs to be sent to a cloud Office Print server</dd>
+<dd>full JSON data that needs to be sent to a Cloud Office Print server</dd>
 <dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
 <dd><code>Server</code>-object</dd>
 </dl>
@@ -545,7 +545,7 @@ async def execute_full_json_async(json_data: str, server: Server) -&gt; Response
     &#34;&#34;&#34;Async version of `Printjob.execute_full_json`
 
     Args:
-        json_data (str): full JSON data that needs to be sent to a cloud Office Print server
+        json_data (str): full JSON data that needs to be sent to a Cloud Office Print server
         server (Server): `Server`-object
 
     Returns:

@@ -1,9 +1,9 @@
 # About
-In this file we are going to show you how you can use this Cloud (Cloud Office Print) SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with this SDK and finally let Cloud do the work to merge your template with the data. 
+In this file we are going to show you how you can use this Cloud Office Print SDK to generate an output file using a template and data to fill the template. The general approach is to create a template file in which you want the data to appear, then process the data with this SDK and finally let Cloud Office Print do the work to merge your template with the data. 
 
 In this example, we are going to use solar system data to fill a template we are going to make. The solary system data can be received by sending an HTTP-request to an API. The API used in this example is https://api.le-systeme-solaire.net.
 
-Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the solar system API and process this data with this SDK. Finally we send the template together with the data to a cloud Office Print server and save the response into our output file.
+Normally you know the data you will be using to fill in the template, but for this example, we are going to start with a brief overview of the data we will be using. Then we will create a template. Then we will get the data from the solar system API and process this data with this SDK. Finally we send the template together with the data to a Cloud Office Print server and save the response into our output file.
 
 # Input data (API)
 The data we use comes from https://api.le-systeme-solaire.net. The data that interests us is about the bodies of the solar system and more specifically the planets and dwarf planets in our solar system. If we go to the URL https://api.le-systeme-solaire.net/rest/bodies, we retrieve a JSON array containing objects for each body in the solar system. One such object may look like this:
@@ -113,7 +113,7 @@ server = cop.config.Server(
     cop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you have a cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
+If you have a Cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
 
 We also need to create the main element-collection object that contains all our data:
 ```python
@@ -127,7 +127,7 @@ res = requests.get('https://api.le-systeme-solaire.net/rest/bodies/').json()
 ```
 
 ## Title slide
-The template title slide contains a normal tag for the title `{main_title}` and a hyperlink-tag `{*data_source}`. Now we need to add the data for these tags in our code by creating a cloud Office Print element (property and hyperlink) and adding this to the main data collection:
+The template title slide contains a normal tag for the title `{main_title}` and a hyperlink-tag `{*data_source}`. Now we need to add the data for these tags in our code by creating a Cloud Office Print element (property and hyperlink) and adding this to the main data collection:
 ```python
 # Add the title to the data
 data.add(cop.elements.Property('main_title', 'The solar system'))
@@ -206,7 +206,7 @@ printjob = cop.PrintJob(
 ```
 We loaded the template from a local file and passed in our data element collection and our server object.
 
-Finally we actually send this printjob to a cloud Office Print server and save the response into our output file:
+Finally we actually send this printjob to a Cloud Office Print server and save the response into our output file:
 ```python
 printjob.execute().to_file('./examples/solar_system_example/pptx/output')
 # printjob.execute().to_file('./examples/solar_system_example/docx/output')

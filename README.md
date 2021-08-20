@@ -1,8 +1,8 @@
 # cloudofficeprint-python
-This project provides a Python interface for Cloud.
+This project provides a Python interface for Cloud Office Print.
 
 # Installation
-To install the Cloud Python package, you can type in your terminal:  
+To install the Cloud Office Print Python package, you can type in your terminal:  
 `pip install cloudofficeprint`
 
 You also need to have the requests-library installed (https://docs.python-requests.org/en/master/). This can be installed through your terminal:  
@@ -11,7 +11,7 @@ You also need to have the requests-library installed (https://docs.python-reques
 # Usage
 1. Create a template (docx, xlsx, pptx, HTML, md, txt, csv), for the possible tags, click [here](http://www.cloudofficeprint.com/docs/#templates).
 2. Create the input data with this Python SDK
-3. Send template and data to a cloud Office Print server and save the response to a file with this Python SDK
+3. Send template and data to a Cloud Office Print server and save the response to a file with this Python SDK
 
 To see the JSON-data that is sent to the Cloud Office Print server, you can turn on verbose-mode by setting the argument `cop_verbose` to `True` when creating a `PrintJob`.
 
@@ -44,7 +44,7 @@ collection.add(text)
 ```
 
 ## Cloud Office Print server
-The template and the data need to be sent to a cloud Office Print server that merges both. This can be done by setting up the configuration for Cloud Office Print server and passing it to the print job instance. You can get your API key by signing up at https://www.cloudofficeprint.com.
+The template and the data need to be sent to a Cloud Office Print server that merges both. This can be done by setting up the configuration for Cloud Office Print server and passing it to the print job instance. You can get your API key by signing up at https://www.cloudofficeprint.com.
 ```python
 ...
 SERVER_URL = "https://api.cloudofficeprint.com/"
@@ -86,7 +86,7 @@ The examples can be found in the parent directory of the project on [Github](htt
 The documentation for this SDK can be found inside the `docs/cloudofficeprint/` folder on [Github](https://github.com/United-Codes/cloudofficeprint-python). If you want to generate this documentation yourself, you can run the following command (after installing pdoc: `pip install pdoc3`) in the project directory:  
 `pdoc --html --force --output-dir docs/ cloudofficeprint/`
 
-The full Cloud documentation can be found at the [Cloud Office Print docs](https://www.cloudofficeprint.com/docs/).
+The full Cloud Office Print documentation can be found at the [Cloud Office Print docs](https://www.cloudofficeprint.com/docs/).
 
 # Tests 
 To check if everything works, you can run the tests.

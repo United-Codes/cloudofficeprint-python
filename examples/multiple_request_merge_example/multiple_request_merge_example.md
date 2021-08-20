@@ -1,5 +1,5 @@
 # About
-There is a limit on how much data can be sent to a cloud Office Print server at once. Let's say you have a template for product specifications and you want to generate one merged PDF file for 50.000 different products. It is possible that you cannot send all the data for all the products at once to the Cloud Office Print server. In this example we will show you how you can split one big merge request into multiple smaller merge requests.
+There is a limit on how much data can be sent to a Cloud Office Print server at once. Let's say you have a template for product specifications and you want to generate one merged PDF file for 50.000 different products. It is possible that you cannot send all the data for all the products at once to the Cloud Office Print server. In this example we will show you how you can split one big merge request into multiple smaller merge requests.
 
 # Template
 A simple template will be used since the goal of this example is to show how you can split one big merge request into a few smaller ones. The template will contain one simple tag {test}. Tags are used in a template as placeholders to let the Cloud Office Print server know what needs to be replaced by data. In this case, the simple tag {test} will be replaced by whatever value is given to the Cloud Office Print server for the tag with key 'test'. In this example we use a template with filetype docx, but this can be any of the allowed template types (see [here](https://www.cloudofficeprint.com/docs/#tag-overview)).
@@ -23,7 +23,7 @@ server = cop.config.Server(
     cop.config.ServerConfig(api_key=API_KEY)
 )
 ```
-If you have a cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
+If you have a Cloud Office Print server running on localhost (e.g. on-premise version), replace the server url by the localhost url: http://localhost:8010
 
 We also need to create the main element-collection object that contains all our data. Let's say we have 100 different customers for who we need to fill in the template and we want to merge the resulting files into a PDF. In this example, we are just going to repeat the property 'test' with value 'test' 100 times, but normally you would have different data for each customer.
 ```python
