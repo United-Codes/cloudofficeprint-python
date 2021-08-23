@@ -116,3 +116,24 @@ There are tests for all classes and methods. The tests check if the JSON that ne
 
 ## Useful Visual Studio Code extensions
 - `njpwerner.autodocstring`: Python docstring generator, uses Google-style docs by default.
+
+## Publishing
+To publish this project to [PyPI](https://pypi.org/), follow these steps:
+1. Create an account on PyPI.
+2. Install the [Twine utility](https://twine.readthedocs.io/en/latest/) by typing in your terminal:
+    ```bash
+    pip install twine
+    ```
+3. In the parent directory, type in your terminal:
+    ```bash
+    python setup.py sdist bdist_wheel
+    ```
+4. Check if the building succeeded (PASSED):
+    ```bash
+    twine check dist/*
+    ```
+5. Upload to PyPI:
+    ```bash
+    twine upload dist/*
+    ```
+More information can be found [here](https://realpython.com/pypi-publish-python-package).
