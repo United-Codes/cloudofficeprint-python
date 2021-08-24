@@ -5,9 +5,6 @@ This project provides a Python interface for Cloud Office Print.
 To install the Cloud Office Print Python package, you can type in your terminal:  
 `pip install cloudofficeprint`
 
-You also need to have the requests-library installed (https://docs.python-requests.org/en/master/). This can be installed through your terminal:  
-`pip install requests`
-
 # Usage
 1. Create a template (docx, xlsx, pptx, HTML, md, txt, csv), for the possible tags, click [here](http://www.cloudofficeprint.com/docs/#templates).
 2. Create the input data with this Python SDK
