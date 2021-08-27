@@ -11,9 +11,8 @@ class Code(Element, ABC):
         Args:
             name (str): The name for this Code object (Cloud Office Print tag).
             data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the [Cloud Office Print documentation](https://www.cloudofficeprint.com/docs/#barcode-qrcode-tags).
+            type (str): For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.
         """
-        # TODO: update website for type argument?
         super().__init__(name)
         self.data: str = data
         self.type: str = type
@@ -70,7 +69,7 @@ class BarCode(Code):
         Args:
             name (str): The name for this Code object (Cloud Office Print tag).
             data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the [Cloud Office Print documentation](https://www.cloudofficeprint.com/docs/#barcode-qrcode-tags).
+            type (str): For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.
             height (int, optional): The height for the generated code. The default is 200 for QR, 50 for the rest. Defaults to None.
             width (int, optional): The width for the generated code. The default is 200. Defaults to None.
             errorcorrectlevel (str, optional): The level of which the QR code should be recoverable. The options are:
@@ -89,7 +88,6 @@ class BarCode(Code):
                 E.g.: "includetext guardwhitespace guardwidth=3 guardheight=3".
                 Please visit https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference for all the options. Defaults to None.
         """
-        # TODO: update website for type argument?
         super().__init__(name, data, type)
         self.height: int = height
         self.width: int = width
@@ -135,9 +133,8 @@ class QRCode(Code):
         Args:
             name (str): The name for this Code object (Cloud Office Print tag).
             data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the [Cloud Office Print documentation](https://www.cloudofficeprint.com/docs/#barcode-qrcode-tags).
+            type (str): For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.
         """
-        # TODO: update website for type argument?
         super().__init__(name, data, type)
 
         self.dotscale: float = None
