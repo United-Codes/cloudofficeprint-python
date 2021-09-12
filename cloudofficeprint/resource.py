@@ -19,14 +19,18 @@ from abc import abstractmethod, ABC
 class Resource(ABC):
     """The abstract base class for the resources."""
 
-    def __init__(self, data: Union[str, bytes] = None, filetype: str = None):
+    def __init__(self, data: Union[str, bytes] = None, filetype: str = None, start_delimiter: str = None, end_delimiter: str = None):
         """
         Args:
             data (Union[str, bytes], optional): the data for this resource. Defaults to None.
             filetype (str, optional): the file type of this resource. Defaults to None.
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
         """
         self._data: Union[str, bytes] = data
         self.filetype: str = filetype
+        self.start_delimiter: str = start_delimiter
+        self.end_delimiter: str = end_delimiter
 
     @property
     def mimetype(self) -> str:
@@ -95,33 +99,37 @@ class Resource(ABC):
         return self.template_json
 
     @staticmethod
-    def from_base64(base64string: str, filetype: str) -> 'Base64Resource':
+    def from_base64(base64string: str, filetype: str, start_delimiter: str = None, end_delimiter: str = None) -> 'Base64Resource':
         """Create a Base64Resource from a base64 string and a file type (extension).
 
         Args:
             base64string (str): base64 encoded string
             filetype (str): file type (extension)
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
 
         Returns:
             Base64Resource: the created Resource
         """
-        return Base64Resource(base64string, filetype)
+        return Base64Resource(base64string, filetype, start_delimiter, end_delimiter)
 
     @staticmethod
-    def from_raw(raw_data: bytes, filetype: str) -> 'RawResource':
+    def from_raw(raw_data: bytes, filetype: str, start_delimiter: str = None, end_delimiter: str = None) -> 'RawResource':
         """Create a RawResource from raw file data and a file type (extension).
 
         Args:
             raw_data (bytes): raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object)
             filetype (str): file type (extension)
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
 
         Returns:
             RawResource: the created Resource
         """
-        return RawResource(raw_data, filetype)
+        return RawResource(raw_data, filetype, start_delimiter, end_delimiter)
 
     @staticmethod
-    def from_local_file(local_path: str) -> 'Base64Resource':
+    def from_local_file(local_path: str, start_delimiter: str = None, end_delimiter: str = None) -> 'Base64Resource':
         """Create a Base64Resource with the contents of a local file.
 
         Throws IOError if it can't read the file.
@@ -129,42 +137,47 @@ class Resource(ABC):
 
         Args:
             local_path (str): path to local file
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
 
         Returns:
             Base64Resource: the created Resource
         """
-        base64string: str = file_utils.read_file_as_base64(local_path)
-        return Base64Resource(base64string, type_utils.path_to_extension(local_path))
+        return Base64Resource(file_utils.read_file_as_base64(local_path), type_utils.path_to_extension(local_path), start_delimiter, end_delimiter)
 
     @staticmethod
-    def from_server_path(path: str) -> 'ServerPathResource':
+    def from_server_path(path: str, start_delimiter: str = None, end_delimiter: str = None) -> 'ServerPathResource':
         """Create a ServerPathResource targeting a file on the server.
 
         The filetype is determined by the extension of the file.
 
         Args:
             path (str): location of target file on the server
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
 
         Returns:
             ServerPathResource: the created Resource
         """
-        return ServerPathResource(path)
+        return ServerPathResource(path, start_delimiter, end_delimiter)
 
     @staticmethod
-    def from_url(url: str, filetype: str) -> 'URLResource':
+    def from_url(url: str, filetype: str, start_delimiter: str = None, end_delimiter: str = None) -> 'URLResource':
         """Create an Resource targeting the file at url with given filetype (extension).
 
         Args:
             url (str): file url
             filetype (str): file type (extension)
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
 
         Returns:
             URLResource: the created Resource
         """
-        return URLResource(url, filetype)
+        return URLResource(url, filetype, start_delimiter, end_delimiter)
 
     @staticmethod
-    def from_html(htmlstring: str, landscape: bool = False) -> 'HTMLResource':
+    def from_html(htmlstring: str, landscape: bool = False, start_delimiter: str = None, end_delimiter: str = None) -> 'HTMLResource':
         """Create an HTMLResource with html data in plain text.
 
         Landscape is not supported for prepend/append sources, only for template resources.
@@ -172,23 +185,27 @@ class Resource(ABC):
         Args:
             htmlstring (str): html content
             landscape (bool, optional): whether to use the landscape option. Defaults to False.
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
 
         Returns:
             HTMLResource: the created Resource
         """
-        return HTMLResource(htmlstring, landscape)
+        return HTMLResource(htmlstring, landscape, start_delimiter, end_delimiter)
 
 
 class RawResource(Resource):
     """A `Resource` containing raw binary data."""
 
-    def __init__(self, raw_data: bytes, filetype: str):
+    def __init__(self, raw_data: bytes, filetype: str, start_delimiter: str = None, end_delimiter: str = None):
         """
         Args:
             raw_data (bytes): raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object)
             filetype (str): file type (extension)
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
         """
-        super().__init__(raw_data, filetype)
+        super().__init__(raw_data, filetype, start_delimiter, end_delimiter)
 
     @property
     def base64(self) -> str:
@@ -203,7 +220,9 @@ class RawResource(Resource):
     def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
-            "file": self.base64
+            "file": self.base64,
+            "start_delimiter": self.start_delimiter,
+            "end_delimiter": self.end_delimiter
         }
 
     @property
@@ -218,19 +237,23 @@ class RawResource(Resource):
 class Base64Resource(Resource):
     """A `Resource` containing base64 data."""
 
-    def __init__(self, base64string: str, filetype: str):
+    def __init__(self, base64string: str, filetype: str, start_delimiter: str = None, end_delimiter: str = None):
         """
         Args:
             base64string (str): base64 encoded file
             filetype (str): file type (extension)
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
         """
-        super().__init__(base64string, filetype)
+        super().__init__(base64string, filetype, start_delimiter, end_delimiter)
 
     @property
     def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
-            "file": self.data
+            "file": self.data,
+            "start_delimiter": self.start_delimiter,
+            "end_delimiter": self.end_delimiter
         }
 
     @property
@@ -245,18 +268,23 @@ class Base64Resource(Resource):
 class ServerPathResource(Resource):
     """A `Resource` targeting a file on the server."""
 
-    def __init__(self, server_path: str):
+    def __init__(self, server_path: str, start_delimiter: str = None, end_delimiter: str = None):
         """
         Args:
             server_path (str): path on the server to target
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
         """
-        super().__init__(server_path, type_utils.path_to_extension(server_path))
+        super().__init__(server_path, type_utils.path_to_extension(
+            server_path), start_delimiter, end_delimiter)
 
     @property
     def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
-            "filename": self.data
+            "filename": self.data,
+            "start_delimiter": self.start_delimiter,
+            "end_delimiter": self.end_delimiter
         }
 
     @property
@@ -271,19 +299,23 @@ class ServerPathResource(Resource):
 class URLResource(Resource):
     """A `Resource` targeting a file at a URL."""
 
-    def __init__(self, url: str, filetype: str):
+    def __init__(self, url: str, filetype: str, start_delimiter: str = None, end_delimiter: str = None):
         """
         Args:
             url (str): URL location of the file
             filetype (str): file type (extension)
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
         """
-        super().__init__(url, filetype)
+        super().__init__(url, filetype, start_delimiter, end_delimiter)
 
     @property
     def template_dict(self) -> Dict:
         return {
             "template_type": self.filetype,
-            "url": self.data
+            "url": self.data,
+            "start_delimiter": self.start_delimiter,
+            "end_delimiter": self.end_delimiter
         }
 
     @property
@@ -298,13 +330,15 @@ class URLResource(Resource):
 class HTMLResource(Resource):
     """A Resource containing HTML data in plain text."""
 
-    def __init__(self, htmlstring: str, landscape: bool = False):
+    def __init__(self, htmlstring: str, landscape: bool = False, start_delimiter: str = None, end_delimiter: str = None):
         """
         Args:
             htmlstring (str): HTML input in plain text
             landscape (bool, optional): Whether the HTML should be rendered as landscape-oriented page. Defaults to False.
+            start_delimiter (str, optional): the starting delimiter
+            end_delimiter (str, optional): the starting delimiter
         """
-        super().__init__(htmlstring, "html")
+        super().__init__(htmlstring, "html", start_delimiter, end_delimiter)
         self.landscape: bool = landscape
 
     @property
@@ -321,15 +355,13 @@ class HTMLResource(Resource):
 
     @property
     def template_dict(self) -> Dict:
-        result = {
+        return {
             "template_type": self.filetype,
-            "html_template_content": self.data
+            "html_template_content": self.data,
+            "orientation": self.orientation,
+            "start_delimiter": self.start_delimiter,
+            "end_delimiter": self.end_delimiter
         }
-
-        if self.orientation is not None:
-            result["orientation"] = self.orientation
-
-        return result
 
     @property
     def secondary_file_dict(self) -> Dict:
