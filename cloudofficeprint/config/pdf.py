@@ -1,5 +1,5 @@
 import json
-from typing import Union, Iterable, Dict, Mapping
+from typing import Union, Dict, Mapping
 
 
 class PDFOptions:
@@ -19,8 +19,8 @@ class PDFOptions:
         watermark: str = None,
         watermark_color: str = None,
         watermark_font: str = None,
-        watermark_opacity: str = None,
-        watermark_size: str = None,
+        watermark_opacity: int = None,
+        watermark_size: int = None,
         lock_form: bool = None,
         copies: int = None,
         page_margin: Union[int, dict] = None,
@@ -40,11 +40,11 @@ class PDFOptions:
             modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
             password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
-            watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
-            watermark_color (str, optional): Specifies the font of the watermark text specified, with a default of "black". Defaults to None.
-            watermark_font (str, optional): Specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
-            watermark_opacity (str, optional): Specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
-            watermark_size (str, optional): Specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            watermark (str, optional): Requires PDF output, generates a diagonal custom watermark on every page of the PDF file. Defaults to None.
+            watermark_color (str, optional): Requires PDF output, specifies the font of the watermark specified, with a default of "black". Defaults to None.
+            watermark_font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
+            watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
+            watermark_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.
@@ -65,8 +65,8 @@ class PDFOptions:
         self.watermark: str = watermark
         self.watermark_color: str = watermark_color
         self.watermark_font: str = watermark_font
-        self.watermark_opacity: str = watermark_opacity
-        self.watermark_size: str = watermark_size
+        self.watermark_opacity: int = watermark_opacity
+        self.watermark_size: int = watermark_size
         self.lock_form: bool = lock_form
         self.copies: int = copies
         self.page_margin: Union[int, dict] = page_margin
@@ -160,8 +160,8 @@ class PDFOptions:
         text: str = None,
         color: str = None,
         font: str = None,
-        opacity: str = None,
-        size: str = None,
+        opacity: int = None,
+        size: int = None,
     ):
         """Set watermark
 
@@ -172,14 +172,14 @@ class PDFOptions:
             text (str, optional): Specifies the text of the watermark. Defaults to None.
             color (str, optional): Specifies the color of the watermark, with a default of "black". Defaults to None.
             font (str, optional): Specifies the font of the watermark, with a default of "Arial". Defaults to None.
-            opacity (str, optional): Specifies the opacity of the watermark, should be as a percentage, i.e. 45. Defaults to None.
-            size (str, optional): Specifies the size of the watermark, should be as a number in px, i.e. 45. Defaults to None.
+            opacity (int, optional): Specifies the opacity of the watermark, should be as a percentage, i.e. 45. Defaults to None.
+            size (int, optional): Specifies the size of the watermark, should be as a number in px, i.e. 45. Defaults to None.
         """
-        self.watermark: str = text
-        self.watermark_color: str = color
-        self.watermark_font: str = font
-        self.watermark_opacity: str = opacity
-        self.watermark_size: str = size
+        self.watermark = text
+        self.watermark_color = color
+        self.watermark_font = font
+        self.watermark_opacity = opacity
+        self.watermark_size = size
 
     def set_page_margin_at(self, value: int, position: str = None):
         """Set page_margin
