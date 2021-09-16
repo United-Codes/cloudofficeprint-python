@@ -169,11 +169,11 @@ class PDFOptions:
         Setting all to None will remove the watermark.
 
         Args:
-            text (str, optional): Specifies the text of the watermark. Defaults to None.
-            color (str, optional): Specifies the color of the watermark, with a default of "black". Defaults to None.
-            font (str, optional): Specifies the font of the watermark, with a default of "Arial". Defaults to None.
-            opacity (int, optional): Specifies the opacity of the watermark, should be as a percentage, i.e. 45. Defaults to None.
-            size (int, optional): Specifies the size of the watermark, should be as a number in px, i.e. 45. Defaults to None.
+            text (str, optional): Requires PDF output, generates a diagonal custom watermark on every page of the PDF file. Defaults to None.
+            color (str, optional): Requires PDF output, specifies the font of the watermark specified, with a default of "black". Defaults to None.
+            font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
+            opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
+            size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
         """
         self.watermark = text
         self.watermark_color = color
