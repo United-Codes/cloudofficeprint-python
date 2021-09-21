@@ -1,6 +1,8 @@
 import json
 from typing import Union, Dict, Mapping
 
+from ..own_utils import file_utils
+
 
 class PDFOptions:
     """Class of optional PDF options.
@@ -32,6 +34,7 @@ class PDFOptions:
         split: bool = None,
         identify_form_fields: bool = None,
         sign_certificate: str = None,
+        sign_certificate_password: str = None,
     ):
         """
         Args:
@@ -56,6 +59,7 @@ class PDFOptions:
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
+            sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
         """
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
@@ -78,6 +82,7 @@ class PDFOptions:
         self.split: bool = split
         self.identify_form_fields: bool = identify_form_fields
         self.sign_certificate: str = sign_certificate
+        self.sign_certificate_password: str = sign_certificate_password
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.
@@ -152,6 +157,8 @@ class PDFOptions:
             result["identify_form_fields"] = self.identify_form_fields
         if self.sign_certificate is not None:
             result["output_sign_certificate"] = self.sign_certificate
+        if self.sign_certificate_password is not None:
+            result["output_sign_certificate_password"] = self.sign_certificate_password
 
         return result
 
@@ -227,3 +234,13 @@ class PDFOptions:
             value (str): the page orientation
         """
         self._landscape = value == "landscape"
+
+    def sign(self, local_certificate_path: str, password: str = None):
+        """Sign the output PDF with a local certificate file.
+
+        Args:
+            local_certificate_path (str): path to the local certificate file.
+            password (str): password of the certificate. Defaults to None.
+        """
+        self.sign_certificate = file_utils.read_file_as_base64(local_certificate_path)
+        self.sign_certificate_password = password
