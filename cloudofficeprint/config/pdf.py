@@ -15,6 +15,7 @@ class PDFOptions:
         self,
         even_page: bool = None,
         merge_making_even: bool = None,
+        remove_last_page: bool = None,
         modify_password: str = None,
         read_password: str = None,
         password_protection_flag: int = None,
@@ -40,6 +41,7 @@ class PDFOptions:
         Args:
             even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
             merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
+            remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
             modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
             password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
@@ -63,6 +65,7 @@ class PDFOptions:
         """
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
+        self.remove_last_page: bool = remove_last_page
         self.modify_password: str = modify_password
         self.read_password: str = read_password
         self.password_protection_flag: int = password_protection_flag
@@ -117,6 +120,8 @@ class PDFOptions:
             result["output_even_page"] = self.even_page
         if self.merge_making_even is not None:
             result["output_merge_making_even"] = self.merge_making_even
+        if self.remove_last_page is not None:
+            result["output_remove_last_page"] = self.remove_last_page
         if self.modify_password is not None:
             result["output_modify_password"] = self.modify_password
         if self.read_password is not None:
