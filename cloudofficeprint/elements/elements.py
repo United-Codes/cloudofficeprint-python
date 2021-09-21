@@ -876,6 +876,25 @@ class TextBox(Element):
         return result
 
 
+class Freeze(Property):
+    """Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template."""
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        """
+        Args:
+            name (str): The name for this property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **"C5"**, in the format of excel cell and row.
+             Third option, don't place a pane, using a value of **false**.
+        """
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{freeze " + self.name + "}"})
+
+
 class ElementCollection(list, Element):
     """A collection used to group multiple elements together.
     It can contain nested `ElementCollection`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
