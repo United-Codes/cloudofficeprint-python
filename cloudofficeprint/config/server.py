@@ -369,3 +369,23 @@ class Server:
             urljoin(self.url, "version"),
             proxies=self.config.proxies if self.config is not None else None,
         ).text
+
+    def get_ipp_check(self, ipp_url: str, version: str) -> Dict:
+        """Sends a GET request to server-url/ipp_check.
+
+        Args:
+            ippURL (str): the URL of the IPP printer.
+            version (str): the version of the IPP printer.
+
+        Returns:
+            Dict: the status of the IPP printer.
+        """
+        self._raise_if_unreachable()
+        return json.loads(
+            requests.get(
+                urljoin(
+                    self.url, "ipp_check" + f"?ipp_url={ipp_url}&version={version}"
+                ),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )
