@@ -370,8 +370,8 @@ class Server:
             proxies=self.config.proxies if self.config is not None else None,
         ).text
 
-    def get_ipp_check(self, ipp_url: str, version: str) -> Dict:
-        """Sends a GET request to server-url/ipp_check.
+    def check_ipp(self, ipp_url: str, version: str) -> Dict:
+        """Sends a GET request to server-url/ipp_check?ipp_url=ipp_url&version=version.
 
         Args:
             ippURL (str): the URL of the IPP printer.
