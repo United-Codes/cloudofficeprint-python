@@ -1,7 +1,7 @@
 import json
 from typing import Union, Dict, Mapping
 
-from ..own_utils import file_utils
+from ..resource import Base64Resource, ServerPathResource, URLResource
 
 
 class PDFOptions:
@@ -240,12 +240,16 @@ class PDFOptions:
         """
         self._landscape = value == "landscape"
 
-    def sign(self, local_certificate_path: str, password: str = None):
-        """Sign the output PDF with a local certificate file.
+    def sign(
+        self,
+        certificate: Union[Base64Resource, ServerPathResource, URLResource],
+        password: str = None,
+    ):
+        """Sign the output PDF with a certificate file.
 
         Args:
-            local_certificate_path (str): path to the local certificate file.
+            certificate (str): Resource of the certificate file.
             password (str): password of the certificate. Defaults to None.
         """
-        self.sign_certificate = file_utils.read_file_as_base64(local_certificate_path)
+        self.sign_certificate = certificate.data
         self.sign_certificate_password = password
