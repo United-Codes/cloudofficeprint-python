@@ -895,6 +895,50 @@ class Freeze(Property):
         return frozenset({"{freeze " + self.name + "}"})
 
 
+class Link(Property):
+    """The class for the link/target tags.
+    This tags allows you to place a link to a target in the same document.
+    If the uid is not provided, a new uid will be generated uniquely for every link and target pair.
+    """
+
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        uid_name: str = None,
+        uid_value: str = None,
+    ):
+        """Create a new link/target tag pair.
+        If the uid is not provided, a new uid will be generated uniquely for each link/target pair.
+
+        Args:
+            name (str): the name of the link/target tags.
+            value (str): the value of the link/target tags.
+            uid_name (str): the name of the uid of the link/target pair.
+            uid_value (str): the value of the uid of the link/target pair.
+        """
+        super().__init__(name, value)
+        self.uid_name = uid_name
+        self.uid_value = uid_value
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        if self.uid_name and self.uid_value:
+            return frozenset(
+                {
+                    "{link" + self.name + ":" + self.uid_name + "}",
+                    "{target" + self.name + ":" + self.uid_name + "}",
+                }
+            )
+        return frozenset({"{link" + self.name + "}", "{target" + self.name + "}"})
+
+    @property
+    def as_dict(self) -> Dict:
+        if self.uid_name and self.uid_value:
+            return {self.name: self.value, self.uid_name: self.uid_value}
+        return {self.name: self.value}
+
+
 class ElementCollection(list, Element):
     """A collection used to group multiple elements together.
     It can contain nested `ElementCollection`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
