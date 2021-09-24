@@ -76,7 +76,10 @@ class PrintJob:
             proxies=proxy,
             headers={"Content-type": "application/json"},
         )
-        # Add template hash check and then update
+        if type(self.template) is Template and self.template.should_hash:
+            template_hash = response.headers["Template-Hash"]
+            if template_hash:
+                self.template.update_hash(template_hash)
         return self._handle_response(response)
 
     async def execute_async(self) -> Response:
@@ -97,7 +100,10 @@ class PrintJob:
                 headers={"Content-type": "application/json"},
             ),
         )
-        # Add template hash check and then update
+        if type(self.template) is Template and self.template.should_hash:
+            template_hash = response.headers["Template-Hash"]
+            if template_hash:
+                self.template.update_hash(template_hash)
         return PrintJob._handle_response(response)
 
     @staticmethod
