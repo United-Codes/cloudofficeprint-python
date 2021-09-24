@@ -1,7 +1,7 @@
 import json
 from typing import Dict
 
-from . import Resource
+from .resource import Resource
 
 
 class Template:
