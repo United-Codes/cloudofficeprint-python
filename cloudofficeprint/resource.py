@@ -25,11 +25,11 @@ class Resource(ABC):
         data: Union[str, bytes] = None,
         filetype: str = None,
     ):
-        """Create a new Resource
+        """Create a new Resource.
 
         Args:
             data (Union[str, bytes], optional): the data for this Resource. Defaults to None.
-            filetype (str, optional): the file type of this resource. Defaults to None.
+            filetype (str, optional): the file type of this Resource. Defaults to None.
         """
         self.data: Union[str, bytes] = data
         self.filetype: str = filetype
@@ -46,7 +46,7 @@ class Resource(ABC):
     def template_json(self) -> str:
         """
         Returns:
-            str: the JSON representation of this resource.
+            str: the JSON representation of this Resource.
         """
         return json.dumps(self.template_dict)
 
@@ -55,7 +55,7 @@ class Resource(ABC):
     def template_dict(self) -> Dict:
         """
         Returns:
-            Dict: the dictionary representation of this resource.
+            Dict: the dictionary representation of this Resource.
         """
         pass
 
@@ -63,7 +63,7 @@ class Resource(ABC):
     def secondary_file_json(self) -> str:
         """
         Returns:
-            str: the JSON representation of this resource.
+            str: the JSON representation of this Resource.
         """
         return json.dumps(self.secondary_file_dict)
 
@@ -86,7 +86,7 @@ class Resource(ABC):
 
     @staticmethod
     def from_raw(raw_data: bytes, filetype: str) -> "RawResource":
-        """Create a RawResource from raw file data..
+        """Create a RawResource from raw file data.
 
         Args:
             raw_data (bytes): the raw data as a [bytes-like object](https://docs.python.org/3/glossary.html#term-bytes-like-object).
@@ -143,10 +143,10 @@ class Resource(ABC):
 
     @staticmethod
     def from_url(url: str, filetype: str) -> "URLResource":
-        """Create an URLResource targeting the file at a given url.
+        """Create an URLResource targeting the file at a given URL.
 
         Args:
-            url (str): the file url.
+            url (str): the file URL.
             filetype (str): the file type (extension).
 
         Returns:
