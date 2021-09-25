@@ -1,7 +1,5 @@
 import cloudofficeprint as cop
 
-from test import server
-
 
 def test_pdf_options():
     """Test class PDFOptions in combination with OutputConfig"""
@@ -221,13 +219,19 @@ def test_commands():
 
 def test_route_paths():
     """Test output types of route path functions"""
+    server = cop.config.Server(
+        "https://api.cloudofficeprint.com/", cop.config.ServerConfig("YOUR_API_KEY")
+    )
+    assert server.is_reachable() == True
+    assert type(server.get_version_cop()) == str
     assert type(server.get_version_soffice()) == str
     assert type(server.get_version_officetopdf()) == str
-    assert type(server.get_version_cop()) == str
     assert type(server.get_supported_template_mimetypes()) == dict
     assert type(server.get_supported_output_mimetypes("docx")) == dict
     assert type(server.get_supported_prepend_mimetypes()) == dict
     assert type(server.get_supported_append_mimetypes()) == dict
+    # assert type(server.verify_template_hash("test_hash")) == dict
+    # assert type(server.check_ipp("http://localhost:3000", "1.1")) == dict
 
 
 def run():
