@@ -72,19 +72,25 @@ class Template:
             Dict: the dictionary representation of this Resource.
         """
         if self.template_hash and not self.should_hash:
-            return {
+            dict = {
                 "template_type": self.resource.filetype,
                 "template_hash": self.template_hash,
-                "start_delimiter": self.start_delimiter,
-                "end_delimiter": self.end_delimiter,
             }
-        return {
-            **self.resource.template_dict,
-            "start_delimiter": self.start_delimiter,
-            "end_delimiter": self.end_delimiter,
-            "should_hash": self.should_hash,
-            "template_hash": self.template_hash,
-        }
+            if self.start_delimiter:
+                dict["start_delimiter"] = self.start_delimiter
+            if self.end_delimiter:
+                dict["end_delimiter"] = self.end_delimiter
+            return dict
+        dict = self.resource.template_dict
+        if self.start_delimiter:
+            dict["start_delimiter"] = self.start_delimiter
+        if self.end_delimiter:
+            dict["end_delimiter"] = self.end_delimiter
+        if self.should_hash:
+            dict["should_hash"] = self.should_hash
+        if self.template_hash:
+            dict["template_hash"] = self.template_hash
+        return dict
 
     def __str__(self) -> str:
         """Override the string representation of this class to return the template-style json.
