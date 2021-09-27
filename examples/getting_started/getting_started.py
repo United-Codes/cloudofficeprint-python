@@ -6,7 +6,7 @@ sys.path.insert(0, "../..")
 import cloudofficeprint as cop
 
 SERVER_URL = "https://api.cloudofficeprint.com/"
-API_KEY = "C82C46C54A843F6FE055043998A2C4EE"  # Replace by your own API key
+API_KEY = "YOUR_API_KEY"  # Replace by your own API key
 
 # Setup Cloud Office Print server
 server = cop.config.Server(
