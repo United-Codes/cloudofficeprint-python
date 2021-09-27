@@ -27,10 +27,7 @@ res = requests.get("https://api.le-systeme-solaire.net/rest/bodies/")
 json = res.json()
 
 # Add the title to the data
-main_title = cop.elements.Property(
-    "main_title",
-    "The solar system",
-)
+main_title = cop.elements.Property("main_title", "The solar system")
 data.add(main_title)
 
 # Add the source for the data
