@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>cloudofficeprint.printjob API documentation</title>
 <meta name="description" content="Module containing the PrintJob class, which is also exposed at package level." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -31,19 +31,20 @@
 Module containing the PrintJob class, which is also exposed at package level.
 &#34;&#34;&#34;
 
-from cloudofficeprint.elements.rest_source import RESTSource
 import requests
 import asyncio
 import json
-from .config import OutputConfig, Server
-from .exceptions import COPError
-from .response import Response
-from .resource import Resource
-from .elements import Element, ElementCollection
+
 from typing import Union, List, Dict, Mapping
 from functools import partial
-import sys
 from pprint import pprint
+
+from .config import OutputConfig, Server
+from .elements import Element, RESTSource
+from .exceptions import COPError
+from .resource import Resource
+from .template import Template
+from .response import Response
 
 STATIC_OPTS = {
     &#34;tool&#34;: &#34;python&#34;,
@@ -59,31 +60,32 @@ class PrintJob:
     and the `PrintJob.execute` method to combine all these and send a request to the Cloud Office Print server.
     &#34;&#34;&#34;
 
-    def __init__(self,
-                 data: Union[Element, Mapping[str, Element], RESTSource],
-                 server: Server,
-                 template: Resource = None,
-                 output_config: OutputConfig = OutputConfig(),
-                 subtemplates: Dict[str, Resource] = {},
-                 prepend_files: List[Resource] = [],
-                 append_files: List[Resource] = [],
-                 cop_verbose: bool = False):
+    def __init__(
+        self,
+        data: Union[Element, Mapping[str, Element], RESTSource],
+        server: Server,
+        template: Union[Template, Resource] = None,
+        output_config: OutputConfig = OutputConfig(),
+        subtemplates: Dict[str, Resource] = {},
+        prepend_files: List[Resource] = [],
+        append_files: List[Resource] = [],
+        cop_verbose: bool = False,
+    ):
         &#34;&#34;&#34;
         Args:
             data (Union[Element, Mapping[str, Element], RESTSource]): This is either: An `Element` (e.g. an `ElementCollection`); A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it &#34;file0&#34;.
             server (Server): Server to be used for this print job.
-            template (Resource): Template to use for this print job.
+            template (Union[Template, Resource]): Template to use for this print job.
             output_config (OutputConfig, optional): Output configuration to be used for this print job. Defaults to `OutputConfig`().
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         &#34;&#34;&#34;
-
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
         self.server: Server = server
         self.output_config: OutputConfig = output_config
-        self.template: Resource = template
+        self.template: Union[Template, Resource] = template
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
@@ -96,7 +98,18 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        proxy = self.server.config.proxies if self.server.config else None
+        response = requests.post(
+            self.server.url,
+            json=self.as_dict,
+            proxies=proxy,
+            headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+        )
+        if type(self.template) is Template and self.template.should_hash:
+            template_hash = response.headers[&#34;Template-Hash&#34;]
+            if template_hash:
+                self.template.update_hash(template_hash)
+        return self._handle_response(response)
 
     async def execute_async(self) -&gt; Response:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
@@ -105,16 +118,22 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
-                None, partial(
-                    requests.post,
-                    self.server.url,
-                    proxies=self.server.config.proxies if self.server.config is not None else None,
-                    json=self.as_dict
-                )
-            )
+        proxy = self.server.config.proxies if self.server.config else None
+        response = await asyncio.get_event_loop().run_in_executor(
+            None,
+            partial(
+                requests.post,
+                self.server.url,
+                json=self.as_dict,
+                proxies=proxy,
+                headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+            ),
         )
+        if type(self.template) is Template and self.template.should_hash:
+            template_hash = response.headers[&#34;Template-Hash&#34;]
+            if template_hash:
+                self.template.update_hash(template_hash)
+        return PrintJob._handle_response(response)
 
     @staticmethod
     def execute_full_json(json_data: str, server: Server) -&gt; Response:
@@ -128,7 +147,14 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        proxy = server.config.proxies if server.config else None
+        response = requests.post(
+            server.url,
+            data=json_data,
+            proxies=proxy,
+            headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+        )
+        return PrintJob._handle_response(response)
 
     @staticmethod
     async def execute_full_json_async(json_data: str, server: Server) -&gt; Response:
@@ -142,17 +168,18 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
-                None, partial(
-                    requests.post,
-                    server.url,
-                    proxies=server.config.proxies if server.config is not None else None,
-                    data=json_data,
-                    headers={&#34;Content-type&#34;: &#34;application/json&#34;}
-                )
-            )
+        proxy = server.config.proxies if server.config else None
+        response = await asyncio.get_event_loop().run_in_executor(
+            None,
+            partial(
+                requests.post,
+                server.url,
+                data=json_data,
+                proxies=proxy,
+                headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+            ),
         )
+        return PrintJob._handle_response(response)
 
     @staticmethod
     def _handle_response(res: requests.Response) -&gt; Response:
@@ -189,8 +216,8 @@ class PrintJob:
         Returns:
             Dict: dict representation of this print job
         &#34;&#34;&#34;
-        result = dict(
-            STATIC_OPTS)  # Copy of STATIC_OPTS! Otherwise everything we add to &#39;result&#39; will also be added to &#39;STATIC_OPTS&#39;
+        # Copy of STATIC_OPTS! Otherwise everything we add to &#39;result&#39; will also be added to &#39;STATIC_OPTS&#39;
+        result = dict(STATIC_OPTS)
         # server config goes in the upper level
         if self.server.config:
             result.update(self.server.config.as_dict)
@@ -205,43 +232,41 @@ class PrintJob:
 
         # If output_type is not specified, set this to the template filetype
         # If no template found: default docx
-        if &#39;output_type&#39; not in self.output_config.as_dict.keys():
+        if &#34;output_type&#34; not in self.output_config.as_dict.keys():
             if self.template:
-                result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+                result[&#34;output&#34;][&#34;output_type&#34;] = result[&#34;template&#34;][&#34;template_type&#34;]
             else:
-                result[&#39;output&#39;][&#39;output_type&#39;] = &#39;docx&#39;
+                result[&#34;output&#34;][&#34;output_type&#34;] = &#34;docx&#34;
 
         if isinstance(self.data, Mapping):
-            result[&#34;files&#34;] = [{
-                &#34;filename&#34;: name,
-                &#34;data&#34;: data.as_dict
-            } for name, data in self.data.items()]
+            result[&#34;files&#34;] = [
+                {&#34;filename&#34;: name, &#34;data&#34;: data.as_dict}
+                for name, data in self.data.items()
+            ]
         elif isinstance(self.data, RESTSource):
-            result[&#39;files&#39;] = [self.data.as_dict]
+            result[&#34;files&#34;] = [self.data.as_dict]
         else:
             result[&#34;files&#34;] = [{&#34;data&#34;: self.data.as_dict}]
 
         if len(self.prepend_files) &gt; 0:
             result[&#34;prepend_files&#34;] = [
-                res.secondary_file_dict for res in self.prepend_files
+                file.secondary_file_dict for file in self.prepend_files
             ]
 
         if len(self.append_files) &gt; 0:
             result[&#34;append_files&#34;] = [
-                res.secondary_file_dict for res in self.append_files
+                file.secondary_file_dict for file in self.append_files
             ]
 
         if len(self.subtemplates) &gt; 0:
-            templates_list = []
-            for name, res in self.subtemplates.items():
-                to_add = res.secondary_file_dict
-                to_add[&#34;name&#34;] = name
-                templates_list.append(to_add)
-            result[&#34;templates&#34;] = templates_list
+            result[&#34;templates&#34;] = [
+                {**file.secondary_file_dict, &#34;name&#34;: name}
+                for name, file in self.subtemplates.items()
+            ]
 
         # If verbose mode is activated, print the result to the terminal
         if self.cop_verbose:
-            print(&#39;The JSON data that is sent to the Cloud Office Print server:\n&#39;)
+            print(&#34;The JSON data that is sent to the Cloud Office Print server:\n&#34;)
             pprint(result)
 
         return result</code></pre>
@@ -258,7 +283,7 @@ class PrintJob:
 <dl>
 <dt id="cloudofficeprint.printjob.PrintJob"><code class="flex name class">
 <span>class <span class="ident">PrintJob</span></span>
-<span>(</span><span>data: Union[<a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>], <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>, template: <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a> = None, output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], cop_verbose: bool = False)</span>
+<span>(</span><span>data: Union[<a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>], <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>, template: Union[<a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a>, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = None, output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], cop_verbose: bool = False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>A print job for a Cloud Office Print server.</p>
@@ -270,7 +295,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
 <dd>This is either: An <code>Element</code> (e.g. an <code>ElementCollection</code>); A mapping, containing file names as keys and an <code>Element</code> as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it "file0".</dd>
 <dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
 <dd>Server to be used for this print job.</dd>
-<dt><strong><code>template</code></strong> :&ensp;<code>Resource</code></dt>
+<dt><strong><code>template</code></strong> :&ensp;<code>Union[Template, Resource]</code></dt>
 <dd>Template to use for this print job.</dd>
 <dt><strong><code>output_config</code></strong> :&ensp;<code>OutputConfig</code>, optional</dt>
 <dd>Output configuration to be used for this print job. Defaults to <code>OutputConfig</code>().</dd>
@@ -294,31 +319,32 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
     and the `PrintJob.execute` method to combine all these and send a request to the Cloud Office Print server.
     &#34;&#34;&#34;
 
-    def __init__(self,
-                 data: Union[Element, Mapping[str, Element], RESTSource],
-                 server: Server,
-                 template: Resource = None,
-                 output_config: OutputConfig = OutputConfig(),
-                 subtemplates: Dict[str, Resource] = {},
-                 prepend_files: List[Resource] = [],
-                 append_files: List[Resource] = [],
-                 cop_verbose: bool = False):
+    def __init__(
+        self,
+        data: Union[Element, Mapping[str, Element], RESTSource],
+        server: Server,
+        template: Union[Template, Resource] = None,
+        output_config: OutputConfig = OutputConfig(),
+        subtemplates: Dict[str, Resource] = {},
+        prepend_files: List[Resource] = [],
+        append_files: List[Resource] = [],
+        cop_verbose: bool = False,
+    ):
         &#34;&#34;&#34;
         Args:
             data (Union[Element, Mapping[str, Element], RESTSource]): This is either: An `Element` (e.g. an `ElementCollection`); A mapping, containing file names as keys and an `Element` as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it &#34;file0&#34;.
             server (Server): Server to be used for this print job.
-            template (Resource): Template to use for this print job.
+            template (Union[Template, Resource]): Template to use for this print job.
             output_config (OutputConfig, optional): Output configuration to be used for this print job. Defaults to `OutputConfig`().
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         &#34;&#34;&#34;
-
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
         self.server: Server = server
         self.output_config: OutputConfig = output_config
-        self.template: Resource = template
+        self.template: Union[Template, Resource] = template
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
@@ -331,7 +357,18 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        proxy = self.server.config.proxies if self.server.config else None
+        response = requests.post(
+            self.server.url,
+            json=self.as_dict,
+            proxies=proxy,
+            headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+        )
+        if type(self.template) is Template and self.template.should_hash:
+            template_hash = response.headers[&#34;Template-Hash&#34;]
+            if template_hash:
+                self.template.update_hash(template_hash)
+        return self._handle_response(response)
 
     async def execute_async(self) -&gt; Response:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
@@ -340,16 +377,22 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
-                None, partial(
-                    requests.post,
-                    self.server.url,
-                    proxies=self.server.config.proxies if self.server.config is not None else None,
-                    json=self.as_dict
-                )
-            )
+        proxy = self.server.config.proxies if self.server.config else None
+        response = await asyncio.get_event_loop().run_in_executor(
+            None,
+            partial(
+                requests.post,
+                self.server.url,
+                json=self.as_dict,
+                proxies=proxy,
+                headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+            ),
         )
+        if type(self.template) is Template and self.template.should_hash:
+            template_hash = response.headers[&#34;Template-Hash&#34;]
+            if template_hash:
+                self.template.update_hash(template_hash)
+        return PrintJob._handle_response(response)
 
     @staticmethod
     def execute_full_json(json_data: str, server: Server) -&gt; Response:
@@ -363,7 +406,14 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        proxy = server.config.proxies if server.config else None
+        response = requests.post(
+            server.url,
+            data=json_data,
+            proxies=proxy,
+            headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+        )
+        return PrintJob._handle_response(response)
 
     @staticmethod
     async def execute_full_json_async(json_data: str, server: Server) -&gt; Response:
@@ -377,17 +427,18 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
-                None, partial(
-                    requests.post,
-                    server.url,
-                    proxies=server.config.proxies if server.config is not None else None,
-                    data=json_data,
-                    headers={&#34;Content-type&#34;: &#34;application/json&#34;}
-                )
-            )
+        proxy = server.config.proxies if server.config else None
+        response = await asyncio.get_event_loop().run_in_executor(
+            None,
+            partial(
+                requests.post,
+                server.url,
+                data=json_data,
+                proxies=proxy,
+                headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+            ),
         )
+        return PrintJob._handle_response(response)
 
     @staticmethod
     def _handle_response(res: requests.Response) -&gt; Response:
@@ -424,8 +475,8 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
         Returns:
             Dict: dict representation of this print job
         &#34;&#34;&#34;
-        result = dict(
-            STATIC_OPTS)  # Copy of STATIC_OPTS! Otherwise everything we add to &#39;result&#39; will also be added to &#39;STATIC_OPTS&#39;
+        # Copy of STATIC_OPTS! Otherwise everything we add to &#39;result&#39; will also be added to &#39;STATIC_OPTS&#39;
+        result = dict(STATIC_OPTS)
         # server config goes in the upper level
         if self.server.config:
             result.update(self.server.config.as_dict)
@@ -440,43 +491,41 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
 
         # If output_type is not specified, set this to the template filetype
         # If no template found: default docx
-        if &#39;output_type&#39; not in self.output_config.as_dict.keys():
+        if &#34;output_type&#34; not in self.output_config.as_dict.keys():
             if self.template:
-                result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+                result[&#34;output&#34;][&#34;output_type&#34;] = result[&#34;template&#34;][&#34;template_type&#34;]
             else:
-                result[&#39;output&#39;][&#39;output_type&#39;] = &#39;docx&#39;
+                result[&#34;output&#34;][&#34;output_type&#34;] = &#34;docx&#34;
 
         if isinstance(self.data, Mapping):
-            result[&#34;files&#34;] = [{
-                &#34;filename&#34;: name,
-                &#34;data&#34;: data.as_dict
-            } for name, data in self.data.items()]
+            result[&#34;files&#34;] = [
+                {&#34;filename&#34;: name, &#34;data&#34;: data.as_dict}
+                for name, data in self.data.items()
+            ]
         elif isinstance(self.data, RESTSource):
-            result[&#39;files&#39;] = [self.data.as_dict]
+            result[&#34;files&#34;] = [self.data.as_dict]
         else:
             result[&#34;files&#34;] = [{&#34;data&#34;: self.data.as_dict}]
 
         if len(self.prepend_files) &gt; 0:
             result[&#34;prepend_files&#34;] = [
-                res.secondary_file_dict for res in self.prepend_files
+                file.secondary_file_dict for file in self.prepend_files
             ]
 
         if len(self.append_files) &gt; 0:
             result[&#34;append_files&#34;] = [
-                res.secondary_file_dict for res in self.append_files
+                file.secondary_file_dict for file in self.append_files
             ]
 
         if len(self.subtemplates) &gt; 0:
-            templates_list = []
-            for name, res in self.subtemplates.items():
-                to_add = res.secondary_file_dict
-                to_add[&#34;name&#34;] = name
-                templates_list.append(to_add)
-            result[&#34;templates&#34;] = templates_list
+            result[&#34;templates&#34;] = [
+                {**file.secondary_file_dict, &#34;name&#34;: name}
+                for name, file in self.subtemplates.items()
+            ]
 
         # If verbose mode is activated, print the result to the terminal
         if self.cop_verbose:
-            print(&#39;The JSON data that is sent to the Cloud Office Print server:\n&#39;)
+            print(&#34;The JSON data that is sent to the Cloud Office Print server:\n&#34;)
             pprint(result)
 
         return result</code></pre>
@@ -516,7 +565,14 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
         Response: `Response`-object
     &#34;&#34;&#34;
     server._raise_if_unreachable()
-    return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))</code></pre>
+    proxy = server.config.proxies if server.config else None
+    response = requests.post(
+        server.url,
+        data=json_data,
+        proxies=proxy,
+        headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+    )
+    return PrintJob._handle_response(response)</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.printjob.PrintJob.execute_full_json_async"><code class="name flex">
@@ -552,17 +608,18 @@ async def execute_full_json_async(json_data: str, server: Server) -&gt; Response
         Response: `Response`-object
     &#34;&#34;&#34;
     server._raise_if_unreachable()
-    return PrintJob._handle_response(
-        await asyncio.get_event_loop().run_in_executor(
-            None, partial(
-                requests.post,
-                server.url,
-                proxies=server.config.proxies if server.config is not None else None,
-                data=json_data,
-                headers={&#34;Content-type&#34;: &#34;application/json&#34;}
-            )
-        )
-    )</code></pre>
+    proxy = server.config.proxies if server.config else None
+    response = await asyncio.get_event_loop().run_in_executor(
+        None,
+        partial(
+            requests.post,
+            server.url,
+            data=json_data,
+            proxies=proxy,
+            headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+        ),
+    )
+    return PrintJob._handle_response(response)</code></pre>
 </details>
 </dd>
 </dl>
@@ -587,8 +644,8 @@ def as_dict(self) -&gt; Dict:
     Returns:
         Dict: dict representation of this print job
     &#34;&#34;&#34;
-    result = dict(
-        STATIC_OPTS)  # Copy of STATIC_OPTS! Otherwise everything we add to &#39;result&#39; will also be added to &#39;STATIC_OPTS&#39;
+    # Copy of STATIC_OPTS! Otherwise everything we add to &#39;result&#39; will also be added to &#39;STATIC_OPTS&#39;
+    result = dict(STATIC_OPTS)
     # server config goes in the upper level
     if self.server.config:
         result.update(self.server.config.as_dict)
@@ -603,43 +660,41 @@ def as_dict(self) -&gt; Dict:
 
     # If output_type is not specified, set this to the template filetype
     # If no template found: default docx
-    if &#39;output_type&#39; not in self.output_config.as_dict.keys():
+    if &#34;output_type&#34; not in self.output_config.as_dict.keys():
         if self.template:
-            result[&#39;output&#39;][&#39;output_type&#39;] = result[&#39;template&#39;][&#39;template_type&#39;]
+            result[&#34;output&#34;][&#34;output_type&#34;] = result[&#34;template&#34;][&#34;template_type&#34;]
         else:
-            result[&#39;output&#39;][&#39;output_type&#39;] = &#39;docx&#39;
+            result[&#34;output&#34;][&#34;output_type&#34;] = &#34;docx&#34;
 
     if isinstance(self.data, Mapping):
-        result[&#34;files&#34;] = [{
-            &#34;filename&#34;: name,
-            &#34;data&#34;: data.as_dict
-        } for name, data in self.data.items()]
+        result[&#34;files&#34;] = [
+            {&#34;filename&#34;: name, &#34;data&#34;: data.as_dict}
+            for name, data in self.data.items()
+        ]
     elif isinstance(self.data, RESTSource):
-        result[&#39;files&#39;] = [self.data.as_dict]
+        result[&#34;files&#34;] = [self.data.as_dict]
     else:
         result[&#34;files&#34;] = [{&#34;data&#34;: self.data.as_dict}]
 
     if len(self.prepend_files) &gt; 0:
         result[&#34;prepend_files&#34;] = [
-            res.secondary_file_dict for res in self.prepend_files
+            file.secondary_file_dict for file in self.prepend_files
         ]
 
     if len(self.append_files) &gt; 0:
         result[&#34;append_files&#34;] = [
-            res.secondary_file_dict for res in self.append_files
+            file.secondary_file_dict for file in self.append_files
         ]
 
     if len(self.subtemplates) &gt; 0:
-        templates_list = []
-        for name, res in self.subtemplates.items():
-            to_add = res.secondary_file_dict
-            to_add[&#34;name&#34;] = name
-            templates_list.append(to_add)
-        result[&#34;templates&#34;] = templates_list
+        result[&#34;templates&#34;] = [
+            {**file.secondary_file_dict, &#34;name&#34;: name}
+            for name, file in self.subtemplates.items()
+        ]
 
     # If verbose mode is activated, print the result to the terminal
     if self.cop_verbose:
-        print(&#39;The JSON data that is sent to the Cloud Office Print server:\n&#39;)
+        print(&#34;The JSON data that is sent to the Cloud Office Print server:\n&#34;)
         pprint(result)
 
     return result</code></pre>
@@ -693,7 +748,18 @@ def json(self) -&gt; str:
         Response: `Response`-object
     &#34;&#34;&#34;
     self.server._raise_if_unreachable()
-    return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))</code></pre>
+    proxy = self.server.config.proxies if self.server.config else None
+    response = requests.post(
+        self.server.url,
+        json=self.as_dict,
+        proxies=proxy,
+        headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+    )
+    if type(self.template) is Template and self.template.should_hash:
+        template_hash = response.headers[&#34;Template-Hash&#34;]
+        if template_hash:
+            self.template.update_hash(template_hash)
+    return self._handle_response(response)</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.printjob.PrintJob.execute_async"><code class="name flex">
@@ -717,16 +783,22 @@ def json(self) -&gt; str:
         Response: `Response`-object
     &#34;&#34;&#34;
     self.server._raise_if_unreachable()
-    return PrintJob._handle_response(
-        await asyncio.get_event_loop().run_in_executor(
-            None, partial(
-                requests.post,
-                self.server.url,
-                proxies=self.server.config.proxies if self.server.config is not None else None,
-                json=self.as_dict
-            )
-        )
-    )</code></pre>
+    proxy = self.server.config.proxies if self.server.config else None
+    response = await asyncio.get_event_loop().run_in_executor(
+        None,
+        partial(
+            requests.post,
+            self.server.url,
+            json=self.as_dict,
+            proxies=proxy,
+            headers={&#34;Content-type&#34;: &#34;application/json&#34;},
+        ),
+    )
+    if type(self.template) is Template and self.template.should_hash:
+        template_hash = response.headers[&#34;Template-Hash&#34;]
+        if template_hash:
+            self.template.update_hash(template_hash)
+    return PrintJob._handle_response(response)</code></pre>
 </details>
 </dd>
 </dl>
@@ -764,7 +836,7 @@ def json(self) -&gt; str:
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>

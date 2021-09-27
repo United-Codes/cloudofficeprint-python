@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>cloudofficeprint.elements.elements API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -66,7 +66,9 @@ class CellStyle(ABC):
 class CellStyleDocx(CellStyle):
     &#34;&#34;&#34;Cell styling settings for docx templates&#34;&#34;&#34;
 
-    def __init__(self, cell_background_color: str = None, width: Union[int, str] = None):
+    def __init__(
+        self, cell_background_color: str = None, width: Union[int, str] = None
+    ):
         &#34;&#34;&#34;
         Args:
             cell_background_color (str, optional): The background color of the cell. Defaults to None.
@@ -81,9 +83,9 @@ class CellStyleDocx(CellStyle):
         result = super()._dict_suffixes
 
         if self.cell_background_color is not None:
-            result[&#39;_cell_background_color&#39;] = self.cell_background_color
+            result[&#34;_cell_background_color&#34;] = self.cell_background_color
         if self.width is not None:
-            result[&#39;_width&#39;] = self.width
+            result[&#34;_width&#34;] = self.width
 
         return result
 
@@ -118,7 +120,7 @@ class CellStyleXlsx(CellStyle):
         border_diagonal_color: str = None,
         text_h_alignment: str = None,
         text_v_alignment: str = None,
-        text_rotation: Union[int, str] = None
+        text_rotation: Union[int, str] = None,
     ):
         &#34;&#34;&#34;
         Args:
@@ -182,63 +184,63 @@ class CellStyleXlsx(CellStyle):
         result = super()._dict_suffixes
 
         if self.cell_locked is not None:
-            result[&#39;_cell_locked&#39;] = self.cell_locked
+            result[&#34;_cell_locked&#34;] = self.cell_locked
         if self.cell_hidden is not None:
-            result[&#39;_cell_hidden&#39;] = self.cell_hidden
+            result[&#34;_cell_hidden&#34;] = self.cell_hidden
         if self.cell_background is not None:
-            result[&#39;_cell_background&#39;] = self.cell_background
+            result[&#34;_cell_background&#34;] = self.cell_background
         if self.font_name is not None:
-            result[&#39;_font_name&#39;] = self.font_name
+            result[&#34;_font_name&#34;] = self.font_name
         if self.font_size is not None:
-            result[&#39;_font_size&#39;] = self.font_size
+            result[&#34;_font_size&#34;] = self.font_size
         if self.font_color is not None:
-            result[&#39;_font_color&#39;] = self.font_color
+            result[&#34;_font_color&#34;] = self.font_color
         if self.font_italic is not None:
-            result[&#39;_font_italic&#39;] = self.font_italic
+            result[&#34;_font_italic&#34;] = self.font_italic
         if self.font_bold is not None:
-            result[&#39;_font_bold&#39;] = self.font_bold
+            result[&#34;_font_bold&#34;] = self.font_bold
         if self.font_strike is not None:
-            result[&#39;_font_strike&#39;] = self.font_strike
+            result[&#34;_font_strike&#34;] = self.font_strike
         if self.font_underline is not None:
-            result[&#39;_font_underline&#39;] = self.font_underline
+            result[&#34;_font_underline&#34;] = self.font_underline
         if self.font_superscript is not None:
-            result[&#39;_font_superscript&#39;] = self.font_superscript
+            result[&#34;_font_superscript&#34;] = self.font_superscript
         if self.font_subscript is not None:
-            result[&#39;_font_subscript&#39;] = self.font_subscript
+            result[&#34;_font_subscript&#34;] = self.font_subscript
         if self.border_top is not None:
-            result[&#39;_border_top&#39;] = self.border_top
+            result[&#34;_border_top&#34;] = self.border_top
         if self.border_top_color is not None:
-            result[&#39;_border_top_color&#39;] = self.border_top_color
+            result[&#34;_border_top_color&#34;] = self.border_top_color
         if self.border_bottom is not None:
-            result[&#39;_border_bottom&#39;] = self.border_bottom
+            result[&#34;_border_bottom&#34;] = self.border_bottom
         if self.border_bottom_color is not None:
-            result[&#39;_border_bottom_color&#39;] = self.border_bottom_color
+            result[&#34;_border_bottom_color&#34;] = self.border_bottom_color
         if self.border_left is not None:
-            result[&#39;_border_left&#39;] = self.border_left
+            result[&#34;_border_left&#34;] = self.border_left
         if self.border_left_color is not None:
-            result[&#39;_border_left_color&#39;] = self.border_left_color
+            result[&#34;_border_left_color&#34;] = self.border_left_color
         if self.border_right is not None:
-            result[&#39;_border_right&#39;] = self.border_right
+            result[&#34;_border_right&#34;] = self.border_right
         if self.border_right_color is not None:
-            result[&#39;_border_right_color&#39;] = self.border_right_color
+            result[&#34;_border_right_color&#34;] = self.border_right_color
         if self.border_diagonal is not None:
-            result[&#39;_border_diagonal&#39;] = self.border_diagonal
+            result[&#34;_border_diagonal&#34;] = self.border_diagonal
         if self.border_diagonal_direction is not None:
-            result[&#39;_border_diagonal_direction&#39;] = self.border_diagonal_direction
+            result[&#34;_border_diagonal_direction&#34;] = self.border_diagonal_direction
         if self.border_diagonal_color is not None:
-            result[&#39;_border_diagonal_color&#39;] = self.border_diagonal_color
+            result[&#34;_border_diagonal_color&#34;] = self.border_diagonal_color
         if self.text_h_alignment is not None:
-            result[&#39;_text_h_alignment&#39;] = self.text_h_alignment
+            result[&#34;_text_h_alignment&#34;] = self.text_h_alignment
         if self.text_v_alignment is not None:
-            result[&#39;_text_v_alignment&#39;] = self.text_v_alignment
+            result[&#34;_text_v_alignment&#34;] = self.text_v_alignment
         if self.text_rotation is not None:
-            result[&#39;_text_rotation&#39;] = self.text_rotation
+            result[&#34;_text_rotation&#34;] = self.text_rotation
 
         return result
 
 
 class Element(ABC):
-    &#34;&#34;&#34; The abstract base class for elements.&#34;&#34;&#34;
+    &#34;&#34;&#34;The abstract base class for elements.&#34;&#34;&#34;
 
     def __init__(self, name: str):
         &#34;&#34;&#34;
@@ -319,9 +321,7 @@ class Property(Element):
 
     @property
     def as_dict(self) -&gt; Dict:
-        return {
-            self.name: self.value
-        }
+        return {self.name: self.value}
 
 
 class CellStyleProperty(Property):
@@ -341,9 +341,7 @@ class CellStyleProperty(Property):
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         for suffix, value in self.cell_style._dict_suffixes.items():
             result[self.name + suffix] = value
@@ -411,9 +409,7 @@ class Hyperlink(Element):
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.url
-        }
+        result = {self.name: self.url}
 
         if self.text is not None:
             result[self.name + &#34;_text&#34;] = self.text
@@ -422,7 +418,9 @@ class Hyperlink(Element):
 
 
 class TableOfContents(Element):
-    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
+    def __init__(
+        self, name: str, title: str = None, depth: int = None, tab_leader: str = None
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
@@ -489,7 +487,7 @@ class Span(Property):
         return {
             self.name: self.value,
             self.name + &#34;_row_span&#34;: self.rows,
-            self.name + &#34;_col_span&#34;: self.columns
+            self.name + &#34;_col_span&#34;: self.columns,
         }
 
 
@@ -508,17 +506,19 @@ class Formula(Property):
 
 
 class StyledProperty(Property):
-    def __init__(self,
-                 name: str,
-                 value: str,
-                 font: str = None,
-                 font_size: Union[str, int] = None,
-                 font_color: str = None,
-                 bold: bool = None,
-                 italic: bool = None,
-                 underline: bool = None,
-                 strikethrough: bool = None,
-                 highlight_color: str = None):
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        font: str = None,
+        font_size: Union[str, int] = None,
+        font_color: str = None,
+        bold: bool = None,
+        italic: bool = None,
+        underline: bool = None,
+        strikethrough: bool = None,
+        highlight_color: str = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this property.
@@ -548,9 +548,7 @@ class StyledProperty(Property):
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         if self.font is not None:
             result[self.name + &#34;_font_family&#34;] = self.font
@@ -573,15 +571,17 @@ class StyledProperty(Property):
 
 
 class Watermark(Property):
-    def __init__(self,
-                 name: str,
-                 text: str,
-                 color: str = None,
-                 font: str = None,
-                 width: Union[int, str] = None,
-                 height: Union[int, str] = None,
-                 opacity: float = None,
-                 rotation: int = None):
+    def __init__(
+        self,
+        name: str,
+        text: str,
+        color: str = None,
+        font: str = None,
+        width: Union[int, str] = None,
+        height: Union[int, str] = None,
+        opacity: float = None,
+        rotation: int = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this property.
@@ -607,9 +607,7 @@ class Watermark(Property):
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         if self.color is not None:
             result[self.name + &#34;_color&#34;] = self.color
@@ -645,12 +643,10 @@ class D3Code(Element):
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.code
-        }
+        result = {self.name: self.code}
 
         if self.data is not None:
-            result[self.name + &#39;_data&#39;] = self.data
+            result[self.name + &#34;_data&#34;] = self.data
 
         return result
 
@@ -658,15 +654,14 @@ class D3Code(Element):
 class COPChartDateOptions:
     &#34;&#34;&#34;Date options for an COPChart (different from ChartDateOptions in charts.py).&#34;&#34;&#34;
 
-    def __init__(self,
-                 format: str = None,
-                 unit: str = None,
-                 step: Union[int, str] = None):
+    def __init__(
+        self, format: str = None, unit: str = None, step: Union[int, str] = None
+    ):
         &#34;&#34;&#34;
         Args:
             format (str, optional): The format to display the date on the chart&#39;s axis. Defaults to None.
             unit (str, optional): The unit to be used for spacing the axis values. Defaults to None.
-            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined). 
+            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined).
                 This option is not supported in LibreOffice. Defaults to None.
         &#34;&#34;&#34;
         self.format: str = format
@@ -690,16 +685,21 @@ class COPChartDateOptions:
 class COPChart(Element):
     &#34;&#34;&#34;The class for an COPChart. This is used for chart templating.&#34;&#34;&#34;
 
-    def __init__(self,
-                 name: str,
-                 x_data: Iterable[Union[str, int, float, Mapping]],
-                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
-                 date: COPChartDateOptions = None,
-                 title: str = None,
-                 x_title: str = None,
-                 y_title: str = None,
-                 y2_title: str = None,
-                 x2_title: str = None):
+    def __init__(
+        self,
+        name: str,
+        x_data: Iterable[Union[str, int, float, Mapping]],
+        y_datas: Union[
+            Iterable[Iterable[Union[str, int, float, Mapping]]],
+            Mapping[str, Iterable[Union[str, int, float, Mapping]]],
+        ],
+        date: COPChartDateOptions = None,
+        title: str = None,
+        x_title: str = None,
+        y_title: str = None,
+        y2_title: str = None,
+        x2_title: str = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
@@ -723,16 +723,15 @@ class COPChart(Element):
         self.y_datas: Dict[str, Iterable[Union[str, int, float]]] = None
         &#34;&#34;&#34;If the argument &#39;y_datas&#39; is of type Iterable[Iterable], then default names (e.g. series 1, series 2, ...) will be used.&#34;&#34;&#34;
         if isinstance(y_datas, Mapping):
-            self.y_datas = {
-                name: list(data) for name, data in y_datas.items()
-            }
+            self.y_datas = {name: list(data) for name, data in y_datas.items()}
         elif isinstance(y_datas, Iterable):
             self.y_datas = {
                 f&#34;series {i+1}&#34;: list(data) for i, data in enumerate(y_datas)
             }
         else:
             raise TypeError(
-                f&#39;Expected Mapping or Iterable for y_data, got &#34;{type(y_datas)}&#34;&#39;)
+                f&#39;Expected Mapping or Iterable for y_data, got &#34;{type(y_datas)}&#34;&#39;
+            )
 
         self.date: COPChartDateOptions = date
         self.title: str = title
@@ -742,15 +741,17 @@ class COPChart(Element):
         self.y2_title: str = y2_title
 
     @classmethod
-    def from_dataframe(cls,
-                       name: str,
-                       data: &#39;pandas.DataFrame&#39;,
-                       date: COPChartDateOptions = None,
-                       title: str = None,
-                       x_title: str = None,
-                       y_title: str = None,
-                       y2_title: str = None,
-                       x2_title: str = None) -&gt; &#39;COPChart&#39;:
+    def from_dataframe(
+        cls,
+        name: str,
+        data: &#34;pandas.DataFrame&#34;,
+        date: COPChartDateOptions = None,
+        title: str = None,
+        x_title: str = None,
+        y_title: str = None,
+        y2_title: str = None,
+        x2_title: str = None,
+    ) -&gt; &#34;COPChart&#34;:
         &#34;&#34;&#34;Construct an COPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
         Args:
@@ -773,7 +774,9 @@ class COPChart(Element):
         for col_name, col_data in y_frame.iteritems():
             y_datas[col_name] = col_data
 
-        return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)
+        return cls(
+            name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title
+        )
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -782,26 +785,25 @@ class COPChart(Element):
                 &#34;data&#34;: self.x_data,
             },
             &#34;yAxis&#34;: {
-                &#34;series&#34;: [{
-                    &#34;name&#34;: name,
-                    &#34;data&#34;: data
-                } for name, data in self.y_datas.items()]
-            }
+                &#34;series&#34;: [
+                    {&#34;name&#34;: name, &#34;data&#34;: data} for name, data in self.y_datas.items()
+                ]
+            },
         }
 
         if self.title is not None:
             result[&#34;title&#34;] = self.title
         if self.date is not None:
-            result[&#39;xAxis&#39;][&#39;date&#39;] = self.date.as_dict
+            result[&#34;xAxis&#34;][&#34;date&#34;] = self.date.as_dict
         if self.x_title is not None:
             result[&#34;xAxis&#34;][&#34;title&#34;] = self.x_title
         if self.y_title is not None:
             result[&#34;yAxis&#34;][&#34;title&#34;] = self.y_title
         if self.x2_title is not None:
-            result[&#39;x2Axis&#39;] = {}
+            result[&#34;x2Axis&#34;] = {}
             result[&#34;x2Axis&#34;][&#34;title&#34;] = self.x2_title
         if self.y2_title is not None:
-            result[&#39;y2Axis&#39;] = {}
+            result[&#34;y2Axis&#34;] = {}
             result[&#34;y2Axis&#34;][&#34;title&#34;] = self.y2_title
 
         return {self.name: result}
@@ -847,15 +849,17 @@ class MarkdownContent(Property):
 class TextBox(Element):
     &#34;&#34;&#34;This tag will allow you to insert a text box starting in the cell containing the tag in Excel.&#34;&#34;&#34;
 
-    def __init__(self,
-                 name: str,
-                 value: str,
-                 font: str = None,
-                 font_color: str = None,
-                 font_size: Union[int, str] = None,
-                 transparency: Union[int, str] = None,
-                 width: Union[int, str] = None,
-                 height: Union[int, str] = None):
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        font: str = None,
+        font_color: str = None,
+        font_size: Union[int, str] = None,
+        transparency: Union[int, str] = None,
+        width: Union[int, str] = None,
+        height: Union[int, str] = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
@@ -882,24 +886,85 @@ class TextBox(Element):
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         if self.font is not None:
-            result[self.name + &#39;_font&#39;] = self.font
+            result[self.name + &#34;_font&#34;] = self.font
         if self.font_color is not None:
-            result[self.name + &#39;_font_color&#39;] = self.font_color
+            result[self.name + &#34;_font_color&#34;] = self.font_color
         if self.font_size is not None:
-            result[self.name + &#39;_font_size&#39;] = self.font_size
+            result[self.name + &#34;_font_size&#34;] = self.font_size
         if self.transparency is not None:
-            result[self.name + &#39;_transparency&#39;] = self.transparency
+            result[self.name + &#34;_transparency&#34;] = self.transparency
         if self.width is not None:
-            result[self.name + &#39;_width&#39;] = self.width
+            result[self.name + &#34;_width&#34;] = self.width
         if self.height is not None:
-            result[self.name + &#39;_height&#39;] = self.height
+            result[self.name + &#34;_height&#34;] = self.height
 
         return result
+
+
+class Freeze(Property):
+    &#34;&#34;&#34;Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.&#34;&#34;&#34;
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **&#34;C5&#34;**, in the format of excel cell and row.
+             Third option, don&#39;t place a pane, using a value of **false**.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{freeze &#34; + self.name + &#34;}&#34;})
+
+
+class Link(Property):
+    &#34;&#34;&#34;The class for the link/target tags.
+    This tags allows you to place a link to a target in the same document.
+    If the uid is not provided, a new uid will be generated uniquely for every link and target pair.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        uid_name: str = None,
+        uid_value: str = None,
+    ):
+        &#34;&#34;&#34;Create a new link/target tag pair.
+        If the uid is not provided, a new uid will be generated uniquely for each link/target pair.
+
+        Args:
+            name (str): the name of the link/target tags.
+            value (str): the value of the link/target tags.
+            uid_name (str): the name of the uid of the link/target pair.
+            uid_value (str): the value of the uid of the link/target pair.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.uid_name = uid_name
+        self.uid_value = uid_value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        if self.uid_name and self.uid_value:
+            return frozenset(
+                {
+                    &#34;{link&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                    &#34;{target&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                }
+            )
+        return frozenset({&#34;{link&#34; + self.name + &#34;}&#34;, &#34;{target&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        if self.uid_name and self.uid_value:
+            return {self.name: self.value, self.uid_name: self.uid_value}
+        return {self.name: self.value}
 
 
 class ElementCollection(list, Element):
@@ -931,14 +996,14 @@ class ElementCollection(list, Element):
         &#34;&#34;&#34;
         return self.json
 
-    def copy(self) -&gt; &#39;ElementCollection&#39;:
+    def copy(self) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;
         Returns:
             ElementCollection: A copy of this element collection.
         &#34;&#34;&#34;
         return self.__class__(self)
 
-    def deepcopy(self) -&gt; &#39;ElementCollection&#39;:
+    def deepcopy(self) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;
         Returns:
             ElementCollection: A deep copy of this element collection.
@@ -957,7 +1022,7 @@ class ElementCollection(list, Element):
         &#34;&#34;&#34;
         self.append(element)
 
-    def add_all(self, obj: &#39;ElementCollection&#39;):
+    def add_all(self, obj: &#34;ElementCollection&#34;):
         &#34;&#34;&#34;Add all the elements in the given collection to this collection.
 
         Args:
@@ -972,9 +1037,7 @@ class ElementCollection(list, Element):
         Args:
             element_name (str): the name of the element that needs to be removed
         &#34;&#34;&#34;
-        self.remove(
-            next(element for element in self if element.name == element_name)
-        )
+        self.remove(next(element for element in self if element.name == element_name))
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -999,7 +1062,9 @@ class ElementCollection(list, Element):
         return frozenset(result)
 
     @classmethod
-    def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    def element_to_element_collection(
+        cls, element: Element, name: str = &#34;&#34;
+    ) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;Generate an element collection from an element and a name.
 
         Args:
@@ -1012,7 +1077,7 @@ class ElementCollection(list, Element):
         return cls.from_mapping(element.as_dict, name)
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;Generate an element collection from a mapping and a name.
 
         Args:
@@ -1028,7 +1093,7 @@ class ElementCollection(list, Element):
         return cls(name, result_set)
 
     @classmethod
-    def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;Generate an element collection from a JSON string.
 
         Args:
@@ -1090,16 +1155,21 @@ class ElementCollection(list, Element):
 <pre><code class="python">class COPChart(Element):
     &#34;&#34;&#34;The class for an COPChart. This is used for chart templating.&#34;&#34;&#34;
 
-    def __init__(self,
-                 name: str,
-                 x_data: Iterable[Union[str, int, float, Mapping]],
-                 y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]],
-                 date: COPChartDateOptions = None,
-                 title: str = None,
-                 x_title: str = None,
-                 y_title: str = None,
-                 y2_title: str = None,
-                 x2_title: str = None):
+    def __init__(
+        self,
+        name: str,
+        x_data: Iterable[Union[str, int, float, Mapping]],
+        y_datas: Union[
+            Iterable[Iterable[Union[str, int, float, Mapping]]],
+            Mapping[str, Iterable[Union[str, int, float, Mapping]]],
+        ],
+        date: COPChartDateOptions = None,
+        title: str = None,
+        x_title: str = None,
+        y_title: str = None,
+        y2_title: str = None,
+        x2_title: str = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
@@ -1123,16 +1193,15 @@ class ElementCollection(list, Element):
         self.y_datas: Dict[str, Iterable[Union[str, int, float]]] = None
         &#34;&#34;&#34;If the argument &#39;y_datas&#39; is of type Iterable[Iterable], then default names (e.g. series 1, series 2, ...) will be used.&#34;&#34;&#34;
         if isinstance(y_datas, Mapping):
-            self.y_datas = {
-                name: list(data) for name, data in y_datas.items()
-            }
+            self.y_datas = {name: list(data) for name, data in y_datas.items()}
         elif isinstance(y_datas, Iterable):
             self.y_datas = {
                 f&#34;series {i+1}&#34;: list(data) for i, data in enumerate(y_datas)
             }
         else:
             raise TypeError(
-                f&#39;Expected Mapping or Iterable for y_data, got &#34;{type(y_datas)}&#34;&#39;)
+                f&#39;Expected Mapping or Iterable for y_data, got &#34;{type(y_datas)}&#34;&#39;
+            )
 
         self.date: COPChartDateOptions = date
         self.title: str = title
@@ -1142,15 +1211,17 @@ class ElementCollection(list, Element):
         self.y2_title: str = y2_title
 
     @classmethod
-    def from_dataframe(cls,
-                       name: str,
-                       data: &#39;pandas.DataFrame&#39;,
-                       date: COPChartDateOptions = None,
-                       title: str = None,
-                       x_title: str = None,
-                       y_title: str = None,
-                       y2_title: str = None,
-                       x2_title: str = None) -&gt; &#39;COPChart&#39;:
+    def from_dataframe(
+        cls,
+        name: str,
+        data: &#34;pandas.DataFrame&#34;,
+        date: COPChartDateOptions = None,
+        title: str = None,
+        x_title: str = None,
+        y_title: str = None,
+        y2_title: str = None,
+        x2_title: str = None,
+    ) -&gt; &#34;COPChart&#34;:
         &#34;&#34;&#34;Construct an COPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
         Args:
@@ -1173,7 +1244,9 @@ class ElementCollection(list, Element):
         for col_name, col_data in y_frame.iteritems():
             y_datas[col_name] = col_data
 
-        return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)
+        return cls(
+            name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title
+        )
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -1182,26 +1255,25 @@ class ElementCollection(list, Element):
                 &#34;data&#34;: self.x_data,
             },
             &#34;yAxis&#34;: {
-                &#34;series&#34;: [{
-                    &#34;name&#34;: name,
-                    &#34;data&#34;: data
-                } for name, data in self.y_datas.items()]
-            }
+                &#34;series&#34;: [
+                    {&#34;name&#34;: name, &#34;data&#34;: data} for name, data in self.y_datas.items()
+                ]
+            },
         }
 
         if self.title is not None:
             result[&#34;title&#34;] = self.title
         if self.date is not None:
-            result[&#39;xAxis&#39;][&#39;date&#39;] = self.date.as_dict
+            result[&#34;xAxis&#34;][&#34;date&#34;] = self.date.as_dict
         if self.x_title is not None:
             result[&#34;xAxis&#34;][&#34;title&#34;] = self.x_title
         if self.y_title is not None:
             result[&#34;yAxis&#34;][&#34;title&#34;] = self.y_title
         if self.x2_title is not None:
-            result[&#39;x2Axis&#39;] = {}
+            result[&#34;x2Axis&#34;] = {}
             result[&#34;x2Axis&#34;][&#34;title&#34;] = self.x2_title
         if self.y2_title is not None:
-            result[&#39;y2Axis&#39;] = {}
+            result[&#34;y2Axis&#34;] = {}
             result[&#34;y2Axis&#34;][&#34;title&#34;] = self.y2_title
 
         return {self.name: result}
@@ -1251,15 +1323,17 @@ class ElementCollection(list, Element):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def from_dataframe(cls,
-                   name: str,
-                   data: &#39;pandas.DataFrame&#39;,
-                   date: COPChartDateOptions = None,
-                   title: str = None,
-                   x_title: str = None,
-                   y_title: str = None,
-                   y2_title: str = None,
-                   x2_title: str = None) -&gt; &#39;COPChart&#39;:
+def from_dataframe(
+    cls,
+    name: str,
+    data: &#34;pandas.DataFrame&#34;,
+    date: COPChartDateOptions = None,
+    title: str = None,
+    x_title: str = None,
+    y_title: str = None,
+    y2_title: str = None,
+    x2_title: str = None,
+) -&gt; &#34;COPChart&#34;:
     &#34;&#34;&#34;Construct an COPChart object from a [Pandas dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
     Args:
@@ -1282,7 +1356,9 @@ def from_dataframe(cls,
     for col_name, col_data in y_frame.iteritems():
         y_datas[col_name] = col_data
 
-    return cls(name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title)</code></pre>
+    return cls(
+        name, x_data, y_datas, date, title, x_title, y_title, y2_title, x2_title
+    )</code></pre>
 </details>
 </dd>
 </dl>
@@ -1306,7 +1382,7 @@ def from_dataframe(cls,
 </dd>
 <dt id="cloudofficeprint.elements.elements.COPChartDateOptions"><code class="flex name class">
 <span>class <span class="ident">COPChartDateOptions</span></span>
-<span>(</span><span>format: str = None, unit: str = None, step: Union[int, str] = None)</span>
+<span>(</span><span>format: str = None, unit: str = None, step: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Date options for an COPChart (different from ChartDateOptions in charts.py).</p>
@@ -1327,15 +1403,14 @@ This option is not supported in LibreOffice. Defaults to None.</dd>
 <pre><code class="python">class COPChartDateOptions:
     &#34;&#34;&#34;Date options for an COPChart (different from ChartDateOptions in charts.py).&#34;&#34;&#34;
 
-    def __init__(self,
-                 format: str = None,
-                 unit: str = None,
-                 step: Union[int, str] = None):
+    def __init__(
+        self, format: str = None, unit: str = None, step: Union[int, str] = None
+    ):
         &#34;&#34;&#34;
         Args:
             format (str, optional): The format to display the date on the chart&#39;s axis. Defaults to None.
             unit (str, optional): The unit to be used for spacing the axis values. Defaults to None.
-            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined). 
+            step (Union[int, str], optional): How many of the above unit should be used for spacing the axis values (automatic if undefined).
                 This option is not supported in LibreOffice. Defaults to None.
         &#34;&#34;&#34;
         self.format: str = format
@@ -1468,7 +1543,7 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="cloudofficeprint.elements.elements.CellStyleDocx"><code class="flex name class">
 <span>class <span class="ident">CellStyleDocx</span></span>
-<span>(</span><span>cell_background_color: str = None, width: Union[int, str] = None)</span>
+<span>(</span><span>cell_background_color: str = None, width: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Cell styling settings for docx templates</p>
@@ -1486,7 +1561,9 @@ def as_dict(self) -&gt; Dict:
 <pre><code class="python">class CellStyleDocx(CellStyle):
     &#34;&#34;&#34;Cell styling settings for docx templates&#34;&#34;&#34;
 
-    def __init__(self, cell_background_color: str = None, width: Union[int, str] = None):
+    def __init__(
+        self, cell_background_color: str = None, width: Union[int, str] = None
+    ):
         &#34;&#34;&#34;
         Args:
             cell_background_color (str, optional): The background color of the cell. Defaults to None.
@@ -1501,9 +1578,9 @@ def as_dict(self) -&gt; Dict:
         result = super()._dict_suffixes
 
         if self.cell_background_color is not None:
-            result[&#39;_cell_background_color&#39;] = self.cell_background_color
+            result[&#34;_cell_background_color&#34;] = self.cell_background_color
         if self.width is not None:
-            result[&#39;_width&#39;] = self.width
+            result[&#34;_width&#34;] = self.width
 
         return result</code></pre>
 </details>
@@ -1558,9 +1635,7 @@ def as_dict(self) -&gt; Dict:
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         for suffix, value in self.cell_style._dict_suffixes.items():
             result[self.name + suffix] = value
@@ -1586,7 +1661,7 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="cloudofficeprint.elements.elements.CellStyleXlsx"><code class="flex name class">
 <span>class <span class="ident">CellStyleXlsx</span></span>
-<span>(</span><span>cell_locked: bool = None, cell_hidden: bool = None, cell_background: str = None, font_name: str = None, font_size: Union[int, str] = None, font_color: str = None, font_italic: bool = None, font_bold: bool = None, font_strike: bool = None, font_underline: bool = None, font_superscript: bool = None, font_subscript: bool = None, border_top: str = None, border_top_color: str = None, border_bottom: str = None, border_bottom_color: str = None, border_left: str = None, border_left_color: str = None, border_right: str = None, border_right_color: str = None, border_diagonal: str = None, border_diagonal_direction: str = None, border_diagonal_color: str = None, text_h_alignment: str = None, text_v_alignment: str = None, text_rotation: Union[int, str] = None)</span>
+<span>(</span><span>cell_locked: bool = None, cell_hidden: bool = None, cell_background: str = None, font_name: str = None, font_size: Union[str, int] = None, font_color: str = None, font_italic: bool = None, font_bold: bool = None, font_strike: bool = None, font_underline: bool = None, font_superscript: bool = None, font_subscript: bool = None, border_top: str = None, border_top_color: str = None, border_bottom: str = None, border_bottom_color: str = None, border_left: str = None, border_left_color: str = None, border_right: str = None, border_right_color: str = None, border_diagonal: str = None, border_diagonal_direction: str = None, border_diagonal_color: str = None, text_h_alignment: str = None, text_v_alignment: str = None, text_rotation: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Cell styling settings for xlsx templates</p>
@@ -1679,7 +1754,7 @@ def as_dict(self) -&gt; Dict:
         border_diagonal_color: str = None,
         text_h_alignment: str = None,
         text_v_alignment: str = None,
-        text_rotation: Union[int, str] = None
+        text_rotation: Union[int, str] = None,
     ):
         &#34;&#34;&#34;
         Args:
@@ -1743,57 +1818,57 @@ def as_dict(self) -&gt; Dict:
         result = super()._dict_suffixes
 
         if self.cell_locked is not None:
-            result[&#39;_cell_locked&#39;] = self.cell_locked
+            result[&#34;_cell_locked&#34;] = self.cell_locked
         if self.cell_hidden is not None:
-            result[&#39;_cell_hidden&#39;] = self.cell_hidden
+            result[&#34;_cell_hidden&#34;] = self.cell_hidden
         if self.cell_background is not None:
-            result[&#39;_cell_background&#39;] = self.cell_background
+            result[&#34;_cell_background&#34;] = self.cell_background
         if self.font_name is not None:
-            result[&#39;_font_name&#39;] = self.font_name
+            result[&#34;_font_name&#34;] = self.font_name
         if self.font_size is not None:
-            result[&#39;_font_size&#39;] = self.font_size
+            result[&#34;_font_size&#34;] = self.font_size
         if self.font_color is not None:
-            result[&#39;_font_color&#39;] = self.font_color
+            result[&#34;_font_color&#34;] = self.font_color
         if self.font_italic is not None:
-            result[&#39;_font_italic&#39;] = self.font_italic
+            result[&#34;_font_italic&#34;] = self.font_italic
         if self.font_bold is not None:
-            result[&#39;_font_bold&#39;] = self.font_bold
+            result[&#34;_font_bold&#34;] = self.font_bold
         if self.font_strike is not None:
-            result[&#39;_font_strike&#39;] = self.font_strike
+            result[&#34;_font_strike&#34;] = self.font_strike
         if self.font_underline is not None:
-            result[&#39;_font_underline&#39;] = self.font_underline
+            result[&#34;_font_underline&#34;] = self.font_underline
         if self.font_superscript is not None:
-            result[&#39;_font_superscript&#39;] = self.font_superscript
+            result[&#34;_font_superscript&#34;] = self.font_superscript
         if self.font_subscript is not None:
-            result[&#39;_font_subscript&#39;] = self.font_subscript
+            result[&#34;_font_subscript&#34;] = self.font_subscript
         if self.border_top is not None:
-            result[&#39;_border_top&#39;] = self.border_top
+            result[&#34;_border_top&#34;] = self.border_top
         if self.border_top_color is not None:
-            result[&#39;_border_top_color&#39;] = self.border_top_color
+            result[&#34;_border_top_color&#34;] = self.border_top_color
         if self.border_bottom is not None:
-            result[&#39;_border_bottom&#39;] = self.border_bottom
+            result[&#34;_border_bottom&#34;] = self.border_bottom
         if self.border_bottom_color is not None:
-            result[&#39;_border_bottom_color&#39;] = self.border_bottom_color
+            result[&#34;_border_bottom_color&#34;] = self.border_bottom_color
         if self.border_left is not None:
-            result[&#39;_border_left&#39;] = self.border_left
+            result[&#34;_border_left&#34;] = self.border_left
         if self.border_left_color is not None:
-            result[&#39;_border_left_color&#39;] = self.border_left_color
+            result[&#34;_border_left_color&#34;] = self.border_left_color
         if self.border_right is not None:
-            result[&#39;_border_right&#39;] = self.border_right
+            result[&#34;_border_right&#34;] = self.border_right
         if self.border_right_color is not None:
-            result[&#39;_border_right_color&#39;] = self.border_right_color
+            result[&#34;_border_right_color&#34;] = self.border_right_color
         if self.border_diagonal is not None:
-            result[&#39;_border_diagonal&#39;] = self.border_diagonal
+            result[&#34;_border_diagonal&#34;] = self.border_diagonal
         if self.border_diagonal_direction is not None:
-            result[&#39;_border_diagonal_direction&#39;] = self.border_diagonal_direction
+            result[&#34;_border_diagonal_direction&#34;] = self.border_diagonal_direction
         if self.border_diagonal_color is not None:
-            result[&#39;_border_diagonal_color&#39;] = self.border_diagonal_color
+            result[&#34;_border_diagonal_color&#34;] = self.border_diagonal_color
         if self.text_h_alignment is not None:
-            result[&#39;_text_h_alignment&#39;] = self.text_h_alignment
+            result[&#34;_text_h_alignment&#34;] = self.text_h_alignment
         if self.text_v_alignment is not None:
-            result[&#39;_text_v_alignment&#39;] = self.text_v_alignment
+            result[&#34;_text_v_alignment&#34;] = self.text_v_alignment
         if self.text_rotation is not None:
-            result[&#39;_text_rotation&#39;] = self.text_rotation
+            result[&#34;_text_rotation&#34;] = self.text_rotation
 
         return result</code></pre>
 </details>
@@ -1848,12 +1923,10 @@ def as_dict(self) -&gt; Dict:
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.code
-        }
+        result = {self.name: self.code}
 
         if self.data is not None:
-            result[self.name + &#39;_data&#39;] = self.data
+            result[self.name + &#34;_data&#34;] = self.data
 
         return result</code></pre>
 </details>
@@ -1889,7 +1962,7 @@ def as_dict(self) -&gt; Dict:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Element(ABC):
-    &#34;&#34;&#34; The abstract base class for elements.&#34;&#34;&#34;
+    &#34;&#34;&#34;The abstract base class for elements.&#34;&#34;&#34;
 
     def __init__(self, name: str):
         &#34;&#34;&#34;
@@ -2094,14 +2167,14 @@ Its name is used as a key name when nested, but ignored for all purposes when it
         &#34;&#34;&#34;
         return self.json
 
-    def copy(self) -&gt; &#39;ElementCollection&#39;:
+    def copy(self) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;
         Returns:
             ElementCollection: A copy of this element collection.
         &#34;&#34;&#34;
         return self.__class__(self)
 
-    def deepcopy(self) -&gt; &#39;ElementCollection&#39;:
+    def deepcopy(self) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;
         Returns:
             ElementCollection: A deep copy of this element collection.
@@ -2120,7 +2193,7 @@ Its name is used as a key name when nested, but ignored for all purposes when it
         &#34;&#34;&#34;
         self.append(element)
 
-    def add_all(self, obj: &#39;ElementCollection&#39;):
+    def add_all(self, obj: &#34;ElementCollection&#34;):
         &#34;&#34;&#34;Add all the elements in the given collection to this collection.
 
         Args:
@@ -2135,9 +2208,7 @@ Its name is used as a key name when nested, but ignored for all purposes when it
         Args:
             element_name (str): the name of the element that needs to be removed
         &#34;&#34;&#34;
-        self.remove(
-            next(element for element in self if element.name == element_name)
-        )
+        self.remove(next(element for element in self if element.name == element_name))
 
     @property
     def as_dict(self) -&gt; Dict:
@@ -2162,7 +2233,9 @@ Its name is used as a key name when nested, but ignored for all purposes when it
         return frozenset(result)
 
     @classmethod
-    def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    def element_to_element_collection(
+        cls, element: Element, name: str = &#34;&#34;
+    ) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;Generate an element collection from an element and a name.
 
         Args:
@@ -2175,7 +2248,7 @@ Its name is used as a key name when nested, but ignored for all purposes when it
         return cls.from_mapping(element.as_dict, name)
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;Generate an element collection from a mapping and a name.
 
         Args:
@@ -2191,7 +2264,7 @@ Its name is used as a key name when nested, but ignored for all purposes when it
         return cls(name, result_set)
 
     @classmethod
-    def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+    def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#34;ElementCollection&#34;:
         &#34;&#34;&#34;Generate an element collection from a JSON string.
 
         Args:
@@ -2233,7 +2306,9 @@ Its name is used as a key name when nested, but ignored for all purposes when it
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+def element_to_element_collection(
+    cls, element: Element, name: str = &#34;&#34;
+) -&gt; &#34;ElementCollection&#34;:
     &#34;&#34;&#34;Generate an element collection from an element and a name.
 
     Args:
@@ -2268,7 +2343,7 @@ def element_to_element_collection(cls, element: Element, name: str = &#34;&#34;)
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#34;ElementCollection&#34;:
     &#34;&#34;&#34;Generate an element collection from a JSON string.
 
     Args:
@@ -2303,7 +2378,7 @@ def from_json(cls, json_str: str, name: str = &#34;&#34;) -&gt; &#39;ElementColl
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#39;ElementCollection&#39;:
+def from_mapping(cls, mapping: Mapping, name: str = &#34;&#34;) -&gt; &#34;ElementCollection&#34;:
     &#34;&#34;&#34;Generate an element collection from a mapping and a name.
 
     Args:
@@ -2390,7 +2465,7 @@ def as_dict(self) -&gt; Dict:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add_all(self, obj: &#39;ElementCollection&#39;):
+<pre><code class="python">def add_all(self, obj: &#34;ElementCollection&#34;):
     &#34;&#34;&#34;Add all the elements in the given collection to this collection.
 
     Args:
@@ -2413,7 +2488,7 @@ def as_dict(self) -&gt; Dict:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def copy(self) -&gt; &#39;ElementCollection&#39;:
+<pre><code class="python">def copy(self) -&gt; &#34;ElementCollection&#34;:
     &#34;&#34;&#34;
     Returns:
         ElementCollection: A copy of this element collection.
@@ -2434,7 +2509,7 @@ def as_dict(self) -&gt; Dict:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def deepcopy(self) -&gt; &#39;ElementCollection&#39;:
+<pre><code class="python">def deepcopy(self) -&gt; &#34;ElementCollection&#34;:
     &#34;&#34;&#34;
     Returns:
         ElementCollection: A deep copy of this element collection.
@@ -2462,9 +2537,7 @@ def as_dict(self) -&gt; Dict:
     Args:
         element_name (str): the name of the element that needs to be removed
     &#34;&#34;&#34;
-    self.remove(
-        next(element for element in self if element.name == element_name)
-    )</code></pre>
+    self.remove(next(element for element in self if element.name == element_name))</code></pre>
 </details>
 </dd>
 </dl>
@@ -2574,6 +2647,61 @@ def as_dict(self) -&gt; Dict:
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.Freeze"><code class="flex name class">
+<span>class <span class="ident">Freeze</span></span>
+<span>(</span><span>name: str, value: Union[str, bool])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>Union[str, bool]</code></dt>
+<dd>Three options are avaliable.</dd>
+</dl>
+<p>First option, place the pane where the tag is located, using a value of <strong>true</strong>.
+Second option, provide the location to place the pane, e.g. <strong>"C5"</strong>, in the format of excel cell and row.
+Third option, don't place a pane, using a value of <strong>false</strong>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Freeze(Property):
+    &#34;&#34;&#34;Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.&#34;&#34;&#34;
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **&#34;C5&#34;**, in the format of excel cell and row.
+             Third option, don&#39;t place a pane, using a value of **false**.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{freeze &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.Html"><code class="flex name class">
 <span>class <span class="ident">Html</span></span>
 <span>(</span><span>name: str, value: str)</span>
@@ -2659,9 +2787,7 @@ def as_dict(self) -&gt; Dict:
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.url
-        }
+        result = {self.name: self.url}
 
         if self.text is not None:
             result[self.name + &#34;_text&#34;] = self.text
@@ -2680,6 +2806,91 @@ def as_dict(self) -&gt; Dict:
 <li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Element.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.elements.Link"><code class="flex name class">
+<span>class <span class="ident">Link</span></span>
+<span>(</span><span>name: str, value: str, uid_name: str = None, uid_value: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class for the link/target tags.
+This tags allows you to place a link to a target in the same document.
+If the uid is not provided, a new uid will be generated uniquely for every link and target pair.</p>
+<p>Create a new link/target tag pair.
+If the uid is not provided, a new uid will be generated uniquely for each link/target pair.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>the name of the link/target tags.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>the value of the link/target tags.</dd>
+<dt><strong><code>uid_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>the name of the uid of the link/target pair.</dd>
+<dt><strong><code>uid_value</code></strong> :&ensp;<code>str</code></dt>
+<dd>the value of the uid of the link/target pair.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Link(Property):
+    &#34;&#34;&#34;The class for the link/target tags.
+    This tags allows you to place a link to a target in the same document.
+    If the uid is not provided, a new uid will be generated uniquely for every link and target pair.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        uid_name: str = None,
+        uid_value: str = None,
+    ):
+        &#34;&#34;&#34;Create a new link/target tag pair.
+        If the uid is not provided, a new uid will be generated uniquely for each link/target pair.
+
+        Args:
+            name (str): the name of the link/target tags.
+            value (str): the value of the link/target tags.
+            uid_name (str): the name of the uid of the link/target pair.
+            uid_value (str): the value of the uid of the link/target pair.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.uid_name = uid_name
+        self.uid_value = uid_value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        if self.uid_name and self.uid_value:
+            return frozenset(
+                {
+                    &#34;{link&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                    &#34;{target&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                }
+            )
+        return frozenset({&#34;{link&#34; + self.name + &#34;}&#34;, &#34;{target&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        if self.uid_name and self.uid_value:
+            return {self.name: self.value, self.uid_name: self.uid_value}
+        return {self.name: self.value}</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
 </ul>
 </li>
 </ul>
@@ -2825,9 +3036,7 @@ but this can be of any type, for example a dict.</dd>
 
     @property
     def as_dict(self) -&gt; Dict:
-        return {
-            self.name: self.value
-        }</code></pre>
+        return {self.name: self.value}</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -2839,7 +3048,9 @@ but this can be of any type, for example a dict.</dd>
 <li><a title="cloudofficeprint.elements.elements.CellStyleProperty" href="#cloudofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></li>
 <li><a title="cloudofficeprint.elements.elements.FootNote" href="#cloudofficeprint.elements.elements.FootNote">FootNote</a></li>
 <li><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></li>
+<li><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></li>
 <li><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></li>
+<li><a title="cloudofficeprint.elements.elements.Link" href="#cloudofficeprint.elements.elements.Link">Link</a></li>
 <li><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
 <li><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></li>
 <li><a title="cloudofficeprint.elements.elements.Raw" href="#cloudofficeprint.elements.elements.Raw">Raw</a></li>
@@ -2999,7 +3210,7 @@ but this can be of any type, for example a dict.</dd>
         return {
             self.name: self.value,
             self.name + &#34;_row_span&#34;: self.rows,
-            self.name + &#34;_col_span&#34;: self.columns
+            self.name + &#34;_col_span&#34;: self.columns,
         }</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -3054,17 +3265,19 @@ but this can be of any type, for example a dict.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class StyledProperty(Property):
-    def __init__(self,
-                 name: str,
-                 value: str,
-                 font: str = None,
-                 font_size: Union[str, int] = None,
-                 font_color: str = None,
-                 bold: bool = None,
-                 italic: bool = None,
-                 underline: bool = None,
-                 strikethrough: bool = None,
-                 highlight_color: str = None):
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        font: str = None,
+        font_size: Union[str, int] = None,
+        font_color: str = None,
+        bold: bool = None,
+        italic: bool = None,
+        underline: bool = None,
+        strikethrough: bool = None,
+        highlight_color: str = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this property.
@@ -3094,9 +3307,7 @@ but this can be of any type, for example a dict.</dd>
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         if self.font is not None:
             result[self.name + &#34;_font_family&#34;] = self.font
@@ -3156,7 +3367,9 @@ but this can be of any type, for example a dict.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class TableOfContents(Element):
-    def __init__(self, name: str, title: str = None, depth: int = None, tab_leader: str = None):
+    def __init__(
+        self, name: str, title: str = None, depth: int = None, tab_leader: str = None
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
@@ -3204,7 +3417,7 @@ but this can be of any type, for example a dict.</dd>
 </dd>
 <dt id="cloudofficeprint.elements.elements.TextBox"><code class="flex name class">
 <span>class <span class="ident">TextBox</span></span>
-<span>(</span><span>name: str, value: str, font: str = None, font_color: str = None, font_size: Union[int, str] = None, transparency: Union[int, str] = None, width: Union[int, str] = None, height: Union[int, str] = None)</span>
+<span>(</span><span>name: str, value: str, font: str = None, font_color: str = None, font_size: Union[str, int] = None, transparency: Union[str, int] = None, width: Union[str, int] = None, height: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This tag will allow you to insert a text box starting in the cell containing the tag in Excel.</p>
@@ -3234,15 +3447,17 @@ but this can be of any type, for example a dict.</dd>
 <pre><code class="python">class TextBox(Element):
     &#34;&#34;&#34;This tag will allow you to insert a text box starting in the cell containing the tag in Excel.&#34;&#34;&#34;
 
-    def __init__(self,
-                 name: str,
-                 value: str,
-                 font: str = None,
-                 font_color: str = None,
-                 font_size: Union[int, str] = None,
-                 transparency: Union[int, str] = None,
-                 width: Union[int, str] = None,
-                 height: Union[int, str] = None):
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        font: str = None,
+        font_color: str = None,
+        font_size: Union[int, str] = None,
+        transparency: Union[int, str] = None,
+        width: Union[int, str] = None,
+        height: Union[int, str] = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
@@ -3269,22 +3484,20 @@ but this can be of any type, for example a dict.</dd>
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         if self.font is not None:
-            result[self.name + &#39;_font&#39;] = self.font
+            result[self.name + &#34;_font&#34;] = self.font
         if self.font_color is not None:
-            result[self.name + &#39;_font_color&#39;] = self.font_color
+            result[self.name + &#34;_font_color&#34;] = self.font_color
         if self.font_size is not None:
-            result[self.name + &#39;_font_size&#39;] = self.font_size
+            result[self.name + &#34;_font_size&#34;] = self.font_size
         if self.transparency is not None:
-            result[self.name + &#39;_transparency&#39;] = self.transparency
+            result[self.name + &#34;_transparency&#34;] = self.transparency
         if self.width is not None:
-            result[self.name + &#39;_width&#39;] = self.width
+            result[self.name + &#34;_width&#34;] = self.width
         if self.height is not None:
-            result[self.name + &#39;_height&#39;] = self.height
+            result[self.name + &#34;_height&#34;] = self.height
 
         return result</code></pre>
 </details>
@@ -3306,7 +3519,7 @@ but this can be of any type, for example a dict.</dd>
 </dd>
 <dt id="cloudofficeprint.elements.elements.Watermark"><code class="flex name class">
 <span>class <span class="ident">Watermark</span></span>
-<span>(</span><span>name: str, text: str, color: str = None, font: str = None, width: Union[int, str] = None, height: Union[int, str] = None, opacity: float = None, rotation: int = None)</span>
+<span>(</span><span>name: str, text: str, color: str = None, font: str = None, width: Union[str, int] = None, height: Union[str, int] = None, opacity: float = None, rotation: int = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The most basic <code><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
@@ -3335,15 +3548,17 @@ but this can be of any type, for example a dict.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Watermark(Property):
-    def __init__(self,
-                 name: str,
-                 text: str,
-                 color: str = None,
-                 font: str = None,
-                 width: Union[int, str] = None,
-                 height: Union[int, str] = None,
-                 opacity: float = None,
-                 rotation: int = None):
+    def __init__(
+        self,
+        name: str,
+        text: str,
+        color: str = None,
+        font: str = None,
+        width: Union[int, str] = None,
+        height: Union[int, str] = None,
+        opacity: float = None,
+        rotation: int = None,
+    ):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this property.
@@ -3369,9 +3584,7 @@ but this can be of any type, for example a dict.</dd>
 
     @property
     def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.value
-        }
+        result = {self.name: self.value}
 
         if self.color is not None:
             result[self.name + &#34;_color&#34;] = self.color
@@ -3481,10 +3694,16 @@ but this can be of any type, for example a dict.</dd>
 <h4><code><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></code></h4>
 </li>
 <li>
+<h4><code><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Hyperlink" href="#cloudofficeprint.elements.elements.Hyperlink">Hyperlink</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.Link" href="#cloudofficeprint.elements.elements.Link">Link</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></code></h4>
@@ -3522,7 +3741,7 @@ but this can be of any type, for example a dict.</dd>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>
