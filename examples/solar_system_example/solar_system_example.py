@@ -27,16 +27,19 @@ res = requests.get("https://api.le-systeme-solaire.net/rest/bodies/")
 json = res.json()
 
 # Add the title to the data
-data.add(cop.elements.Property("main_title", "The solar system"))
+main_title = cop.elements.Property(
+    "main_title",
+    "The solar system",
+)
+data.add(main_title)
 
 # Add the source for the data
-data.add(
-    cop.elements.Hyperlink(
-        name="data_source",
-        url="https://api.le-systeme-solaire.net/rest/bodies/",
-        text="Data source",
-    )
+data_source = cop.elements.Hyperlink(
+    name="data_source",
+    url="https://api.le-systeme-solaire.net/rest/bodies/",
+    text="Data source",
 )
+data.add(data_source)
 
 # Process data: we only want planets
 planet_list = [
