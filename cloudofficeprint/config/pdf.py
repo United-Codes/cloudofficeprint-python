@@ -26,7 +26,8 @@ class PDFOptions:
                  merge: bool = None,
                  sign_certificate: str = None,
                  identify_form_fields: bool = None,
-                 split: bool = None):
+                 split: bool = None,
+                 remove_last_page: bool = None):
         """
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
@@ -46,6 +47,7 @@ class PDFOptions:
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
+            remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -64,6 +66,7 @@ class PDFOptions:
         self._landscape: bool = landscape
         self.identify_form_fields: bool = identify_form_fields
         self.split: bool = split
+        self.remove_last_page = remove_last_page
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.
@@ -130,7 +133,8 @@ class PDFOptions:
             result["identify_form_fields"] = self.identify_form_fields
         if self.split is not None:
             result['output_split'] = self.split
-
+        if self.remove_last_page is not None:
+            result['output_remove_last_page'] = self.remove_last_page
         return result
 
     def set_page_margin_at(self, value: int, position: str = None):
