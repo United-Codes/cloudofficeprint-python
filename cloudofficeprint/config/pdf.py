@@ -25,6 +25,7 @@ class PDFOptions:
                  page_format: str = None,
                  merge: bool = None,
                  sign_certificate: str = None,
+                 sign_certificate_with_password: str = None,
                  identify_form_fields: bool = None,
                  split: bool = None,
                  remove_last_page: bool = None):
@@ -45,6 +46,7 @@ class PDFOptions:
             page_format (str, optional): Only for HTML to PDF. The page format: "a4" (default) or "letter". Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
+            sign_certificate_with_password (str, optional): It is possible to sign certificate with password.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
             remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
@@ -63,6 +65,7 @@ class PDFOptions:
         self.merge: bool = merge
         self.page_margin: Union[int, dict] = page_margin
         self.sign_certificate: str = sign_certificate
+        self.sign_certificate_with_password: str = sign_certificate_with_password
         self._landscape: bool = landscape
         self.identify_form_fields: bool = identify_form_fields
         self.split: bool = split
@@ -129,6 +132,8 @@ class PDFOptions:
             result["page_orientation"] = self.page_orientation
         if self.sign_certificate is not None:
             result["output_sign_certificate"] = self.sign_certificate
+        if self.sign_certificate_with_password is not None:
+            result['output_sign_certificate_password'] = self.sign_certificate_with_password
         if self.identify_form_fields is not None:
             result["identify_form_fields"] = self.identify_form_fields
         if self.split is not None:
