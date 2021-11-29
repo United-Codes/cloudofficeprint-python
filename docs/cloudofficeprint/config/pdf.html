@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>cloudofficeprint.config.pdf API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -54,7 +54,8 @@ class PDFOptions:
                  merge: bool = None,
                  sign_certificate: str = None,
                  identify_form_fields: bool = None,
-                 split: bool = None):
+                 split: bool = None,
+                 remove_last_page: bool = None):
         &#34;&#34;&#34;
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
@@ -74,6 +75,7 @@ class PDFOptions:
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
+            remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
         &#34;&#34;&#34;
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -92,6 +94,7 @@ class PDFOptions:
         self._landscape: bool = landscape
         self.identify_form_fields: bool = identify_form_fields
         self.split: bool = split
+        self.remove_last_page = remove_last_page
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Get the string representation of these PDF options.
@@ -158,7 +161,8 @@ class PDFOptions:
             result[&#34;identify_form_fields&#34;] = self.identify_form_fields
         if self.split is not None:
             result[&#39;output_split&#39;] = self.split
-
+        if self.remove_last_page is not None:
+            result[&#39;output_remove_last_page&#39;] = self.remove_last_page
         return result
 
     def set_page_margin_at(self, value: int, position: str = None):
@@ -222,7 +226,7 @@ class PDFOptions:
 <dl>
 <dt id="cloudofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>read_password: str = None, watermark: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, identify_form_fields: bool = None, split: bool = None)</span>
+<span>(</span><span>read_password: str = None, watermark: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, identify_form_fields: bool = None, split: bool = None, remove_last_page: bool = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class of optional PDF options.</p>
@@ -264,6 +268,8 @@ All of them are optional, which is why passing an instance of this class in an O
 <dd>Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
 <dt><strong><code>split</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.</dd>
+<dt><strong><code>remove_last_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>You can specify to remove the last page from output file, this is helpful when the last page of output is blank.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -293,7 +299,8 @@ All of them are optional, which is why passing an instance of this class in an O
                  merge: bool = None,
                  sign_certificate: str = None,
                  identify_form_fields: bool = None,
-                 split: bool = None):
+                 split: bool = None,
+                 remove_last_page: bool = None):
         &#34;&#34;&#34;
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
@@ -313,6 +320,7 @@ All of them are optional, which is why passing an instance of this class in an O
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
+            remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
         &#34;&#34;&#34;
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -331,6 +339,7 @@ All of them are optional, which is why passing an instance of this class in an O
         self._landscape: bool = landscape
         self.identify_form_fields: bool = identify_form_fields
         self.split: bool = split
+        self.remove_last_page = remove_last_page
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Get the string representation of these PDF options.
@@ -397,7 +406,8 @@ All of them are optional, which is why passing an instance of this class in an O
             result[&#34;identify_form_fields&#34;] = self.identify_form_fields
         if self.split is not None:
             result[&#39;output_split&#39;] = self.split
-
+        if self.remove_last_page is not None:
+            result[&#39;output_remove_last_page&#39;] = self.remove_last_page
         return result
 
     def set_page_margin_at(self, value: int, position: str = None):
@@ -508,7 +518,8 @@ def as_dict(self) -&gt; Dict:
         result[&#34;identify_form_fields&#34;] = self.identify_form_fields
     if self.split is not None:
         result[&#39;output_split&#39;] = self.split
-
+    if self.remove_last_page is not None:
+        result[&#39;output_remove_last_page&#39;] = self.remove_last_page
     return result</code></pre>
 </details>
 </dd>
@@ -646,7 +657,7 @@ def page_orientation(self) -&gt; str:
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>cloudofficeprint.elements.images API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -390,7 +390,7 @@ class Image(Element):
 <dl>
 <dt id="cloudofficeprint.elements.images.Image"><code class="flex name class">
 <span>class <span class="ident">Image</span></span>
-<span>(</span><span>name: str, source: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None)</span>
+<span>(</span><span>name: str, source: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The class for image elements.</p>
@@ -784,7 +784,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <h3>Static methods</h3>
 <dl>
 <dt id="cloudofficeprint.elements.images.Image.from_base64"><code class="name flex">
-<span>def <span class="ident">from_base64</span></span>(<span>name: str, base64str: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_base64</span></span>(<span>name: str, base64str: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from a base64 string.</p>
@@ -880,7 +880,7 @@ def from_base64(
 </details>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_file"><code class="name flex">
-<span>def <span class="ident">from_file</span></span>(<span>name: str, path: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_file</span></span>(<span>name: str, path: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from a local file.</p>
@@ -976,7 +976,7 @@ def from_file(
 </details>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_raw"><code class="name flex">
-<span>def <span class="ident">from_raw</span></span>(<span>name: str, data: bytes, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_raw</span></span>(<span>name: str, data: bytes, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from raw data.</p>
@@ -1072,7 +1072,7 @@ def from_raw(
 </details>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_url"><code class="name flex">
-<span>def <span class="ident">from_url</span></span>(<span>name: str, url_source: str, max_width: Union[int, str] = None, max_height: Union[int, str] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[int, str] = None, url: str = None, width: Union[int, str] = None, height: Union[int, str] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_url</span></span>(<span>name: str, url_source: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from a URL.</p>
@@ -1282,7 +1282,7 @@ def wrap_text(self) -&gt; str:
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>
