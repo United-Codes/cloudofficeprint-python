@@ -2,7 +2,7 @@ import json
 from copy import deepcopy
 from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
-
+import pandas
 
 class CellStyle(ABC):
     """Abstract base class for a cell style"""

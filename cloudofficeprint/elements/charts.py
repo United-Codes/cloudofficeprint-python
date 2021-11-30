@@ -1,7 +1,7 @@
 from typing import Any, Dict, Iterable, List, Tuple, FrozenSet, Union
 from abc import ABC, abstractmethod
 from .elements import Element
-
+import pandas
 
 class ChartTextStyle:
     """Class for defining the styling of the text for a chart."""
