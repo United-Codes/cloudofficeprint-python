@@ -40,6 +40,10 @@ class PDFOptions:
     def __init__(self,
                  read_password: str = None,
                  watermark: str = None,
+                 watermark_size: int = None,
+                 watermark_opacity: int = None,
+                 watermark_color: str = None,
+                 watermark_font: str = None,
                  page_width: Union[str, int] = None,
                  page_height: Union[str, int] = None,
                  even_page: bool = None,
@@ -61,6 +65,10 @@ class PDFOptions:
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
             watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
+            watermark_color (str, optional): You can specify to change watermark color, default color value is black. Defaults to black.
+            watermark_font (str, optional): You can specify to channge the font of watermark, default font is Aeruak. Default to Aerial.
+            watermark_opacity (int, optional): You can specify to change the opacity of watermark, value should be in percentage. Should be in percentage
+            watermark_size (int, optional): YOu can specify to change the size of watemark. Should be a number(px) ie: 45 .
             page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
             page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
@@ -81,6 +89,10 @@ class PDFOptions:
         &#34;&#34;&#34;
         self.read_password: str = read_password
         self.watermark: str = watermark
+        self.watermark_font: str = watermark_font
+        self.watermark_size: str = watermark_size
+        self.watermark_color: str = watermark_color
+        self.watermark_opacity: str = watermark_opacity
         self.page_width: Union[str, int] = page_width
         self.page_height: Union[str, int] = page_height
         self.even_page: bool = even_page
@@ -140,6 +152,14 @@ class PDFOptions:
             result[&#34;output_password_protection_flag&#34;] = self.password_protection_flag
         if self.watermark is not None:
             result[&#34;output_watermark&#34;] = self.watermark
+        if self.watermark_color is not None:
+            result[&#34;output_watermark_color&#34;] = self.watermark_color
+        if self.watermark_font is not None:
+            result[&#34;output_watermark_font&#34;] = self.watermark_font
+        if self.watermark_opacity is not None:
+            result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
+        if self.watermark_size is not None:
+            result[&#34;output_watermark_size&#34;] = self.watermark_size
         if self.lock_form is not None:
             result[&#34;lock_form&#34;] = self.lock_form
         if self.copies is not None:
@@ -231,7 +251,7 @@ class PDFOptions:
 <dl>
 <dt id="cloudofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>read_password: str = None, watermark: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, sign_certificate_with_password: str = None, identify_form_fields: bool = None, split: bool = None, remove_last_page: bool = None)</span>
+<span>(</span><span>read_password: str = None, watermark: str = None, watermark_size: int = None, watermark_opacity: int = None, watermark_color: str = None, watermark_font: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, sign_certificate_with_password: str = None, identify_form_fields: bool = None, split: bool = None, remove_last_page: bool = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class of optional PDF options.</p>
@@ -243,6 +263,14 @@ All of them are optional, which is why passing an instance of this class in an O
 <dd>The password needed to open the PDF. Defaults to None.</dd>
 <dt><strong><code>watermark</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.</dd>
+<dt><strong><code>watermark_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>You can specify to change watermark color, default color value is black. Defaults to black.</dd>
+<dt><strong><code>watermark_font</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>You can specify to channge the font of watermark, default font is Aeruak. Default to Aerial.</dd>
+<dt><strong><code>watermark_opacity</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>You can specify to change the opacity of watermark, value should be in percentage. Should be in percentage</dd>
+<dt><strong><code>watermark_size</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>YOu can specify to change the size of watemark. Should be a number(px) ie: 45 .</dd>
 <dt><strong><code>page_width</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
 <dd>Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.</dd>
 <dt><strong><code>page_height</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
@@ -292,6 +320,10 @@ All of them are optional, which is why passing an instance of this class in an O
     def __init__(self,
                  read_password: str = None,
                  watermark: str = None,
+                 watermark_size: int = None,
+                 watermark_opacity: int = None,
+                 watermark_color: str = None,
+                 watermark_font: str = None,
                  page_width: Union[str, int] = None,
                  page_height: Union[str, int] = None,
                  even_page: bool = None,
@@ -313,6 +345,10 @@ All of them are optional, which is why passing an instance of this class in an O
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
             watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
+            watermark_color (str, optional): You can specify to change watermark color, default color value is black. Defaults to black.
+            watermark_font (str, optional): You can specify to channge the font of watermark, default font is Aeruak. Default to Aerial.
+            watermark_opacity (int, optional): You can specify to change the opacity of watermark, value should be in percentage. Should be in percentage
+            watermark_size (int, optional): YOu can specify to change the size of watemark. Should be a number(px) ie: 45 .
             page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
             page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
@@ -333,6 +369,10 @@ All of them are optional, which is why passing an instance of this class in an O
         &#34;&#34;&#34;
         self.read_password: str = read_password
         self.watermark: str = watermark
+        self.watermark_font: str = watermark_font
+        self.watermark_size: str = watermark_size
+        self.watermark_color: str = watermark_color
+        self.watermark_opacity: str = watermark_opacity
         self.page_width: Union[str, int] = page_width
         self.page_height: Union[str, int] = page_height
         self.even_page: bool = even_page
@@ -392,6 +432,14 @@ All of them are optional, which is why passing an instance of this class in an O
             result[&#34;output_password_protection_flag&#34;] = self.password_protection_flag
         if self.watermark is not None:
             result[&#34;output_watermark&#34;] = self.watermark
+        if self.watermark_color is not None:
+            result[&#34;output_watermark_color&#34;] = self.watermark_color
+        if self.watermark_font is not None:
+            result[&#34;output_watermark_font&#34;] = self.watermark_font
+        if self.watermark_opacity is not None:
+            result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
+        if self.watermark_size is not None:
+            result[&#34;output_watermark_size&#34;] = self.watermark_size
         if self.lock_form is not None:
             result[&#34;lock_form&#34;] = self.lock_form
         if self.copies is not None:
@@ -506,6 +554,14 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_password_protection_flag&#34;] = self.password_protection_flag
     if self.watermark is not None:
         result[&#34;output_watermark&#34;] = self.watermark
+    if self.watermark_color is not None:
+        result[&#34;output_watermark_color&#34;] = self.watermark_color
+    if self.watermark_font is not None:
+        result[&#34;output_watermark_font&#34;] = self.watermark_font
+    if self.watermark_opacity is not None:
+        result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
+    if self.watermark_size is not None:
+        result[&#34;output_watermark_size&#34;] = self.watermark_size
     if self.lock_form is not None:
         result[&#34;lock_form&#34;] = self.lock_form
     if self.copies is not None:
