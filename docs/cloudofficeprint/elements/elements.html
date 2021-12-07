@@ -901,6 +901,23 @@ class TextBox(Element):
 
         return result
 
+class Freeze(Property):
+    &#34;&#34;&#34;Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.&#34;&#34;&#34;
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the freeze property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **&#34;C5&#34;**, in the format of excel cell and row.
+             Third option, don&#39;t place a pane, using a value of **false**.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{freeze &#34; + self.name + &#34;}&#34;})
 
 class ElementCollection(list, Element):
     &#34;&#34;&#34;A collection used to group multiple elements together.
@@ -2574,6 +2591,61 @@ def as_dict(self) -&gt; Dict:
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.Freeze"><code class="flex name class">
+<span>class <span class="ident">Freeze</span></span>
+<span>(</span><span>name: str, value: Union[str, bool])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the freeze property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>Union[str, bool]</code></dt>
+<dd>Three options are avaliable.</dd>
+</dl>
+<p>First option, place the pane where the tag is located, using a value of <strong>true</strong>.
+Second option, provide the location to place the pane, e.g. <strong>"C5"</strong>, in the format of excel cell and row.
+Third option, don't place a pane, using a value of <strong>false</strong>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Freeze(Property):
+    &#34;&#34;&#34;Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.&#34;&#34;&#34;
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the freeze property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **&#34;C5&#34;**, in the format of excel cell and row.
+             Third option, don&#39;t place a pane, using a value of **false**.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{freeze &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.Html"><code class="flex name class">
 <span>class <span class="ident">Html</span></span>
 <span>(</span><span>name: str, value: str)</span>
@@ -2839,6 +2911,7 @@ but this can be of any type, for example a dict.</dd>
 <li><a title="cloudofficeprint.elements.elements.CellStyleProperty" href="#cloudofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></li>
 <li><a title="cloudofficeprint.elements.elements.FootNote" href="#cloudofficeprint.elements.elements.FootNote">FootNote</a></li>
 <li><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></li>
+<li><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></li>
 <li><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></li>
 <li><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
 <li><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></li>
@@ -3479,6 +3552,9 @@ but this can be of any type, for example a dict.</dd>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></code></h4>
