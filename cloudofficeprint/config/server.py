@@ -60,12 +60,13 @@ class Printer:
                 "Both ipp-printer location and version is required")
         else:
             response = requests.get(
-                'http://localhost:8010/ipp_check?ipp_url={self.location}&version={self.version}')
-            if response.status_code == 200:
-                return True
-            else:
+                'http://localhost:8010/ipp_check?ipp_url='+self.location+'&version='+self.version)
+            try:
+                if response.json()['statusCode'] == 'successful-ok':
+                    return True
+            except:
                 raise ConnectionError(
-                    f"Could not reach Printer at {self.location} with version {self.version} and status code of response is{response.status_code} ")
+                    f"Could not reach Printer at {self.location} with version {self.version}")
 
 
 class Command:
