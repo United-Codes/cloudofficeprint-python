@@ -12,18 +12,21 @@ class Printer:
                  location: str,
                  version: str,
                  requester: str = "Cloud Office Print",
-                 job_name: str = "Cloud Office Print"):
+                 job_name: str = "Cloud Office Print",
+                 return_output: bool = False):
         """
         Args:
             location (str): IP address of the printer.
             version (str): IPP version.
             requester (str, optional): The name of the requester. Defaults to "Cloud Office Print".
             job_name (str, optional): The name of the print job. Defaults to "Cloud Office Print".
+            return_output (bool, optional): Whether to return the output from AOP serve or not. Defaults to false. 
         """
         self.location: str = location
         self.version: str = version
         self.requester: str = requester
         self.job_name: str = job_name
+        self.return_output: bool = return_output
 
     @property
     def _dict(self) -> Dict[str, str]:
@@ -32,12 +35,37 @@ class Printer:
         Returns:
             Dict[str, str]: dict representation of this Printer object
         """
-        return {
-            "location": self.location,
-            "version": self.version,
-            "requester": self.requester,
-            "job_name": self.job_name
-        }
+        if self.check_if_reachable():
+            return {
+                "location": self.location,
+                "version": self.version,
+                "requester": self.requester,
+                "job_name": self.job_name,
+                "return_output": self.return_output,
+            }
+
+    def check_if_reachable(self):
+        """Raise a connection error if the Priter parameter are invalid type.
+
+        returns True if the printer is reachable
+
+        Raises:
+            ConnectionError: raise error if parameter passed for Printer are invalid and if the printer is unreachable
+
+        Returns:
+            True: if the ipp-printer is reachable with provided location and version.
+        """
+        if not self.location or not self.version:
+            raise ConnectionError(
+                "Both ipp-printer location and version is required")
+        else:
+            response = requests.get(
+                'http://localhost:8010/ipp_check?ipp_url={self.location}&version={self.version}')
+            if response.status_code == 200:
+                return True
+            else:
+                raise ConnectionError(
+                    f"Could not reach Printer at {self.location} with version {self.version} and status code of response is{response.status_code} ")
 
 
 class Command:
@@ -188,7 +216,6 @@ class ServerConfig:
             result["ipp"] = self.printer._dict
         if self.cop_remote_debug:
             result['aop_remote_debug'] = 'Yes'
-
         if self.commands is not None:
             result.update(self.commands._dict)
 
