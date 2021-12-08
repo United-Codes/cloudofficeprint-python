@@ -64,6 +64,9 @@ class Printer:
             try:
                 if response.json()['statusCode'] == 'successful-ok':
                     return True
+                else:
+                    raise ConnectionError(
+                        f"Could not reach Printer at {self.location} with version {self.version} and response is {response}")
             except:
                 raise ConnectionError(
                     f"Could not reach Printer at {self.location} with version {self.version}")
