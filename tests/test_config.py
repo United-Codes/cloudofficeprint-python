@@ -74,13 +74,15 @@ def test_printer():
         location='location',
         version='version',
         requester='requester',
-        job_name='job_name'
+        job_name='job_name',
+        return_output=False
     )
     printer_expected = {
         'location': 'location',
         'version': 'version',
         'requester': 'requester',
-        'job_name': 'job_name'
+        'job_name': 'job_name',
+        'return_output': False
     }
     assert printer._dict == printer_expected
 
