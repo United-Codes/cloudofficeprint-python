@@ -92,6 +92,9 @@ class Printer:
             try:
                 if response.json()[&#39;statusCode&#39;] == &#39;successful-ok&#39;:
                     return True
+                else:
+                    raise ConnectionError(
+                        f&#34;Could not reach Printer at {self.location} with version {self.version} and response is {response}&#34;)
             except:
                 raise ConnectionError(
                     f&#34;Could not reach Printer at {self.location} with version {self.version}&#34;)
@@ -615,6 +618,9 @@ class Server:
             try:
                 if response.json()[&#39;statusCode&#39;] == &#39;successful-ok&#39;:
                     return True
+                else:
+                    raise ConnectionError(
+                        f&#34;Could not reach Printer at {self.location} with version {self.version} and response is {response}&#34;)
             except:
                 raise ConnectionError(
                     f&#34;Could not reach Printer at {self.location} with version {self.version}&#34;)</code></pre>
@@ -661,6 +667,9 @@ class Server:
         try:
             if response.json()[&#39;statusCode&#39;] == &#39;successful-ok&#39;:
                 return True
+            else:
+                raise ConnectionError(
+                    f&#34;Could not reach Printer at {self.location} with version {self.version} and response is {response}&#34;)
         except:
             raise ConnectionError(
                 f&#34;Could not reach Printer at {self.location} with version {self.version}&#34;)</code></pre>
