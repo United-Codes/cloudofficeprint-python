@@ -276,6 +276,15 @@ def test_element_collection():
     }
     assert collection.as_dict == collection_expected
 
+def test_freeze_element():
+    freezeElement = cop.elements.Freeze(
+        name='freeze_element_name',
+        value="C10",
+    )
+    freezeElement_expected = {
+        'freeze_element_name' : "C10"
+    }
+    assert freezeElement.as_dict == freezeElement_expected
 
 def run():
     test_property()
@@ -289,6 +298,7 @@ def run():
     test_d3_code()
     test_text_box()
     test_element_collection()
+    test_freeze_element()
     # COP charts get tested in test_charts.py
 
 
