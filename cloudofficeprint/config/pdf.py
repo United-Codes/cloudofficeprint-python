@@ -37,10 +37,10 @@ class PDFOptions:
         Args:
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
             watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
-            watermark_color (str, optional): You can specify to change watermark color, default color value is black. Accepts css fonts. Defaults to black.
-            watermark_font (str, optional): You can specify to channge the font of watermark, default font is Aeruak. Default to Aerial.
-            watermark_opacity (int, optional): You can specify to change the opacity of watermark, value should be in percentage. Should be in percentage
-            watermark_font_size (int, optional): YOu can specify to change the size of watemark. Should be a number(px) ie: 45 .
+            watermark_color (str, optional): You can specify to change watermark color. Accepts css colors. Defaults to black.
+            watermark_font (str, optional): You can specify to change the font of watermark. Defaults to Aerial.
+            watermark_opacity (int, optional): You can specify to change the opacity of watermark. Should be in percentage
+            watermark_font_size (int, optional): You can specify to change the font size of watemark. Should be a number(px) ie: 45 .
             page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
             page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
