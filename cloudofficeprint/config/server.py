@@ -36,12 +36,14 @@ class Printer:
             Dict[str, str]: dict representation of this Printer object
         """
         return {
-                "location": self.location,
-                "version": self.version,
-                "requester": self.requester,
-                "job_name": self.job_name,
-                "return_output": self.return_output,
-            }
+            "location": self.location,
+            "version": self.version,
+            "requester": self.requester,
+            "job_name": self.job_name,
+            "return_output": self.return_output,
+        }
+
+
 class Command:
     """Command object with a single command for the Cloud Office Print server."""
 
@@ -246,16 +248,18 @@ class Server:
 
     def is_ipp_printer_reachable(self) -> bool:
         """Check the status of ipp-printer,if the location and version of ipp-printer is provided.
-        
+
          Returns:
             bool: whether the ipp-printer is reachable.
          """
         try:
-            ipp_printer_check_url = self.url+('/'if(self.url[-1] != '/') else '')+'ipp_check?ipp_url='+self.config.printer.location+'&version='+self.config.printer.version
+            ipp_printer_check_url = self.url + \
+                ('/'if(self.url[-1] != '/') else '')+'ipp_check?ipp_url=' + \
+                self.config.printer.location+'&version='+self.config.printer.version
             response = requests.get(ipp_printer_check_url)
             return response.json()['statusCode'] == "successful-ok"
         except:
-            return False 
+            return False
 
     def _raise_if_unreachable(self):
         """Raise a connection error if the server is unreachable.
