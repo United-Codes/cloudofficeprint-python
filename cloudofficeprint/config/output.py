@@ -17,7 +17,7 @@ class OutputConfig:
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
                  pdf_options: PDFOptions = None,
-                 append_per_page:bool = None,):
+                 append_per_page: bool = None,):
         """
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
