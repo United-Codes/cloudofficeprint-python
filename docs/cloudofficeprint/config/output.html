@@ -44,7 +44,8 @@ class OutputConfig:
                  converter: str = &#34;libreoffice&#34;,
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
-                 pdf_options: PDFOptions = None):
+                 pdf_options: PDFOptions = None,
+                 append_per_page:bool = None,):
         &#34;&#34;&#34;
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
@@ -53,6 +54,7 @@ class OutputConfig:
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
+            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
         &#34;&#34;&#34;
         self.filetype: str = filetype
         self.converter: str = converter
@@ -60,6 +62,7 @@ class OutputConfig:
         self.server_directory: str = server_directory
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
+        self.append_per_page = append_per_page
 
     @property
     def json(self) -&gt; str:
@@ -92,7 +95,8 @@ class OutputConfig:
             result[&#34;output_directory&#34;] = self.server_directory
         if self.pdf_options is not None:
             result.update(self.pdf_options.as_dict)
-
+        if self.append_per_page is not None:
+            result[&#34;output_append_per_page&#34;] = self.append_per_page
         return result
 
     @property
@@ -131,7 +135,7 @@ class OutputConfig:
 <dl>
 <dt id="cloudofficeprint.config.output.OutputConfig"><code class="flex name class">
 <span>class <span class="ident">OutputConfig</span></span>
-<span>(</span><span>filetype: str = None, encoding: str = 'raw', converter: str = 'libreoffice', cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None, server_directory: str = None, pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None)</span>
+<span>(</span><span>filetype: str = None, encoding: str = 'raw', converter: str = 'libreoffice', cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None, server_directory: str = None, pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None, append_per_page: bool = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class to specify output configuration for a request.</p>
@@ -150,6 +154,8 @@ class OutputConfig:
 <dd>Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.</dd>
 <dt><strong><code>pdf_options</code></strong> :&ensp;<code>PDFOptions</code>, optional</dt>
 <dd>Optional PDF options. Defaults to None.</dd>
+<dt><strong><code>append_per_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Ability to prepend/append file after each page of output.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -167,7 +173,8 @@ class OutputConfig:
                  converter: str = &#34;libreoffice&#34;,
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
-                 pdf_options: PDFOptions = None):
+                 pdf_options: PDFOptions = None,
+                 append_per_page:bool = None,):
         &#34;&#34;&#34;
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
@@ -176,6 +183,7 @@ class OutputConfig:
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
+            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
         &#34;&#34;&#34;
         self.filetype: str = filetype
         self.converter: str = converter
@@ -183,6 +191,7 @@ class OutputConfig:
         self.server_directory: str = server_directory
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
+        self.append_per_page = append_per_page
 
     @property
     def json(self) -&gt; str:
@@ -215,7 +224,8 @@ class OutputConfig:
             result[&#34;output_directory&#34;] = self.server_directory
         if self.pdf_options is not None:
             result.update(self.pdf_options.as_dict)
-
+        if self.append_per_page is not None:
+            result[&#34;output_append_per_page&#34;] = self.append_per_page
         return result
 
     @property
@@ -276,7 +286,8 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_directory&#34;] = self.server_directory
     if self.pdf_options is not None:
         result.update(self.pdf_options.as_dict)
-
+    if self.append_per_page is not None:
+        result[&#34;output_append_per_page&#34;] = self.append_per_page
     return result</code></pre>
 </details>
 </dd>
