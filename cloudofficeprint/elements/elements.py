@@ -4,6 +4,7 @@ from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 import pandas
 
+
 class CellStyle(ABC):
     """Abstract base class for a cell style"""
 
@@ -873,6 +874,7 @@ class TextBox(Element):
 
         return result
 
+
 class Freeze(Property):
     """Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template."""
 
@@ -890,6 +892,25 @@ class Freeze(Property):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{freeze " + self.name + "}"})
+
+
+class Insert(Property):
+    """Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents."""
+
+    """
+    Args:
+        name (str): The name for the insert tag.
+        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+         The documnet can be docx, pptx, xlsx, or pdf documents.
+    """
+
+    def __init__(self, name: str, value: str):
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?insert " + self.name + "}"})
+
 
 class ElementCollection(list, Element):
     """A collection used to group multiple elements together.
