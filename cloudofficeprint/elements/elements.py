@@ -366,6 +366,21 @@ class FootNote(Property):
         return frozenset({"{+" + self.name + "}"})
 
 
+class AutoLink(Property):
+    """ This tag allows you to insert text into the document detecting links. 
+    """
+    def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this element.
+            value (str): The value of the autoLink.
+        """
+        super().__init__(name,value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{*auto " + self.name + "}"})
+
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
         """

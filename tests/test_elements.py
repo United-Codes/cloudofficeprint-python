@@ -97,6 +97,17 @@ def test_cell_style_property_xlsx():
     assert style_property.as_dict == style_property_expected
 
 
+def test_autoLink():
+    autoLink = cop.elements.AutoLink(
+        name='autoLink',
+        value='sample text with hyperlinks',
+    )
+    autoLink_expected = {
+        'autoLink': 'sample text with hyperlinks'
+    }
+    assert autoLink.as_dict == autoLink_expected
+
+
 def test_hyperlink():
     hyperlink = cop.elements.Hyperlink(
         name='hyperlink',
@@ -290,6 +301,7 @@ def run():
     test_property()
     test_cell_style_property_docx()
     test_cell_style_property_xlsx()
+    test_autoLink()
     test_hyperlink()
     test_table_of_content()
     test_span()
