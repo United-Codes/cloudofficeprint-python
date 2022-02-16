@@ -12,18 +12,21 @@ class Printer:
                  location: str,
                  version: str,
                  requester: str = "Cloud Office Print",
-                 job_name: str = "Cloud Office Print"):
+                 job_name: str = "Cloud Office Print",
+                 return_output: bool = False):
         """
         Args:
             location (str): IP address of the printer.
             version (str): IPP version.
             requester (str, optional): The name of the requester. Defaults to "Cloud Office Print".
             job_name (str, optional): The name of the print job. Defaults to "Cloud Office Print".
+            return_output (bool, optional): Whether to return the output from AOP serve or not. Defaults to false. 
         """
         self.location: str = location
         self.version: str = version
         self.requester: str = requester
         self.job_name: str = job_name
+        self.return_output: bool = return_output
 
     @property
     def _dict(self) -> Dict[str, str]:
@@ -36,7 +39,8 @@ class Printer:
             "location": self.location,
             "version": self.version,
             "requester": self.requester,
-            "job_name": self.job_name
+            "job_name": self.job_name,
+            "return_output": self.return_output,
         }
 
 
@@ -188,7 +192,6 @@ class ServerConfig:
             result["ipp"] = self.printer._dict
         if self.cop_remote_debug:
             result['aop_remote_debug'] = 'Yes'
-
         if self.commands is not None:
             result.update(self.commands._dict)
 
@@ -241,6 +244,21 @@ class Server:
                 self.url, "marco"), proxies=self.config.proxies if self.config is not None else None)
             return r.text == "polo"
         except requests.exceptions.ConnectionError:
+            return False
+
+    def is_ipp_printer_reachable(self) -> bool:
+        """Check the status of ipp-printer,if the location and version of ipp-printer is provided.
+
+         Returns:
+            bool: whether the ipp-printer is reachable.
+         """
+        try:
+            ipp_printer_check_url = self.url + \
+                ('/'if(self.url[-1] != '/') else '')+'ipp_check?ipp_url=' + \
+                self.config.printer.location+'&version='+self.config.printer.version
+            response = requests.get(ipp_printer_check_url)
+            return response.json()['statusCode'] == "successful-ok"
+        except:
             return False
 
     def _raise_if_unreachable(self):

@@ -2,6 +2,7 @@ import json
 from copy import deepcopy
 from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
+import pandas
 
 
 class CellStyle(ABC):
@@ -364,6 +365,21 @@ class FootNote(Property):
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{+" + self.name + "}"})
 
+
+class AutoLink(Property):
+    """ This tag allows you to insert text into the document detecting links. 
+    """
+    def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this element.
+            value (str): The value of the autoLink.
+        """
+        super().__init__(name,value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{*auto " + self.name + "}"})
 
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
@@ -872,6 +888,43 @@ class TextBox(Element):
             result[self.name + '_height'] = self.height
 
         return result
+
+
+class Freeze(Property):
+    """Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template."""
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        """
+        Args:
+            name (str): The name for the freeze property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **"C5"**, in the format of excel cell and row.
+             Third option, don't place a pane, using a value of **false**.
+        """
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{freeze " + self.name + "}"})
+
+
+class Insert(Property):
+    """Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents."""
+
+    """
+    Args:
+        name (str): The name for the insert tag.
+        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+         The documnet can be docx, pptx, xlsx, or pdf documents.
+    """
+
+    def __init__(self, name: str, value: str):
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?insert " + self.name + "}"})
 
 
 class ElementCollection(list, Element):

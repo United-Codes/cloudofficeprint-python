@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>cloudofficeprint.elements.elements API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -30,6 +30,7 @@
 from copy import deepcopy
 from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
+import pandas
 
 
 class CellStyle(ABC):
@@ -392,6 +393,21 @@ class FootNote(Property):
     def available_tags(self) -&gt; FrozenSet[str]:
         return frozenset({&#34;{+&#34; + self.name + &#34;}&#34;})
 
+
+class AutoLink(Property):
+    &#34;&#34;&#34; This tag allows you to insert text into the document detecting links. 
+    &#34;&#34;&#34;
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            value (str): The value of the autoLink.
+        &#34;&#34;&#34;
+        super().__init__(name,value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{*auto &#34; + self.name + &#34;}&#34;})
 
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
@@ -902,6 +918,43 @@ class TextBox(Element):
         return result
 
 
+class Freeze(Property):
+    &#34;&#34;&#34;Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.&#34;&#34;&#34;
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the freeze property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **&#34;C5&#34;**, in the format of excel cell and row.
+             Third option, don&#39;t place a pane, using a value of **false**.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{freeze &#34; + self.name + &#34;}&#34;})
+
+
+class Insert(Property):
+    &#34;&#34;&#34;Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.&#34;&#34;&#34;
+
+    &#34;&#34;&#34;
+    Args:
+        name (str): The name for the insert tag.
+        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+         The documnet can be docx, pptx, xlsx, or pdf documents.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?insert &#34; + self.name + &#34;}&#34;})
+
+
 class ElementCollection(list, Element):
     &#34;&#34;&#34;A collection used to group multiple elements together.
     It can contain nested `ElementCollection`s and should be used to pass multiple `Element`s as PrintJob data, as well as to allow for nested elements.
@@ -1050,6 +1103,55 @@ class ElementCollection(list, Element):
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
+<dt id="cloudofficeprint.elements.elements.AutoLink"><code class="flex name class">
+<span>class <span class="ident">AutoLink</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tag allows you to insert text into the document detecting links. </p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value of the autoLink.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AutoLink(Property):
+    &#34;&#34;&#34; This tag allows you to insert text into the document detecting links. 
+    &#34;&#34;&#34;
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            value (str): The value of the autoLink.
+        &#34;&#34;&#34;
+        super().__init__(name,value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{*auto &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.COPChart"><code class="flex name class">
 <span>class <span class="ident">COPChart</span></span>
 <span>(</span><span>name: str, x_data: Iterable[Union[str, int, float, Mapping]], y_datas: Union[Iterable[Iterable[Union[str, int, float, Mapping]]], Mapping[str, Iterable[Union[str, int, float, Mapping]]]], date: <a title="cloudofficeprint.elements.elements.COPChartDateOptions" href="#cloudofficeprint.elements.elements.COPChartDateOptions">COPChartDateOptions</a> = None, title: str = None, x_title: str = None, y_title: str = None, y2_title: str = None, x2_title: str = None)</span>
@@ -1306,7 +1408,7 @@ def from_dataframe(cls,
 </dd>
 <dt id="cloudofficeprint.elements.elements.COPChartDateOptions"><code class="flex name class">
 <span>class <span class="ident">COPChartDateOptions</span></span>
-<span>(</span><span>format: str = None, unit: str = None, step: Union[int, str] = None)</span>
+<span>(</span><span>format: str = None, unit: str = None, step: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Date options for an COPChart (different from ChartDateOptions in charts.py).</p>
@@ -1468,7 +1570,7 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="cloudofficeprint.elements.elements.CellStyleDocx"><code class="flex name class">
 <span>class <span class="ident">CellStyleDocx</span></span>
-<span>(</span><span>cell_background_color: str = None, width: Union[int, str] = None)</span>
+<span>(</span><span>cell_background_color: str = None, width: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Cell styling settings for docx templates</p>
@@ -1586,7 +1688,7 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="cloudofficeprint.elements.elements.CellStyleXlsx"><code class="flex name class">
 <span>class <span class="ident">CellStyleXlsx</span></span>
-<span>(</span><span>cell_locked: bool = None, cell_hidden: bool = None, cell_background: str = None, font_name: str = None, font_size: Union[int, str] = None, font_color: str = None, font_italic: bool = None, font_bold: bool = None, font_strike: bool = None, font_underline: bool = None, font_superscript: bool = None, font_subscript: bool = None, border_top: str = None, border_top_color: str = None, border_bottom: str = None, border_bottom_color: str = None, border_left: str = None, border_left_color: str = None, border_right: str = None, border_right_color: str = None, border_diagonal: str = None, border_diagonal_direction: str = None, border_diagonal_color: str = None, text_h_alignment: str = None, text_v_alignment: str = None, text_rotation: Union[int, str] = None)</span>
+<span>(</span><span>cell_locked: bool = None, cell_hidden: bool = None, cell_background: str = None, font_name: str = None, font_size: Union[str, int] = None, font_color: str = None, font_italic: bool = None, font_bold: bool = None, font_strike: bool = None, font_underline: bool = None, font_superscript: bool = None, font_subscript: bool = None, border_top: str = None, border_top_color: str = None, border_bottom: str = None, border_bottom_color: str = None, border_left: str = None, border_left_color: str = None, border_right: str = None, border_right_color: str = None, border_diagonal: str = None, border_diagonal_direction: str = None, border_diagonal_color: str = None, text_h_alignment: str = None, text_v_alignment: str = None, text_rotation: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Cell styling settings for xlsx templates</p>
@@ -2574,6 +2676,61 @@ def as_dict(self) -&gt; Dict:
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.Freeze"><code class="flex name class">
+<span>class <span class="ident">Freeze</span></span>
+<span>(</span><span>name: str, value: Union[str, bool])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the freeze property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>Union[str, bool]</code></dt>
+<dd>Three options are avaliable.</dd>
+</dl>
+<p>First option, place the pane where the tag is located, using a value of <strong>true</strong>.
+Second option, provide the location to place the pane, e.g. <strong>"C5"</strong>, in the format of excel cell and row.
+Third option, don't place a pane, using a value of <strong>false</strong>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Freeze(Property):
+    &#34;&#34;&#34;Only supported in Excel. Represents an object that indicates to put a freeze pane in the excel template.&#34;&#34;&#34;
+
+    def __init__(self, name: str, value: Union[str, bool]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the freeze property.
+            value (Union[str, bool]): Three options are avaliable.
+             First option, place the pane where the tag is located, using a value of **true**.
+             Second option, provide the location to place the pane, e.g. **&#34;C5&#34;**, in the format of excel cell and row.
+             Third option, don&#39;t place a pane, using a value of **false**.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{freeze &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.Html"><code class="flex name class">
 <span>class <span class="ident">Html</span></span>
 <span>(</span><span>name: str, value: str)</span>
@@ -2680,6 +2837,58 @@ def as_dict(self) -&gt; Dict:
 <li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Element.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.elements.Insert"><code class="flex name class">
+<span>class <span class="ident">Insert</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this property.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value for this property. Note: the general purpose for this value-field is the value as a string,
+but this can be of any type, for example a dict.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Insert(Property):
+    &#34;&#34;&#34;Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.&#34;&#34;&#34;
+
+    &#34;&#34;&#34;
+    Args:
+        name (str): The name for the insert tag.
+        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+         The documnet can be docx, pptx, xlsx, or pdf documents.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?insert &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
 </ul>
 </li>
 </ul>
@@ -2836,10 +3045,13 @@ but this can be of any type, for example a dict.</dd>
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.AutoLink" href="#cloudofficeprint.elements.elements.AutoLink">AutoLink</a></li>
 <li><a title="cloudofficeprint.elements.elements.CellStyleProperty" href="#cloudofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></li>
 <li><a title="cloudofficeprint.elements.elements.FootNote" href="#cloudofficeprint.elements.elements.FootNote">FootNote</a></li>
 <li><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></li>
+<li><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></li>
 <li><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></li>
+<li><a title="cloudofficeprint.elements.elements.Insert" href="#cloudofficeprint.elements.elements.Insert">Insert</a></li>
 <li><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
 <li><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></li>
 <li><a title="cloudofficeprint.elements.elements.Raw" href="#cloudofficeprint.elements.elements.Raw">Raw</a></li>
@@ -3204,7 +3416,7 @@ but this can be of any type, for example a dict.</dd>
 </dd>
 <dt id="cloudofficeprint.elements.elements.TextBox"><code class="flex name class">
 <span>class <span class="ident">TextBox</span></span>
-<span>(</span><span>name: str, value: str, font: str = None, font_color: str = None, font_size: Union[int, str] = None, transparency: Union[int, str] = None, width: Union[int, str] = None, height: Union[int, str] = None)</span>
+<span>(</span><span>name: str, value: str, font: str = None, font_color: str = None, font_size: Union[str, int] = None, transparency: Union[str, int] = None, width: Union[str, int] = None, height: Union[str, int] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This tag will allow you to insert a text box starting in the cell containing the tag in Excel.</p>
@@ -3306,7 +3518,7 @@ but this can be of any type, for example a dict.</dd>
 </dd>
 <dt id="cloudofficeprint.elements.elements.Watermark"><code class="flex name class">
 <span>class <span class="ident">Watermark</span></span>
-<span>(</span><span>name: str, text: str, color: str = None, font: str = None, width: Union[int, str] = None, height: Union[int, str] = None, opacity: float = None, rotation: int = None)</span>
+<span>(</span><span>name: str, text: str, color: str = None, font: str = None, width: Union[str, int] = None, height: Union[str, int] = None, opacity: float = None, rotation: int = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The most basic <code><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></code>. It simply consists of a name and a value.</p>
@@ -3422,6 +3634,9 @@ but this can be of any type, for example a dict.</dd>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
+<h4><code><a title="cloudofficeprint.elements.elements.AutoLink" href="#cloudofficeprint.elements.elements.AutoLink">AutoLink</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.elements.COPChart" href="#cloudofficeprint.elements.elements.COPChart">COPChart</a></code></h4>
 <ul class="">
 <li><code><a title="cloudofficeprint.elements.elements.COPChart.from_dataframe" href="#cloudofficeprint.elements.elements.COPChart.from_dataframe">from_dataframe</a></code></li>
@@ -3481,10 +3696,16 @@ but this can be of any type, for example a dict.</dd>
 <h4><code><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></code></h4>
 </li>
 <li>
+<h4><code><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Hyperlink" href="#cloudofficeprint.elements.elements.Hyperlink">Hyperlink</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.Insert" href="#cloudofficeprint.elements.elements.Insert">Insert</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></code></h4>
@@ -3522,7 +3743,7 @@ but this can be of any type, for example a dict.</dd>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>

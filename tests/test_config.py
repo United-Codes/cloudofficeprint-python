@@ -8,6 +8,10 @@ def test_pdf_options():
     pdf_opts = cop.config.PDFOptions(
         read_password='test_pw',
         watermark='test_watermark',
+        watermark_font_size=30,
+        watermark_opacity=60,
+        watermark_color="blue",
+        watermark_font="Aerial",
         page_width=500,
         page_height=500,
         even_page=True,
@@ -21,8 +25,10 @@ def test_pdf_options():
         page_format='test_page_format',
         merge=False,
         sign_certificate='test_sign_certificate',
+        sign_certificate_password="certificate_password",
         identify_form_fields=True,
-        split=True)
+        split=True,
+        remove_last_page=False)
     pdf_opts.set_page_margin_at(6, 'top')
     conf = cop.config.OutputConfig(filetype='pdf', pdf_options=pdf_opts)
     conf_expected = {
@@ -31,6 +37,10 @@ def test_pdf_options():
         'output_converter': 'libreoffice',
         'output_read_password': 'test_pw',
         'output_watermark': 'test_watermark',
+        'output_watermark_size':30,
+        'output_watermark_opacity':60,
+        'output_watermark_color':'blue',
+        'output_watermark_font':'Aerial',
         'output_page_width': 500,
         'output_page_height': 500,
         'output_even_page': True,
@@ -49,8 +59,10 @@ def test_pdf_options():
         'output_page_format': 'test_page_format',
         'output_merge': False,
         'output_sign_certificate': 'test_sign_certificate',
+        'output_sign_certificate_password':'certificate_password',
         'identify_form_fields': True,
-        'output_split': True
+        'output_split': True,
+        'output_remove_last_page':False,
     }
     assert conf.as_dict == conf_expected
 
@@ -74,13 +86,15 @@ def test_printer():
         location='location',
         version='version',
         requester='requester',
-        job_name='job_name'
+        job_name='job_name',
+        return_output=False
     )
     printer_expected = {
         'location': 'location',
         'version': 'version',
         'requester': 'requester',
-        'job_name': 'job_name'
+        'job_name': 'job_name',
+        'return_output': False
     }
     assert printer._dict == printer_expected
 

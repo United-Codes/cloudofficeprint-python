@@ -16,7 +16,8 @@ class OutputConfig:
                  converter: str = "libreoffice",
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
-                 pdf_options: PDFOptions = None):
+                 pdf_options: PDFOptions = None,
+                 append_per_page: bool = None,):
         """
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
@@ -25,6 +26,7 @@ class OutputConfig:
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
+            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -32,6 +34,7 @@ class OutputConfig:
         self.server_directory: str = server_directory
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
+        self.append_per_page = append_per_page
 
     @property
     def json(self) -> str:
@@ -64,7 +67,8 @@ class OutputConfig:
             result["output_directory"] = self.server_directory
         if self.pdf_options is not None:
             result.update(self.pdf_options.as_dict)
-
+        if self.append_per_page is not None:
+            result["output_append_per_page"] = self.append_per_page
         return result
 
     @property
