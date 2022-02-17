@@ -5,205 +5,205 @@ collection = cop.elements.ElementCollection()
 
 # ---------------line_chart
 line1 = cop.elements.LineSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='line1',
-    smooth=True,
-    symbol='diamond',
-    symbol_size=10,
-    color='red',
-    line_width='0.2cm',
-    line_style='sysDashDotDot'
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'line1',
+    True,
+    'diamond',
+    10,
+    'red',
+    '0.2cm',
+    'sysDashDotDot'
 )
 line2 = cop.elements.LineSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='line2',
-    smooth=True,
-    symbol='square',
-    symbol_size=12,
-    color='blue',
-    line_width='2px',
-    line_style='sysDash'
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'line2',
+    True,
+    'square',
+    12,
+    'blue',
+    '2px',
+    'sysDash'
 )
 line_chart = cop.elements.LineChart(
-    name='line_chart_name',
-    lines=(line1, line2)
+    'line_chart_name',
+    (line1, line2)
 )
 
 collection.add(line_chart)
 
 # --------------------bar_chart-----------
 bars1 = cop.elements.BarSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='bars1',
-    color='red'
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'bars1',
+    'red'
 )
 bars2 = cop.elements.BarSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='bars2',
-    color='blue'
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'bars2',
+    'blue'
 )
 bar_chart = cop.elements.BarChart(
-    name='bar_chart_name',
-    bars=(bars1, bars2)
+    'bar_chart_name',
+    (bars1, bars2)
 )
 collection.add(bar_chart)
 
 # -------------pie_chart----------
 pies1 = cop.elements.PieSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='pies1',
-    colors=('red', None, 'blue')
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'pies1',
+    ('red', None, 'blue')
 )
 pies2 = cop.elements.PieSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='pies2',
-    colors=('green', 'blue', None)
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'pies2',
+    ('green', 'blue', None)
 )
 pies_chart = cop.elements.PieChart(
-    name='pie_chart_name',
-    pies=(pies1, pies2)
+    'pie_chart_name',
+    (pies1, pies2)
 )
 collection.add(pies_chart)
 
 # ---------------area_chart------------
 area1 = cop.elements.AreaSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='area1',
-    color='red',
-    opacity=50
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'area1',
+    'red',
+    50
 )
 area2 = cop.elements.AreaSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='area2',
-    color='blue',
-    opacity=80
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'area2',
+    'blue',
+    80
 )
 area_chart = cop.elements.AreaChart(
-    name='area_chart_name',
-    areas=(area1, area2)
+    'area_chart_name',
+    (area1, area2)
 )
 collection.add(area_chart)
 
 # -----------------bubble_chart----------
 bubble1 = cop.elements.BubbleSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    sizes=(5, 6, 2),
-    name='bubble1',
-    color='red'
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    (5, 6, 2),
+    'bubble1',
+    'red'
 )
 bubble2 = cop.elements.BubbleSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    sizes=(5, 6, 2),
-    name='bubble2',
-    color='blue'
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    (5, 6, 2),
+    'bubble2',
+    'blue'
 )
 bubble_chart = cop.elements.BubbleChart(
-    name='bubble_chart_name',
-    bubbles=(bubble1, bubble2)
+    'bubble_chart_name',
+    (bubble1, bubble2)
 )
 collection.add(bubble_chart)
 
 # ---------------stock_chart
 stock1 = cop.elements.StockSeries(
-    x=(1, 2, 3),
-    high=(4, 5, 6),
-    low=(7, 8, 9),
-    close=(10, 11, 12),
-    open_=(13, 14, 15),
-    volume=(16, 17, 18),
-    name='stock1'
+    (1, 2, 3),
+    (4, 5, 6),
+    (7, 8, 9),
+    (10, 11, 12),
+    (13, 14, 15),
+    (16, 17, 18),
+    'stock1'
 )
 stock2 = cop.elements.StockSeries(
-    x=(1, 2, 3),
-    high=(4, 5, 6),
-    low=(7, 8, 9),
-    close=(10, 11, 12),
-    open_=(13, 14, 15),
-    volume=(16, 17, 18),
-    name='stock2'
+    (1, 2, 3),
+    (4, 5, 6),
+    (7, 8, 9),
+    (10, 11, 12),
+    (13, 14, 15),
+    (16, 17, 18),
+    'stock2'
 )
 stock_chart = cop.elements.StockChart(
-    name='stock_chart_name',
-    stocks=(stock1, stock2)
+    'stock_chart_name',
+    (stock1, stock2)
 )
 # collection.add(stock_chart)
 
 # ----------------combined_chart-------
 axis = cop.elements.ChartAxisOptions()
 column1 = cop.elements.ColumnSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='column1'
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'column1'
 )
 column2 = cop.elements.ColumnSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='column2'
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'column2'
 )
 column_chart = cop.elements.ColumnChart(
-    name='column_chart',
-    columns=(column1, column2)
+    'column_chart',
+    (column1, column2)
 )
 line1 = cop.elements.LineSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='line1',
-    symbol='square'
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'line1',
+    'square'
 )
 line2 = cop.elements.LineSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='line2',
-    symbol='square'
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'line2',
+    'square'
 )
 line_chart_options = cop.elements.ChartOptions(
-    x_axis=axis,
-    y_axis=axis,
-    width=50,
-    background_color='gray',
-    background_opacity=50
+    axis,
+    axis,
+    50,
+    'gray',
+    50
 )
 line_chart = cop.elements.LineChart(
-    name='line_chart',
-    lines=(line1, line2),
-    options=line_chart_options
+    'line_chart',
+    (line1, line2),
+    line_chart_options
 )
 bar1 = cop.elements.BarSeries(
-    x=('a', 'b', 'c'),
-    y=(1, 2, 3),
-    name='bar1'
+    ('a', 'b', 'c'),
+    (1, 2, 3),
+    'bar1'
 )
 bar2 = cop.elements.BarSeries(
-    x=('a', 'b', 'c'),
-    y=(4, 5, 6),
-    name='bar2'
+    ('a', 'b', 'c'),
+    (4, 5, 6),
+    'bar2'
 )
 bar_chart_options = cop.elements.ChartOptions(
-    x_axis=axis,
-    y_axis=axis,
-    width=100,
+    axis,
+    axis,
+    100,
     height=100,
     rounded_corners=False
 )
 bar_chart = cop.elements.BarChart(
-    name='bar_chart',
-    bars=(bar1, bar2),
-    options=bar_chart_options
+    'bar_chart',
+    (bar1, bar2),
+    bar_chart_options
 )
 combined_chart = cop.elements.CombinedChart(
-    name='combined_chart_name',
-    charts=(column_chart, line_chart),
-    secondaryCharts=(bar_chart,)
+    'combined_chart_name',
+    (column_chart, line_chart),
+    (bar_chart,)
 )
 collection.add(combined_chart)
 
@@ -211,7 +211,7 @@ collection.add(combined_chart)
 # For running on localhost you do not need api_key else replace below "YOUR_API_KEY" with your api key.
 server = cop.config.Server(
     "http://localhost:8010/",
-    cop.config.ServerConfig(api_key="YOUR_API_KEY")
+    cop.config.ServerConfig("YOUR_API_KEY")
 )
 # Create print job
 # PrintJob combines template, data, server and an optional output configuration
