@@ -55,6 +55,8 @@ class OutputConfig:
                  prepend_per_page: bool = None,
                  append_per_page: bool = None,
                  request_option: RequestOption = None,
+                 polling: bool = None,
+                 secret_key: str = None,
                  ):
         """
         Args:
@@ -67,6 +69,8 @@ class OutputConfig:
             prepend_per_page (bool, optional): Ability to prepend file before each page of output. Defaults to None.
             append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
             request_option (RequestOption): The request option, if this is specified then COP makes a call to the given option with response/output of the current request. Defaults to None.
+            polling (bool): Whether the print job will be polled. Defaults to None.
+            secret_key (str): The secret key used to encrypt the output of the polled print job on the Cloud Office Print server. Defaults to None.
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -77,6 +81,8 @@ class OutputConfig:
         self.prepend_per_page = prepend_per_page
         self.append_per_page = append_per_page
         self.request_option: RequestOption = request_option
+        self.polling: bool = polling
+        self.secret_key: str = secret_key
 
     @property
     def json(self) -> str:
@@ -115,6 +121,10 @@ class OutputConfig:
             result["output_append_per_page"] = self.append_per_page
         if self.request_option is not None:
             result["request_option"] = self.request_option.as_dict
+        if self.polling is not None:
+            result["output_polling"] = self.polling
+        if self.secret_key is not None:
+            result["secret_key"] = self.secret_key
         return result
 
     @property
