@@ -213,6 +213,31 @@ def test_commands():
     assert post_merge_commands._dict == post_merge_expected
 
 
+def test_request_option():
+    """Test RequestOption"""
+    request_option = cop.config.RequestOption(
+        url="https://www.apexofficeprint.com/post/",
+        headers={
+            "file_id": "Any file id like FILE_123",
+            "access_token": "Access Token for above hostname (if any)",
+        }
+    )
+    output = cop.config.OutputConfig(filetype="docx", request_option= request_option)
+    output_expected = {
+        "output_type": "docx",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "request_option": {
+            "url": "https://www.apexofficeprint.com/post/",
+            "extra_headers": {
+                "file_id": "Any file id like FILE_123",
+                "access_token": "Access Token for above hostname (if any)"
+            }
+        }
+    }
+    assert output.as_dict == output_expected
+
+
 def test_route_paths():
     """Test output types of route path functions"""
     assert type(server.get_version_soffice()) == str
@@ -231,6 +256,7 @@ def run():
     test_cloud_access_tokens()
     test_commands()
     test_route_paths()
+    test_request_option()
 
 
 if __name__ == '__main__':

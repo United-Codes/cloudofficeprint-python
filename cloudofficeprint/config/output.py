@@ -1,7 +1,42 @@
 import json
-from typing import Dict
+from typing import Dict, List, Mapping
 from .cloud import CloudAccessToken
 from .pdf import PDFOptions
+
+
+class RequestOption:
+    """
+    Class for a request option of the output,
+    if this is specified then COP makes a call to the given option with response/output of the current request.
+    """
+
+    def __init__(self,
+                 url: str,
+                 headers: Mapping[str, str] = None,
+                 ):
+        """
+        Args:
+            url (str): the URL to which the output/response will be posted.
+            headers (Mapping): Any additional information to be included for the header. Defaults to None.
+        """
+        self.url: str = url
+        self.headers: Mapping[str, str] = headers
+
+    @property
+    def as_dict(self) -> Dict:
+        """The dict representation of this request option.
+
+        Returns:
+            Dict: the dict representation of this request option
+        """
+        result = {
+            "url": self.url,
+        }
+
+        if self.headers is not None:
+            result["extra_headers"] = self.headers
+
+        return result
 
 
 class OutputConfig:
@@ -19,6 +54,7 @@ class OutputConfig:
                  pdf_options: PDFOptions = None,
                  prepend_per_page: bool = None,
                  append_per_page: bool = None,
+                 request_option: RequestOption = None,
                  ):
         """
         Args:
@@ -30,6 +66,7 @@ class OutputConfig:
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
             prepend_per_page (bool, optional): Ability to prepend file before each page of output. Defaults to None.
             append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
+            request_option (RequestOption): The request option, if this is specified then COP makes a call to the given option with response/output of the current request. Defaults to None.
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -39,6 +76,7 @@ class OutputConfig:
         self.encoding = encoding
         self.prepend_per_page = prepend_per_page
         self.append_per_page = append_per_page
+        self.request_option: RequestOption = request_option
 
     @property
     def json(self) -> str:
@@ -75,6 +113,8 @@ class OutputConfig:
             result["output_prepend_per_page"] = self.prepend_per_page
         if self.append_per_page is not None:
             result["output_append_per_page"] = self.append_per_page
+        if self.request_option is not None:
+            result["request_option"] = self.request_option.as_dict
         return result
 
     @property
