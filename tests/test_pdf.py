@@ -290,6 +290,48 @@ def test_pdf_form_radio_button():
     assert radio_button.as_dict == radio_button_expected
 
 
+def test_pdf_form_signature():
+    signature = cop.elements.PDFFormSignature(
+        name="text1",
+        width=150,
+        height=50,
+    )
+    signature_expected = {
+        "text1": {
+            "type": "signaturefieldunsigned",
+            "name": "text1",
+            "width": 150,
+            "height": 50
+        }
+    }
+    assert signature.as_dict == signature_expected
+
+
+def test_pdf_form_signature_signed():
+    signature = cop.elements.PDFFormSignatureSigned(
+        name="text2",
+        value="base64 encoded certificate",
+        password="certificate password",
+        size="md",
+        background_image="base64 encoded image",
+        width=200,
+        height=50,
+    )
+    signature_expected = {
+        "text2": {
+            "type": "signaturefieldsigned",
+            "name": "text2",
+            "size": "md",
+            "value": "base64 encoded certificate",
+            "background_image": "base64 encoded image",
+            "password": "certificate password",
+            "width": 200,
+            "height": 50
+        }
+    }
+    assert signature.as_dict == signature_expected
+
+
 def run():
     test_cop_pdf_texts()
     test_cop_pdf_images()
@@ -297,6 +339,8 @@ def run():
     test_pdf_form_text_box()
     test_pdf_form_check_box()
     test_pdf_form_radio_button()
+    test_pdf_form_signature()
+    test_pdf_form_signature_signed()
 
 
 if __name__ == '__main__':

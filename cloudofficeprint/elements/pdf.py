@@ -417,3 +417,81 @@ class PDFFormRadioButton(PDFFormElement):
 
         return {self.name: result}
 
+
+class PDFFormSignature(PDFFormElement):
+    """
+        Class for a PDF form unsigned signature field element.
+    """
+    def __init__(self,
+                 name: str,
+                 width: int = None,
+                 height: int = None,
+                 ):
+        """
+        Args:
+            name (str): The name for this element.
+            width (int): The width in px. Optional.
+            height (int): The height in px. Optional.
+        """
+        super().__init__(name, width, height)
+
+    @property
+    def type(self) -> str:
+        return "signaturefieldunsigned"
+
+    @property
+    def as_dict(self) -> Dict:
+        return {self.name: super()._inner_dict}
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?sign " + self.name + "}"})
+
+
+class PDFFormSignatureSigned(PDFFormSignature):
+    """
+        Class for a PDF form signed signature field element.
+    """
+    def __init__(self,
+                 name: str,
+                 value: str,
+                 password: str = None,
+                 size: str = None,
+                 background_image: str = None,
+                 width: int = None,
+                 height: int = None,
+                 ):
+        """
+        Args:
+            name (str): The name for this element.
+            value (str): The signing certificate as a base64 string, URL, FTP location or a server path.
+            password (str): The password for if the certificate is encrypted. Optional.
+            size (str): The size must either be "sm" for small, "md" for medium or "lg" for large. Optional.
+            background_image (str): The background image as a base64 string, URL, FTP location or a server path. Optional.
+            width (int): The width in px. Optional.
+            height (int): The height in px. Optional.
+        """
+        super().__init__(name, width, height)
+        self.value: str = value
+        self.password: str = password
+        self.size: str = size
+        self.background_image: str = background_image
+
+    @property
+    def type(self) -> str:
+        return "signaturefieldsigned"
+
+    @property
+    def as_dict(self) -> Dict:
+        result = super()._inner_dict
+
+        if self.value is not None:
+            result['value'] = self.value
+        if self.password is not None:
+            result['password'] = self.password
+        if self.size is not None:
+            result['size'] = self.size
+        if self.background_image is not None:
+            result['background_image'] = self.background_image
+
+        return {self.name: result}
