@@ -402,6 +402,68 @@ class Server:
         self._raise_if_unreachable()
         return requests.get(urljoin(self.url, 'version'), proxies=self.config.proxies if self.config is not None else None).text
 
+    def get_statistics(self, access_token: str = None) -> Dict:
+        """Sends a GET request to server-url/stats.
+
+        Returns:
+            Dict: JSON of the current statistics of the Cloud Office Print.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if access_token is not None:
+            params["access_token"] = access_token
+
+        return json.loads(requests.get(urljoin(self.url, 'stats'), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def get_errors(self, latest: int = None, access_token: str = None) -> str:
+        """Sends a GET request to server-url/server_errors.
+
+        Returns:
+            str: The errors of the Cloud Office Print server in log file format.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if latest is not None:
+            params["latest"] = latest
+        if access_token is not None:
+            params["access_token"] = access_token
+
+        return requests.get(urljoin(self.url, 'server_errors'), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_print_jobs(self, date: str = None, access_token: str = None) -> str:
+        """Sends a GET request to server-url/server_printjobs.
+
+        Returns:
+            str: The print jobs of the Cloud Office Print server in log file format.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if date is not None:
+            params["date"] = date
+        if access_token is not None:
+            params["access_token"] = access_token
+
+        return requests.get(urljoin(self.url, 'server_printjobs'), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_network_logs(self, date: str = None, access_token: str = None) -> str:
+        """Sends a GET request to server-url/network_logs.
+
+        Returns:
+            str: The network logs of the Cloud Office Print server in log file format.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if date is not None:
+            params["date"] = date
+        if access_token is not None:
+            params["access_token"] = access_token
+
+        return requests.get(urljoin(self.url, 'network_logs'), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
     def verify_template_hash(self, template_hash: str = None) -> ResponseTemplateHash:
         """Sends a GET request to server-url/verify_template_hash.
 

@@ -281,7 +281,10 @@ def test_route_paths():
     assert type(server.get_supported_template_mimetypes()) == dict
     assert type(server.get_supported_output_mimetypes('docx')) == dict
     assert type(server.get_supported_prepend_mimetypes()) == dict
-    assert type(server.get_supported_append_mimetypes()) == dict
+    # assert type(server.get_statistics()) == dict
+    # assert type(server.get_errors()) == str
+    # assert type(server.get_print_jobs()) == str
+    # assert type(server.get_network_logs()) == str
 
 
 def run():
