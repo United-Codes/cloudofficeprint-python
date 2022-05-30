@@ -19,6 +19,7 @@ def test_pdf_options():
         modify_password='test_modify_password',
         password_protection_flag=0,
         lock_form=True,
+        lock_form_except_signaturefield=False,
         copies=3,
         page_margin=5,
         landscape=False,
@@ -26,6 +27,8 @@ def test_pdf_options():
         merge=False,
         sign_certificate='test_sign_certificate',
         sign_certificate_password="certificate_password",
+        sign_certificate_field="field_name",
+        sign_certificate_background_image="base64 encoded image",
         identify_form_fields=True,
         split=True,
         remove_last_page=False)
@@ -48,6 +51,7 @@ def test_pdf_options():
         'output_modify_password': 'test_modify_password',
         'output_password_protection_flag': 0,
         'lock_form': True,
+        'lock_form_except_signaturefield': False,
         'output_copies': 3,
         'page_margin': {
             'top': 6,
@@ -60,6 +64,8 @@ def test_pdf_options():
         'output_merge': False,
         'output_sign_certificate': 'test_sign_certificate',
         'output_sign_certificate_password':'certificate_password',
+        "output_sign_certificate_field": "field_name",
+        "output_sign_certificate_background_image": "base64 encoded image",
         'identify_form_fields': True,
         'output_split': True,
         'output_remove_last_page':False,

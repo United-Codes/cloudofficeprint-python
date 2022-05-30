@@ -23,6 +23,7 @@ class PDFOptions:
                  modify_password: str = None,
                  password_protection_flag: int = None,
                  lock_form: bool = None,
+                 lock_form_except_signaturefield: bool = None,
                  copies: int = None,
                  page_margin: Union[int, dict] = None,
                  landscape: bool = None,
@@ -30,6 +31,8 @@ class PDFOptions:
                  merge: bool = None,
                  sign_certificate: str = None,
                  sign_certificate_password: str = None,
+                 sign_certificate_field: str = None,
+                 sign_certificate_background_image: str = None,
                  identify_form_fields: bool = None,
                  split: bool = None,
                  remove_last_page: bool = None):
@@ -48,6 +51,7 @@ class PDFOptions:
             modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
             password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
+            lock_form_except_signaturefield (bool, optional): Locks / flattens the forms in the PDF except the signature fields. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.
             landscape (bool, optional): Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default). Defaults to None.
@@ -55,6 +59,8 @@ class PDFOptions:
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             sign_certificate_password (str, optional): It is possible to sign certificate with password.
+            sign_certificate_field (str, optional): The name of the already existing certificate field that you want to sign. Optional.
+            sign_certificate_background_image (str, optional): The certificate background image as a base64 string, URL, FTP location or a server path. Optional.
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
             remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
@@ -72,12 +78,15 @@ class PDFOptions:
         self.modify_password: str = modify_password
         self.password_protection_flag: int = password_protection_flag
         self.lock_form: bool = lock_form
+        self.lock_form_except_signaturefield: bool = lock_form_except_signaturefield
         self.copies: int = copies
         self.page_format: str = page_format
         self.merge: bool = merge
         self.page_margin: Union[int, dict] = page_margin
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
+        self.sign_certificate_field: str = sign_certificate_field
+        self.sign_certificate_background_image: str = sign_certificate_background_image
         self._landscape: bool = landscape
         self.identify_form_fields: bool = identify_form_fields
         self.split: bool = split
@@ -134,6 +143,8 @@ class PDFOptions:
             result["output_watermark_size"] = self.watermark_font_size
         if self.lock_form is not None:
             result["lock_form"] = self.lock_form
+        if self.lock_form_except_signaturefield is not None:
+            result["lock_form_except_signaturefield"] = self.lock_form_except_signaturefield
         if self.copies is not None:
             result["output_copies"] = self.copies
         if self.page_margin is not None:
@@ -154,6 +165,10 @@ class PDFOptions:
             result["output_sign_certificate"] = self.sign_certificate
         if self.sign_certificate_password is not None:
             result['output_sign_certificate_password'] = self.sign_certificate_password
+        if self.sign_certificate_field is not None:
+            result['output_sign_certificate_field'] = self.sign_certificate_field
+        if self.sign_certificate_background_image is not None:
+            result['output_sign_certificate_background_image'] = self.sign_certificate_background_image
         if self.identify_form_fields is not None:
             result["identify_form_fields"] = self.identify_form_fields
         if self.split is not None:
