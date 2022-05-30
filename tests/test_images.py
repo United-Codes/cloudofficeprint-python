@@ -13,7 +13,8 @@ def test_image():
         transparency=50,
         url='url',
         width=30,
-        height=25
+        height=25,
+        maintain_aspect_ratio=True,
     )
     image_expected = {
         'image1': 'url_source',
@@ -25,7 +26,8 @@ def test_image():
         'image1_transparency': 50,
         'image1_url': 'url',
         'image1_width': 30,
-        'image1_height': 25
+        'image1_height': 25,
+        'image1_maintain_aspect_ratio': True
     }
     assert image.as_dict == image_expected
 

@@ -16,7 +16,9 @@ class Image(Element):
                  transparency: Union[int, str]=None,
                  url: str=None,
                  width: Union[int, str]=None,
-                 height: Union[int, str]=None):
+                 height: Union[int, str]=None,
+                 maintain_aspect_ratio: bool=None
+                 ):
         """
         Args:
             name (str): The name of the image element.
@@ -35,6 +37,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
         """
         super().__init__(name)
         self.source: str = source
@@ -47,6 +51,7 @@ class Image(Element):
         self.url: str = url
         self.width: Union[int, str] = width
         self.height: Union[int, str] = height
+        self.maintain_aspect_ratio: bool = maintain_aspect_ratio
 
     @property
     def alt_text(self) -> str:
@@ -133,6 +138,8 @@ class Image(Element):
             result["_width"] = self.width
         if self.height is not None:
             result["_height"] = self.height
+        if self.maintain_aspect_ratio is not None:
+            result["_maintain_aspect_ratio"] = self.maintain_aspect_ratio
 
         return result
 
@@ -158,7 +165,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -> 'Image':
         """Generate an Image object from a local file.
 
@@ -179,6 +187,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a local file
@@ -195,6 +205,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -209,7 +220,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -> 'Image':
         """Generate an Image object from raw data.
 
@@ -230,6 +242,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from raw data
@@ -246,6 +260,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -260,7 +275,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -> 'Image':
         """Generate an Image object from a base64 string.
 
@@ -281,6 +297,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a base64 string
@@ -297,6 +315,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -311,7 +330,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -> 'Image':
         """Generate an Image object from a URL.
 
@@ -332,6 +352,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a URL
@@ -348,4 +370,5 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
