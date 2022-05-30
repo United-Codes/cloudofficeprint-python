@@ -96,6 +96,7 @@ from . import exceptions, config, elements, own_utils
 from .printjob import PrintJob
 from .resource import Resource
 from .response import Response
+from .response_polling import ResponsePolling
 
 # specify what is imported on "from cloudofficeprint import *"
 # but that shouldn't really be used anyway
@@ -106,5 +107,6 @@ __all__ = [
     "own_utils",
     "PrintJob",
     "Resource",
-    "Response"
+    "Response",
+    "ResponsePolling"
 ]

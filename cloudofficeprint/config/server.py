@@ -4,6 +4,8 @@ from typing import Mapping, Dict
 from urllib.parse import urljoin, urlparse, urlencode
 import json
 import datetime
+from ..response import Response
+from ..exceptions import COPError
 
 
 class Printer:
@@ -505,3 +507,59 @@ class Server:
             params["hash"] = template_hash
 
         return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, 'invalidate_template_hash'), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def is_processed(self, uid: str, secret_key: str = None) -> bool:
+        """Contact the server to see if the polled print job is processed.
+
+        Returns:
+            bool: whether the polled print job with the given id is processed.
+        """
+
+        params = {}
+        if secret_key is not None:
+            params["secretkey"] = secret_key
+
+        try:
+            res = requests.get(urljoin(self.url, f'download/{uid}'), params=params, proxies=self.config.proxies if self.config is not None else None)
+            if "message" in json.loads(res.text):
+                return False
+            return True
+        except Exception:
+            return True
+
+    def _raise_if_not_processed(self, uid: str, secret_key: str = None):
+        """Raise an error if the polled print job has not been processed.
+
+        Raises:
+            Exception: raise error if the polled print job has not been processed.
+        """
+        self._raise_if_unreachable()
+        if not self.is_processed(uid, secret_key):
+            raise Exception(
+                f"The print job with id {uid} has not been processed or the given id is wrong.")
+
+    def download(self, uid: str, secret_key: str = None, delete: bool = None) -> Response:
+        """Sends a GET request to server-url/download/reference_id.
+
+        Returns:
+            Response: The response of the polled print job with the given id.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if secret_key is not None:
+            params["secretkey"] = secret_key
+        if delete is not None:
+            params["delete_after_download"] = delete
+
+        res = requests.get(urljoin(self.url, f'download/{uid}'), params=params, proxies=self.config.proxies if self.config is not None else None)
+        try:
+            if "message" in json.loads(res.text):
+                raise Exception(f"The print job with id {uid} has not been processed or the given id is wrong.")
+        except json.JSONDecodeError:
+            pass
+
+        if res.status_code != 200:
+            raise COPError(res.text)
+        else:
+            return Response(res)

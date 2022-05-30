@@ -6,10 +6,12 @@ from cloudofficeprint.elements.rest_source import RESTSource
 import requests
 import asyncio
 import json
+import re
 
 from .config import OutputConfig, Server, Globalization
 from .exceptions import COPError
-from .response import Response
+from .response import IResponse, Response
+from .response_polling import ResponsePolling
 from .resource import Resource
 from .elements import Element, ElementCollection
 from typing import Union, List, Dict, Mapping
@@ -64,24 +66,26 @@ class PrintJob:
         self.globalization: Globalization = globalization
         self.cop_verbose: bool = cop_verbose
 
-    def execute(self) -> Response:
+    def execute(self) -> IResponse:
         """Execute this print job.
 
         Returns:
             Response: `Response`-object
         """
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={"Content-type": "application/json"}))
+        res = requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={"Content-type": "application/json"})
+        if self.output_config.polling:
+            return self._handle_response_polling(res, self.server)
+        return self._handle_response(res)
 
-    async def execute_async(self) -> Response:
+    async def execute_async(self) -> IResponse:
         """Async version of `PrintJob.execute`
 
         Returns:
             Response: `Response`-object
         """
         self.server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
+        res = await asyncio.get_event_loop().run_in_executor(
                 None, partial(
                     requests.post,
                     self.server.url,
@@ -89,10 +93,12 @@ class PrintJob:
                     json=self.as_dict
                 )
             )
-        )
+        if self.output_config.polling:
+            return self._handle_response_polling(res, self.server)
+        return self._handle_response(res)
 
     @staticmethod
-    def execute_full_json(json_data: str, server: Server) -> Response:
+    def execute_full_json(json_data: str, server: Server) -> IResponse:
         """If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
         Args:
@@ -103,10 +109,14 @@ class PrintJob:
             Response: `Response`-object
         """
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={"Content-type": "application/json"}))
+        res = requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={"Content-type": "application/json"})
+        _json = json.loads(json_data)
+        if "output_polling" in _json["output"] and _json["output"]["output_polling"]:
+            return PrintJob._handle_response_polling(res, server)
+        return PrintJob._handle_response(res)
 
     @staticmethod
-    async def execute_full_json_async(json_data: str, server: Server) -> Response:
+    async def execute_full_json_async(json_data: str, server: Server) -> IResponse:
         """Async version of `Printjob.execute_full_json`
 
         Args:
@@ -117,8 +127,7 @@ class PrintJob:
             Response: `Response`-object
         """
         server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
+        res = await asyncio.get_event_loop().run_in_executor(
                 None, partial(
                     requests.post,
                     server.url,
@@ -127,7 +136,12 @@ class PrintJob:
                     headers={"Content-type": "application/json"}
                 )
             )
-        )
+        _json = json.loads(json_data)
+        if "output_polling" in _json["output"] and _json["output"]["output_polling"]:
+            return PrintJob._handle_response_polling(res, server)
+        return PrintJob._handle_response(res)
+
+
 
     @staticmethod
     def _handle_response(res: requests.Response) -> Response:
@@ -146,6 +160,27 @@ class PrintJob:
             raise COPError(res.text)
         else:
             return Response(res)
+
+    @staticmethod
+    def _handle_response_polling(res: requests.Response, server: Server) -> ResponsePolling:
+        """Converts the HTML response to a `ResponsePolling`-object
+
+        Args:
+            res (requests.Response): HTML response from the Cloud Office Print server
+
+        Raises:
+            COPError: Error when the HTML status code is not 200
+
+        Returns:
+            ResponsePolling: `ResponsePolling`-object of HTML response
+        """
+        if res.status_code != 200:
+            raise COPError(res.text)
+        else:
+            url = json.loads(res.text)["url"]
+            uid = re.match("/download/([A-Za-z0-9]*)", url).group(1)
+            secret_key = re.match("/download/[A-Za-z0-9]*[?]secretkey=(.*)", url).group(1) if re.match("/download/[A-Za-z0-9]*[?]secretkey=(.*)", url) else None
+            return ResponsePolling(server, uid, secret_key)
 
     @property
     def json(self) -> str:

@@ -5,10 +5,78 @@ Module containing the Response class, which is also exposed at package level.
 import requests
 from .own_utils import type_utils
 from os.path import splitext
+from abc import ABC, abstractmethod
 
 
-class Response():
-    """The Response class serves as a container for and interface with the Cloud Office Print server's response to a printjob request.
+class IResponse(ABC):
+    """The IResponse class serves as a container for and interface with the Cloud Office Print server's response to a print job request.
+
+    The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
+    """
+
+    @property
+    @abstractmethod
+    def mimetype(self) -> str:
+        """Mime type of this response.
+
+        Returns:
+            str: mime type of this response
+        """
+        pass
+
+    @property
+    @abstractmethod
+    def filetype(self) -> str:
+        """File type (extension) of this response. E.g. "docx".
+
+        Returns:
+            str: file type of this response
+        """
+        pass
+
+    @property
+    @abstractmethod
+    def binary(self) -> bytes:
+        """Binary representation of the output file.
+
+        Response.to_file can be used to output to a file,
+        alternatively, use this property to do something else with the binary data.
+
+        Returns:
+            bytes: response file as binary
+        """
+        pass
+
+    @abstractmethod
+    def to_string(self) -> str:
+        """Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type 'count_tags').
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        """
+        pass
+
+    @abstractmethod
+    def to_file(self, path: str):
+        """Write the response to a file at the given path without extension.
+
+        If the given file path does not contain an extension,
+        the correct path is automatically added from the response data.
+        That is how this method is intended to be used.
+        You should only specify the extension in the path if you have some reason to specify the extension manually.
+
+        Args:
+            path (str): path without extension
+        """
+        pass
+
+
+class Response(IResponse):
+    """The Response class serves as a container for and interface with the Cloud Office Print server's response to a non-polled print job request.
 
     The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
     """
