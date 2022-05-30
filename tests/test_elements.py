@@ -1,4 +1,5 @@
 import cloudofficeprint as cop
+import base64
 
 
 def test_property():
@@ -297,6 +298,25 @@ def test_freeze_element():
     }
     assert freezeElement.as_dict == freezeElement_expected
 
+def test_insert():
+    insertElement1 = cop.elements.Insert(
+        name='insert_element_name',
+        value=cop.resource.Base64Resource("dummy base64 data", "docx")
+    )
+    insertElement_expected1 = {
+        'insert_element_name' : "dummy base64 data"
+    }
+    assert insertElement1.as_dict == insertElement_expected1
+
+    insertElement2 = cop.elements.Insert(
+        name='insert_element_name',
+        value=cop.resource.RawResource(bytes("dummy base64 data", "ascii"), "docx")
+    )
+    insertElement_expected2 = {
+        'insert_element_name': "ZHVtbXkgYmFzZTY0IGRhdGE="
+    }
+    assert insertElement2.as_dict == insertElement_expected2
+
 def run():
     test_property()
     test_cell_style_property_docx()
@@ -311,6 +331,7 @@ def run():
     test_text_box()
     test_element_collection()
     test_freeze_element()
+    test_insert()
     # COP charts get tested in test_charts.py
 
 

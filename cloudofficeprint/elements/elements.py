@@ -3,6 +3,7 @@ from copy import deepcopy
 from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 import pandas
+from ..resource import Resource, RawResource
 
 
 class CellStyle(ABC):
@@ -919,8 +920,8 @@ class Insert(Property):
          The documnet can be docx, pptx, xlsx, or pdf documents.
     """
 
-    def __init__(self, name: str, value: str):
-        super().__init__(name, value)
+    def __init__(self, name: str, value: Resource):
+        super().__init__(name, value.base64 if isinstance(value, RawResource) else value.data)
 
     @property
     def available_tags(self) -> FrozenSet[str]:
