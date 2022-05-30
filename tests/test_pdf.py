@@ -226,10 +226,77 @@ def test_cop_pdf_forms():
     assert form.as_dict == form_expected
 
 
+def test_pdf_form_text_box():
+    text_box = cop.elements.PDFFormTextBox(
+        name="surname",
+        value="Apex R&D",
+        width=100,
+        height=20,
+    )
+    text_box_expected = {
+        "surname": {
+            "type": "text",
+            "value": "Apex R&D",
+            "name": "surname",
+            "height": 20,
+            "width": 100
+        }
+    }
+    assert text_box.as_dict == text_box_expected
+
+
+def test_pdf_form_check_box():
+    check_box = cop.elements.PDFFormCheckBox(
+        name="Checkbox",
+        check=True,
+        text="Check?",
+        width=200,
+        height=20,
+    )
+    check_box_expected = {
+        "Checkbox": {
+            "type": "checkbox",
+            "name": "Checkbox",
+            "value": True,
+            "height": 20,
+            "width": 200,
+            "text": "Check?"
+        }
+    }
+    assert check_box.as_dict == check_box_expected
+
+
+def test_pdf_form_radio_button():
+    radio_button = cop.elements.PDFFormRadioButton(
+        name="a",
+        group="Radio",
+        value="A",
+        text="Option A",
+        selected=True,
+        width=200,
+        height=20,
+    )
+    radio_button_expected = {
+        "a": {
+            "type": "radio",
+            "name": "Radio",
+            "value": "A",
+            "height": 20,
+            "width": 200,
+            "text": "Option A",
+            "selected": True
+        }
+    }
+    assert radio_button.as_dict == radio_button_expected
+
+
 def run():
     test_cop_pdf_texts()
     test_cop_pdf_images()
     test_cop_pdf_forms()
+    test_pdf_form_text_box()
+    test_pdf_form_check_box()
+    test_pdf_form_radio_button()
 
 
 if __name__ == '__main__':

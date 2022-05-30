@@ -242,3 +242,178 @@ class PDFFormData(Element):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset()
+
+
+class PDFFormElement(Element):
+    """
+    Abstract base class for PDF form elements.
+    """
+    def __init__(self,
+                 name: str,
+                 width: int = None,
+                 height: int = None,
+                 ):
+        """
+        Args:
+            name (str): The name for this element.
+            width (int): The width in px. Optional.
+            height (int): The height in px. Optional.
+        """
+        super().__init__(name)
+        self.width: int = width
+        self.height: int = height
+
+    @property
+    @abstractmethod
+    def type(self) -> str:
+        """ Type of this PDF form element.
+
+        Returns:
+            The type of this PDF form element.
+        """
+        pass
+
+    @property
+    def _inner_dict(self) -> Dict:
+        """ Inner dict of this PDF form element.
+
+        Returns:
+            The inner dict of this PDF form element.
+        """
+        result = {
+            "name": self.name,
+            "type": self.type,
+        }
+
+        if self.width is not None:
+            result['width'] = self.width
+        if self.height is not None:
+            result['height'] = self.height
+
+        return result
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?form " + self.name + "}"})
+
+
+class PDFFormTextBox(PDFFormElement):
+    """
+    Class for a PDF form text box element.
+    """
+    def __init__(self,
+                 name: str,
+                 value: str = None,
+                 width: int = None,
+                 height: int = None,
+                 ):
+        """
+        Args:
+            name (str): The name for this element.
+            value (str): The value for this text box. Optional
+            width (int): The width in px. Optional.
+            height (int): The height in px. Optional.
+        """
+        super().__init__(name, width, height)
+        self.value: str = value
+
+    @property
+    def type(self) -> str:
+        return "text"
+
+    @property
+    def as_dict(self) -> Dict:
+        result = super()._inner_dict
+
+        if self.value is not None:
+            result['value'] = self.value
+
+        return {self.name: result}
+
+
+class PDFFormCheckBox(PDFFormElement):
+    """
+        Class for a PDF form checkbox element.
+    """
+    def __init__(self,
+                 name: str,
+                 check: bool = None,
+                 text: str = None,
+                 width: int = None,
+                 height: int = None,
+                 ):
+        """
+        Args:
+            name (str): The name for this element.
+            check (str): Whether the checkbox is checked. Optional.
+            width (int): The width in px. Optional.
+            height (int): The height in px. Optional.
+        """
+        super().__init__(name, width, height)
+        self.check: bool = check
+        self.text: str = text
+
+    @property
+    def type(self) -> str:
+        return "checkbox"
+
+    @property
+    def as_dict(self) -> Dict:
+        result = super()._inner_dict
+
+        if self.check is not None:
+            result['value'] = self.check
+        if self.text is not None:
+            result['text'] = self.text
+
+        return {self.name: result}
+
+
+class PDFFormRadioButton(PDFFormElement):
+    """
+        Class for a PDF form radio button element.
+    """
+    def __init__(self,
+                 name: str,
+                 group: str = None,
+                 value: str = None,
+                 text: str = None,
+                 selected: bool = None,
+                 width: int = None,
+                 height: int = None,
+                 ):
+        """
+        Args:
+            name (str): The name for this element.
+            group (str): name of radio buttons that are interconnected. Optional.
+            value (str): The value of this radio button. Optional
+            text (str): The text used as label for the radio button. Optional
+            selected (bool): Whether the radio button is selected. Optional
+            width (int): The width in px. Optional.
+            height (int): The height in px. Optional.
+        """
+        super().__init__(name, width, height)
+        self.group: str = group
+        self.value: str = value
+        self.text: str = text
+        self.selected: bool = selected
+
+    @property
+    def type(self) -> str:
+        return "radio"
+
+    @property
+    def as_dict(self) -> Dict:
+        result = super()._inner_dict
+
+        if self.group is not None:
+            result['name'] = self.group
+        if self.value is not None:
+            result['value'] = self.value
+        if self.text is not None:
+            result['text'] = self.text
+        if self.selected is not None:
+            result['selected'] = self.selected
+
+        return {self.name: result}
+
