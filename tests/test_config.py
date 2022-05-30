@@ -238,6 +238,41 @@ def test_request_option():
     assert output.as_dict == output_expected
 
 
+def test_globalization():
+    """Test Globalization"""
+    globalization = cop.config.Globalization(
+        date_format="DD-MON-YYYY",
+        date_time_format="DD-MON-YYYY HH24:MI",
+        timestamp_format="DD-MON-YYYY",
+        timestamp_tz_format="DD-MON-YYYY",
+        direction="ltr",
+        application_primary_language="en",
+        native_language_support=cop.config.NativeLanguageSupport(
+            sort="BINARY",
+            comp="BINARY",
+            numeric_characters_dec_grp=".,",
+            currency="$",
+            territory="AMERICA",
+            language="AMERICAN",
+        )
+    )
+    globalization_expected = {
+        "date_format": "DD-MON-YYYY",
+        "date_time_format": "DD-MON-YYYY HH24:MI",
+        "timestamp_format": "DD-MON-YYYY",
+        "timestamp_tz_format": "DD-MON-YYYY",
+        "nls_sort": "BINARY",
+        "nls_comp": "BINARY",
+        "nls_numeric_characters_dec_grp": ".,",
+        "nls_currency": "$",
+        "nls_territory": "AMERICA",
+        "nls_language": "AMERICAN",
+        "direction": "ltr",
+        "application_primary_language": "en"
+    }
+    assert globalization.as_dict == globalization_expected
+
+
 def test_route_paths():
     """Test output types of route path functions"""
     assert type(server.get_version_soffice()) == str
@@ -257,6 +292,7 @@ def run():
     test_commands()
     test_route_paths()
     test_request_option()
+    test_globalization()
 
 
 if __name__ == '__main__':

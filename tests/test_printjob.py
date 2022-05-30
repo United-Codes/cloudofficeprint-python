@@ -25,6 +25,23 @@ def test_printjob():
 
     output_conf = cop.config.OutputConfig(filetype='pdf')
 
+    globalization = cop.config.Globalization(
+        date_format="DD-MON-YYYY",
+        date_time_format="DD-MON-YYYY HH24:MI",
+        timestamp_format="DD-MON-YYYY",
+        timestamp_tz_format="DD-MON-YYYY",
+        direction="ltr",
+        application_primary_language="en",
+        native_language_support=cop.config.NativeLanguageSupport(
+            sort="BINARY",
+            comp="BINARY",
+            numeric_characters_dec_grp=".,",
+            currency="$",
+            territory="AMERICA",
+            language="AMERICAN",
+        )
+    )
+
     printjob = cop.PrintJob(
         data=data,
         server=server,
@@ -32,7 +49,9 @@ def test_printjob():
         output_config=output_conf,
         subtemplates=subtemplates,
         prepend_files=[prepend_file],
-        append_files=[append_file])
+        append_files=[append_file],
+        globalization=globalization
+    )
     printjob_expected = {
         'api_key': server.config.api_key,
         'append_files': [
@@ -78,6 +97,22 @@ def test_printjob():
                 'file_source': 'base64',
                 'mime_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 'name': 'sub2'
+            }
+        ],
+        'globalization': [
+            {
+                "date_format": "DD-MON-YYYY",
+                "date_time_format": "DD-MON-YYYY HH24:MI",
+                "timestamp_format": "DD-MON-YYYY",
+                "timestamp_tz_format": "DD-MON-YYYY",
+                "nls_sort": "BINARY",
+                "nls_comp": "BINARY",
+                "nls_numeric_characters_dec_grp": ".,",
+                "nls_currency": "$",
+                "nls_territory": "AMERICA",
+                "nls_language": "AMERICAN",
+                "direction": "ltr",
+                "application_primary_language": "en"
             }
         ],
         'python_sdk_version': cop.printjob.STATIC_OPTS['python_sdk_version']

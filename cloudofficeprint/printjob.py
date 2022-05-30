@@ -6,7 +6,8 @@ from cloudofficeprint.elements.rest_source import RESTSource
 import requests
 import asyncio
 import json
-from .config import OutputConfig, Server
+
+from .config import OutputConfig, Server, Globalization
 from .exceptions import COPError
 from .response import Response
 from .resource import Resource
@@ -38,6 +39,7 @@ class PrintJob:
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
                  append_files: List[Resource] = [],
+                 globalization: Globalization = Globalization(),
                  cop_verbose: bool = False):
         """
         Args:
@@ -48,6 +50,7 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            globalization (Globalization): Globalization options to be used for this print job. Defaults to `Globalization()`.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         """
 
@@ -58,6 +61,7 @@ class PrintJob:
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.globalization: Globalization = globalization
         self.cop_verbose: bool = cop_verbose
 
     def execute(self) -> Response:
@@ -209,6 +213,8 @@ class PrintJob:
                 to_add["name"] = name
                 templates_list.append(to_add)
             result["templates"] = templates_list
+
+        result["globalization"] = [self.globalization.as_dict]
 
         # If verbose mode is activated, print the result to the terminal
         if self.cop_verbose:
