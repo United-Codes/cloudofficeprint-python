@@ -1,8 +1,9 @@
 import logging
 import requests
 from typing import Mapping, Dict
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlencode
 import json
+import datetime
 
 
 class Printer:
@@ -198,6 +199,69 @@ class ServerConfig:
         return result
 
 
+class ResponseTemplateHash:
+    """Class for a response of the route paths concerning template hash of the Cloud Office Print server.
+    This class is returned by the following functions of Server: verify_template_hash(), renew_template_hash()
+    and invalidate_template_hash().
+    """
+
+    def __init__(self,
+                 template_hash: str,
+                 valid: bool,
+                 status: str,
+                 expiry_date_time: str = None,
+                 expiry_time_remaining: str = None,
+                 iso_expiry_date_time: datetime = None,
+                 ms_expiry_time_remaining: int = None,
+                 ):
+        """
+        Args:
+            template_hash (str): The template hash.
+            valid (bool): Whether the template hash is valid.
+            status (str): The status of the template hash.
+            expiry_date_time (str): The expiry date time of the template hash. Defaults to None.
+            expiry_time_remaining (str): The remaining expiry date time of the template hash. Defaults to None.
+            iso_expiry_date_time (datetime): The expiry date time of the template hash in ISO format. Defaults to None.
+            ms_expiry_time_remaining (int): The remaining expiry time in milliseconds. Defaults to None.
+        """
+        self.template_hash: str = template_hash
+        self.valid: bool = valid
+        self.status: str = status
+        self.expiry_date_time: str = expiry_date_time
+        self.expiry_time_remaining: str = expiry_time_remaining
+        self.iso_expiry_date_time: datetime = iso_expiry_date_time
+        self.ms_expiry_time_remaining: int = ms_expiry_time_remaining
+
+    @staticmethod
+    def from_response(response: str) -> "ResponseTemplateHash":
+        """Creates a new ResponseTemplateHash from an HTTP response body of the Cloud Office Print server.
+
+        Args:
+            response: The body of the HTTP response body of the Cloud Office Print server.
+
+        Returns:
+            ResponseTemplateHash: The ResponseTemplateHash containing the response of the Cloud Office Print server.
+        """
+        res = json.loads(response)
+        result = ResponseTemplateHash(
+            template_hash=res["hash"],
+            valid=res["valid"],
+            status=res["status"],
+        )
+        if "expiry_date_time" in res:
+            result.expiry_date_time = res["expiry_date_time"]
+        if "expiry_time_remaining" in res:
+            result.expiry_time_remaining = res["expiry_time_remaining"]
+        if "new_expiry_date_time" in res:
+            result.expiry_date_time = res["new_expiry_date_time"]
+        if "iso_expiry_date_time" in res:
+            result.iso_expiry_date_time = datetime.strptime(res["iso_expiry_date_time"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        if "ms_expiry_time_remaining" in res:
+            result.ms_expiry_time_remaining = res["ms_expiry_time_remaining"]
+
+        return result
+
+
 class Server:
     """This config class is used to specify the Cloud Office Print server to interact with."""
 
@@ -337,3 +401,45 @@ class Server:
         """
         self._raise_if_unreachable()
         return requests.get(urljoin(self.url, 'version'), proxies=self.config.proxies if self.config is not None else None).text
+
+    def verify_template_hash(self, template_hash: str = None) -> ResponseTemplateHash:
+        """Sends a GET request to server-url/verify_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the verified template hash on the Cloud Office Print server.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params["hash"] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, 'verify_template_hash'), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def renew_template_hash(self, template_hash: str = None) -> ResponseTemplateHash:
+        """Sends a GET request to server-url/renew_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the renewed template hash on the Cloud Office Print server.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params["hash"] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, 'renew_template_hash'), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def invalidate_template_hash(self, template_hash: str = None) -> ResponseTemplateHash:
+        """Sends a GET request to server-url/invalidate_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the invalidated template hash on the Cloud Office Print server.
+        """
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params["hash"] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, 'invalidate_template_hash'), params=params, proxies=self.config.proxies if self.config is not None else None).text)
