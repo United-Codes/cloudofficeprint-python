@@ -4,6 +4,8 @@ from typing import Mapping, Dict
 from urllib.parse import urljoin, urlparse, urlencode
 import json
 import datetime
+
+from ..own_utils import type_utils
 from ..response import Response
 from ..exceptions import COPError
 
@@ -519,13 +521,9 @@ class Server:
         if secret_key is not None:
             params["secretkey"] = secret_key
 
-        try:
-            res = requests.get(urljoin(self.url, f'download/{uid}'), params=params, proxies=self.config.proxies if self.config is not None else None)
-            if "message" in json.loads(res.text):
-                return False
-            return True
-        except Exception:
-            return True
+        res = requests.get(urljoin(self.url, f'download/{uid}'), params=params, proxies=self.config.proxies if self.config is not None else None)
+        mimetype = res.headers["Content-Type"]
+        return mimetype.split(';')[0] != "application/json"
 
     def _raise_if_not_processed(self, uid: str, secret_key: str = None):
         """Raise an error if the polled print job has not been processed.
@@ -553,11 +551,9 @@ class Server:
             params["delete_after_download"] = delete
 
         res = requests.get(urljoin(self.url, f'download/{uid}'), params=params, proxies=self.config.proxies if self.config is not None else None)
-        try:
-            if "message" in json.loads(res.text):
-                raise Exception(f"The print job with id {uid} has not been processed or the given id is wrong.")
-        except json.JSONDecodeError:
-            pass
+        mimetype = res.headers["Content-Type"]
+        if mimetype.split(';')[0] == "application/json":
+            raise Exception(f"The Cloud Office Print server responded with the following json:\n{res.text}")
 
         if res.status_code != 200:
             raise COPError(res.text)
