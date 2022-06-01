@@ -22,7 +22,7 @@ from pprint import pprint
 STATIC_OPTS = {
     "tool": "python",
     # "version": "18.2", # optional: version of Cloud Office Print JSON format
-    "python_sdk_version": "21.2.0",
+    "python_sdk_version": "22.1.0",
 }
 
 
