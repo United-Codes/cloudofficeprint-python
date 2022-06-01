@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>cloudofficeprint.config.globalization API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>cloudofficeprint.config.globalization</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import Dict, List, Mapping
+
+
+class NativeLanguageSupport:
+    &#34;&#34;&#34;Class for optional native language support options.
+    All of them are optional, which is why passing an instance of this class
+    in a Globalization object is also optional.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 sort: str = None,
+                 comp: str = None,
+                 numeric_characters_dec_grp: str = None,
+                 currency: str = None,
+                 territory: str = None,
+                 language: str = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            sort (str): the native language support sort. Defaults to None.
+            comp (str): the native language support comp. Defaults to None.
+            numeric_characters_dec_grp (str): the native language support numeric characters decimal group. Defaults to None.
+            currency (str): the native language support currency. Defaults to None.
+            territory (str): the native language support territory. Defaults to None.
+            language (str): the native language support language. Defaults to None.
+        &#34;&#34;&#34;
+        self.sort: str = sort
+        self.comp: str = comp
+        self.numeric_characters_dec_grp: str = numeric_characters_dec_grp
+        self.currency: str = currency
+        self.territory: str = territory
+        self.language: str = language
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;The dict representation of these native language support options.
+
+                Returns:
+                    Dict: the dict representation of these native language support options.
+                &#34;&#34;&#34;
+        result = {}
+
+        if self.sort is not None:
+            result[&#34;nls_sort&#34;] = self.sort
+        if self.comp is not None:
+            result[&#34;nls_comp&#34;] = self.comp
+        if self.numeric_characters_dec_grp is not None:
+            result[&#34;nls_numeric_characters_dec_grp&#34;] = self.numeric_characters_dec_grp
+        if self.currency is not None:
+            result[&#34;nls_currency&#34;] = self.currency
+        if self.territory is not None:
+            result[&#34;nls_territory&#34;] = self.territory
+        if self.language is not None:
+            result[&#34;nls_language&#34;] = self.language
+
+        return result
+
+
+class Globalization:
+    &#34;&#34;&#34;Class for optional globalization options.
+    The properties of this class define all possible globalization options.
+    All of them are optional, which is why passing an instance of this class
+    in an PrintJob is also optional.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 date_format: str = None,
+                 date_time_format: str = None,
+                 timestamp_format: str = None,
+                 timestamp_tz_format: str = None,
+                 direction: str = None,
+                 application_primary_language: str = None,
+                 native_language_support: NativeLanguageSupport = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            date_format (str): The date format. Defaults to None.
+            date_time_format (str): The date time format. Defaults to None.
+            timestamp_format (str): The timestamp format. Defaults to None.
+            timestamp_tz_format (str): The timestamp tz format. Defaults to None.
+            direction (str): The direction. Defaults to None.
+            application_primary_language (str): The application primary language. Defaults to None.
+            native_language_support (NativeLanguageSupport): The native language support options. Defaults to None.
+        &#34;&#34;&#34;
+        self.date_format: str = date_format
+        self.date_time_format: str = date_time_format
+        self.timestamp_format: str = timestamp_format
+        self.timestamp_tz_format: str = timestamp_tz_format
+        self.direction: str = direction
+        self.application_primary_language: str = application_primary_language
+        self.native_language_support: NativeLanguageSupport = native_language_support
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;The dict representation of these globalization options.
+
+                Returns:
+                    Dict: the dict representation of these globalization options.
+                &#34;&#34;&#34;
+        result = {}
+
+        if self.date_format is not None:
+            result[&#34;date_format&#34;] = self.date_format
+        if self.date_time_format is not None:
+            result[&#34;date_time_format&#34;] = self.date_time_format
+        if self.timestamp_format is not None:
+            result[&#34;timestamp_format&#34;] = self.timestamp_format
+        if self.timestamp_tz_format is not None:
+            result[&#34;timestamp_tz_format&#34;] = self.timestamp_tz_format
+        if self.direction is not None:
+            result[&#34;direction&#34;] = self.direction
+        if self.application_primary_language is not None:
+            result[&#34;application_primary_language&#34;] = self.application_primary_language
+        if self.native_language_support is not None:
+            result.update(self.native_language_support.as_dict)
+
+        return result</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="cloudofficeprint.config.globalization.Globalization"><code class="flex name class">
+<span>class <span class="ident">Globalization</span></span>
+<span>(</span><span>date_format: str = None, date_time_format: str = None, timestamp_format: str = None, timestamp_tz_format: str = None, direction: str = None, application_primary_language: str = None, native_language_support: <a title="cloudofficeprint.config.globalization.NativeLanguageSupport" href="#cloudofficeprint.config.globalization.NativeLanguageSupport">NativeLanguageSupport</a> = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for optional globalization options.
+The properties of this class define all possible globalization options.
+All of them are optional, which is why passing an instance of this class
+in an PrintJob is also optional.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>date_format</code></strong> :&ensp;<code>str</code></dt>
+<dd>The date format. Defaults to None.</dd>
+<dt><strong><code>date_time_format</code></strong> :&ensp;<code>str</code></dt>
+<dd>The date time format. Defaults to None.</dd>
+<dt><strong><code>timestamp_format</code></strong> :&ensp;<code>str</code></dt>
+<dd>The timestamp format. Defaults to None.</dd>
+<dt><strong><code>timestamp_tz_format</code></strong> :&ensp;<code>str</code></dt>
+<dd>The timestamp tz format. Defaults to None.</dd>
+<dt><strong><code>direction</code></strong> :&ensp;<code>str</code></dt>
+<dd>The direction. Defaults to None.</dd>
+<dt><strong><code>application_primary_language</code></strong> :&ensp;<code>str</code></dt>
+<dd>The application primary language. Defaults to None.</dd>
+<dt><strong><code>native_language_support</code></strong> :&ensp;<code><a title="cloudofficeprint.config.globalization.NativeLanguageSupport" href="#cloudofficeprint.config.globalization.NativeLanguageSupport">NativeLanguageSupport</a></code></dt>
+<dd>The native language support options. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Globalization:
+    &#34;&#34;&#34;Class for optional globalization options.
+    The properties of this class define all possible globalization options.
+    All of them are optional, which is why passing an instance of this class
+    in an PrintJob is also optional.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 date_format: str = None,
+                 date_time_format: str = None,
+                 timestamp_format: str = None,
+                 timestamp_tz_format: str = None,
+                 direction: str = None,
+                 application_primary_language: str = None,
+                 native_language_support: NativeLanguageSupport = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            date_format (str): The date format. Defaults to None.
+            date_time_format (str): The date time format. Defaults to None.
+            timestamp_format (str): The timestamp format. Defaults to None.
+            timestamp_tz_format (str): The timestamp tz format. Defaults to None.
+            direction (str): The direction. Defaults to None.
+            application_primary_language (str): The application primary language. Defaults to None.
+            native_language_support (NativeLanguageSupport): The native language support options. Defaults to None.
+        &#34;&#34;&#34;
+        self.date_format: str = date_format
+        self.date_time_format: str = date_time_format
+        self.timestamp_format: str = timestamp_format
+        self.timestamp_tz_format: str = timestamp_tz_format
+        self.direction: str = direction
+        self.application_primary_language: str = application_primary_language
+        self.native_language_support: NativeLanguageSupport = native_language_support
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;The dict representation of these globalization options.
+
+                Returns:
+                    Dict: the dict representation of these globalization options.
+                &#34;&#34;&#34;
+        result = {}
+
+        if self.date_format is not None:
+            result[&#34;date_format&#34;] = self.date_format
+        if self.date_time_format is not None:
+            result[&#34;date_time_format&#34;] = self.date_time_format
+        if self.timestamp_format is not None:
+            result[&#34;timestamp_format&#34;] = self.timestamp_format
+        if self.timestamp_tz_format is not None:
+            result[&#34;timestamp_tz_format&#34;] = self.timestamp_tz_format
+        if self.direction is not None:
+            result[&#34;direction&#34;] = self.direction
+        if self.application_primary_language is not None:
+            result[&#34;application_primary_language&#34;] = self.application_primary_language
+        if self.native_language_support is not None:
+            result.update(self.native_language_support.as_dict)
+
+        return result</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="cloudofficeprint.config.globalization.Globalization.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dd>
+<div class="desc"><p>The dict representation of these globalization options.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>the dict representation of these globalization options.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_dict(self) -&gt; Dict:
+    &#34;&#34;&#34;The dict representation of these globalization options.
+
+            Returns:
+                Dict: the dict representation of these globalization options.
+            &#34;&#34;&#34;
+    result = {}
+
+    if self.date_format is not None:
+        result[&#34;date_format&#34;] = self.date_format
+    if self.date_time_format is not None:
+        result[&#34;date_time_format&#34;] = self.date_time_format
+    if self.timestamp_format is not None:
+        result[&#34;timestamp_format&#34;] = self.timestamp_format
+    if self.timestamp_tz_format is not None:
+        result[&#34;timestamp_tz_format&#34;] = self.timestamp_tz_format
+    if self.direction is not None:
+        result[&#34;direction&#34;] = self.direction
+    if self.application_primary_language is not None:
+        result[&#34;application_primary_language&#34;] = self.application_primary_language
+    if self.native_language_support is not None:
+        result.update(self.native_language_support.as_dict)
+
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="cloudofficeprint.config.globalization.NativeLanguageSupport"><code class="flex name class">
+<span>class <span class="ident">NativeLanguageSupport</span></span>
+<span>(</span><span>sort: str = None, comp: str = None, numeric_characters_dec_grp: str = None, currency: str = None, territory: str = None, language: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for optional native language support options.
+All of them are optional, which is why passing an instance of this class
+in a Globalization object is also optional.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sort</code></strong> :&ensp;<code>str</code></dt>
+<dd>the native language support sort. Defaults to None.</dd>
+<dt><strong><code>comp</code></strong> :&ensp;<code>str</code></dt>
+<dd>the native language support comp. Defaults to None.</dd>
+<dt><strong><code>numeric_characters_dec_grp</code></strong> :&ensp;<code>str</code></dt>
+<dd>the native language support numeric characters decimal group. Defaults to None.</dd>
+<dt><strong><code>currency</code></strong> :&ensp;<code>str</code></dt>
+<dd>the native language support currency. Defaults to None.</dd>
+<dt><strong><code>territory</code></strong> :&ensp;<code>str</code></dt>
+<dd>the native language support territory. Defaults to None.</dd>
+<dt><strong><code>language</code></strong> :&ensp;<code>str</code></dt>
+<dd>the native language support language. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NativeLanguageSupport:
+    &#34;&#34;&#34;Class for optional native language support options.
+    All of them are optional, which is why passing an instance of this class
+    in a Globalization object is also optional.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 sort: str = None,
+                 comp: str = None,
+                 numeric_characters_dec_grp: str = None,
+                 currency: str = None,
+                 territory: str = None,
+                 language: str = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            sort (str): the native language support sort. Defaults to None.
+            comp (str): the native language support comp. Defaults to None.
+            numeric_characters_dec_grp (str): the native language support numeric characters decimal group. Defaults to None.
+            currency (str): the native language support currency. Defaults to None.
+            territory (str): the native language support territory. Defaults to None.
+            language (str): the native language support language. Defaults to None.
+        &#34;&#34;&#34;
+        self.sort: str = sort
+        self.comp: str = comp
+        self.numeric_characters_dec_grp: str = numeric_characters_dec_grp
+        self.currency: str = currency
+        self.territory: str = territory
+        self.language: str = language
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;The dict representation of these native language support options.
+
+                Returns:
+                    Dict: the dict representation of these native language support options.
+                &#34;&#34;&#34;
+        result = {}
+
+        if self.sort is not None:
+            result[&#34;nls_sort&#34;] = self.sort
+        if self.comp is not None:
+            result[&#34;nls_comp&#34;] = self.comp
+        if self.numeric_characters_dec_grp is not None:
+            result[&#34;nls_numeric_characters_dec_grp&#34;] = self.numeric_characters_dec_grp
+        if self.currency is not None:
+            result[&#34;nls_currency&#34;] = self.currency
+        if self.territory is not None:
+            result[&#34;nls_territory&#34;] = self.territory
+        if self.language is not None:
+            result[&#34;nls_language&#34;] = self.language
+
+        return result</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="cloudofficeprint.config.globalization.NativeLanguageSupport.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dd>
+<div class="desc"><p>The dict representation of these native language support options.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>the dict representation of these native language support options.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_dict(self) -&gt; Dict:
+    &#34;&#34;&#34;The dict representation of these native language support options.
+
+            Returns:
+                Dict: the dict representation of these native language support options.
+            &#34;&#34;&#34;
+    result = {}
+
+    if self.sort is not None:
+        result[&#34;nls_sort&#34;] = self.sort
+    if self.comp is not None:
+        result[&#34;nls_comp&#34;] = self.comp
+    if self.numeric_characters_dec_grp is not None:
+        result[&#34;nls_numeric_characters_dec_grp&#34;] = self.numeric_characters_dec_grp
+    if self.currency is not None:
+        result[&#34;nls_currency&#34;] = self.currency
+    if self.territory is not None:
+        result[&#34;nls_territory&#34;] = self.territory
+    if self.language is not None:
+        result[&#34;nls_language&#34;] = self.language
+
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cloudofficeprint.config" href="index.html">cloudofficeprint.config</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="cloudofficeprint.config.globalization.Globalization" href="#cloudofficeprint.config.globalization.Globalization">Globalization</a></code></h4>
+<ul class="">
+<li><code><a title="cloudofficeprint.config.globalization.Globalization.as_dict" href="#cloudofficeprint.config.globalization.Globalization.as_dict">as_dict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.config.globalization.NativeLanguageSupport" href="#cloudofficeprint.config.globalization.NativeLanguageSupport">NativeLanguageSupport</a></code></h4>
+<ul class="">
+<li><code><a title="cloudofficeprint.config.globalization.NativeLanguageSupport.as_dict" href="#cloudofficeprint.config.globalization.NativeLanguageSupport.as_dict">as_dict</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
