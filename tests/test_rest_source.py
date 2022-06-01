@@ -79,7 +79,8 @@ def test_rest_source_printjob():
                 'headers': [{"Content-Type": "application/json"}],
                 'auth': 'username:password'
             }
-        ]
+        ],
+        'globalization': [{}]
     }
     assert pj.as_dict == pj_expected
 
