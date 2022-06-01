@@ -34,10 +34,78 @@ Module containing the Response class, which is also exposed at package level.
 import requests
 from .own_utils import type_utils
 from os.path import splitext
+from abc import ABC, abstractmethod
 
 
-class Response():
-    &#34;&#34;&#34;The Response class serves as a container for and interface with the Cloud Office Print server&#39;s response to a printjob request.
+class IResponse(ABC):
+    &#34;&#34;&#34;The IResponse class serves as a container for and interface with the Cloud Office Print server&#39;s response to a print job request.
+
+    The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
+    &#34;&#34;&#34;
+
+    @property
+    @abstractmethod
+    def mimetype(self) -&gt; str:
+        &#34;&#34;&#34;Mime type of this response.
+
+        Returns:
+            str: mime type of this response
+        &#34;&#34;&#34;
+        pass
+
+    @property
+    @abstractmethod
+    def filetype(self) -&gt; str:
+        &#34;&#34;&#34;File type (extension) of this response. E.g. &#34;docx&#34;.
+
+        Returns:
+            str: file type of this response
+        &#34;&#34;&#34;
+        pass
+
+    @property
+    @abstractmethod
+    def binary(self) -&gt; bytes:
+        &#34;&#34;&#34;Binary representation of the output file.
+
+        Response.to_file can be used to output to a file,
+        alternatively, use this property to do something else with the binary data.
+
+        Returns:
+            bytes: response file as binary
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def to_file(self, path: str):
+        &#34;&#34;&#34;Write the response to a file at the given path without extension.
+
+        If the given file path does not contain an extension,
+        the correct path is automatically added from the response data.
+        That is how this method is intended to be used.
+        You should only specify the extension in the path if you have some reason to specify the extension manually.
+
+        Args:
+            path (str): path without extension
+        &#34;&#34;&#34;
+        pass
+
+
+class Response(IResponse):
+    &#34;&#34;&#34;The Response class serves as a container for and interface with the Cloud Office Print server&#39;s response to a non-polled print job request.
 
     The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
     &#34;&#34;&#34;
@@ -129,12 +197,245 @@ class Response():
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
+<dt id="cloudofficeprint.response.IResponse"><code class="flex name class">
+<span>class <span class="ident">IResponse</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The IResponse class serves as a container for and interface with the Cloud Office Print server's response to a print job request.</p>
+<p>The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IResponse(ABC):
+    &#34;&#34;&#34;The IResponse class serves as a container for and interface with the Cloud Office Print server&#39;s response to a print job request.
+
+    The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
+    &#34;&#34;&#34;
+
+    @property
+    @abstractmethod
+    def mimetype(self) -&gt; str:
+        &#34;&#34;&#34;Mime type of this response.
+
+        Returns:
+            str: mime type of this response
+        &#34;&#34;&#34;
+        pass
+
+    @property
+    @abstractmethod
+    def filetype(self) -&gt; str:
+        &#34;&#34;&#34;File type (extension) of this response. E.g. &#34;docx&#34;.
+
+        Returns:
+            str: file type of this response
+        &#34;&#34;&#34;
+        pass
+
+    @property
+    @abstractmethod
+    def binary(self) -&gt; bytes:
+        &#34;&#34;&#34;Binary representation of the output file.
+
+        Response.to_file can be used to output to a file,
+        alternatively, use this property to do something else with the binary data.
+
+        Returns:
+            bytes: response file as binary
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Return the string representation of this buffer.
+        Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+        Raises:
+            err: raise error is bytes cannot be decoded in utf-8
+
+        Returns:
+            str: string representation of this buffer
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def to_file(self, path: str):
+        &#34;&#34;&#34;Write the response to a file at the given path without extension.
+
+        If the given file path does not contain an extension,
+        the correct path is automatically added from the response data.
+        That is how this method is intended to be used.
+        You should only specify the extension in the path if you have some reason to specify the extension manually.
+
+        Args:
+            path (str): path without extension
+        &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.response.Response" href="#cloudofficeprint.response.Response">Response</a></li>
+<li><a title="cloudofficeprint.response_polling.ResponsePolling" href="response_polling.html#cloudofficeprint.response_polling.ResponsePolling">ResponsePolling</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="cloudofficeprint.response.IResponse.binary"><code class="name">var <span class="ident">binary</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Binary representation of the output file.</p>
+<p>Response.to_file can be used to output to a file,
+alternatively, use this property to do something else with the binary data.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bytes</code></dt>
+<dd>response file as binary</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def binary(self) -&gt; bytes:
+    &#34;&#34;&#34;Binary representation of the output file.
+
+    Response.to_file can be used to output to a file,
+    alternatively, use this property to do something else with the binary data.
+
+    Returns:
+        bytes: response file as binary
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.response.IResponse.filetype"><code class="name">var <span class="ident">filetype</span> : str</code></dt>
+<dd>
+<div class="desc"><p>File type (extension) of this response. E.g. "docx".</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>file type of this response</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def filetype(self) -&gt; str:
+    &#34;&#34;&#34;File type (extension) of this response. E.g. &#34;docx&#34;.
+
+    Returns:
+        str: file type of this response
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.response.IResponse.mimetype"><code class="name">var <span class="ident">mimetype</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Mime type of this response.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>mime type of this response</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def mimetype(self) -&gt; str:
+    &#34;&#34;&#34;Mime type of this response.
+
+    Returns:
+        str: mime type of this response
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="cloudofficeprint.response.IResponse.to_file"><code class="name flex">
+<span>def <span class="ident">to_file</span></span>(<span>self, path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Write the response to a file at the given path without extension.</p>
+<p>If the given file path does not contain an extension,
+the correct path is automatically added from the response data.
+That is how this method is intended to be used.
+You should only specify the extension in the path if you have some reason to specify the extension manually.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>path without extension</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def to_file(self, path: str):
+    &#34;&#34;&#34;Write the response to a file at the given path without extension.
+
+    If the given file path does not contain an extension,
+    the correct path is automatically added from the response data.
+    That is how this method is intended to be used.
+    You should only specify the extension in the path if you have some reason to specify the extension manually.
+
+    Args:
+        path (str): path without extension
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.response.IResponse.to_string"><code class="name flex">
+<span>def <span class="ident">to_string</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the string representation of this buffer.
+Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>err</code></dt>
+<dd>raise error is bytes cannot be decoded in utf-8</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>string representation of this buffer</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def to_string(self) -&gt; str:
+    &#34;&#34;&#34;Return the string representation of this buffer.
+    Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
+
+    Raises:
+        err: raise error is bytes cannot be decoded in utf-8
+
+    Returns:
+        str: string representation of this buffer
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
 <dt id="cloudofficeprint.response.Response"><code class="flex name class">
 <span>class <span class="ident">Response</span></span>
 <span>(</span><span>response: requests.models.Response)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The Response class serves as a container for and interface with the Cloud Office Print server's response to a printjob request.</p>
+<div class="desc"><p>The Response class serves as a container for and interface with the Cloud Office Print server's response to a non-polled print job request.</p>
 <p>The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.</p>
 <p>You should never need to construct a Response manually.</p>
 <h2 id="args">Args</h2>
@@ -146,8 +447,8 @@ class Response():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Response():
-    &#34;&#34;&#34;The Response class serves as a container for and interface with the Cloud Office Print server&#39;s response to a printjob request.
+<pre><code class="python">class Response(IResponse):
+    &#34;&#34;&#34;The Response class serves as a container for and interface with the Cloud Office Print server&#39;s response to a non-polled print job request.
 
     The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.
     &#34;&#34;&#34;
@@ -229,161 +530,23 @@ class Response():
         outfile.write(self.binary)
         outfile.close()</code></pre>
 </details>
-<h3>Instance variables</h3>
-<dl>
-<dt id="cloudofficeprint.response.Response.binary"><code class="name">var <span class="ident">binary</span> : bytes</code></dt>
-<dd>
-<div class="desc"><p>Binary representation of the output file.</p>
-<p>Response.to_file can be used to output to a file,
-alternatively, use this property to do something else with the binary data.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>bytes</code></dt>
-<dd>response file as binary</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def binary(self) -&gt; bytes:
-    &#34;&#34;&#34;Binary representation of the output file.
-
-    Response.to_file can be used to output to a file,
-    alternatively, use this property to do something else with the binary data.
-
-    Returns:
-        bytes: response file as binary
-    &#34;&#34;&#34;
-    return self._bytes</code></pre>
-</details>
-</dd>
-<dt id="cloudofficeprint.response.Response.filetype"><code class="name">var <span class="ident">filetype</span> : str</code></dt>
-<dd>
-<div class="desc"><p>File type (extension) of this response. E.g. "docx".</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>file type of this response</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def filetype(self) -&gt; str:
-    &#34;&#34;&#34;File type (extension) of this response. E.g. &#34;docx&#34;.
-
-    Returns:
-        str: file type of this response
-    &#34;&#34;&#34;
-    return type_utils.mimetype_to_extension(self.mimetype)</code></pre>
-</details>
-</dd>
-<dt id="cloudofficeprint.response.Response.mimetype"><code class="name">var <span class="ident">mimetype</span> : str</code></dt>
-<dd>
-<div class="desc"><p>Mime type of this response.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>mime type of this response</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def mimetype(self) -&gt; str:
-    &#34;&#34;&#34;Mime type of this response.
-
-    Returns:
-        str: mime type of this response
-    &#34;&#34;&#34;
-    return self._mimetype</code></pre>
-</details>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="cloudofficeprint.response.Response.to_file"><code class="name flex">
-<span>def <span class="ident">to_file</span></span>(<span>self, path: str)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Write the response to a file at the given path without extension.</p>
-<p>If the given file path does not contain an extension,
-the correct path is automatically added from the response data.
-That is how this method is intended to be used.
-You should only specify the extension in the path if you have some reason to specify the extension manually.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
-<dd>path without extension</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_file(self, path: str):
-    &#34;&#34;&#34;Write the response to a file at the given path without extension.
-
-    If the given file path does not contain an extension,
-    the correct path is automatically added from the response data.
-    That is how this method is intended to be used.
-    You should only specify the extension in the path if you have some reason to specify the extension manually.
-
-    Args:
-        path (str): path without extension
-    &#34;&#34;&#34;
-
-    if not splitext(path)[1]:
-        path += &#34;.&#34; + self.filetype
-
-    # open the file in binary (&#34;b&#34;) and write (&#34;w&#34;) mode
-    outfile = open(path, &#34;wb&#34;)
-    outfile.write(self.binary)
-    outfile.close()</code></pre>
-</details>
-</dd>
-<dt id="cloudofficeprint.response.Response.to_string"><code class="name flex">
-<span>def <span class="ident">to_string</span></span>(<span>self) ‑> str</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Return the string representation of this buffer.
-Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>err</code></dt>
-<dd>raise error is bytes cannot be decoded in utf-8</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>string representation of this buffer</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_string(self) -&gt; str:
-    &#34;&#34;&#34;Return the string representation of this buffer.
-    Useful if the server returns a JSON (e.g. for output_type &#39;count_tags&#39;).
-
-    Raises:
-        err: raise error is bytes cannot be decoded in utf-8
-
-    Returns:
-        str: string representation of this buffer
-    &#34;&#34;&#34;
-    try:
-        return self._bytes.decode(&#39;utf-8&#39;)
-    except UnicodeDecodeError as err:
-        print(&#34;&#34;&#34;The method &#39;to_string()&#39; cannot be called on this object.
-        The server response is probably not a string (e.g. JSON).
-        To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
-        raise err</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.response.IResponse" href="#cloudofficeprint.response.IResponse">IResponse</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.response.IResponse" href="#cloudofficeprint.response.IResponse">IResponse</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.response.IResponse.binary" href="#cloudofficeprint.response.IResponse.binary">binary</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.filetype" href="#cloudofficeprint.response.IResponse.filetype">filetype</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.mimetype" href="#cloudofficeprint.response.IResponse.mimetype">mimetype</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.to_file" href="#cloudofficeprint.response.IResponse.to_file">to_file</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.to_string" href="#cloudofficeprint.response.IResponse.to_string">to_string</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -402,14 +565,17 @@ Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="cloudofficeprint.response.Response" href="#cloudofficeprint.response.Response">Response</a></code></h4>
+<h4><code><a title="cloudofficeprint.response.IResponse" href="#cloudofficeprint.response.IResponse">IResponse</a></code></h4>
 <ul class="">
-<li><code><a title="cloudofficeprint.response.Response.binary" href="#cloudofficeprint.response.Response.binary">binary</a></code></li>
-<li><code><a title="cloudofficeprint.response.Response.filetype" href="#cloudofficeprint.response.Response.filetype">filetype</a></code></li>
-<li><code><a title="cloudofficeprint.response.Response.mimetype" href="#cloudofficeprint.response.Response.mimetype">mimetype</a></code></li>
-<li><code><a title="cloudofficeprint.response.Response.to_file" href="#cloudofficeprint.response.Response.to_file">to_file</a></code></li>
-<li><code><a title="cloudofficeprint.response.Response.to_string" href="#cloudofficeprint.response.Response.to_string">to_string</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.binary" href="#cloudofficeprint.response.IResponse.binary">binary</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.filetype" href="#cloudofficeprint.response.IResponse.filetype">filetype</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.mimetype" href="#cloudofficeprint.response.IResponse.mimetype">mimetype</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.to_file" href="#cloudofficeprint.response.IResponse.to_file">to_file</a></code></li>
+<li><code><a title="cloudofficeprint.response.IResponse.to_string" href="#cloudofficeprint.response.IResponse.to_string">to_string</a></code></li>
 </ul>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.response.Response" href="#cloudofficeprint.response.Response">Response</a></code></h4>
 </li>
 </ul>
 </li>

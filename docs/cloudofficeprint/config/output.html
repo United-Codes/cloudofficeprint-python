@@ -27,9 +27,44 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import json
-from typing import Dict
+from typing import Dict, List, Mapping
 from .cloud import CloudAccessToken
 from .pdf import PDFOptions
+
+
+class RequestOption:
+    &#34;&#34;&#34;
+    Class for a request option of the output,
+    if this is specified then COP makes a call to the given option with response/output of the current request.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 url: str,
+                 headers: Mapping[str, str] = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            url (str): the URL to which the output/response will be posted.
+            headers (Mapping): Any additional information to be included for the header. Defaults to None.
+        &#34;&#34;&#34;
+        self.url: str = url
+        self.headers: Mapping[str, str] = headers
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;The dict representation of this request option.
+
+        Returns:
+            Dict: the dict representation of this request option
+        &#34;&#34;&#34;
+        result = {
+            &#34;url&#34;: self.url,
+        }
+
+        if self.headers is not None:
+            result[&#34;extra_headers&#34;] = self.headers
+
+        return result
 
 
 class OutputConfig:
@@ -45,7 +80,12 @@ class OutputConfig:
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
                  pdf_options: PDFOptions = None,
-                 append_per_page: bool = None,):
+                 prepend_per_page: bool = None,
+                 append_per_page: bool = None,
+                 request_option: RequestOption = None,
+                 polling: bool = None,
+                 secret_key: str = None,
+                 ):
         &#34;&#34;&#34;
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
@@ -54,7 +94,11 @@ class OutputConfig:
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
-            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
+            prepend_per_page (bool, optional): Ability to prepend file before each page of output. Defaults to None.
+            append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
+            request_option (RequestOption): The request option, if this is specified then COP makes a call to the given option with response/output of the current request. Defaults to None.
+            polling (bool): Whether the print job will be polled. Defaults to None.
+            secret_key (str): The secret key used to encrypt the output of the polled print job on the Cloud Office Print server. Defaults to None.
         &#34;&#34;&#34;
         self.filetype: str = filetype
         self.converter: str = converter
@@ -62,7 +106,11 @@ class OutputConfig:
         self.server_directory: str = server_directory
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
+        self.prepend_per_page = prepend_per_page
         self.append_per_page = append_per_page
+        self.request_option: RequestOption = request_option
+        self.polling: bool = polling
+        self.secret_key: str = secret_key
 
     @property
     def json(self) -&gt; str:
@@ -95,8 +143,16 @@ class OutputConfig:
             result[&#34;output_directory&#34;] = self.server_directory
         if self.pdf_options is not None:
             result.update(self.pdf_options.as_dict)
+        if self.prepend_per_page is not None:
+            result[&#34;output_prepend_per_page&#34;] = self.prepend_per_page
         if self.append_per_page is not None:
             result[&#34;output_append_per_page&#34;] = self.append_per_page
+        if self.request_option is not None:
+            result[&#34;request_option&#34;] = self.request_option.as_dict
+        if self.polling is not None:
+            result[&#34;output_polling&#34;] = self.polling
+        if self.secret_key is not None:
+            result[&#34;secret_key&#34;] = self.secret_key
         return result
 
     @property
@@ -135,7 +191,7 @@ class OutputConfig:
 <dl>
 <dt id="cloudofficeprint.config.output.OutputConfig"><code class="flex name class">
 <span>class <span class="ident">OutputConfig</span></span>
-<span>(</span><span>filetype: str = None, encoding: str = 'raw', converter: str = 'libreoffice', cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None, server_directory: str = None, pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None, append_per_page: bool = None)</span>
+<span>(</span><span>filetype: str = None, encoding: str = 'raw', converter: str = 'libreoffice', cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None, server_directory: str = None, pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None, prepend_per_page: bool = None, append_per_page: bool = None, request_option: <a title="cloudofficeprint.config.output.RequestOption" href="#cloudofficeprint.config.output.RequestOption">RequestOption</a> = None, polling: bool = None, secret_key: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class to specify output configuration for a request.</p>
@@ -154,8 +210,16 @@ class OutputConfig:
 <dd>Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.</dd>
 <dt><strong><code>pdf_options</code></strong> :&ensp;<code>PDFOptions</code>, optional</dt>
 <dd>Optional PDF options. Defaults to None.</dd>
+<dt><strong><code>prepend_per_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Ability to prepend file before each page of output. Defaults to None.</dd>
 <dt><strong><code>append_per_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Ability to prepend/append file after each page of output.</dd>
+<dd>Ability to append file after each page of output. Defaults to None.</dd>
+<dt><strong><code>request_option</code></strong> :&ensp;<code><a title="cloudofficeprint.config.output.RequestOption" href="#cloudofficeprint.config.output.RequestOption">RequestOption</a></code></dt>
+<dd>The request option, if this is specified then COP makes a call to the given option with response/output of the current request. Defaults to None.</dd>
+<dt><strong><code>polling</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether the print job will be polled. Defaults to None.</dd>
+<dt><strong><code>secret_key</code></strong> :&ensp;<code>str</code></dt>
+<dd>The secret key used to encrypt the output of the polled print job on the Cloud Office Print server. Defaults to None.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -174,7 +238,12 @@ class OutputConfig:
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
                  pdf_options: PDFOptions = None,
-                 append_per_page: bool = None,):
+                 prepend_per_page: bool = None,
+                 append_per_page: bool = None,
+                 request_option: RequestOption = None,
+                 polling: bool = None,
+                 secret_key: str = None,
+                 ):
         &#34;&#34;&#34;
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
@@ -183,7 +252,11 @@ class OutputConfig:
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
-            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
+            prepend_per_page (bool, optional): Ability to prepend file before each page of output. Defaults to None.
+            append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
+            request_option (RequestOption): The request option, if this is specified then COP makes a call to the given option with response/output of the current request. Defaults to None.
+            polling (bool): Whether the print job will be polled. Defaults to None.
+            secret_key (str): The secret key used to encrypt the output of the polled print job on the Cloud Office Print server. Defaults to None.
         &#34;&#34;&#34;
         self.filetype: str = filetype
         self.converter: str = converter
@@ -191,7 +264,11 @@ class OutputConfig:
         self.server_directory: str = server_directory
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
+        self.prepend_per_page = prepend_per_page
         self.append_per_page = append_per_page
+        self.request_option: RequestOption = request_option
+        self.polling: bool = polling
+        self.secret_key: str = secret_key
 
     @property
     def json(self) -&gt; str:
@@ -224,8 +301,16 @@ class OutputConfig:
             result[&#34;output_directory&#34;] = self.server_directory
         if self.pdf_options is not None:
             result.update(self.pdf_options.as_dict)
+        if self.prepend_per_page is not None:
+            result[&#34;output_prepend_per_page&#34;] = self.prepend_per_page
         if self.append_per_page is not None:
             result[&#34;output_append_per_page&#34;] = self.append_per_page
+        if self.request_option is not None:
+            result[&#34;request_option&#34;] = self.request_option.as_dict
+        if self.polling is not None:
+            result[&#34;output_polling&#34;] = self.polling
+        if self.secret_key is not None:
+            result[&#34;secret_key&#34;] = self.secret_key
         return result
 
     @property
@@ -286,8 +371,16 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_directory&#34;] = self.server_directory
     if self.pdf_options is not None:
         result.update(self.pdf_options.as_dict)
+    if self.prepend_per_page is not None:
+        result[&#34;output_prepend_per_page&#34;] = self.prepend_per_page
     if self.append_per_page is not None:
         result[&#34;output_append_per_page&#34;] = self.append_per_page
+    if self.request_option is not None:
+        result[&#34;request_option&#34;] = self.request_option.as_dict
+    if self.polling is not None:
+        result[&#34;output_polling&#34;] = self.polling
+    if self.secret_key is not None:
+        result[&#34;secret_key&#34;] = self.secret_key
     return result</code></pre>
 </details>
 </dd>
@@ -340,6 +433,91 @@ def json(self) -&gt; str:
 </dd>
 </dl>
 </dd>
+<dt id="cloudofficeprint.config.output.RequestOption"><code class="flex name class">
+<span>class <span class="ident">RequestOption</span></span>
+<span>(</span><span>url: str, headers: Mapping[str, str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for a request option of the output,
+if this is specified then COP makes a call to the given option with response/output of the current request.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>the URL to which the output/response will be posted.</dd>
+<dt><strong><code>headers</code></strong> :&ensp;<code>Mapping</code></dt>
+<dd>Any additional information to be included for the header. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RequestOption:
+    &#34;&#34;&#34;
+    Class for a request option of the output,
+    if this is specified then COP makes a call to the given option with response/output of the current request.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 url: str,
+                 headers: Mapping[str, str] = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            url (str): the URL to which the output/response will be posted.
+            headers (Mapping): Any additional information to be included for the header. Defaults to None.
+        &#34;&#34;&#34;
+        self.url: str = url
+        self.headers: Mapping[str, str] = headers
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        &#34;&#34;&#34;The dict representation of this request option.
+
+        Returns:
+            Dict: the dict representation of this request option
+        &#34;&#34;&#34;
+        result = {
+            &#34;url&#34;: self.url,
+        }
+
+        if self.headers is not None:
+            result[&#34;extra_headers&#34;] = self.headers
+
+        return result</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="cloudofficeprint.config.output.RequestOption.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dd>
+<div class="desc"><p>The dict representation of this request option.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>the dict representation of this request option</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_dict(self) -&gt; Dict:
+    &#34;&#34;&#34;The dict representation of this request option.
+
+    Returns:
+        Dict: the dict representation of this request option
+    &#34;&#34;&#34;
+    result = {
+        &#34;url&#34;: self.url,
+    }
+
+    if self.headers is not None:
+        result[&#34;extra_headers&#34;] = self.headers
+
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
 </dl>
 </section>
 </article>
@@ -362,6 +540,12 @@ def json(self) -&gt; str:
 <li><code><a title="cloudofficeprint.config.output.OutputConfig.as_dict" href="#cloudofficeprint.config.output.OutputConfig.as_dict">as_dict</a></code></li>
 <li><code><a title="cloudofficeprint.config.output.OutputConfig.encoding" href="#cloudofficeprint.config.output.OutputConfig.encoding">encoding</a></code></li>
 <li><code><a title="cloudofficeprint.config.output.OutputConfig.json" href="#cloudofficeprint.config.output.OutputConfig.json">json</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.config.output.RequestOption" href="#cloudofficeprint.config.output.RequestOption">RequestOption</a></code></h4>
+<ul class="">
+<li><code><a title="cloudofficeprint.config.output.RequestOption.as_dict" href="#cloudofficeprint.config.output.RequestOption.as_dict">as_dict</a></code></li>
 </ul>
 </li>
 </ul>

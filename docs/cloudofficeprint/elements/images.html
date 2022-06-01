@@ -44,7 +44,9 @@ class Image(Element):
                  transparency: Union[int, str]=None,
                  url: str=None,
                  width: Union[int, str]=None,
-                 height: Union[int, str]=None):
+                 height: Union[int, str]=None,
+                 maintain_aspect_ratio: bool=None
+                 ):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the image element.
@@ -63,6 +65,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
         &#34;&#34;&#34;
         super().__init__(name)
         self.source: str = source
@@ -75,6 +79,7 @@ class Image(Element):
         self.url: str = url
         self.width: Union[int, str] = width
         self.height: Union[int, str] = height
+        self.maintain_aspect_ratio: bool = maintain_aspect_ratio
 
     @property
     def alt_text(self) -&gt; str:
@@ -161,6 +166,8 @@ class Image(Element):
             result[&#34;_width&#34;] = self.width
         if self.height is not None:
             result[&#34;_height&#34;] = self.height
+        if self.maintain_aspect_ratio is not None:
+            result[&#34;_maintain_aspect_ratio&#34;] = self.maintain_aspect_ratio
 
         return result
 
@@ -186,7 +193,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a local file.
 
@@ -207,6 +215,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a local file
@@ -223,6 +233,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -237,7 +248,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from raw data.
 
@@ -258,6 +270,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from raw data
@@ -274,6 +288,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -288,7 +303,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a base64 string.
 
@@ -309,6 +325,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a base64 string
@@ -325,6 +343,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -339,7 +358,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a URL.
 
@@ -360,6 +380,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a URL
@@ -376,6 +398,7 @@ class Image(Element):
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )</code></pre>
 </details>
 </section>
@@ -390,7 +413,7 @@ class Image(Element):
 <dl>
 <dt id="cloudofficeprint.elements.images.Image"><code class="flex name class">
 <span>class <span class="ident">Image</span></span>
-<span>(</span><span>name: str, source: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None)</span>
+<span>(</span><span>name: str, source: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None, maintain_aspect_ratio: bool = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The class for image elements.</p>
@@ -423,6 +446,9 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>maintain_aspect_ratio</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to remain the aspect ratio.
+Cloud Office Print server expects width to be specified for this option to work.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -442,7 +468,9 @@ In Front of Text : In order to use this property, wrap option should be "front".
                  transparency: Union[int, str]=None,
                  url: str=None,
                  width: Union[int, str]=None,
-                 height: Union[int, str]=None):
+                 height: Union[int, str]=None,
+                 maintain_aspect_ratio: bool=None
+                 ):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the image element.
@@ -461,6 +489,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
         &#34;&#34;&#34;
         super().__init__(name)
         self.source: str = source
@@ -473,6 +503,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
         self.url: str = url
         self.width: Union[int, str] = width
         self.height: Union[int, str] = height
+        self.maintain_aspect_ratio: bool = maintain_aspect_ratio
 
     @property
     def alt_text(self) -&gt; str:
@@ -559,6 +590,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             result[&#34;_width&#34;] = self.width
         if self.height is not None:
             result[&#34;_height&#34;] = self.height
+        if self.maintain_aspect_ratio is not None:
+            result[&#34;_maintain_aspect_ratio&#34;] = self.maintain_aspect_ratio
 
         return result
 
@@ -584,7 +617,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a local file.
 
@@ -605,6 +639,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a local file
@@ -621,6 +657,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -635,7 +672,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from raw data.
 
@@ -656,6 +694,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from raw data
@@ -672,6 +712,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -686,7 +727,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a base64 string.
 
@@ -707,6 +749,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a base64 string
@@ -723,6 +767,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )
 
     @staticmethod
@@ -737,7 +782,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            maintain_aspect_ratio: bool=None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a URL.
 
@@ -758,6 +804,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+                Cloud Office Print server expects width to be specified for this option to work.
 
         Returns:
             Image: the generated Image object from a URL
@@ -774,6 +822,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
             url,
             width,
             height,
+            maintain_aspect_ratio,
         )</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -784,7 +833,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <h3>Static methods</h3>
 <dl>
 <dt id="cloudofficeprint.elements.images.Image.from_base64"><code class="name flex">
-<span>def <span class="ident">from_base64</span></span>(<span>name: str, base64str: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_base64</span></span>(<span>name: str, base64str: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None, maintain_aspect_ratio: bool = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from a base64 string.</p>
@@ -817,6 +866,9 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>maintain_aspect_ratio</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to remain the aspect ratio.
+Cloud Office Print server expects width to be specified for this option to work.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -839,7 +891,8 @@ def from_base64(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        maintain_aspect_ratio: bool=None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from a base64 string.
 
@@ -860,6 +913,8 @@ def from_base64(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+            Cloud Office Print server expects width to be specified for this option to work.
 
     Returns:
         Image: the generated Image object from a base64 string
@@ -876,11 +931,12 @@ def from_base64(
         url,
         width,
         height,
+        maintain_aspect_ratio,
     )</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_file"><code class="name flex">
-<span>def <span class="ident">from_file</span></span>(<span>name: str, path: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_file</span></span>(<span>name: str, path: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None, maintain_aspect_ratio: bool = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from a local file.</p>
@@ -913,6 +969,9 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>maintain_aspect_ratio</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to remain the aspect ratio.
+Cloud Office Print server expects width to be specified for this option to work.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -935,7 +994,8 @@ def from_file(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        maintain_aspect_ratio: bool=None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from a local file.
 
@@ -956,6 +1016,8 @@ def from_file(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+            Cloud Office Print server expects width to be specified for this option to work.
 
     Returns:
         Image: the generated Image object from a local file
@@ -972,11 +1034,12 @@ def from_file(
         url,
         width,
         height,
+        maintain_aspect_ratio,
     )</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_raw"><code class="name flex">
-<span>def <span class="ident">from_raw</span></span>(<span>name: str, data: bytes, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_raw</span></span>(<span>name: str, data: bytes, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None, maintain_aspect_ratio: bool = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from raw data.</p>
@@ -1009,6 +1072,9 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>maintain_aspect_ratio</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to remain the aspect ratio.
+Cloud Office Print server expects width to be specified for this option to work.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -1031,7 +1097,8 @@ def from_raw(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        maintain_aspect_ratio: bool=None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from raw data.
 
@@ -1052,6 +1119,8 @@ def from_raw(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+            Cloud Office Print server expects width to be specified for this option to work.
 
     Returns:
         Image: the generated Image object from raw data
@@ -1068,11 +1137,12 @@ def from_raw(
         url,
         width,
         height,
+        maintain_aspect_ratio,
     )</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_url"><code class="name flex">
-<span>def <span class="ident">from_url</span></span>(<span>name: str, url_source: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_url</span></span>(<span>name: str, url_source: str, max_width: Union[str, int] = None, max_height: Union[str, int] = None, alt_text: str = None, wrap_text: str = None, rotation: int = None, transparency: Union[str, int] = None, url: str = None, width: Union[str, int] = None, height: Union[str, int] = None, maintain_aspect_ratio: bool = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate an Image object from a URL.</p>
@@ -1105,6 +1175,9 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>maintain_aspect_ratio</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to remain the aspect ratio.
+Cloud Office Print server expects width to be specified for this option to work.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -1127,7 +1200,8 @@ def from_url(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        maintain_aspect_ratio: bool=None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from a URL.
 
@@ -1148,6 +1222,8 @@ def from_url(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        maintain_aspect_ratio (bool): Whether to remain the aspect ratio.
+            Cloud Office Print server expects width to be specified for this option to work.
 
     Returns:
         Image: the generated Image object from a URL
@@ -1164,6 +1240,7 @@ def from_url(
         url,
         width,
         height,
+        maintain_aspect_ratio,
     )</code></pre>
 </details>
 </dd>

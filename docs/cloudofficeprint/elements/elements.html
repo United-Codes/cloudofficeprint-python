@@ -31,6 +31,7 @@ from copy import deepcopy
 from typing import Any, Union, Iterable, Mapping, Set, FrozenSet, Dict, List
 from abc import abstractmethod, ABC
 import pandas
+from ..resource import Resource, RawResource
 
 
 class CellStyle(ABC):
@@ -947,8 +948,8 @@ class Insert(Property):
          The documnet can be docx, pptx, xlsx, or pdf documents.
     &#34;&#34;&#34;
 
-    def __init__(self, name: str, value: str):
-        super().__init__(name, value)
+    def __init__(self, name: str, value: Resource):
+        super().__init__(name, value.base64 if isinstance(value, RawResource) else value.data)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
@@ -2067,6 +2068,7 @@ def as_dict(self) -&gt; Dict:
 <li><a title="cloudofficeprint.elements.images.Image" href="images.html#cloudofficeprint.elements.images.Image">Image</a></li>
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="loops.html#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFFormData" href="pdf.html#cloudofficeprint.elements.pdf.PDFFormData">PDFFormData</a></li>
+<li><a title="cloudofficeprint.elements.pdf.PDFFormElement" href="pdf.html#cloudofficeprint.elements.pdf.PDFFormElement">PDFFormElement</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFImages" href="pdf.html#cloudofficeprint.elements.pdf.PDFImages">PDFImages</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFTexts" href="pdf.html#cloudofficeprint.elements.pdf.PDFTexts">PDFTexts</a></li>
 </ul>
@@ -2843,7 +2845,7 @@ Third option, don't place a pane, using a value of <strong>false</strong>.</p></
 </dd>
 <dt id="cloudofficeprint.elements.elements.Insert"><code class="flex name class">
 <span>class <span class="ident">Insert</span></span>
-<span>(</span><span>name: str, value: str)</span>
+<span>(</span><span>name: str, value: <a title="cloudofficeprint.resource.Resource" href="../resource.html#cloudofficeprint.resource.Resource">Resource</a>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.</p>
@@ -2869,8 +2871,8 @@ but this can be of any type, for example a dict.</dd>
          The documnet can be docx, pptx, xlsx, or pdf documents.
     &#34;&#34;&#34;
 
-    def __init__(self, name: str, value: str):
-        super().__init__(name, value)
+    def __init__(self, name: str, value: Resource):
+        super().__init__(name, value.base64 if isinstance(value, RawResource) else value.data)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:

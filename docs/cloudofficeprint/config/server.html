@@ -29,8 +29,13 @@
 <pre><code class="python">import logging
 import requests
 from typing import Mapping, Dict
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlencode
 import json
+import datetime
+
+from ..own_utils import type_utils
+from ..response import Response
+from ..exceptions import COPError
 
 
 class Printer:
@@ -226,6 +231,69 @@ class ServerConfig:
         return result
 
 
+class ResponseTemplateHash:
+    &#34;&#34;&#34;Class for a response of the route paths concerning template hash of the Cloud Office Print server.
+    This class is returned by the following functions of Server: verify_template_hash(), renew_template_hash()
+    and invalidate_template_hash().
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 template_hash: str,
+                 valid: bool,
+                 status: str,
+                 expiry_date_time: str = None,
+                 expiry_time_remaining: str = None,
+                 iso_expiry_date_time: datetime = None,
+                 ms_expiry_time_remaining: int = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            template_hash (str): The template hash.
+            valid (bool): Whether the template hash is valid.
+            status (str): The status of the template hash.
+            expiry_date_time (str): The expiry date time of the template hash. Defaults to None.
+            expiry_time_remaining (str): The remaining expiry date time of the template hash. Defaults to None.
+            iso_expiry_date_time (datetime): The expiry date time of the template hash in ISO format. Defaults to None.
+            ms_expiry_time_remaining (int): The remaining expiry time in milliseconds. Defaults to None.
+        &#34;&#34;&#34;
+        self.template_hash: str = template_hash
+        self.valid: bool = valid
+        self.status: str = status
+        self.expiry_date_time: str = expiry_date_time
+        self.expiry_time_remaining: str = expiry_time_remaining
+        self.iso_expiry_date_time: datetime = iso_expiry_date_time
+        self.ms_expiry_time_remaining: int = ms_expiry_time_remaining
+
+    @staticmethod
+    def from_response(response: str) -&gt; &#34;ResponseTemplateHash&#34;:
+        &#34;&#34;&#34;Creates a new ResponseTemplateHash from an HTTP response body of the Cloud Office Print server.
+
+        Args:
+            response: The body of the HTTP response body of the Cloud Office Print server.
+
+        Returns:
+            ResponseTemplateHash: The ResponseTemplateHash containing the response of the Cloud Office Print server.
+        &#34;&#34;&#34;
+        res = json.loads(response)
+        result = ResponseTemplateHash(
+            template_hash=res[&#34;hash&#34;],
+            valid=res[&#34;valid&#34;],
+            status=res[&#34;status&#34;],
+        )
+        if &#34;expiry_date_time&#34; in res:
+            result.expiry_date_time = res[&#34;expiry_date_time&#34;]
+        if &#34;expiry_time_remaining&#34; in res:
+            result.expiry_time_remaining = res[&#34;expiry_time_remaining&#34;]
+        if &#34;new_expiry_date_time&#34; in res:
+            result.expiry_date_time = res[&#34;new_expiry_date_time&#34;]
+        if &#34;iso_expiry_date_time&#34; in res:
+            result.iso_expiry_date_time = datetime.strptime(res[&#34;iso_expiry_date_time&#34;], &#34;%Y-%m-%dT%H:%M:%S.%fZ&#34;)
+        if &#34;ms_expiry_time_remaining&#34; in res:
+            result.ms_expiry_time_remaining = res[&#34;ms_expiry_time_remaining&#34;]
+
+        return result
+
+
 class Server:
     &#34;&#34;&#34;This config class is used to specify the Cloud Office Print server to interact with.&#34;&#34;&#34;
 
@@ -364,7 +432,161 @@ class Server:
             str: the version of Cloud Office Print that the server runs.
         &#34;&#34;&#34;
         self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, &#39;version&#39;), proxies=self.config.proxies if self.config is not None else None).text</code></pre>
+        return requests.get(urljoin(self.url, &#39;version&#39;), proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_statistics(self, access_token: str = None) -&gt; Dict:
+        &#34;&#34;&#34;Sends a GET request to server-url/stats.
+
+        Returns:
+            Dict: JSON of the current statistics of the Cloud Office Print.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return json.loads(requests.get(urljoin(self.url, &#39;stats&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def get_errors(self, latest: int = None, access_token: str = None) -&gt; str:
+        &#34;&#34;&#34;Sends a GET request to server-url/server_errors.
+
+        Returns:
+            str: The errors of the Cloud Office Print server in log file format.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if latest is not None:
+            params[&#34;latest&#34;] = latest
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return requests.get(urljoin(self.url, &#39;server_errors&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_print_jobs(self, date: str = None, access_token: str = None) -&gt; str:
+        &#34;&#34;&#34;Sends a GET request to server-url/server_printjobs.
+
+        Returns:
+            str: The print jobs of the Cloud Office Print server in log file format.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if date is not None:
+            params[&#34;date&#34;] = date
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return requests.get(urljoin(self.url, &#39;server_printjobs&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_network_logs(self, date: str = None, access_token: str = None) -&gt; str:
+        &#34;&#34;&#34;Sends a GET request to server-url/network_logs.
+
+        Returns:
+            str: The network logs of the Cloud Office Print server in log file format.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if date is not None:
+            params[&#34;date&#34;] = date
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return requests.get(urljoin(self.url, &#39;network_logs&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def verify_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+        &#34;&#34;&#34;Sends a GET request to server-url/verify_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the verified template hash on the Cloud Office Print server.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params[&#34;hash&#34;] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;verify_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def renew_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+        &#34;&#34;&#34;Sends a GET request to server-url/renew_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the renewed template hash on the Cloud Office Print server.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params[&#34;hash&#34;] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;renew_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def invalidate_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+        &#34;&#34;&#34;Sends a GET request to server-url/invalidate_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the invalidated template hash on the Cloud Office Print server.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params[&#34;hash&#34;] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;invalidate_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def is_processed(self, uid: str, secret_key: str = None) -&gt; bool:
+        &#34;&#34;&#34;Contact the server to see if the polled print job is processed.
+
+        Returns:
+            bool: whether the polled print job with the given id is processed.
+        &#34;&#34;&#34;
+
+        params = {}
+        if secret_key is not None:
+            params[&#34;secretkey&#34;] = secret_key
+
+        res = requests.get(urljoin(self.url, f&#39;download/{uid}&#39;), params=params, proxies=self.config.proxies if self.config is not None else None)
+        mimetype = res.headers[&#34;Content-Type&#34;]
+        return mimetype.split(&#39;;&#39;)[0] != &#34;application/json&#34;
+
+    def _raise_if_not_processed(self, uid: str, secret_key: str = None):
+        &#34;&#34;&#34;Raise an error if the polled print job has not been processed.
+
+        Raises:
+            Exception: raise error if the polled print job has not been processed.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+        if not self.is_processed(uid, secret_key):
+            raise Exception(
+                f&#34;The print job with id {uid} has not been processed or the given id is wrong.&#34;)
+
+    def download(self, uid: str, secret_key: str = None, delete: bool = None) -&gt; Response:
+        &#34;&#34;&#34;Sends a GET request to server-url/download/reference_id.
+
+        Returns:
+            Response: The response of the polled print job with the given id.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if secret_key is not None:
+            params[&#34;secretkey&#34;] = secret_key
+        if delete is not None:
+            params[&#34;delete_after_download&#34;] = delete
+
+        res = requests.get(urljoin(self.url, f&#39;download/{uid}&#39;), params=params, proxies=self.config.proxies if self.config is not None else None)
+        mimetype = res.headers[&#34;Content-Type&#34;]
+        if mimetype.split(&#39;;&#39;)[0] == &#34;application/json&#34;:
+            raise Exception(f&#34;The Cloud Office Print server responded with the following json:\n{res.text}&#34;)
+
+        if res.status_code != 200:
+            raise COPError(res.text)
+        else:
+            return Response(res)</code></pre>
 </details>
 </section>
 <section>
@@ -585,6 +807,150 @@ class Server:
         }</code></pre>
 </details>
 </dd>
+<dt id="cloudofficeprint.config.server.ResponseTemplateHash"><code class="flex name class">
+<span>class <span class="ident">ResponseTemplateHash</span></span>
+<span>(</span><span>template_hash: str, valid: bool, status: str, expiry_date_time: str = None, expiry_time_remaining: str = None, iso_expiry_date_time: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'> = None, ms_expiry_time_remaining: int = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for a response of the route paths concerning template hash of the Cloud Office Print server.
+This class is returned by the following functions of Server: verify_template_hash(), renew_template_hash()
+and invalidate_template_hash().</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>template_hash</code></strong> :&ensp;<code>str</code></dt>
+<dd>The template hash.</dd>
+<dt><strong><code>valid</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether the template hash is valid.</dd>
+<dt><strong><code>status</code></strong> :&ensp;<code>str</code></dt>
+<dd>The status of the template hash.</dd>
+<dt><strong><code>expiry_date_time</code></strong> :&ensp;<code>str</code></dt>
+<dd>The expiry date time of the template hash. Defaults to None.</dd>
+<dt><strong><code>expiry_time_remaining</code></strong> :&ensp;<code>str</code></dt>
+<dd>The remaining expiry date time of the template hash. Defaults to None.</dd>
+<dt><strong><code>iso_expiry_date_time</code></strong> :&ensp;<code>datetime</code></dt>
+<dd>The expiry date time of the template hash in ISO format. Defaults to None.</dd>
+<dt><strong><code>ms_expiry_time_remaining</code></strong> :&ensp;<code>int</code></dt>
+<dd>The remaining expiry time in milliseconds. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ResponseTemplateHash:
+    &#34;&#34;&#34;Class for a response of the route paths concerning template hash of the Cloud Office Print server.
+    This class is returned by the following functions of Server: verify_template_hash(), renew_template_hash()
+    and invalidate_template_hash().
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 template_hash: str,
+                 valid: bool,
+                 status: str,
+                 expiry_date_time: str = None,
+                 expiry_time_remaining: str = None,
+                 iso_expiry_date_time: datetime = None,
+                 ms_expiry_time_remaining: int = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            template_hash (str): The template hash.
+            valid (bool): Whether the template hash is valid.
+            status (str): The status of the template hash.
+            expiry_date_time (str): The expiry date time of the template hash. Defaults to None.
+            expiry_time_remaining (str): The remaining expiry date time of the template hash. Defaults to None.
+            iso_expiry_date_time (datetime): The expiry date time of the template hash in ISO format. Defaults to None.
+            ms_expiry_time_remaining (int): The remaining expiry time in milliseconds. Defaults to None.
+        &#34;&#34;&#34;
+        self.template_hash: str = template_hash
+        self.valid: bool = valid
+        self.status: str = status
+        self.expiry_date_time: str = expiry_date_time
+        self.expiry_time_remaining: str = expiry_time_remaining
+        self.iso_expiry_date_time: datetime = iso_expiry_date_time
+        self.ms_expiry_time_remaining: int = ms_expiry_time_remaining
+
+    @staticmethod
+    def from_response(response: str) -&gt; &#34;ResponseTemplateHash&#34;:
+        &#34;&#34;&#34;Creates a new ResponseTemplateHash from an HTTP response body of the Cloud Office Print server.
+
+        Args:
+            response: The body of the HTTP response body of the Cloud Office Print server.
+
+        Returns:
+            ResponseTemplateHash: The ResponseTemplateHash containing the response of the Cloud Office Print server.
+        &#34;&#34;&#34;
+        res = json.loads(response)
+        result = ResponseTemplateHash(
+            template_hash=res[&#34;hash&#34;],
+            valid=res[&#34;valid&#34;],
+            status=res[&#34;status&#34;],
+        )
+        if &#34;expiry_date_time&#34; in res:
+            result.expiry_date_time = res[&#34;expiry_date_time&#34;]
+        if &#34;expiry_time_remaining&#34; in res:
+            result.expiry_time_remaining = res[&#34;expiry_time_remaining&#34;]
+        if &#34;new_expiry_date_time&#34; in res:
+            result.expiry_date_time = res[&#34;new_expiry_date_time&#34;]
+        if &#34;iso_expiry_date_time&#34; in res:
+            result.iso_expiry_date_time = datetime.strptime(res[&#34;iso_expiry_date_time&#34;], &#34;%Y-%m-%dT%H:%M:%S.%fZ&#34;)
+        if &#34;ms_expiry_time_remaining&#34; in res:
+            result.ms_expiry_time_remaining = res[&#34;ms_expiry_time_remaining&#34;]
+
+        return result</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="cloudofficeprint.config.server.ResponseTemplateHash.from_response"><code class="name flex">
+<span>def <span class="ident">from_response</span></span>(<span>response: str) ‑> <a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a new ResponseTemplateHash from an HTTP response body of the Cloud Office Print server.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>response</code></strong></dt>
+<dd>The body of the HTTP response body of the Cloud Office Print server.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></code></dt>
+<dd>The ResponseTemplateHash containing the response of the Cloud Office Print server.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def from_response(response: str) -&gt; &#34;ResponseTemplateHash&#34;:
+    &#34;&#34;&#34;Creates a new ResponseTemplateHash from an HTTP response body of the Cloud Office Print server.
+
+    Args:
+        response: The body of the HTTP response body of the Cloud Office Print server.
+
+    Returns:
+        ResponseTemplateHash: The ResponseTemplateHash containing the response of the Cloud Office Print server.
+    &#34;&#34;&#34;
+    res = json.loads(response)
+    result = ResponseTemplateHash(
+        template_hash=res[&#34;hash&#34;],
+        valid=res[&#34;valid&#34;],
+        status=res[&#34;status&#34;],
+    )
+    if &#34;expiry_date_time&#34; in res:
+        result.expiry_date_time = res[&#34;expiry_date_time&#34;]
+    if &#34;expiry_time_remaining&#34; in res:
+        result.expiry_time_remaining = res[&#34;expiry_time_remaining&#34;]
+    if &#34;new_expiry_date_time&#34; in res:
+        result.expiry_date_time = res[&#34;new_expiry_date_time&#34;]
+    if &#34;iso_expiry_date_time&#34; in res:
+        result.iso_expiry_date_time = datetime.strptime(res[&#34;iso_expiry_date_time&#34;], &#34;%Y-%m-%dT%H:%M:%S.%fZ&#34;)
+    if &#34;ms_expiry_time_remaining&#34; in res:
+        result.ms_expiry_time_remaining = res[&#34;ms_expiry_time_remaining&#34;]
+
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
 <dt id="cloudofficeprint.config.server.Server"><code class="flex name class">
 <span>class <span class="ident">Server</span></span>
 <span>(</span><span>url: str, config: <a title="cloudofficeprint.config.server.ServerConfig" href="#cloudofficeprint.config.server.ServerConfig">ServerConfig</a> = None)</span>
@@ -740,7 +1106,161 @@ class Server:
             str: the version of Cloud Office Print that the server runs.
         &#34;&#34;&#34;
         self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, &#39;version&#39;), proxies=self.config.proxies if self.config is not None else None).text</code></pre>
+        return requests.get(urljoin(self.url, &#39;version&#39;), proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_statistics(self, access_token: str = None) -&gt; Dict:
+        &#34;&#34;&#34;Sends a GET request to server-url/stats.
+
+        Returns:
+            Dict: JSON of the current statistics of the Cloud Office Print.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return json.loads(requests.get(urljoin(self.url, &#39;stats&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def get_errors(self, latest: int = None, access_token: str = None) -&gt; str:
+        &#34;&#34;&#34;Sends a GET request to server-url/server_errors.
+
+        Returns:
+            str: The errors of the Cloud Office Print server in log file format.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if latest is not None:
+            params[&#34;latest&#34;] = latest
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return requests.get(urljoin(self.url, &#39;server_errors&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_print_jobs(self, date: str = None, access_token: str = None) -&gt; str:
+        &#34;&#34;&#34;Sends a GET request to server-url/server_printjobs.
+
+        Returns:
+            str: The print jobs of the Cloud Office Print server in log file format.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if date is not None:
+            params[&#34;date&#34;] = date
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return requests.get(urljoin(self.url, &#39;server_printjobs&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def get_network_logs(self, date: str = None, access_token: str = None) -&gt; str:
+        &#34;&#34;&#34;Sends a GET request to server-url/network_logs.
+
+        Returns:
+            str: The network logs of the Cloud Office Print server in log file format.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if date is not None:
+            params[&#34;date&#34;] = date
+        if access_token is not None:
+            params[&#34;access_token&#34;] = access_token
+
+        return requests.get(urljoin(self.url, &#39;network_logs&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text
+
+    def verify_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+        &#34;&#34;&#34;Sends a GET request to server-url/verify_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the verified template hash on the Cloud Office Print server.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params[&#34;hash&#34;] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;verify_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def renew_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+        &#34;&#34;&#34;Sends a GET request to server-url/renew_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the renewed template hash on the Cloud Office Print server.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params[&#34;hash&#34;] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;renew_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def invalidate_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+        &#34;&#34;&#34;Sends a GET request to server-url/invalidate_template_hash.
+
+        Returns:
+            ResponseTemplateHash: The response of the invalidated template hash on the Cloud Office Print server.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if template_hash is not None:
+            params[&#34;hash&#34;] = template_hash
+
+        return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;invalidate_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)
+
+    def is_processed(self, uid: str, secret_key: str = None) -&gt; bool:
+        &#34;&#34;&#34;Contact the server to see if the polled print job is processed.
+
+        Returns:
+            bool: whether the polled print job with the given id is processed.
+        &#34;&#34;&#34;
+
+        params = {}
+        if secret_key is not None:
+            params[&#34;secretkey&#34;] = secret_key
+
+        res = requests.get(urljoin(self.url, f&#39;download/{uid}&#39;), params=params, proxies=self.config.proxies if self.config is not None else None)
+        mimetype = res.headers[&#34;Content-Type&#34;]
+        return mimetype.split(&#39;;&#39;)[0] != &#34;application/json&#34;
+
+    def _raise_if_not_processed(self, uid: str, secret_key: str = None):
+        &#34;&#34;&#34;Raise an error if the polled print job has not been processed.
+
+        Raises:
+            Exception: raise error if the polled print job has not been processed.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+        if not self.is_processed(uid, secret_key):
+            raise Exception(
+                f&#34;The print job with id {uid} has not been processed or the given id is wrong.&#34;)
+
+    def download(self, uid: str, secret_key: str = None, delete: bool = None) -&gt; Response:
+        &#34;&#34;&#34;Sends a GET request to server-url/download/reference_id.
+
+        Returns:
+            Response: The response of the polled print job with the given id.
+        &#34;&#34;&#34;
+        self._raise_if_unreachable()
+
+        params = {}
+        if secret_key is not None:
+            params[&#34;secretkey&#34;] = secret_key
+        if delete is not None:
+            params[&#34;delete_after_download&#34;] = delete
+
+        res = requests.get(urljoin(self.url, f&#39;download/{uid}&#39;), params=params, proxies=self.config.proxies if self.config is not None else None)
+        mimetype = res.headers[&#34;Content-Type&#34;]
+        if mimetype.split(&#39;;&#39;)[0] == &#34;application/json&#34;:
+            raise Exception(f&#34;The Cloud Office Print server responded with the following json:\n{res.text}&#34;)
+
+        if res.status_code != 200:
+            raise COPError(res.text)
+        else:
+            return Response(res)</code></pre>
 </details>
 <h3>Instance variables</h3>
 <dl>
@@ -769,6 +1289,167 @@ def url(self) -&gt; str:
 </dl>
 <h3>Methods</h3>
 <dl>
+<dt id="cloudofficeprint.config.server.Server.download"><code class="name flex">
+<span>def <span class="ident">download</span></span>(<span>self, uid: str, secret_key: str = None, delete: bool = None) ‑> <a title="cloudofficeprint.response.Response" href="../response.html#cloudofficeprint.response.Response">Response</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/download/reference_id.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Response</code></dt>
+<dd>The response of the polled print job with the given id.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download(self, uid: str, secret_key: str = None, delete: bool = None) -&gt; Response:
+    &#34;&#34;&#34;Sends a GET request to server-url/download/reference_id.
+
+    Returns:
+        Response: The response of the polled print job with the given id.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if secret_key is not None:
+        params[&#34;secretkey&#34;] = secret_key
+    if delete is not None:
+        params[&#34;delete_after_download&#34;] = delete
+
+    res = requests.get(urljoin(self.url, f&#39;download/{uid}&#39;), params=params, proxies=self.config.proxies if self.config is not None else None)
+    mimetype = res.headers[&#34;Content-Type&#34;]
+    if mimetype.split(&#39;;&#39;)[0] == &#34;application/json&#34;:
+        raise Exception(f&#34;The Cloud Office Print server responded with the following json:\n{res.text}&#34;)
+
+    if res.status_code != 200:
+        raise COPError(res.text)
+    else:
+        return Response(res)</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.config.server.Server.get_errors"><code class="name flex">
+<span>def <span class="ident">get_errors</span></span>(<span>self, latest: int = None, access_token: str = None) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/server_errors.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The errors of the Cloud Office Print server in log file format.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_errors(self, latest: int = None, access_token: str = None) -&gt; str:
+    &#34;&#34;&#34;Sends a GET request to server-url/server_errors.
+
+    Returns:
+        str: The errors of the Cloud Office Print server in log file format.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if latest is not None:
+        params[&#34;latest&#34;] = latest
+    if access_token is not None:
+        params[&#34;access_token&#34;] = access_token
+
+    return requests.get(urljoin(self.url, &#39;server_errors&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.config.server.Server.get_network_logs"><code class="name flex">
+<span>def <span class="ident">get_network_logs</span></span>(<span>self, date: str = None, access_token: str = None) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/network_logs.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The network logs of the Cloud Office Print server in log file format.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_network_logs(self, date: str = None, access_token: str = None) -&gt; str:
+    &#34;&#34;&#34;Sends a GET request to server-url/network_logs.
+
+    Returns:
+        str: The network logs of the Cloud Office Print server in log file format.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if date is not None:
+        params[&#34;date&#34;] = date
+    if access_token is not None:
+        params[&#34;access_token&#34;] = access_token
+
+    return requests.get(urljoin(self.url, &#39;network_logs&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.config.server.Server.get_print_jobs"><code class="name flex">
+<span>def <span class="ident">get_print_jobs</span></span>(<span>self, date: str = None, access_token: str = None) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/server_printjobs.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The print jobs of the Cloud Office Print server in log file format.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_print_jobs(self, date: str = None, access_token: str = None) -&gt; str:
+    &#34;&#34;&#34;Sends a GET request to server-url/server_printjobs.
+
+    Returns:
+        str: The print jobs of the Cloud Office Print server in log file format.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if date is not None:
+        params[&#34;date&#34;] = date
+    if access_token is not None:
+        params[&#34;access_token&#34;] = access_token
+
+    return requests.get(urljoin(self.url, &#39;server_printjobs&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.config.server.Server.get_statistics"><code class="name flex">
+<span>def <span class="ident">get_statistics</span></span>(<span>self, access_token: str = None) ‑> Dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/stats.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>JSON of the current statistics of the Cloud Office Print.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_statistics(self, access_token: str = None) -&gt; Dict:
+    &#34;&#34;&#34;Sends a GET request to server-url/stats.
+
+    Returns:
+        Dict: JSON of the current statistics of the Cloud Office Print.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if access_token is not None:
+        params[&#34;access_token&#34;] = access_token
+
+    return json.loads(requests.get(urljoin(self.url, &#39;stats&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)</code></pre>
+</details>
+</dd>
 <dt id="cloudofficeprint.config.server.Server.get_supported_append_mimetypes"><code class="name flex">
 <span>def <span class="ident">get_supported_append_mimetypes</span></span>(<span>self) ‑> Dict</span>
 </code></dt>
@@ -947,6 +1628,35 @@ Note: You will get empty JSON if the template extension isn't supported.</p>
     return requests.get(urljoin(self.url, &#39;soffice&#39;), proxies=self.config.proxies if self.config is not None else None).text</code></pre>
 </details>
 </dd>
+<dt id="cloudofficeprint.config.server.Server.invalidate_template_hash"><code class="name flex">
+<span>def <span class="ident">invalidate_template_hash</span></span>(<span>self, template_hash: str = None) ‑> <a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/invalidate_template_hash.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></code></dt>
+<dd>The response of the invalidated template hash on the Cloud Office Print server.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def invalidate_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+    &#34;&#34;&#34;Sends a GET request to server-url/invalidate_template_hash.
+
+    Returns:
+        ResponseTemplateHash: The response of the invalidated template hash on the Cloud Office Print server.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if template_hash is not None:
+        params[&#34;hash&#34;] = template_hash
+
+    return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;invalidate_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)</code></pre>
+</details>
+</dd>
 <dt id="cloudofficeprint.config.server.Server.is_ipp_printer_reachable"><code class="name flex">
 <span>def <span class="ident">is_ipp_printer_reachable</span></span>(<span>self) ‑> bool</span>
 </code></dt>
@@ -977,6 +1687,36 @@ Note: You will get empty JSON if the template extension isn't supported.</p>
         return False</code></pre>
 </details>
 </dd>
+<dt id="cloudofficeprint.config.server.Server.is_processed"><code class="name flex">
+<span>def <span class="ident">is_processed</span></span>(<span>self, uid: str, secret_key: str = None) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contact the server to see if the polled print job is processed.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>whether the polled print job with the given id is processed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_processed(self, uid: str, secret_key: str = None) -&gt; bool:
+    &#34;&#34;&#34;Contact the server to see if the polled print job is processed.
+
+    Returns:
+        bool: whether the polled print job with the given id is processed.
+    &#34;&#34;&#34;
+
+    params = {}
+    if secret_key is not None:
+        params[&#34;secretkey&#34;] = secret_key
+
+    res = requests.get(urljoin(self.url, f&#39;download/{uid}&#39;), params=params, proxies=self.config.proxies if self.config is not None else None)
+    mimetype = res.headers[&#34;Content-Type&#34;]
+    return mimetype.split(&#39;;&#39;)[0] != &#34;application/json&#34;</code></pre>
+</details>
+</dd>
 <dt id="cloudofficeprint.config.server.Server.is_reachable"><code class="name flex">
 <span>def <span class="ident">is_reachable</span></span>(<span>self) ‑> bool</span>
 </code></dt>
@@ -1003,6 +1743,64 @@ Note: You will get empty JSON if the template extension isn't supported.</p>
         return r.text == &#34;polo&#34;
     except requests.exceptions.ConnectionError:
         return False</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.config.server.Server.renew_template_hash"><code class="name flex">
+<span>def <span class="ident">renew_template_hash</span></span>(<span>self, template_hash: str = None) ‑> <a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/renew_template_hash.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></code></dt>
+<dd>The response of the renewed template hash on the Cloud Office Print server.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def renew_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+    &#34;&#34;&#34;Sends a GET request to server-url/renew_template_hash.
+
+    Returns:
+        ResponseTemplateHash: The response of the renewed template hash on the Cloud Office Print server.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if template_hash is not None:
+        params[&#34;hash&#34;] = template_hash
+
+    return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;renew_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)</code></pre>
+</details>
+</dd>
+<dt id="cloudofficeprint.config.server.Server.verify_template_hash"><code class="name flex">
+<span>def <span class="ident">verify_template_hash</span></span>(<span>self, template_hash: str = None) ‑> <a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a GET request to server-url/verify_template_hash.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></code></dt>
+<dd>The response of the verified template hash on the Cloud Office Print server.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify_template_hash(self, template_hash: str = None) -&gt; ResponseTemplateHash:
+    &#34;&#34;&#34;Sends a GET request to server-url/verify_template_hash.
+
+    Returns:
+        ResponseTemplateHash: The response of the verified template hash on the Cloud Office Print server.
+    &#34;&#34;&#34;
+    self._raise_if_unreachable()
+
+    params = {}
+    if template_hash is not None:
+        params[&#34;hash&#34;] = template_hash
+
+    return ResponseTemplateHash.from_response(requests.get(urljoin(self.url, &#39;verify_template_hash&#39;), params=params, proxies=self.config.proxies if self.config is not None else None).text)</code></pre>
 </details>
 </dd>
 </dl>
@@ -1145,8 +1943,19 @@ def as_dict(self) -&gt; Dict:
 <h4><code><a title="cloudofficeprint.config.server.Printer" href="#cloudofficeprint.config.server.Printer">Printer</a></code></h4>
 </li>
 <li>
+<h4><code><a title="cloudofficeprint.config.server.ResponseTemplateHash" href="#cloudofficeprint.config.server.ResponseTemplateHash">ResponseTemplateHash</a></code></h4>
+<ul class="">
+<li><code><a title="cloudofficeprint.config.server.ResponseTemplateHash.from_response" href="#cloudofficeprint.config.server.ResponseTemplateHash.from_response">from_response</a></code></li>
+</ul>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.config.server.Server" href="#cloudofficeprint.config.server.Server">Server</a></code></h4>
 <ul class="">
+<li><code><a title="cloudofficeprint.config.server.Server.download" href="#cloudofficeprint.config.server.Server.download">download</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.get_errors" href="#cloudofficeprint.config.server.Server.get_errors">get_errors</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.get_network_logs" href="#cloudofficeprint.config.server.Server.get_network_logs">get_network_logs</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.get_print_jobs" href="#cloudofficeprint.config.server.Server.get_print_jobs">get_print_jobs</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.get_statistics" href="#cloudofficeprint.config.server.Server.get_statistics">get_statistics</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.get_supported_append_mimetypes" href="#cloudofficeprint.config.server.Server.get_supported_append_mimetypes">get_supported_append_mimetypes</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.get_supported_output_mimetypes" href="#cloudofficeprint.config.server.Server.get_supported_output_mimetypes">get_supported_output_mimetypes</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.get_supported_prepend_mimetypes" href="#cloudofficeprint.config.server.Server.get_supported_prepend_mimetypes">get_supported_prepend_mimetypes</a></code></li>
@@ -1154,9 +1963,13 @@ def as_dict(self) -&gt; Dict:
 <li><code><a title="cloudofficeprint.config.server.Server.get_version_cop" href="#cloudofficeprint.config.server.Server.get_version_cop">get_version_cop</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.get_version_officetopdf" href="#cloudofficeprint.config.server.Server.get_version_officetopdf">get_version_officetopdf</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.get_version_soffice" href="#cloudofficeprint.config.server.Server.get_version_soffice">get_version_soffice</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.invalidate_template_hash" href="#cloudofficeprint.config.server.Server.invalidate_template_hash">invalidate_template_hash</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.is_ipp_printer_reachable" href="#cloudofficeprint.config.server.Server.is_ipp_printer_reachable">is_ipp_printer_reachable</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.is_processed" href="#cloudofficeprint.config.server.Server.is_processed">is_processed</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.is_reachable" href="#cloudofficeprint.config.server.Server.is_reachable">is_reachable</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.renew_template_hash" href="#cloudofficeprint.config.server.Server.renew_template_hash">renew_template_hash</a></code></li>
 <li><code><a title="cloudofficeprint.config.server.Server.url" href="#cloudofficeprint.config.server.Server.url">url</a></code></li>
+<li><code><a title="cloudofficeprint.config.server.Server.verify_template_hash" href="#cloudofficeprint.config.server.Server.verify_template_hash">verify_template_hash</a></code></li>
 </ul>
 </li>
 <li>

@@ -35,9 +35,12 @@ from cloudofficeprint.elements.rest_source import RESTSource
 import requests
 import asyncio
 import json
-from .config import OutputConfig, Server
+import re
+
+from .config import OutputConfig, Server, Globalization
 from .exceptions import COPError
-from .response import Response
+from .response import IResponse, Response
+from .response_polling import ResponsePolling
 from .resource import Resource
 from .elements import Element, ElementCollection
 from typing import Union, List, Dict, Mapping
@@ -48,7 +51,7 @@ from pprint import pprint
 STATIC_OPTS = {
     &#34;tool&#34;: &#34;python&#34;,
     # &#34;version&#34;: &#34;18.2&#34;, # optional: version of Cloud Office Print JSON format
-    &#34;python_sdk_version&#34;: &#34;21.2.0&#34;,
+    &#34;python_sdk_version&#34;: &#34;22.1.0&#34;,
 }
 
 
@@ -67,6 +70,7 @@ class PrintJob:
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
                  append_files: List[Resource] = [],
+                 globalization: Globalization = Globalization(),
                  cop_verbose: bool = False):
         &#34;&#34;&#34;
         Args:
@@ -77,6 +81,7 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            globalization (Globalization): Globalization options to be used for this print job. Defaults to `Globalization()`.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         &#34;&#34;&#34;
 
@@ -87,26 +92,29 @@ class PrintJob:
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.globalization: Globalization = globalization
         self.cop_verbose: bool = cop_verbose
 
-    def execute(self) -&gt; Response:
+    def execute(self) -&gt; IResponse:
         &#34;&#34;&#34;Execute this print job.
 
         Returns:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        res = requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;})
+        if self.output_config.polling:
+            return self._handle_response_polling(res, self.server)
+        return self._handle_response(res)
 
-    async def execute_async(self) -&gt; Response:
+    async def execute_async(self) -&gt; IResponse:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
 
         Returns:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
+        res = await asyncio.get_event_loop().run_in_executor(
                 None, partial(
                     requests.post,
                     self.server.url,
@@ -114,10 +122,12 @@ class PrintJob:
                     json=self.as_dict
                 )
             )
-        )
+        if self.output_config.polling:
+            return self._handle_response_polling(res, self.server)
+        return self._handle_response(res)
 
     @staticmethod
-    def execute_full_json(json_data: str, server: Server) -&gt; Response:
+    def execute_full_json(json_data: str, server: Server) -&gt; IResponse:
         &#34;&#34;&#34;If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
         Args:
@@ -128,10 +138,14 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        res = requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;})
+        _json = json.loads(json_data)
+        if &#34;output_polling&#34; in _json[&#34;output&#34;] and _json[&#34;output&#34;][&#34;output_polling&#34;]:
+            return PrintJob._handle_response_polling(res, server)
+        return PrintJob._handle_response(res)
 
     @staticmethod
-    async def execute_full_json_async(json_data: str, server: Server) -&gt; Response:
+    async def execute_full_json_async(json_data: str, server: Server) -&gt; IResponse:
         &#34;&#34;&#34;Async version of `Printjob.execute_full_json`
 
         Args:
@@ -142,8 +156,7 @@ class PrintJob:
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
+        res = await asyncio.get_event_loop().run_in_executor(
                 None, partial(
                     requests.post,
                     server.url,
@@ -152,7 +165,12 @@ class PrintJob:
                     headers={&#34;Content-type&#34;: &#34;application/json&#34;}
                 )
             )
-        )
+        _json = json.loads(json_data)
+        if &#34;output_polling&#34; in _json[&#34;output&#34;] and _json[&#34;output&#34;][&#34;output_polling&#34;]:
+            return PrintJob._handle_response_polling(res, server)
+        return PrintJob._handle_response(res)
+
+
 
     @staticmethod
     def _handle_response(res: requests.Response) -&gt; Response:
@@ -171,6 +189,27 @@ class PrintJob:
             raise COPError(res.text)
         else:
             return Response(res)
+
+    @staticmethod
+    def _handle_response_polling(res: requests.Response, server: Server) -&gt; ResponsePolling:
+        &#34;&#34;&#34;Converts the HTML response to a `ResponsePolling`-object
+
+        Args:
+            res (requests.Response): HTML response from the Cloud Office Print server
+
+        Raises:
+            COPError: Error when the HTML status code is not 200
+
+        Returns:
+            ResponsePolling: `ResponsePolling`-object of HTML response
+        &#34;&#34;&#34;
+        if res.status_code != 200:
+            raise COPError(res.text)
+        else:
+            url = json.loads(res.text)[&#34;url&#34;]
+            uid = re.match(&#34;/download/([A-Za-z0-9]*)&#34;, url).group(1)
+            secret_key = re.match(&#34;/download/[A-Za-z0-9]*[?]secretkey=(.*)&#34;, url).group(1) if re.match(&#34;/download/[A-Za-z0-9]*[?]secretkey=(.*)&#34;, url) else None
+            return ResponsePolling(server, uid, secret_key)
 
     @property
     def json(self) -&gt; str:
@@ -239,6 +278,8 @@ class PrintJob:
                 templates_list.append(to_add)
             result[&#34;templates&#34;] = templates_list
 
+        result[&#34;globalization&#34;] = [self.globalization.as_dict]
+
         # If verbose mode is activated, print the result to the terminal
         if self.cop_verbose:
             print(&#39;The JSON data that is sent to the Cloud Office Print server:\n&#39;)
@@ -258,7 +299,7 @@ class PrintJob:
 <dl>
 <dt id="cloudofficeprint.printjob.PrintJob"><code class="flex name class">
 <span>class <span class="ident">PrintJob</span></span>
-<span>(</span><span>data: Union[<a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>], <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>, template: <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a> = None, output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], cop_verbose: bool = False)</span>
+<span>(</span><span>data: Union[<a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>], <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>, template: <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a> = None, output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], globalization: <a title="cloudofficeprint.config.globalization.Globalization" href="config/globalization.html#cloudofficeprint.config.globalization.Globalization">Globalization</a> = &lt;cloudofficeprint.config.globalization.Globalization object&gt;, cop_verbose: bool = False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>A print job for a Cloud Office Print server.</p>
@@ -280,6 +321,8 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
 <dd>Files to prepend to the output file. Defaults to [].</dd>
 <dt><strong><code>append_files</code></strong> :&ensp;<code>List[Resource]</code>, optional</dt>
 <dd>Files to append to the output file. Defaults to [].</dd>
+<dt><strong><code>globalization</code></strong> :&ensp;<code>Globalization</code></dt>
+<dd>Globalization options to be used for this print job. Defaults to <code>Globalization()</code>.</dd>
 <dt><strong><code>cop_verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether or not verbose mode should be activated. Defaults to False.</dd>
 </dl></div>
@@ -302,6 +345,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
                  subtemplates: Dict[str, Resource] = {},
                  prepend_files: List[Resource] = [],
                  append_files: List[Resource] = [],
+                 globalization: Globalization = Globalization(),
                  cop_verbose: bool = False):
         &#34;&#34;&#34;
         Args:
@@ -312,6 +356,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            globalization (Globalization): Globalization options to be used for this print job. Defaults to `Globalization()`.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         &#34;&#34;&#34;
 
@@ -322,26 +367,29 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.globalization: Globalization = globalization
         self.cop_verbose: bool = cop_verbose
 
-    def execute(self) -&gt; Response:
+    def execute(self) -&gt; IResponse:
         &#34;&#34;&#34;Execute this print job.
 
         Returns:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        res = requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;})
+        if self.output_config.polling:
+            return self._handle_response_polling(res, self.server)
+        return self._handle_response(res)
 
-    async def execute_async(self) -&gt; Response:
+    async def execute_async(self) -&gt; IResponse:
         &#34;&#34;&#34;Async version of `PrintJob.execute`
 
         Returns:
             Response: `Response`-object
         &#34;&#34;&#34;
         self.server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
+        res = await asyncio.get_event_loop().run_in_executor(
                 None, partial(
                     requests.post,
                     self.server.url,
@@ -349,10 +397,12 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
                     json=self.as_dict
                 )
             )
-        )
+        if self.output_config.polling:
+            return self._handle_response_polling(res, self.server)
+        return self._handle_response(res)
 
     @staticmethod
-    def execute_full_json(json_data: str, server: Server) -&gt; Response:
+    def execute_full_json(json_data: str, server: Server) -&gt; IResponse:
         &#34;&#34;&#34;If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
         Args:
@@ -363,10 +413,14 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))
+        res = requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;})
+        _json = json.loads(json_data)
+        if &#34;output_polling&#34; in _json[&#34;output&#34;] and _json[&#34;output&#34;][&#34;output_polling&#34;]:
+            return PrintJob._handle_response_polling(res, server)
+        return PrintJob._handle_response(res)
 
     @staticmethod
-    async def execute_full_json_async(json_data: str, server: Server) -&gt; Response:
+    async def execute_full_json_async(json_data: str, server: Server) -&gt; IResponse:
         &#34;&#34;&#34;Async version of `Printjob.execute_full_json`
 
         Args:
@@ -377,8 +431,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             Response: `Response`-object
         &#34;&#34;&#34;
         server._raise_if_unreachable()
-        return PrintJob._handle_response(
-            await asyncio.get_event_loop().run_in_executor(
+        res = await asyncio.get_event_loop().run_in_executor(
                 None, partial(
                     requests.post,
                     server.url,
@@ -387,7 +440,12 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
                     headers={&#34;Content-type&#34;: &#34;application/json&#34;}
                 )
             )
-        )
+        _json = json.loads(json_data)
+        if &#34;output_polling&#34; in _json[&#34;output&#34;] and _json[&#34;output&#34;][&#34;output_polling&#34;]:
+            return PrintJob._handle_response_polling(res, server)
+        return PrintJob._handle_response(res)
+
+
 
     @staticmethod
     def _handle_response(res: requests.Response) -&gt; Response:
@@ -406,6 +464,27 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
             raise COPError(res.text)
         else:
             return Response(res)
+
+    @staticmethod
+    def _handle_response_polling(res: requests.Response, server: Server) -&gt; ResponsePolling:
+        &#34;&#34;&#34;Converts the HTML response to a `ResponsePolling`-object
+
+        Args:
+            res (requests.Response): HTML response from the Cloud Office Print server
+
+        Raises:
+            COPError: Error when the HTML status code is not 200
+
+        Returns:
+            ResponsePolling: `ResponsePolling`-object of HTML response
+        &#34;&#34;&#34;
+        if res.status_code != 200:
+            raise COPError(res.text)
+        else:
+            url = json.loads(res.text)[&#34;url&#34;]
+            uid = re.match(&#34;/download/([A-Za-z0-9]*)&#34;, url).group(1)
+            secret_key = re.match(&#34;/download/[A-Za-z0-9]*[?]secretkey=(.*)&#34;, url).group(1) if re.match(&#34;/download/[A-Za-z0-9]*[?]secretkey=(.*)&#34;, url) else None
+            return ResponsePolling(server, uid, secret_key)
 
     @property
     def json(self) -&gt; str:
@@ -474,6 +553,8 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
                 templates_list.append(to_add)
             result[&#34;templates&#34;] = templates_list
 
+        result[&#34;globalization&#34;] = [self.globalization.as_dict]
+
         # If verbose mode is activated, print the result to the terminal
         if self.cop_verbose:
             print(&#39;The JSON data that is sent to the Cloud Office Print server:\n&#39;)
@@ -484,7 +565,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
 <h3>Static methods</h3>
 <dl>
 <dt id="cloudofficeprint.printjob.PrintJob.execute_full_json"><code class="name flex">
-<span>def <span class="ident">execute_full_json</span></span>(<span>json_data: str, server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+<span>def <span class="ident">execute_full_json</span></span>(<span>json_data: str, server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.IResponse" href="response.html#cloudofficeprint.response.IResponse">IResponse</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.</p>
@@ -505,7 +586,7 @@ and the <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloud
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-def execute_full_json(json_data: str, server: Server) -&gt; Response:
+def execute_full_json(json_data: str, server: Server) -&gt; IResponse:
     &#34;&#34;&#34;If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.
 
     Args:
@@ -516,11 +597,15 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
         Response: `Response`-object
     &#34;&#34;&#34;
     server._raise_if_unreachable()
-    return PrintJob._handle_response(requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))</code></pre>
+    res = requests.post(server.url, proxies=server.config.proxies if server.config is not None else None, data=json_data, headers={&#34;Content-type&#34;: &#34;application/json&#34;})
+    _json = json.loads(json_data)
+    if &#34;output_polling&#34; in _json[&#34;output&#34;] and _json[&#34;output&#34;][&#34;output_polling&#34;]:
+        return PrintJob._handle_response_polling(res, server)
+    return PrintJob._handle_response(res)</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.printjob.PrintJob.execute_full_json_async"><code class="name flex">
-<span>async def <span class="ident">execute_full_json_async</span></span>(<span>json_data: str, server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+<span>async def <span class="ident">execute_full_json_async</span></span>(<span>json_data: str, server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.IResponse" href="response.html#cloudofficeprint.response.IResponse">IResponse</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Async version of <code>Printjob.execute_full_json</code></p>
@@ -541,7 +626,7 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-async def execute_full_json_async(json_data: str, server: Server) -&gt; Response:
+async def execute_full_json_async(json_data: str, server: Server) -&gt; IResponse:
     &#34;&#34;&#34;Async version of `Printjob.execute_full_json`
 
     Args:
@@ -552,8 +637,7 @@ async def execute_full_json_async(json_data: str, server: Server) -&gt; Response
         Response: `Response`-object
     &#34;&#34;&#34;
     server._raise_if_unreachable()
-    return PrintJob._handle_response(
-        await asyncio.get_event_loop().run_in_executor(
+    res = await asyncio.get_event_loop().run_in_executor(
             None, partial(
                 requests.post,
                 server.url,
@@ -562,7 +646,10 @@ async def execute_full_json_async(json_data: str, server: Server) -&gt; Response
                 headers={&#34;Content-type&#34;: &#34;application/json&#34;}
             )
         )
-    )</code></pre>
+    _json = json.loads(json_data)
+    if &#34;output_polling&#34; in _json[&#34;output&#34;] and _json[&#34;output&#34;][&#34;output_polling&#34;]:
+        return PrintJob._handle_response_polling(res, server)
+    return PrintJob._handle_response(res)</code></pre>
 </details>
 </dd>
 </dl>
@@ -637,6 +724,8 @@ def as_dict(self) -&gt; Dict:
             templates_list.append(to_add)
         result[&#34;templates&#34;] = templates_list
 
+    result[&#34;globalization&#34;] = [self.globalization.as_dict]
+
     # If verbose mode is activated, print the result to the terminal
     if self.cop_verbose:
         print(&#39;The JSON data that is sent to the Cloud Office Print server:\n&#39;)
@@ -673,7 +762,7 @@ def json(self) -&gt; str:
 <h3>Methods</h3>
 <dl>
 <dt id="cloudofficeprint.printjob.PrintJob.execute"><code class="name flex">
-<span>def <span class="ident">execute</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+<span>def <span class="ident">execute</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.IResponse" href="response.html#cloudofficeprint.response.IResponse">IResponse</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Execute this print job.</p>
@@ -686,18 +775,21 @@ def json(self) -&gt; str:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def execute(self) -&gt; Response:
+<pre><code class="python">def execute(self) -&gt; IResponse:
     &#34;&#34;&#34;Execute this print job.
 
     Returns:
         Response: `Response`-object
     &#34;&#34;&#34;
     self.server._raise_if_unreachable()
-    return self._handle_response(requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;}))</code></pre>
+    res = requests.post(self.server.url, proxies=self.server.config.proxies if self.server.config is not None else None, json=self.as_dict, headers={&#34;Content-type&#34;: &#34;application/json&#34;})
+    if self.output_config.polling:
+        return self._handle_response_polling(res, self.server)
+    return self._handle_response(res)</code></pre>
 </details>
 </dd>
 <dt id="cloudofficeprint.printjob.PrintJob.execute_async"><code class="name flex">
-<span>async def <span class="ident">execute_async</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+<span>async def <span class="ident">execute_async</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.IResponse" href="response.html#cloudofficeprint.response.IResponse">IResponse</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Async version of <code><a title="cloudofficeprint.printjob.PrintJob.execute" href="#cloudofficeprint.printjob.PrintJob.execute">PrintJob.execute()</a></code></p>
@@ -710,15 +802,14 @@ def json(self) -&gt; str:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">async def execute_async(self) -&gt; Response:
+<pre><code class="python">async def execute_async(self) -&gt; IResponse:
     &#34;&#34;&#34;Async version of `PrintJob.execute`
 
     Returns:
         Response: `Response`-object
     &#34;&#34;&#34;
     self.server._raise_if_unreachable()
-    return PrintJob._handle_response(
-        await asyncio.get_event_loop().run_in_executor(
+    res = await asyncio.get_event_loop().run_in_executor(
             None, partial(
                 requests.post,
                 self.server.url,
@@ -726,7 +817,9 @@ def json(self) -&gt; str:
                 json=self.as_dict
             )
         )
-    )</code></pre>
+    if self.output_config.polling:
+        return self._handle_response_polling(res, self.server)
+    return self._handle_response(res)</code></pre>
 </details>
 </dd>
 </dl>
