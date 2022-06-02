@@ -47,6 +47,18 @@ class Resource(ABC):
         return self._data
 
     @property
+    def as_string(self) -> str:
+        """The string representation of the data contained in this Resource.
+
+        Returns:
+            str: the string representation of the data contained in this Resource.
+        """
+        if isinstance(self.data, str):
+            return self.data
+        elif isinstance(self.data, bytes):
+            return file_utils.raw_to_base64(self.data)
+
+    @property
     def template_json(self) -> str:
         """Get the JSON representation when used as a template.
 

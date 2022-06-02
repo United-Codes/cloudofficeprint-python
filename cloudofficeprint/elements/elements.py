@@ -921,7 +921,7 @@ class Insert(Property):
     """
 
     def __init__(self, name: str, value: Resource):
-        super().__init__(name, value.base64 if isinstance(value, RawResource) else value.data)
+        super().__init__(name, value.as_string)
 
     @property
     def available_tags(self) -> FrozenSet[str]:
