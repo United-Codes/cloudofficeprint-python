@@ -949,7 +949,7 @@ class Insert(Property):
     &#34;&#34;&#34;
 
     def __init__(self, name: str, value: Resource):
-        super().__init__(name, value.base64 if isinstance(value, RawResource) else value.data)
+        super().__init__(name, value.as_string)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
@@ -2872,7 +2872,7 @@ but this can be of any type, for example a dict.</dd>
     &#34;&#34;&#34;
 
     def __init__(self, name: str, value: Resource):
-        super().__init__(name, value.base64 if isinstance(value, RawResource) else value.data)
+        super().__init__(name, value.as_string)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:

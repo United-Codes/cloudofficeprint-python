@@ -828,6 +828,18 @@ def json(self) -&gt; str:
         return self._data
 
     @property
+    def as_string(self) -&gt; str:
+        &#34;&#34;&#34;The string representation of the data contained in this Resource.
+
+        Returns:
+            str: the string representation of the data contained in this Resource.
+        &#34;&#34;&#34;
+        if isinstance(self.data, str):
+            return self.data
+        elif isinstance(self.data, bytes):
+            return file_utils.raw_to_base64(self.data)
+
+    @property
     def template_json(self) -&gt; str:
         &#34;&#34;&#34;Get the JSON representation when used as a template.
 
@@ -1192,6 +1204,31 @@ def from_url(url: str, filetype: str) -&gt; &#39;URLResource&#39;:
 </dl>
 <h3>Instance variables</h3>
 <dl>
+<dt id="cloudofficeprint.Resource.as_string"><code class="name">var <span class="ident">as_string</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The string representation of the data contained in this Resource.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>the string representation of the data contained in this Resource.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_string(self) -&gt; str:
+    &#34;&#34;&#34;The string representation of the data contained in this Resource.
+
+    Returns:
+        str: the string representation of the data contained in this Resource.
+    &#34;&#34;&#34;
+    if isinstance(self.data, str):
+        return self.data
+    elif isinstance(self.data, bytes):
+        return file_utils.raw_to_base64(self.data)</code></pre>
+</details>
+</dd>
 <dt id="cloudofficeprint.Resource.data"><code class="name">var <span class="ident">data</span> : Union[str, bytes]</code></dt>
 <dd>
 <div class="desc"><p>The data contained in this Resource.</p>
@@ -1689,6 +1726,7 @@ def response(self) -&gt; Response:
 <li>
 <h4><code><a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a></code></h4>
 <ul class="two-column">
+<li><code><a title="cloudofficeprint.Resource.as_string" href="#cloudofficeprint.Resource.as_string">as_string</a></code></li>
 <li><code><a title="cloudofficeprint.Resource.data" href="#cloudofficeprint.Resource.data">data</a></code></li>
 <li><code><a title="cloudofficeprint.Resource.from_base64" href="#cloudofficeprint.Resource.from_base64">from_base64</a></code></li>
 <li><code><a title="cloudofficeprint.Resource.from_html" href="#cloudofficeprint.Resource.from_html">from_html</a></code></li>
