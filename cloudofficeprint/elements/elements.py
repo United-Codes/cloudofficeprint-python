@@ -369,17 +369,19 @@ class FootNote(Property):
 class AutoLink(Property):
     """ This tag allows you to insert text into the document detecting links. 
     """
+
     def __init__(self, name: str, value: str):
         """
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
         """
-        super().__init__(name,value)
+        super().__init__(name, value)
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{*auto " + self.name + "}"})
+
 
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
@@ -910,21 +912,228 @@ class Freeze(Property):
 
 
 class Insert(Property):
-    """Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents."""
-
-    """
-    Args:
-        name (str): The name for the insert tag.
-        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
-         The documnet can be docx, pptx, xlsx, or pdf documents.
+    """Inside Word and PowerPoint and Excel documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.
+    Please use `ExcelInsert` element to insert in excel with more flexibility.
     """
 
     def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for the insert tag.
+            value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+            The documnet can be docx, pptx, xlsx, or pdf documents.
+        """
         super().__init__(name, value)
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{?insert " + self.name + "}"})
+
+
+class ExcelInsert(Element):
+    """Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
+        Options available are:  you can provide dynamic icon and icon position.
+                                you can preview the document in excel.
+    """
+
+    def __init__(self,
+                 name: str,
+                 value: str,
+                 isPreview: bool = None,
+                 icon: str = None,
+                 fromRow: int = None,
+                 fromCol: Union[str, int] = None,
+                 fromRowOff: str = None,
+                 fromColOff: str = None,
+                 toRow: int = None,
+                 toCol: Union[str, int] = None,
+                 toRowOff: str = None,
+                 toColOff: str = None
+                 ):
+        """It is possible to see preview of document or provide dynamic icon and position of icon.
+
+        Args:
+            name (str):  Name of insert tag. Ex(fileToInsert)
+            value (str): File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)
+            isPreview (bool, optional): Set it to true for preview. Defaults to false.
+            icon (str, optional): Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.
+            fromRow (int, optional): position for top of icon. Defaults to row of the tag.
+            fromCol (Union[str,int], optional): positon for left of icon. Defaults to column of the tag.
+            fromRowOff (str, optional): space after the value of from Row. Defaults to 0.
+            fromColOff (str, optional): space after the value of fromCol. Defaults to 0.
+            toRow (int, optional): position for bottom of icon. Defaults to row of the tag + 3.
+            toCol (Union[str,int], optional): position for right side of icon. Defaults to column of the tag.
+            toRowOff (str, optional): space after toRow value. Defaults to 20px.
+            toColOff (str, optional): space after toCol value. Defaults to 50px.
+        """
+        super().__init__(name)
+        self.value: str = value
+        self.isPreview: bool = isPreview
+        self.icon: str = icon
+        self.fromRow: int = fromRow
+        self.fromCol: Union[str, int] = fromCol
+        self.fromRowOff: str = fromRowOff
+        self.fromColOff: str = fromColOff
+        self.toRow: int = toRow
+        self.toCol: Union[str, int] = toCol
+        self.toRowOff: str = toRowOff
+        self.toColOff: str = toColOff
+
+    @property
+    def as_dict(self) -> Dict:
+        result = {
+            self.name: self.value
+        }
+        if self.isPreview is not None:
+            result[self.name+'_isPreview'] = self.isPreview
+        if self.icon is not None:
+            result[self.name+'_icon'] = self.icon
+        if self.fromRow is not None:
+            result[self.name+'_fromRow'] = self.fromRow
+        if self.fromCol is not None:
+            result[self.name+'_fromCol'] = self.fromCol
+        if self.fromRowOff is not None:
+            result[self.name+'_fromRowOff'] = self.fromRowOff
+        if self.fromColOff is not None:
+            result[self.name+'_fromColOff'] = self.fromColOff
+        if self.toRow is not None:
+            result[self.name+'_toRow'] = self.toRow
+        if self.toCol is not None:
+            result[self.name+'_toCol'] = self.toCol
+        if self.toRowOff is not None:
+            result[self.name+'_toRowOff'] = self.toRowOff
+        if self.toColOff is not None:
+            result[self.name+'_toColOff'] = self.toColOff
+
+        return result
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?insert fileToInsert}"})
+
+
+class Embed(Property):
+    """Inside Word, it is possible to copy the content of one docx file to the template without rendering.
+
+        To do so, you can use AOP embed tag as {?embed fileToEmbed} where fileToEmbed contains the path of file or file itself.
+
+        The content of fileToEmbed replaces the tag
+
+        Only supported in Word and only supports docx file to embed.
+    """
+
+    def __init__(self, name: str, value: str):
+        """It takes the tagName and its value as parameter.
+
+        Args:
+            name (str): Name of the tag (ex. fileToEmbed)
+            value (str): File to embed. Source can be FTP, SFTP, URL or base64 encoded file. (ex. base64encoded string)
+        """
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?embed fileToEmbed}"})
+
+
+class SheetProtection(Element):
+    """Inside Excel documents, this tag can be used to make password protected sheets. This tag has the feature of password along with different other features.
+
+        Note: value is considered password, so try to use only one (either value or passowrd).
+    """
+
+    def __init__(self,
+                 name: str,
+                 value: str = None,
+                 autoFilter: str = None,
+                 deleteColumns: bool = None,
+                 deleteRows: bool = None,
+                 formatCells: bool = None,
+                 formatColumns: bool = None,
+                 formatRows: bool = None,
+                 insertColumns: bool = None,
+                 insertHyperlinks: bool = None,
+                 insertRows: bool = None,
+                 password: str = None,
+                 pivotTables: bool = None,
+                 selectLockedCells: bool = None,
+                 selectUnlockedCells: bool = None,
+                 sort: bool = None,
+                 ):
+        """
+        Args:
+            name: (str): The name for the sheet protection tag.
+            value: (str): Value for the tag; this is used as password
+            autoFilter: (str): lock auto filter in sheet.
+            deleteColumns: (bool): lock delete columns in sheet.
+            deleteRows: (bool): lock delete rows in sheet.
+            formatCells: (bool): lock format cells.
+            formatColumns: (bool): lock format columns.
+            formatRows: (bool): lock format rows.
+            insertColumns: (bool): lock insert columns.
+            insertHyperlinks: (bool): lock insert hyperlinks.
+            insertRows: (bool): lock insert rows.
+            password: (str): password to lock with.
+            pivotTables: (bool): lock pivot tables.
+            selectLockedCells: (bool): lock select locked cells.
+            selectUnlockedCells: (bool): lock select unlocked cells.
+            sort: (bool): lock sort.
+        """
+        super().__init__(name)
+        self.value = value
+        self.autoFilter = autoFilter
+        self.deleteColumns = deleteColumns
+        self.deleteRows = deleteRows
+        self.formatCells = formatCells
+        self.formatColumns = formatColumns
+        self.formatRows = formatRows
+        self.insertColumns = insertColumns
+        self.insertHyperlinks = insertHyperlinks
+        self.insertRows = insertRows
+        self.password = password
+        self.pivotTables = pivotTables
+        self.selectLockedCells = selectLockedCells
+        self.selectUnlockedCells = selectUnlockedCells
+        self.sort = sort
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{protect " + self.name + "}"})
+
+    @property
+    def as_dict(self) -> Dict:
+        result = {}
+        if self.value is not None:
+            result[self.name] = self.value
+        if self.autoFilter is not None:
+            result[self.name+'_allow_auto_filter'] = self.autoFilter
+        if self.deleteColumns is not None:
+            result[self.name+'_allow_delete_columns'] = self.deleteColumns
+        if self.deleteRows is not None:
+            result[self.name+'_allow_delete_rows'] = self.deleteRows
+        if self.formatCells is not None:
+            result[self.name+'_allow_format_cells'] = self.formatCells
+        if self.formatColumns is not None:
+            result[self.name+'_allow_format_columns'] = self.formatColumns
+        if self.formatRows is not None:
+            result[self.name+'_allow_format_rows'] = self.formatRows
+        if self.insertColumns is not None:
+            result[self.name+'_allow_insert_columns'] = self.insertColumns
+        if self.insertHyperlinks is not None:
+            result[self.name+'_allow_insert_hyperlinks'] = self.insertHyperlinks
+        if self.insertRows is not None:
+            result[self.name+'_allow_insert_rows'] = self.insertRows
+        if self.password is not None:
+            result[self.name+'_password'] = self.password
+        if self.pivotTables is not None:
+            result[self.name+'_allow_pivot_tables'] = self.pivotTables
+        if self.selectLockedCells is not None:
+            result[self.name+'_allow_select_locked_cells'] = self.selectLockedCells
+        if self.selectUnlockedCells is not None:
+            result[self.name+'_allow_select_unlocked_cells'] = self.selectUnlockedCells
+        if self.sort is not None:
+            result[self.name+'_allow_sort'] = self.sort
+        return result
 
 
 class ElementCollection(list, Element):
