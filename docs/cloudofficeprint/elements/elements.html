@@ -397,17 +397,19 @@ class FootNote(Property):
 class AutoLink(Property):
     &#34;&#34;&#34; This tag allows you to insert text into the document detecting links. 
     &#34;&#34;&#34;
+
     def __init__(self, name: str, value: str):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
         &#34;&#34;&#34;
-        super().__init__(name,value)
+        super().__init__(name, value)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
         return frozenset({&#34;{*auto &#34; + self.name + &#34;}&#34;})
+
 
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
@@ -938,21 +940,228 @@ class Freeze(Property):
 
 
 class Insert(Property):
-    &#34;&#34;&#34;Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.&#34;&#34;&#34;
-
-    &#34;&#34;&#34;
-    Args:
-        name (str): The name for the insert tag.
-        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
-         The documnet can be docx, pptx, xlsx, or pdf documents.
+    &#34;&#34;&#34;Inside Word and PowerPoint and Excel documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.
+    Please use `ExcelInsert` element to insert in excel with more flexibility.
     &#34;&#34;&#34;
 
     def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the insert tag.
+            value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+            The documnet can be docx, pptx, xlsx, or pdf documents.
+        &#34;&#34;&#34;
         super().__init__(name, value)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
         return frozenset({&#34;{?insert &#34; + self.name + &#34;}&#34;})
+
+
+class ExcelInsert(Element):
+    &#34;&#34;&#34;Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
+        Options available are:  you can provide dynamic icon and icon position.
+                                you can preview the document in excel.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 value: str,
+                 isPreview: bool = None,
+                 icon: str = None,
+                 fromRow: int = None,
+                 fromCol: Union[str, int] = None,
+                 fromRowOff: str = None,
+                 fromColOff: str = None,
+                 toRow: int = None,
+                 toCol: Union[str, int] = None,
+                 toRowOff: str = None,
+                 toColOff: str = None
+                 ):
+        &#34;&#34;&#34;It is possible to see preview of document or provide dynamic icon and position of icon.
+
+        Args:
+            name (str):  Name of insert tag. Ex(fileToInsert)
+            value (str): File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)
+            isPreview (bool, optional): Set it to true for preview. Defaults to false.
+            icon (str, optional): Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.
+            fromRow (int, optional): position for top of icon. Defaults to row of the tag.
+            fromCol (Union[str,int], optional): positon for left of icon. Defaults to column of the tag.
+            fromRowOff (str, optional): space after the value of from Row. Defaults to 0.
+            fromColOff (str, optional): space after the value of fromCol. Defaults to 0.
+            toRow (int, optional): position for bottom of icon. Defaults to row of the tag + 3.
+            toCol (Union[str,int], optional): position for right side of icon. Defaults to column of the tag.
+            toRowOff (str, optional): space after toRow value. Defaults to 20px.
+            toColOff (str, optional): space after toCol value. Defaults to 50px.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value: str = value
+        self.isPreview: bool = isPreview
+        self.icon: str = icon
+        self.fromRow: int = fromRow
+        self.fromCol: Union[str, int] = fromCol
+        self.fromRowOff: str = fromRowOff
+        self.fromColOff: str = fromColOff
+        self.toRow: int = toRow
+        self.toCol: Union[str, int] = toCol
+        self.toRowOff: str = toRowOff
+        self.toColOff: str = toColOff
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+        if self.isPreview is not None:
+            result[self.name+&#39;_isPreview&#39;] = self.isPreview
+        if self.icon is not None:
+            result[self.name+&#39;_icon&#39;] = self.icon
+        if self.fromRow is not None:
+            result[self.name+&#39;_fromRow&#39;] = self.fromRow
+        if self.fromCol is not None:
+            result[self.name+&#39;_fromCol&#39;] = self.fromCol
+        if self.fromRowOff is not None:
+            result[self.name+&#39;_fromRowOff&#39;] = self.fromRowOff
+        if self.fromColOff is not None:
+            result[self.name+&#39;_fromColOff&#39;] = self.fromColOff
+        if self.toRow is not None:
+            result[self.name+&#39;_toRow&#39;] = self.toRow
+        if self.toCol is not None:
+            result[self.name+&#39;_toCol&#39;] = self.toCol
+        if self.toRowOff is not None:
+            result[self.name+&#39;_toRowOff&#39;] = self.toRowOff
+        if self.toColOff is not None:
+            result[self.name+&#39;_toColOff&#39;] = self.toColOff
+
+        return result
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?insert fileToInsert}&#34;})
+
+
+class Embed(Property):
+    &#34;&#34;&#34;Inside Word, it is possible to copy the content of one docx file to the template without rendering.
+
+        To do so, you can use AOP embed tag as {?embed fileToEmbed} where fileToEmbed contains the path of file or file itself.
+
+        The content of fileToEmbed replaces the tag
+
+        Only supported in Word and only supports docx file to embed.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;It takes the tagName and its value as parameter.
+
+        Args:
+            name (str): Name of the tag (ex. fileToEmbed)
+            value (str): File to embed. Source can be FTP, SFTP, URL or base64 encoded file. (ex. base64encoded string)
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?embed fileToEmbed}&#34;})
+
+
+class SheetProtection(Element):
+    &#34;&#34;&#34;Inside Excel documents, this tag can be used to make password protected sheets. This tag has the feature of password along with different other features.
+
+        Note: value is considered password, so try to use only one (either value or passowrd).
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 value: str = None,
+                 autoFilter: str = None,
+                 deleteColumns: bool = None,
+                 deleteRows: bool = None,
+                 formatCells: bool = None,
+                 formatColumns: bool = None,
+                 formatRows: bool = None,
+                 insertColumns: bool = None,
+                 insertHyperlinks: bool = None,
+                 insertRows: bool = None,
+                 password: str = None,
+                 pivotTables: bool = None,
+                 selectLockedCells: bool = None,
+                 selectUnlockedCells: bool = None,
+                 sort: bool = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            name: (str): The name for the sheet protection tag.
+            value: (str): Value for the tag; this is used as password
+            autoFilter: (str): lock auto filter in sheet.
+            deleteColumns: (bool): lock delete columns in sheet.
+            deleteRows: (bool): lock delete rows in sheet.
+            formatCells: (bool): lock format cells.
+            formatColumns: (bool): lock format columns.
+            formatRows: (bool): lock format rows.
+            insertColumns: (bool): lock insert columns.
+            insertHyperlinks: (bool): lock insert hyperlinks.
+            insertRows: (bool): lock insert rows.
+            password: (str): password to lock with.
+            pivotTables: (bool): lock pivot tables.
+            selectLockedCells: (bool): lock select locked cells.
+            selectUnlockedCells: (bool): lock select unlocked cells.
+            sort: (bool): lock sort.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value = value
+        self.autoFilter = autoFilter
+        self.deleteColumns = deleteColumns
+        self.deleteRows = deleteRows
+        self.formatCells = formatCells
+        self.formatColumns = formatColumns
+        self.formatRows = formatRows
+        self.insertColumns = insertColumns
+        self.insertHyperlinks = insertHyperlinks
+        self.insertRows = insertRows
+        self.password = password
+        self.pivotTables = pivotTables
+        self.selectLockedCells = selectLockedCells
+        self.selectUnlockedCells = selectUnlockedCells
+        self.sort = sort
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{protect &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {}
+        if self.value is not None:
+            result[self.name] = self.value
+        if self.autoFilter is not None:
+            result[self.name+&#39;_allow_auto_filter&#39;] = self.autoFilter
+        if self.deleteColumns is not None:
+            result[self.name+&#39;_allow_delete_columns&#39;] = self.deleteColumns
+        if self.deleteRows is not None:
+            result[self.name+&#39;_allow_delete_rows&#39;] = self.deleteRows
+        if self.formatCells is not None:
+            result[self.name+&#39;_allow_format_cells&#39;] = self.formatCells
+        if self.formatColumns is not None:
+            result[self.name+&#39;_allow_format_columns&#39;] = self.formatColumns
+        if self.formatRows is not None:
+            result[self.name+&#39;_allow_format_rows&#39;] = self.formatRows
+        if self.insertColumns is not None:
+            result[self.name+&#39;_allow_insert_columns&#39;] = self.insertColumns
+        if self.insertHyperlinks is not None:
+            result[self.name+&#39;_allow_insert_hyperlinks&#39;] = self.insertHyperlinks
+        if self.insertRows is not None:
+            result[self.name+&#39;_allow_insert_rows&#39;] = self.insertRows
+        if self.password is not None:
+            result[self.name+&#39;_password&#39;] = self.password
+        if self.pivotTables is not None:
+            result[self.name+&#39;_allow_pivot_tables&#39;] = self.pivotTables
+        if self.selectLockedCells is not None:
+            result[self.name+&#39;_allow_select_locked_cells&#39;] = self.selectLockedCells
+        if self.selectUnlockedCells is not None:
+            result[self.name+&#39;_allow_select_unlocked_cells&#39;] = self.selectUnlockedCells
+        if self.sort is not None:
+            result[self.name+&#39;_allow_sort&#39;] = self.sort
+        return result
 
 
 class ElementCollection(list, Element):
@@ -1123,13 +1332,14 @@ class ElementCollection(list, Element):
 <pre><code class="python">class AutoLink(Property):
     &#34;&#34;&#34; This tag allows you to insert text into the document detecting links. 
     &#34;&#34;&#34;
+
     def __init__(self, name: str, value: str):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
         &#34;&#34;&#34;
-        super().__init__(name,value)
+        super().__init__(name, value)
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
@@ -2060,8 +2270,10 @@ def as_dict(self) -&gt; Dict:
 <li><a title="cloudofficeprint.elements.elements.COPChart" href="#cloudofficeprint.elements.elements.COPChart">COPChart</a></li>
 <li><a title="cloudofficeprint.elements.elements.D3Code" href="#cloudofficeprint.elements.elements.D3Code">D3Code</a></li>
 <li><a title="cloudofficeprint.elements.elements.ElementCollection" href="#cloudofficeprint.elements.elements.ElementCollection">ElementCollection</a></li>
+<li><a title="cloudofficeprint.elements.elements.ExcelInsert" href="#cloudofficeprint.elements.elements.ExcelInsert">ExcelInsert</a></li>
 <li><a title="cloudofficeprint.elements.elements.Hyperlink" href="#cloudofficeprint.elements.elements.Hyperlink">Hyperlink</a></li>
 <li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.SheetProtection" href="#cloudofficeprint.elements.elements.SheetProtection">SheetProtection</a></li>
 <li><a title="cloudofficeprint.elements.elements.TableOfContents" href="#cloudofficeprint.elements.elements.TableOfContents">TableOfContents</a></li>
 <li><a title="cloudofficeprint.elements.elements.TextBox" href="#cloudofficeprint.elements.elements.TextBox">TextBox</a></li>
 <li><a title="cloudofficeprint.elements.images.Image" href="images.html#cloudofficeprint.elements.images.Image">Image</a></li>
@@ -2580,6 +2792,205 @@ def as_dict(self) -&gt; Dict:
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.Embed"><code class="flex name class">
+<span>class <span class="ident">Embed</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Inside Word, it is possible to copy the content of one docx file to the template without rendering.</p>
+<p>To do so, you can use AOP embed tag as {?embed fileToEmbed} where fileToEmbed contains the path of file or file itself.</p>
+<p>The content of fileToEmbed replaces the tag</p>
+<p>Only supported in Word and only supports docx file to embed.</p>
+<p>It takes the tagName and its value as parameter.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the tag (ex. fileToEmbed)</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>File to embed. Source can be FTP, SFTP, URL or base64 encoded file. (ex. base64encoded string)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Embed(Property):
+    &#34;&#34;&#34;Inside Word, it is possible to copy the content of one docx file to the template without rendering.
+
+        To do so, you can use AOP embed tag as {?embed fileToEmbed} where fileToEmbed contains the path of file or file itself.
+
+        The content of fileToEmbed replaces the tag
+
+        Only supported in Word and only supports docx file to embed.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;It takes the tagName and its value as parameter.
+
+        Args:
+            name (str): Name of the tag (ex. fileToEmbed)
+            value (str): File to embed. Source can be FTP, SFTP, URL or base64 encoded file. (ex. base64encoded string)
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?embed fileToEmbed}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.elements.ExcelInsert"><code class="flex name class">
+<span>class <span class="ident">ExcelInsert</span></span>
+<span>(</span><span>name: str, value: str, isPreview: bool = None, icon: str = None, fromRow: int = None, fromCol: Union[str, int] = None, fromRowOff: str = None, fromColOff: str = None, toRow: int = None, toCol: Union[str, int] = None, toRowOff: str = None, toColOff: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
+Options available are:
+you can provide dynamic icon and icon position.
+you can preview the document in excel.</p>
+<p>It is possible to see preview of document or provide dynamic icon and position of icon.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of insert tag. Ex(fileToInsert)</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)</dd>
+<dt><strong><code>isPreview</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Set it to true for preview. Defaults to false.</dd>
+<dt><strong><code>icon</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.</dd>
+<dt><strong><code>fromRow</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>position for top of icon. Defaults to row of the tag.</dd>
+<dt><strong><code>fromCol</code></strong> :&ensp;<code>Union[str,int]</code>, optional</dt>
+<dd>positon for left of icon. Defaults to column of the tag.</dd>
+<dt><strong><code>fromRowOff</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>space after the value of from Row. Defaults to 0.</dd>
+<dt><strong><code>fromColOff</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>space after the value of fromCol. Defaults to 0.</dd>
+<dt><strong><code>toRow</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>position for bottom of icon. Defaults to row of the tag + 3.</dd>
+<dt><strong><code>toCol</code></strong> :&ensp;<code>Union[str,int]</code>, optional</dt>
+<dd>position for right side of icon. Defaults to column of the tag.</dd>
+<dt><strong><code>toRowOff</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>space after toRow value. Defaults to 20px.</dd>
+<dt><strong><code>toColOff</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>space after toCol value. Defaults to 50px.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ExcelInsert(Element):
+    &#34;&#34;&#34;Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
+        Options available are:  you can provide dynamic icon and icon position.
+                                you can preview the document in excel.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 value: str,
+                 isPreview: bool = None,
+                 icon: str = None,
+                 fromRow: int = None,
+                 fromCol: Union[str, int] = None,
+                 fromRowOff: str = None,
+                 fromColOff: str = None,
+                 toRow: int = None,
+                 toCol: Union[str, int] = None,
+                 toRowOff: str = None,
+                 toColOff: str = None
+                 ):
+        &#34;&#34;&#34;It is possible to see preview of document or provide dynamic icon and position of icon.
+
+        Args:
+            name (str):  Name of insert tag. Ex(fileToInsert)
+            value (str): File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)
+            isPreview (bool, optional): Set it to true for preview. Defaults to false.
+            icon (str, optional): Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.
+            fromRow (int, optional): position for top of icon. Defaults to row of the tag.
+            fromCol (Union[str,int], optional): positon for left of icon. Defaults to column of the tag.
+            fromRowOff (str, optional): space after the value of from Row. Defaults to 0.
+            fromColOff (str, optional): space after the value of fromCol. Defaults to 0.
+            toRow (int, optional): position for bottom of icon. Defaults to row of the tag + 3.
+            toCol (Union[str,int], optional): position for right side of icon. Defaults to column of the tag.
+            toRowOff (str, optional): space after toRow value. Defaults to 20px.
+            toColOff (str, optional): space after toCol value. Defaults to 50px.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value: str = value
+        self.isPreview: bool = isPreview
+        self.icon: str = icon
+        self.fromRow: int = fromRow
+        self.fromCol: Union[str, int] = fromCol
+        self.fromRowOff: str = fromRowOff
+        self.fromColOff: str = fromColOff
+        self.toRow: int = toRow
+        self.toCol: Union[str, int] = toCol
+        self.toRowOff: str = toRowOff
+        self.toColOff: str = toColOff
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {
+            self.name: self.value
+        }
+        if self.isPreview is not None:
+            result[self.name+&#39;_isPreview&#39;] = self.isPreview
+        if self.icon is not None:
+            result[self.name+&#39;_icon&#39;] = self.icon
+        if self.fromRow is not None:
+            result[self.name+&#39;_fromRow&#39;] = self.fromRow
+        if self.fromCol is not None:
+            result[self.name+&#39;_fromCol&#39;] = self.fromCol
+        if self.fromRowOff is not None:
+            result[self.name+&#39;_fromRowOff&#39;] = self.fromRowOff
+        if self.fromColOff is not None:
+            result[self.name+&#39;_fromColOff&#39;] = self.fromColOff
+        if self.toRow is not None:
+            result[self.name+&#39;_toRow&#39;] = self.toRow
+        if self.toCol is not None:
+            result[self.name+&#39;_toCol&#39;] = self.toCol
+        if self.toRowOff is not None:
+            result[self.name+&#39;_toRowOff&#39;] = self.toRowOff
+        if self.toColOff is not None:
+            result[self.name+&#39;_toColOff&#39;] = self.toColOff
+
+        return result
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?insert fileToInsert}&#34;})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.FootNote"><code class="flex name class">
 <span>class <span class="ident">FootNote</span></span>
 <span>(</span><span>name: str, value: str)</span>
@@ -2846,30 +3257,32 @@ Third option, don't place a pane, using a value of <strong>false</strong>.</p></
 <span>(</span><span>name: str, value: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.</p>
+<div class="desc"><p>Inside Word and PowerPoint and Excel documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.
+Please use <code><a title="cloudofficeprint.elements.elements.ExcelInsert" href="#cloudofficeprint.elements.elements.ExcelInsert">ExcelInsert</a></code> element to insert in excel with more flexibility.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this property.</dd>
+<dd>The name for the insert tag.</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
-<dd>The value for this property. Note: the general purpose for this value-field is the value as a string,
-but this can be of any type, for example a dict.</dd>
-</dl></div>
+<dd>Base64 encoded document that needs to be inserted in output docx or pptx.</dd>
+</dl>
+<p>The documnet can be docx, pptx, xlsx, or pdf documents.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Insert(Property):
-    &#34;&#34;&#34;Inside Word and PowerPoint documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.&#34;&#34;&#34;
-
-    &#34;&#34;&#34;
-    Args:
-        name (str): The name for the insert tag.
-        value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
-         The documnet can be docx, pptx, xlsx, or pdf documents.
+    &#34;&#34;&#34;Inside Word and PowerPoint and Excel documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.
+    Please use `ExcelInsert` element to insert in excel with more flexibility.
     &#34;&#34;&#34;
 
     def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the insert tag.
+            value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+            The documnet can be docx, pptx, xlsx, or pdf documents.
+        &#34;&#34;&#34;
         super().__init__(name, value)
 
     @property
@@ -3047,6 +3460,7 @@ but this can be of any type, for example a dict.</dd>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.elements.AutoLink" href="#cloudofficeprint.elements.elements.AutoLink">AutoLink</a></li>
 <li><a title="cloudofficeprint.elements.elements.CellStyleProperty" href="#cloudofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></li>
+<li><a title="cloudofficeprint.elements.elements.Embed" href="#cloudofficeprint.elements.elements.Embed">Embed</a></li>
 <li><a title="cloudofficeprint.elements.elements.FootNote" href="#cloudofficeprint.elements.elements.FootNote">FootNote</a></li>
 <li><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></li>
 <li><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></li>
@@ -3163,6 +3577,167 @@ but this can be of any type, for example a dict.</dd>
 <li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.elements.SheetProtection"><code class="flex name class">
+<span>class <span class="ident">SheetProtection</span></span>
+<span>(</span><span>name: str, value: str = None, autoFilter: str = None, deleteColumns: bool = None, deleteRows: bool = None, formatCells: bool = None, formatColumns: bool = None, formatRows: bool = None, insertColumns: bool = None, insertHyperlinks: bool = None, insertRows: bool = None, password: str = None, pivotTables: bool = None, selectLockedCells: bool = None, selectUnlockedCells: bool = None, sort: bool = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Inside Excel documents, this tag can be used to make password protected sheets. This tag has the feature of password along with different other features.</p>
+<p>Note: value is considered password, so try to use only one (either value or passowrd).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong></dt>
+<dd>(str): The name for the sheet protection tag.</dd>
+<dt><strong><code>value</code></strong></dt>
+<dd>(str): Value for the tag; this is used as password</dd>
+<dt><strong><code>autoFilter</code></strong></dt>
+<dd>(str): lock auto filter in sheet.</dd>
+<dt><strong><code>deleteColumns</code></strong></dt>
+<dd>(bool): lock delete columns in sheet.</dd>
+<dt><strong><code>deleteRows</code></strong></dt>
+<dd>(bool): lock delete rows in sheet.</dd>
+<dt><strong><code>formatCells</code></strong></dt>
+<dd>(bool): lock format cells.</dd>
+<dt><strong><code>formatColumns</code></strong></dt>
+<dd>(bool): lock format columns.</dd>
+<dt><strong><code>formatRows</code></strong></dt>
+<dd>(bool): lock format rows.</dd>
+<dt><strong><code>insertColumns</code></strong></dt>
+<dd>(bool): lock insert columns.</dd>
+<dt><strong><code>insertHyperlinks</code></strong></dt>
+<dd>(bool): lock insert hyperlinks.</dd>
+<dt><strong><code>insertRows</code></strong></dt>
+<dd>(bool): lock insert rows.</dd>
+<dt><strong><code>password</code></strong></dt>
+<dd>(str): password to lock with.</dd>
+<dt><strong><code>pivotTables</code></strong></dt>
+<dd>(bool): lock pivot tables.</dd>
+<dt><strong><code>selectLockedCells</code></strong></dt>
+<dd>(bool): lock select locked cells.</dd>
+<dt><strong><code>selectUnlockedCells</code></strong></dt>
+<dd>(bool): lock select unlocked cells.</dd>
+<dt><strong><code>sort</code></strong></dt>
+<dd>(bool): lock sort.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SheetProtection(Element):
+    &#34;&#34;&#34;Inside Excel documents, this tag can be used to make password protected sheets. This tag has the feature of password along with different other features.
+
+        Note: value is considered password, so try to use only one (either value or passowrd).
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 value: str = None,
+                 autoFilter: str = None,
+                 deleteColumns: bool = None,
+                 deleteRows: bool = None,
+                 formatCells: bool = None,
+                 formatColumns: bool = None,
+                 formatRows: bool = None,
+                 insertColumns: bool = None,
+                 insertHyperlinks: bool = None,
+                 insertRows: bool = None,
+                 password: str = None,
+                 pivotTables: bool = None,
+                 selectLockedCells: bool = None,
+                 selectUnlockedCells: bool = None,
+                 sort: bool = None,
+                 ):
+        &#34;&#34;&#34;
+        Args:
+            name: (str): The name for the sheet protection tag.
+            value: (str): Value for the tag; this is used as password
+            autoFilter: (str): lock auto filter in sheet.
+            deleteColumns: (bool): lock delete columns in sheet.
+            deleteRows: (bool): lock delete rows in sheet.
+            formatCells: (bool): lock format cells.
+            formatColumns: (bool): lock format columns.
+            formatRows: (bool): lock format rows.
+            insertColumns: (bool): lock insert columns.
+            insertHyperlinks: (bool): lock insert hyperlinks.
+            insertRows: (bool): lock insert rows.
+            password: (str): password to lock with.
+            pivotTables: (bool): lock pivot tables.
+            selectLockedCells: (bool): lock select locked cells.
+            selectUnlockedCells: (bool): lock select unlocked cells.
+            sort: (bool): lock sort.
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.value = value
+        self.autoFilter = autoFilter
+        self.deleteColumns = deleteColumns
+        self.deleteRows = deleteRows
+        self.formatCells = formatCells
+        self.formatColumns = formatColumns
+        self.formatRows = formatRows
+        self.insertColumns = insertColumns
+        self.insertHyperlinks = insertHyperlinks
+        self.insertRows = insertRows
+        self.password = password
+        self.pivotTables = pivotTables
+        self.selectLockedCells = selectLockedCells
+        self.selectUnlockedCells = selectUnlockedCells
+        self.sort = sort
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{protect &#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {}
+        if self.value is not None:
+            result[self.name] = self.value
+        if self.autoFilter is not None:
+            result[self.name+&#39;_allow_auto_filter&#39;] = self.autoFilter
+        if self.deleteColumns is not None:
+            result[self.name+&#39;_allow_delete_columns&#39;] = self.deleteColumns
+        if self.deleteRows is not None:
+            result[self.name+&#39;_allow_delete_rows&#39;] = self.deleteRows
+        if self.formatCells is not None:
+            result[self.name+&#39;_allow_format_cells&#39;] = self.formatCells
+        if self.formatColumns is not None:
+            result[self.name+&#39;_allow_format_columns&#39;] = self.formatColumns
+        if self.formatRows is not None:
+            result[self.name+&#39;_allow_format_rows&#39;] = self.formatRows
+        if self.insertColumns is not None:
+            result[self.name+&#39;_allow_insert_columns&#39;] = self.insertColumns
+        if self.insertHyperlinks is not None:
+            result[self.name+&#39;_allow_insert_hyperlinks&#39;] = self.insertHyperlinks
+        if self.insertRows is not None:
+            result[self.name+&#39;_allow_insert_rows&#39;] = self.insertRows
+        if self.password is not None:
+            result[self.name+&#39;_password&#39;] = self.password
+        if self.pivotTables is not None:
+            result[self.name+&#39;_allow_pivot_tables&#39;] = self.pivotTables
+        if self.selectLockedCells is not None:
+            result[self.name+&#39;_allow_select_locked_cells&#39;] = self.selectLockedCells
+        if self.selectUnlockedCells is not None:
+            result[self.name+&#39;_allow_select_unlocked_cells&#39;] = self.selectUnlockedCells
+        if self.sort is not None:
+            result[self.name+&#39;_allow_sort&#39;] = self.sort
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
 </ul>
 </li>
 </ul>
@@ -3690,6 +4265,12 @@ but this can be of any type, for example a dict.</dd>
 </ul>
 </li>
 <li>
+<h4><code><a title="cloudofficeprint.elements.elements.Embed" href="#cloudofficeprint.elements.elements.Embed">Embed</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.ExcelInsert" href="#cloudofficeprint.elements.elements.ExcelInsert">ExcelInsert</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.elements.FootNote" href="#cloudofficeprint.elements.elements.FootNote">FootNote</a></code></h4>
 </li>
 <li>
@@ -3721,6 +4302,9 @@ but this can be of any type, for example a dict.</dd>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.RightToLeft" href="#cloudofficeprint.elements.elements.RightToLeft">RightToLeft</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.SheetProtection" href="#cloudofficeprint.elements.elements.SheetProtection">SheetProtection</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Span" href="#cloudofficeprint.elements.elements.Span">Span</a></code></h4>

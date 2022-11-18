@@ -30,6 +30,7 @@
 from typing import Dict
 from .cloud import CloudAccessToken
 from .pdf import PDFOptions
+from .request_option import requestOptions
 
 
 class OutputConfig:
@@ -45,16 +46,25 @@ class OutputConfig:
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
                  pdf_options: PDFOptions = None,
-                 append_per_page: bool = None,):
-        &#34;&#34;&#34;
+                 append_per_page: bool = None,
+                 prepend_per_page: bool = None,
+                 output_polling: bool = None,
+                 secret_key: str = None,
+                 request_option: requestOptions = None):
+        &#34;&#34;&#34;If the parameters are not provided default value will be used.
+
         Args:
-            filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
+            filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py). Defaults to None.
             encoding (str, optional): Encoding of output file. Either &#34;raw&#34; or &#34;base64&#34;. Defaults to &#34;raw&#34;.
             converter (str, optional): The pdf converter to use. Can be &#34;libreoffice&#34;, &#34;officetopdf&#34; or any custom defined converter. Custom converters are configurated in the Cloud Office Print server&#39;s `aop_config.json` file. Defaults to &#34;libreoffice&#34;.
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
-            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
+            append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
+            prepend_per_page (bool, optional): Ability to prepend file after each page of output. Defaults to None.
+            output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
+            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.
+            request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
         &#34;&#34;&#34;
         self.filetype: str = filetype
         self.converter: str = converter
@@ -63,6 +73,10 @@ class OutputConfig:
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
         self.append_per_page = append_per_page
+        self.prepend_per_page = prepend_per_page
+        self.output_polling = output_polling
+        self.secret_key = secret_key
+        self.request_option = request_option
 
     @property
     def json(self) -&gt; str:
@@ -97,6 +111,14 @@ class OutputConfig:
             result.update(self.pdf_options.as_dict)
         if self.append_per_page is not None:
             result[&#34;output_append_per_page&#34;] = self.append_per_page
+        if self.prepend_per_page is not None:
+            result[&#34;output_prepend_per_page&#34;] = self.prepend_per_page
+        if self.output_polling is not None:
+            result[&#39;output_polling&#39;] = self.output_polling
+        if self.secret_key is not None:
+            result[&#39;secret_key&#39;] = self.secret_key
+        if self.request_option is not None:
+            result[&#39;request_option&#39;] = self.request_option.as_dict
         return result
 
     @property
@@ -135,15 +157,16 @@ class OutputConfig:
 <dl>
 <dt id="cloudofficeprint.config.output.OutputConfig"><code class="flex name class">
 <span>class <span class="ident">OutputConfig</span></span>
-<span>(</span><span>filetype: str = None, encoding: str = 'raw', converter: str = 'libreoffice', cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None, server_directory: str = None, pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None, append_per_page: bool = None)</span>
+<span>(</span><span>filetype: str = None, encoding: str = 'raw', converter: str = 'libreoffice', cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None, server_directory: str = None, pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None, append_per_page: bool = None, prepend_per_page: bool = None, output_polling: bool = None, secret_key: str = None, request_option: <a title="cloudofficeprint.config.request_option.requestOptions" href="request_option.html#cloudofficeprint.config.request_option.requestOptions">requestOptions</a> = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class to specify output configuration for a request.</p>
 <p>This configuration is general and for the entire list of output files.</p>
+<p>If the parameters are not provided default value will be used.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>filetype</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).</dd>
+<dd>The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py). Defaults to None.</dd>
 <dt><strong><code>encoding</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Encoding of output file. Either "raw" or "base64". Defaults to "raw".</dd>
 <dt><strong><code>converter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -155,7 +178,15 @@ class OutputConfig:
 <dt><strong><code>pdf_options</code></strong> :&ensp;<code>PDFOptions</code>, optional</dt>
 <dd>Optional PDF options. Defaults to None.</dd>
 <dt><strong><code>append_per_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Ability to prepend/append file after each page of output.</dd>
+<dd>Ability to append file after each page of output. Defaults to None.</dd>
+<dt><strong><code>prepend_per_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Ability to prepend file after each page of output. Defaults to None.</dd>
+<dt><strong><code>output_polling</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.</dd>
+<dt><strong><code>secret_key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.</dd>
+<dt><strong><code>request_option</code></strong> :&ensp;<code>requestOptions</code>, optional</dt>
+<dd>AOP makes a call to the given option with response/output of the current request. Defaults to None.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -174,16 +205,25 @@ class OutputConfig:
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
                  pdf_options: PDFOptions = None,
-                 append_per_page: bool = None,):
-        &#34;&#34;&#34;
+                 append_per_page: bool = None,
+                 prepend_per_page: bool = None,
+                 output_polling: bool = None,
+                 secret_key: str = None,
+                 request_option: requestOptions = None):
+        &#34;&#34;&#34;If the parameters are not provided default value will be used.
+
         Args:
-            filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
+            filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py). Defaults to None.
             encoding (str, optional): Encoding of output file. Either &#34;raw&#34; or &#34;base64&#34;. Defaults to &#34;raw&#34;.
             converter (str, optional): The pdf converter to use. Can be &#34;libreoffice&#34;, &#34;officetopdf&#34; or any custom defined converter. Custom converters are configurated in the Cloud Office Print server&#39;s `aop_config.json` file. Defaults to &#34;libreoffice&#34;.
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
-            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
+            append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
+            prepend_per_page (bool, optional): Ability to prepend file after each page of output. Defaults to None.
+            output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
+            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.
+            request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
         &#34;&#34;&#34;
         self.filetype: str = filetype
         self.converter: str = converter
@@ -192,6 +232,10 @@ class OutputConfig:
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
         self.append_per_page = append_per_page
+        self.prepend_per_page = prepend_per_page
+        self.output_polling = output_polling
+        self.secret_key = secret_key
+        self.request_option = request_option
 
     @property
     def json(self) -&gt; str:
@@ -226,6 +270,14 @@ class OutputConfig:
             result.update(self.pdf_options.as_dict)
         if self.append_per_page is not None:
             result[&#34;output_append_per_page&#34;] = self.append_per_page
+        if self.prepend_per_page is not None:
+            result[&#34;output_prepend_per_page&#34;] = self.prepend_per_page
+        if self.output_polling is not None:
+            result[&#39;output_polling&#39;] = self.output_polling
+        if self.secret_key is not None:
+            result[&#39;secret_key&#39;] = self.secret_key
+        if self.request_option is not None:
+            result[&#39;request_option&#39;] = self.request_option.as_dict
         return result
 
     @property
@@ -288,6 +340,14 @@ def as_dict(self) -&gt; Dict:
         result.update(self.pdf_options.as_dict)
     if self.append_per_page is not None:
         result[&#34;output_append_per_page&#34;] = self.append_per_page
+    if self.prepend_per_page is not None:
+        result[&#34;output_prepend_per_page&#34;] = self.prepend_per_page
+    if self.output_polling is not None:
+        result[&#39;output_polling&#39;] = self.output_polling
+    if self.secret_key is not None:
+        result[&#39;secret_key&#39;] = self.secret_key
+    if self.request_option is not None:
+        result[&#39;request_option&#39;] = self.request_option.as_dict
     return result</code></pre>
 </details>
 </dd>

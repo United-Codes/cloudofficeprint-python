@@ -23,19 +23,20 @@ class OutputConfig:
                  output_polling: bool = None,
                  secret_key: str = None,
                  request_option: requestOptions = None):
-        """
+        """If the parameters are not provided default value will be used.
+
         Args:
-            filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
+            filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py). Defaults to None.
             encoding (str, optional): Encoding of output file. Either "raw" or "base64". Defaults to "raw".
             converter (str, optional): The pdf converter to use. Can be "libreoffice", "officetopdf" or any custom defined converter. Custom converters are configurated in the Cloud Office Print server's `aop_config.json` file. Defaults to "libreoffice".
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
-            append_per_page (bool, optional): Ability to append file after each page of output.
-            prepend_per_page(bool, optional):  Ability to prepend file after each page of output.
-            output_polling(str, optional):  A unique link for each request is sent back, which can be used later to download the output file.
-            secret_key(str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling).
-            request_option(requestOptions, optional): AOP makes a call to the given option with response/output of the current request.
+            append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
+            prepend_per_page (bool, optional): Ability to prepend file after each page of output. Defaults to None.
+            output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
+            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.
+            request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
         """
         self.filetype: str = filetype
         self.converter: str = converter
