@@ -1,5 +1,4 @@
 import cloudofficeprint as cop
-
 from test import server
 
 
@@ -37,10 +36,10 @@ def test_pdf_options():
         'output_converter': 'libreoffice',
         'output_read_password': 'test_pw',
         'output_watermark': 'test_watermark',
-        'output_watermark_size':30,
-        'output_watermark_opacity':60,
-        'output_watermark_color':'blue',
-        'output_watermark_font':'Aerial',
+        'output_watermark_size': 30,
+        'output_watermark_opacity': 60,
+        'output_watermark_color': 'blue',
+        'output_watermark_font': 'Aerial',
         'output_page_width': 500,
         'output_page_height': 500,
         'output_even_page': True,
@@ -59,10 +58,10 @@ def test_pdf_options():
         'output_page_format': 'test_page_format',
         'output_merge': False,
         'output_sign_certificate': 'test_sign_certificate',
-        'output_sign_certificate_password':'certificate_password',
+        'output_sign_certificate_password': 'certificate_password',
         'identify_form_fields': True,
         'output_split': True,
-        'output_remove_last_page':False,
+        'output_remove_last_page': False,
     }
     assert conf.as_dict == conf_expected
 
@@ -216,6 +215,32 @@ def test_route_paths():
     assert type(server.get_supported_output_mimetypes('docx')) == dict
     assert type(server.get_supported_prepend_mimetypes()) == dict
     assert type(server.get_supported_append_mimetypes()) == dict
+
+
+def test_request_option():
+    extra_headers = {
+        "file_id": "Any file id like FILE_123",
+        "access_token": "Access Token for above hostname (if any) "
+    }
+    request_opt = cop.config.request_option(
+        "https://www.apexofficeprint.com/post/", extra_headers)
+    config = cop.config.OutputConfig(
+        filetype='pdf', output_polling=True, request_option=request_opt, secret_key='qwertyuiop1234')
+    config_expected = {
+        'output_type': 'pdf',
+        'output_encoding': 'raw',
+        'output_converter': 'libreoffice',
+        'output_polling': 'True',
+        'secret_key': 'qwertyuiop1234',
+        'request_option': {
+            'url': 'https://www.apexofficeprint.com/post/',
+            'extra_headers': {
+                'file_id': 'Any file id like FILE_123',
+                'access_token': 'Access Token for above hostname (if any) '
+            }
+        }
+    }
+    assert config.as_dict == config_expected
 
 
 def run():
