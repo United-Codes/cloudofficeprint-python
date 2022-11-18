@@ -2,6 +2,7 @@ import json
 from typing import Dict
 from .cloud import CloudAccessToken
 from .pdf import PDFOptions
+from .request_option import requestOptions
 
 
 class OutputConfig:
@@ -17,7 +18,11 @@ class OutputConfig:
                  cloud_access_token: CloudAccessToken = None,
                  server_directory: str = None,
                  pdf_options: PDFOptions = None,
-                 append_per_page: bool = None,):
+                 append_per_page: bool = None,
+                 prepend_per_page: bool = None,
+                 output_polling: bool = None,
+                 secret_key: str = None,
+                 request_option: requestOptions = None):
         """
         Args:
             filetype (str, optional): The file type (as extension) to use for the output. Defaults to None (set to template-type in printjob.py).
@@ -26,7 +31,11 @@ class OutputConfig:
             cloud_access_token (CloudAccessToken, optional): Access token used to access various cloud services for output storage. Defaults to None.
             server_directory (str, optional): Base directory to save output files into. Can only be used if the server allows to save on disk. The specific output path for each file is appended to the base path. Defaults to None.
             pdf_options (PDFOptions, optional): Optional PDF options. Defaults to None.
-            append_per_page (bool, optional): Ability to prepend/append file after each page of output.
+            append_per_page (bool, optional): Ability to append file after each page of output.
+            prepend_per_page(bool, optional):  Ability to prepend file after each page of output.
+            output_polling(str, optional):  A unique link for each request is sent back, which can be used later to download the output file.
+            secret_key(str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling).
+            request_option(requestOptions, optional): AOP makes a call to the given option with response/output of the current request.
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -35,6 +44,10 @@ class OutputConfig:
         self.pdf_options: PDFOptions = pdf_options
         self.encoding = encoding
         self.append_per_page = append_per_page
+        self.prepend_per_page = prepend_per_page
+        self.output_polling = output_polling
+        self.secret_key = secret_key
+        self.request_option = request_option
 
     @property
     def json(self) -> str:
@@ -69,6 +82,14 @@ class OutputConfig:
             result.update(self.pdf_options.as_dict)
         if self.append_per_page is not None:
             result["output_append_per_page"] = self.append_per_page
+        if self.prepend_per_page is not None:
+            result["output_prepend_per_page"] = self.prepend_per_page
+        if self.output_polling is not None:
+            result['output_polling'] = self.output_polling
+        if self.secret_key is not None:
+            result['secret_key'] = self.secret_key
+        if self.request_option is not None:
+            result['request_option'] = self.request_option.as_dict
         return result
 
     @property
