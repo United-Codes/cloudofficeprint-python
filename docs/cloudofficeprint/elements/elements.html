@@ -961,13 +961,12 @@ class Insert(Property):
 class ExcelInsert(Element):
     &#34;&#34;&#34;Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
         Options available are:  you can provide dynamic icon and icon position.
-                                you can preview the document in excel.
     &#34;&#34;&#34;
 
     def __init__(self,
                  name: str,
                  value: str,
-                 isPreview: bool = None,
+                #  isPreview: bool = None,
                  icon: str = None,
                  fromRow: int = None,
                  fromCol: Union[str, int] = None,
@@ -978,12 +977,11 @@ class ExcelInsert(Element):
                  toRowOff: str = None,
                  toColOff: str = None
                  ):
-        &#34;&#34;&#34;It is possible to see preview of document or provide dynamic icon and position of icon.
+        &#34;&#34;&#34;It is possible to provide dynamic icon and position of icon.
 
         Args:
             name (str):  Name of insert tag. Ex(fileToInsert)
             value (str): File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)
-            isPreview (bool, optional): Set it to true for preview. Defaults to false.
             icon (str, optional): Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.
             fromRow (int, optional): position for top of icon. Defaults to row of the tag.
             fromCol (Union[str,int], optional): positon for left of icon. Defaults to column of the tag.
@@ -996,7 +994,7 @@ class ExcelInsert(Element):
         &#34;&#34;&#34;
         super().__init__(name)
         self.value: str = value
-        self.isPreview: bool = isPreview
+        # self.isPreview: bool = isPreview
         self.icon: str = icon
         self.fromRow: int = fromRow
         self.fromCol: Union[str, int] = fromCol
@@ -1012,8 +1010,8 @@ class ExcelInsert(Element):
         result = {
             self.name: self.value
         }
-        if self.isPreview is not None:
-            result[self.name+&#39;_isPreview&#39;] = self.isPreview
+        # if self.isPreview is not None:
+        #     result[self.name+&#39;_isPreview&#39;] = self.isPreview
         if self.icon is not None:
             result[self.name+&#39;_icon&#39;] = self.icon
         if self.fromRow is not None:
@@ -2855,22 +2853,19 @@ def as_dict(self) -&gt; Dict:
 </dd>
 <dt id="cloudofficeprint.elements.elements.ExcelInsert"><code class="flex name class">
 <span>class <span class="ident">ExcelInsert</span></span>
-<span>(</span><span>name: str, value: str, isPreview: bool = None, icon: str = None, fromRow: int = None, fromCol: Union[str, int] = None, fromRowOff: str = None, fromColOff: str = None, toRow: int = None, toCol: Union[str, int] = None, toRowOff: str = None, toColOff: str = None)</span>
+<span>(</span><span>name: str, value: str, icon: str = None, fromRow: int = None, fromCol: Union[str, int] = None, fromRowOff: str = None, fromColOff: str = None, toRow: int = None, toCol: Union[str, int] = None, toRowOff: str = None, toColOff: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
 Options available are:
-you can provide dynamic icon and icon position.
-you can preview the document in excel.</p>
-<p>It is possible to see preview of document or provide dynamic icon and position of icon.</p>
+you can provide dynamic icon and icon position.</p>
+<p>It is possible to provide dynamic icon and position of icon.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
 <dd>Name of insert tag. Ex(fileToInsert)</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)</dd>
-<dt><strong><code>isPreview</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Set it to true for preview. Defaults to false.</dd>
 <dt><strong><code>icon</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.</dd>
 <dt><strong><code>fromRow</code></strong> :&ensp;<code>int</code>, optional</dt>
@@ -2897,13 +2892,12 @@ you can preview the document in excel.</p>
 <pre><code class="python">class ExcelInsert(Element):
     &#34;&#34;&#34;Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
         Options available are:  you can provide dynamic icon and icon position.
-                                you can preview the document in excel.
     &#34;&#34;&#34;
 
     def __init__(self,
                  name: str,
                  value: str,
-                 isPreview: bool = None,
+                #  isPreview: bool = None,
                  icon: str = None,
                  fromRow: int = None,
                  fromCol: Union[str, int] = None,
@@ -2914,12 +2908,11 @@ you can preview the document in excel.</p>
                  toRowOff: str = None,
                  toColOff: str = None
                  ):
-        &#34;&#34;&#34;It is possible to see preview of document or provide dynamic icon and position of icon.
+        &#34;&#34;&#34;It is possible to provide dynamic icon and position of icon.
 
         Args:
             name (str):  Name of insert tag. Ex(fileToInsert)
             value (str): File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)
-            isPreview (bool, optional): Set it to true for preview. Defaults to false.
             icon (str, optional): Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.
             fromRow (int, optional): position for top of icon. Defaults to row of the tag.
             fromCol (Union[str,int], optional): positon for left of icon. Defaults to column of the tag.
@@ -2932,7 +2925,7 @@ you can preview the document in excel.</p>
         &#34;&#34;&#34;
         super().__init__(name)
         self.value: str = value
-        self.isPreview: bool = isPreview
+        # self.isPreview: bool = isPreview
         self.icon: str = icon
         self.fromRow: int = fromRow
         self.fromCol: Union[str, int] = fromCol
@@ -2948,8 +2941,8 @@ you can preview the document in excel.</p>
         result = {
             self.name: self.value
         }
-        if self.isPreview is not None:
-            result[self.name+&#39;_isPreview&#39;] = self.isPreview
+        # if self.isPreview is not None:
+        #     result[self.name+&#39;_isPreview&#39;] = self.isPreview
         if self.icon is not None:
             result[self.name+&#39;_icon&#39;] = self.icon
         if self.fromRow is not None:

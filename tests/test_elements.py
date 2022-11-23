@@ -334,10 +334,9 @@ def test_embed_element():
     assert embedElement.as_dict == embedElement_expected
 
 def test_excel_insert_element():
-    insertExcelElement = cop.elements.ExcelInsert('fileToInsert',"base64EncodedFile",True,"base64icon",None,3,'2px','3px',None,3,'2px','50px')
+    insertExcelElement = cop.elements.ExcelInsert('fileToInsert',"base64EncodedFile","base64icon",None,3,'2px','3px',None,3,'2px','50px')
     insertExcelElement_expected = {
         "fileToInsert":"base64EncodedFile",
-        "fileToInsert_isPreview": True,
         "fileToInsert_icon":"base64icon",
         "fileToInsert_fromCol":3,
         "fileToInsert_fromRowOff":"2px",

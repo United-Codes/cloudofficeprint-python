@@ -933,13 +933,12 @@ class Insert(Property):
 class ExcelInsert(Element):
     """Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
         Options available are:  you can provide dynamic icon and icon position.
-                                you can preview the document in excel.
     """
 
     def __init__(self,
                  name: str,
                  value: str,
-                 isPreview: bool = None,
+                #  isPreview: bool = None,
                  icon: str = None,
                  fromRow: int = None,
                  fromCol: Union[str, int] = None,
@@ -950,12 +949,11 @@ class ExcelInsert(Element):
                  toRowOff: str = None,
                  toColOff: str = None
                  ):
-        """It is possible to see preview of document or provide dynamic icon and position of icon.
+        """It is possible to provide dynamic icon and position of icon.
 
         Args:
             name (str):  Name of insert tag. Ex(fileToInsert)
             value (str): File to insert of path to file. (Source can be FTP, SFTP, URL or base64encoded file.)
-            isPreview (bool, optional): Set it to true for preview. Defaults to false.
             icon (str, optional): Icon that links the file to insert. Once clicked on it, opens the file inserted. If it is not provide default icon is used.
             fromRow (int, optional): position for top of icon. Defaults to row of the tag.
             fromCol (Union[str,int], optional): positon for left of icon. Defaults to column of the tag.
@@ -968,7 +966,7 @@ class ExcelInsert(Element):
         """
         super().__init__(name)
         self.value: str = value
-        self.isPreview: bool = isPreview
+        # self.isPreview: bool = isPreview
         self.icon: str = icon
         self.fromRow: int = fromRow
         self.fromCol: Union[str, int] = fromCol
@@ -984,8 +982,8 @@ class ExcelInsert(Element):
         result = {
             self.name: self.value
         }
-        if self.isPreview is not None:
-            result[self.name+'_isPreview'] = self.isPreview
+        # if self.isPreview is not None:
+        #     result[self.name+'_isPreview'] = self.isPreview
         if self.icon is not None:
             result[self.name+'_icon'] = self.icon
         if self.fromRow is not None:
