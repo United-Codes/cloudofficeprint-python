@@ -47,9 +47,7 @@ class Printer:
 class Command:
     """Command object with a single command for the Cloud Office Print server."""
 
-    def __init__(self,
-                 command: str,
-                 parameters: Mapping[str, str] = None):
+    def __init__(self, command: str, parameters: Mapping[str, str] = None):
         """
         Args:
             command (str): The name of the command to execute. This command should be present in the aop_config.json file.
@@ -65,9 +63,7 @@ class Command:
         Returns:
             Dict[str, str]: dict representation of this command
         """
-        result = {
-            "command": self.command
-        }
+        result = {"command": self.command}
 
         if self.parameters:
             result["command_parameters"] = self.parameters
@@ -96,13 +92,15 @@ class Command:
 class Commands:
     """Command hook configuration class."""
 
-    def __init__(self,
-                 post_process: Command = None,
-                 post_process_return: bool = None,
-                 post_process_delete_delay: int = None,
-                 pre_conversion: Command = None,
-                 post_conversion: Command = None,
-                 post_merge: Command = None):
+    def __init__(
+        self,
+        post_process: Command = None,
+        post_process_return: bool = None,
+        post_process_delete_delay: int = None,
+        pre_conversion: Command = None,
+        post_conversion: Command = None,
+        post_merge: Command = None,
+    ):
         """
         Args:
             post_process (Command, optional): Command to run after the given request has been processed but before returning back the output file. Defaults to None.
@@ -152,13 +150,15 @@ class Commands:
 class ServerConfig:
     """Class for configuring the server options."""
 
-    def __init__(self,
-                 api_key: str = None,
-                 logging: Mapping = None,
-                 printer: Printer = None,
-                 commands: Commands = None,
-                 proxies: Dict[str, str] = None,
-                 cop_remote_debug: bool = False):
+    def __init__(
+        self,
+        api_key: str = None,
+        logging: Mapping = None,
+        printer: Printer = None,
+        commands: Commands = None,
+        proxies: Dict[str, str] = None,
+        cop_remote_debug: bool = False,
+    ):
         """
         Args:
             api_key (str, optional): API key to use for communicating with a Cloud Office Print server. Defaults to None.
@@ -226,10 +226,9 @@ class Server:
         Args:
             value (str): URL at which to contact the server
         """
-        if (urlparse(value).scheme == ''):
+        if urlparse(value).scheme == "":
             self._url = "http://" + value
-            logging.warning(
-                f'No scheme found in "{value}", assuming "{self._url}".')
+            logging.warning(f'No scheme found in "{value}", assuming "{self._url}".')
         else:
             self._url = value
 
@@ -240,8 +239,10 @@ class Server:
             bool: whether the server at `Server.url` is reachable
         """
         try:
-            r = requests.get(urljoin(
-                self.url, "marco"), proxies=self.config.proxies if self.config is not None else None)
+            r = requests.get(
+                urljoin(self.url, "marco"),
+                proxies=self.config.proxies if self.config is not None else None,
+            )
             return r.text == "polo"
         except requests.exceptions.ConnectionError:
             return False
@@ -268,8 +269,7 @@ class Server:
             ConnectionError: raise error if server is unreachable
         """
         if not self.is_reachable():
-            raise ConnectionError(
-                f"Could not reach server at {self.url}")
+            raise ConnectionError(f"Could not reach server at {self.url}")
 
     def get_version_soffice(self) -> str:
         """Sends a GET request to server-url/soffice.
@@ -278,7 +278,10 @@ class Server:
             str: current version of Libreoffice installed on the server.
         """
         self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'soffice'), proxies=self.config.proxies if self.config is not None else None).text
+        return requests.get(
+            urljoin(self.url, "soffice"),
+            proxies=self.config.proxies if self.config is not None else None,
+        ).text
 
     def get_version_officetopdf(self) -> str:
         """Sends a GET request to server-url/officetopdf.
@@ -287,7 +290,10 @@ class Server:
             str: current version of OfficeToPdf installed on the server. (Only available if the server runs in Windows environment).
         """
         self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'officetopdf'), proxies=self.config.proxies if self.config is not None else None).text
+        return requests.get(
+            urljoin(self.url, "officetopdf"),
+            proxies=self.config.proxies if self.config is not None else None,
+        ).text
 
     def get_supported_template_mimetypes(self) -> Dict:
         """Sends a GET request to server-url/supported_template_mimetypes.
@@ -296,7 +302,12 @@ class Server:
             Dict: JSON of the mime types of templates that Cloud Office Print supports.
         """
         self._raise_if_unreachable()
-        return json.loads(requests.get(urljoin(self.url, 'supported_template_mimetypes'), proxies=self.config.proxies if self.config is not None else None).text)
+        return json.loads(
+            requests.get(
+                urljoin(self.url, "supported_template_mimetypes"),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )
 
     def get_supported_output_mimetypes(self, input_type: str) -> Dict:
         """Sends a GET request to server-url/supported_output_mimetypes?template=input_type.
@@ -309,7 +320,14 @@ class Server:
             Dict: JSON of the supported output types for the given template extension.
         """
         self._raise_if_unreachable()
-        return json.loads(requests.get(urljoin(self.url, 'supported_output_mimetypes' + f'?template={input_type}'), proxies=self.config.proxies if self.config is not None else None).text)
+        return json.loads(
+            requests.get(
+                urljoin(
+                    self.url, "supported_output_mimetypes" + f"?template={input_type}"
+                ),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )
 
     def get_supported_prepend_mimetypes(self) -> Dict:
         """Sends a GET request to server-url/supported_prepend_mimetypes.
@@ -318,7 +336,12 @@ class Server:
             Dict: JSON of the supported prepend file mime types.
         """
         self._raise_if_unreachable()
-        return json.loads(requests.get(urljoin(self.url, 'supported_prepend_mimetypes'), proxies=self.config.proxies if self.config is not None else None).text)
+        return json.loads(
+            requests.get(
+                urljoin(self.url, "supported_prepend_mimetypes"),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )
 
     def get_supported_append_mimetypes(self) -> Dict:
         """Sends a GET request to server-url/supported_append_mimetypes.
@@ -327,7 +350,29 @@ class Server:
             Dict: JSON of the supported append file mime types.
         """
         self._raise_if_unreachable()
-        return json.loads(requests.get(urljoin(self.url, 'supported_append_mimetypes'), proxies=self.config.proxies if self.config is not None else None).text)
+        return json.loads(
+            requests.get(
+                urljoin(self.url, "supported_append_mimetypes"),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )
+
+    def verify_template_hash(self, hashcode: str) -> bool:
+        """Sends a GET request to server-url/verify_template_hash?hash=hashcode.
+
+        Args:
+            hashcode (str): md5 hash of file
+
+        Returns:
+            bool: whether the hash is valid and present in cache.
+        """
+        self._raise_if_unreachable()
+        return json.loads(
+            requests.get(
+                urljoin(self.url, "verify_template_hash" + f"?hash={hashcode}"),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )["valid"]
 
     def get_version_cop(self) -> str:
         """Sends a GET request to server-url/version.
@@ -336,4 +381,27 @@ class Server:
             str: the version of Cloud Office Print that the server runs.
         """
         self._raise_if_unreachable()
-        return requests.get(urljoin(self.url, 'version'), proxies=self.config.proxies if self.config is not None else None).text
+        return requests.get(
+            urljoin(self.url, "version"),
+            proxies=self.config.proxies if self.config is not None else None,
+        ).text
+
+    def check_ipp(self, ipp_url: str, version: str) -> Dict:
+        """Sends a GET request to server-url/ipp_check?ipp_url=ipp_url&version=version.
+
+        Args:
+            ippURL (str): the URL of the IPP printer.
+            version (str): the version of the IPP printer.
+
+        Returns:
+            Dict: the status of the IPP printer.
+        """
+        self._raise_if_unreachable()
+        return json.loads(
+            requests.get(
+                urljoin(
+                    self.url, "ipp_check" + f"?ipp_url={ipp_url}&version={version}"
+                ),
+                proxies=self.config.proxies if self.config is not None else None,
+            ).text
+        )
