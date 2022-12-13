@@ -1162,6 +1162,48 @@ class SheetProtection(Element):
         if self.sort is not None:
             result[self.name+&#39;_allow_sort&#39;] = self.sort
         return result
+class Link(Property):
+    &#34;&#34;&#34;The class for the link/target tags.
+    This tags allows you to place a link to a target in the same document.
+    If the uid is not provided, a new uid will be generated uniquely for every link and target pair.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        uid_name: str = None,
+        uid_value: str = None,
+    ):
+        &#34;&#34;&#34;Create a new link/target tag pair.
+        If the uid is not provided, a new uid will be generated uniquely for each link/target pair.
+
+        Args:
+            name (str): the name of the link/target tags.
+            value (str): the value of the link/target tags.
+            uid_name (str): the name of the uid of the link/target pair.
+            uid_value (str): the value of the uid of the link/target pair.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.uid_name = uid_name
+        self.uid_value = uid_value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        if self.uid_name and self.uid_value:
+            return frozenset(
+                {
+                    &#34;{link&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                    &#34;{target&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                }
+            )
+        return frozenset({&#34;{link&#34; + self.name + &#34;}&#34;, &#34;{target&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        if self.uid_name and self.uid_value:
+            return {self.name: self.value, self.uid_name: self.uid_value}
+        return {self.name: self.value}
 
 
 class ElementCollection(list, Element):
@@ -3307,6 +3349,91 @@ Please use <code><a title="cloudofficeprint.elements.elements.ExcelInsert" href=
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.Link"><code class="flex name class">
+<span>class <span class="ident">Link</span></span>
+<span>(</span><span>name: str, value: str, uid_name: str = None, uid_value: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class for the link/target tags.
+This tags allows you to place a link to a target in the same document.
+If the uid is not provided, a new uid will be generated uniquely for every link and target pair.</p>
+<p>Create a new link/target tag pair.
+If the uid is not provided, a new uid will be generated uniquely for each link/target pair.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>the name of the link/target tags.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>the value of the link/target tags.</dd>
+<dt><strong><code>uid_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>the name of the uid of the link/target pair.</dd>
+<dt><strong><code>uid_value</code></strong> :&ensp;<code>str</code></dt>
+<dd>the value of the uid of the link/target pair.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Link(Property):
+    &#34;&#34;&#34;The class for the link/target tags.
+    This tags allows you to place a link to a target in the same document.
+    If the uid is not provided, a new uid will be generated uniquely for every link and target pair.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        name: str,
+        value: str,
+        uid_name: str = None,
+        uid_value: str = None,
+    ):
+        &#34;&#34;&#34;Create a new link/target tag pair.
+        If the uid is not provided, a new uid will be generated uniquely for each link/target pair.
+
+        Args:
+            name (str): the name of the link/target tags.
+            value (str): the value of the link/target tags.
+            uid_name (str): the name of the uid of the link/target pair.
+            uid_value (str): the value of the uid of the link/target pair.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.uid_name = uid_name
+        self.uid_value = uid_value
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        if self.uid_name and self.uid_value:
+            return frozenset(
+                {
+                    &#34;{link&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                    &#34;{target&#34; + self.name + &#34;:&#34; + self.uid_name + &#34;}&#34;,
+                }
+            )
+        return frozenset({&#34;{link&#34; + self.name + &#34;}&#34;, &#34;{target&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        if self.uid_name and self.uid_value:
+            return {self.name: self.value, self.uid_name: self.uid_value}
+        return {self.name: self.value}</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.MarkdownContent"><code class="flex name class">
 <span>class <span class="ident">MarkdownContent</span></span>
 <span>(</span><span>name: str, value: str)</span>
@@ -3465,6 +3592,7 @@ but this can be of any type, for example a dict.</dd>
 <li><a title="cloudofficeprint.elements.elements.Freeze" href="#cloudofficeprint.elements.elements.Freeze">Freeze</a></li>
 <li><a title="cloudofficeprint.elements.elements.Html" href="#cloudofficeprint.elements.elements.Html">Html</a></li>
 <li><a title="cloudofficeprint.elements.elements.Insert" href="#cloudofficeprint.elements.elements.Insert">Insert</a></li>
+<li><a title="cloudofficeprint.elements.elements.Link" href="#cloudofficeprint.elements.elements.Link">Link</a></li>
 <li><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
 <li><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></li>
 <li><a title="cloudofficeprint.elements.elements.Raw" href="#cloudofficeprint.elements.elements.Raw">Raw</a></li>
@@ -4288,6 +4416,9 @@ but this can be of any type, for example a dict.</dd>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Insert" href="#cloudofficeprint.elements.elements.Insert">Insert</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.Link" href="#cloudofficeprint.elements.elements.Link">Link</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></code></h4>

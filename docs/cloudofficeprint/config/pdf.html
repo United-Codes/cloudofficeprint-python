@@ -39,40 +39,34 @@ class PDFOptions:
     All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.
     &#34;&#34;&#34;
 
-    def __init__(self,
-                 read_password: str = None,
-                 watermark: str = None,
-                 watermark_font_size: int = None,
-                 watermark_opacity: int = None,
-                 watermark_color: str = None,
-                 watermark_font: str = None,
-                 page_width: Union[str, int] = None,
-                 page_height: Union[str, int] = None,
-                 even_page: bool = None,
-                 merge_making_even: bool = None,
-                 modify_password: str = None,
-                 password_protection_flag: int = None,
-                 lock_form: bool = None,
-                 copies: int = None,
-                 page_margin: Union[int, dict] = None,
-                 landscape: bool = None,
-                 page_format: str = None,
-                 merge: bool = None,
-                 sign_certificate: str = None,
-                 sign_certificate_password: str = None,
-                 identify_form_fields: bool = None,
-                 split: bool = None,
-                 remove_last_page: bool = None):
+    def __init__(
+        self,
+        even_page: bool = None,
+        merge_making_even: bool = None,
+        remove_last_page: bool = None,
+        modify_password: str = None,
+        read_password: str = None,
+        password_protection_flag: int = None,
+        watermark: str = None,
+        watermark_color: str = None,
+        watermark_font: str = None,
+        watermark_opacity: int = None,
+        watermark_size: int = None,
+        lock_form: bool = None,
+        copies: int = None,
+        page_margin: Union[int, dict] = None,
+        landscape: bool = None,
+        page_width: Union[str, int] = None,
+        page_height: Union[str, int] = None,
+        page_format: str = None,
+        merge: bool = None,
+        split: bool = None,
+        identify_form_fields: bool = None,
+        sign_certificate: str = None,
+        sign_certificate_password: str = None,
+    ):
         &#34;&#34;&#34;
         Args:
-            read_password (str, optional): The password needed to open the PDF. Defaults to None.
-            watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
-            watermark_color (str, optional): You can specify to change watermark color. Accepts css colors. Defaults to black.
-            watermark_font (str, optional): You can specify to change the font of watermark. Defaults to Aerial.
-            watermark_opacity (int, optional): You can specify to change the opacity of watermark. Should be in percentage
-            watermark_font_size (int, optional): You can specify to change the font size of watemark. Should be a number(px) ie: 45 .
-            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
-            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
             merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
             remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
@@ -92,20 +86,11 @@ class PDFOptions:
             page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             page_format (str, optional): Only for HTML to PDF. The page format: &#34;a4&#34; (default) or &#34;letter&#34;. Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
-            sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
-            sign_certificate_password (str, optional): It is possible to sign certificate with password.
-            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
-            remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
+            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
+            sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
         &#34;&#34;&#34;
-        self.read_password: str = read_password
-        self.watermark: str = watermark
-        self.watermark_font: str = watermark_font
-        self.watermark_font_size: str = watermark_font_size
-        self.watermark_color: str = watermark_color
-        self.watermark_opacity: str = watermark_opacity
-        self.page_width: Union[str, int] = page_width
-        self.page_height: Union[str, int] = page_height
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
         self.remove_last_page: bool = remove_last_page
@@ -125,13 +110,10 @@ class PDFOptions:
         self.page_height: Union[str, int] = page_height
         self.page_format: str = page_format
         self.merge: bool = merge
-        self.page_margin: Union[int, dict] = page_margin
+        self.split: bool = split
+        self.identify_form_fields: bool = identify_form_fields
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
-        self._landscape: bool = landscape
-        self.identify_form_fields: bool = identify_form_fields
-        self.split: bool = split
-        self.remove_last_page = remove_last_page
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Get the string representation of these PDF options.
@@ -182,8 +164,8 @@ class PDFOptions:
             result[&#34;output_watermark_font&#34;] = self.watermark_font
         if self.watermark_opacity is not None:
             result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
-        if self.watermark_font_size is not None:
-            result[&#34;output_watermark_size&#34;] = self.watermark_font_size
+        if self.watermark_size is not None:
+            result[&#34;output_watermark_size&#34;] = self.watermark_size
         if self.lock_form is not None:
             result[&#34;lock_form&#34;] = self.lock_form
         if self.copies is not None:
@@ -202,19 +184,15 @@ class PDFOptions:
             result[&#34;output_page_format&#34;] = self.page_format
         if self.merge is not None:
             result[&#34;output_merge&#34;] = self.merge
-        if self._landscape is not None:
-            # For Cloud Office Print versions later than 21.1.1, output_page_orientation will also be supported
-            result[&#34;page_orientation&#34;] = self.page_orientation
+        if self.split is not None:
+            result[&#34;output_split&#34;] = self.split
+        if self.identify_form_fields is not None:
+            result[&#34;identify_form_fields&#34;] = self.identify_form_fields
         if self.sign_certificate is not None:
             result[&#34;output_sign_certificate&#34;] = self.sign_certificate
         if self.sign_certificate_password is not None:
-            result[&#39;output_sign_certificate_password&#39;] = self.sign_certificate_password
-        if self.identify_form_fields is not None:
-            result[&#34;identify_form_fields&#34;] = self.identify_form_fields
-        if self.split is not None:
-            result[&#39;output_split&#39;] = self.split
-        if self.remove_last_page is not None:
-            result[&#39;output_remove_last_page&#39;] = self.remove_last_page
+            result[&#34;output_sign_certificate_password&#34;] = self.sign_certificate_password
+
         return result
 
     def set_watermark(
@@ -316,7 +294,7 @@ class PDFOptions:
 <dl>
 <dt id="cloudofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>read_password: str = None, watermark: str = None, watermark_font_size: int = None, watermark_opacity: int = None, watermark_color: str = None, watermark_font: str = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, even_page: bool = None, merge_making_even: bool = None, modify_password: str = None, password_protection_flag: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_format: str = None, merge: bool = None, sign_certificate: str = None, sign_certificate_password: str = None, identify_form_fields: bool = None, split: bool = None, remove_last_page: bool = None)</span>
+<span>(</span><span>even_page: bool = None, merge_making_even: bool = None, remove_last_page: bool = None, modify_password: str = None, read_password: str = None, password_protection_flag: int = None, watermark: str = None, watermark_color: str = None, watermark_font: str = None, watermark_opacity: int = None, watermark_size: int = None, lock_form: bool = None, copies: int = None, page_margin: Union[int, dict] = None, landscape: bool = None, page_width: Union[str, int] = None, page_height: Union[str, int] = None, page_format: str = None, merge: bool = None, split: bool = None, identify_form_fields: bool = None, sign_certificate: str = None, sign_certificate_password: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class of optional PDF options.</p>
@@ -324,22 +302,6 @@ class PDFOptions:
 All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>read_password</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The password needed to open the PDF. Defaults to None.</dd>
-<dt><strong><code>watermark</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.</dd>
-<dt><strong><code>watermark_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>You can specify to change watermark color. Accepts css colors. Defaults to black.</dd>
-<dt><strong><code>watermark_font</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>You can specify to change the font of watermark. Defaults to Aerial.</dd>
-<dt><strong><code>watermark_opacity</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>You can specify to change the opacity of watermark. Should be in percentage</dd>
-<dt><strong><code>watermark_font_size</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>You can specify to change the font size of watemark. Should be a number(px) ie: 45 .</dd>
-<dt><strong><code>page_width</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
-<dd>Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.</dd>
-<dt><strong><code>page_height</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
-<dd>Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.</dd>
 <dt><strong><code>even_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.</dd>
 <dt><strong><code>merge_making_even</code></strong> :&ensp;<code>bool</code>, optional</dt>
@@ -378,16 +340,14 @@ All of them are optional, which is why passing an instance of this class in an O
 <dd>Only for HTML to PDF. The page format: "a4" (default) or "letter". Defaults to None.</dd>
 <dt><strong><code>merge</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.</dd>
+<dt><strong><code>split</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.</dd>
+<dt><strong><code>identify_form_fields</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
 <dt><strong><code>sign_certificate</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.</dd>
 <dt><strong><code>sign_certificate_password</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>It is possible to sign certificate with password.</dd>
-<dt><strong><code>identify_form_fields</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
-<dt><strong><code>split</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.</dd>
-<dt><strong><code>remove_last_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>You can specify to remove the last page from output file, this is helpful when the last page of output is blank.</dd>
+<dd>If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -400,40 +360,34 @@ All of them are optional, which is why passing an instance of this class in an O
     All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.
     &#34;&#34;&#34;
 
-    def __init__(self,
-                 read_password: str = None,
-                 watermark: str = None,
-                 watermark_font_size: int = None,
-                 watermark_opacity: int = None,
-                 watermark_color: str = None,
-                 watermark_font: str = None,
-                 page_width: Union[str, int] = None,
-                 page_height: Union[str, int] = None,
-                 even_page: bool = None,
-                 merge_making_even: bool = None,
-                 modify_password: str = None,
-                 password_protection_flag: int = None,
-                 lock_form: bool = None,
-                 copies: int = None,
-                 page_margin: Union[int, dict] = None,
-                 landscape: bool = None,
-                 page_format: str = None,
-                 merge: bool = None,
-                 sign_certificate: str = None,
-                 sign_certificate_password: str = None,
-                 identify_form_fields: bool = None,
-                 split: bool = None,
-                 remove_last_page: bool = None):
+    def __init__(
+        self,
+        even_page: bool = None,
+        merge_making_even: bool = None,
+        remove_last_page: bool = None,
+        modify_password: str = None,
+        read_password: str = None,
+        password_protection_flag: int = None,
+        watermark: str = None,
+        watermark_color: str = None,
+        watermark_font: str = None,
+        watermark_opacity: int = None,
+        watermark_size: int = None,
+        lock_form: bool = None,
+        copies: int = None,
+        page_margin: Union[int, dict] = None,
+        landscape: bool = None,
+        page_width: Union[str, int] = None,
+        page_height: Union[str, int] = None,
+        page_format: str = None,
+        merge: bool = None,
+        split: bool = None,
+        identify_form_fields: bool = None,
+        sign_certificate: str = None,
+        sign_certificate_password: str = None,
+    ):
         &#34;&#34;&#34;
         Args:
-            read_password (str, optional): The password needed to open the PDF. Defaults to None.
-            watermark (str, optional): Setting this generates a diagonal custom watermark on every page in the PDF file. Defaults to None.
-            watermark_color (str, optional): You can specify to change watermark color. Accepts css colors. Defaults to black.
-            watermark_font (str, optional): You can specify to change the font of watermark. Defaults to Aerial.
-            watermark_opacity (int, optional): You can specify to change the opacity of watermark. Should be in percentage
-            watermark_font_size (int, optional): You can specify to change the font size of watemark. Should be a number(px) ie: 45 .
-            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
-            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
             merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
             remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
@@ -453,20 +407,11 @@ All of them are optional, which is why passing an instance of this class in an O
             page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             page_format (str, optional): Only for HTML to PDF. The page format: &#34;a4&#34; (default) or &#34;letter&#34;. Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
-            sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
-            sign_certificate_password (str, optional): It is possible to sign certificate with password.
-            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
-            remove_last_page (bool, optional): You can specify to remove the last page from output file, this is helpful when the last page of output is blank.
+            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
+            sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
         &#34;&#34;&#34;
-        self.read_password: str = read_password
-        self.watermark: str = watermark
-        self.watermark_font: str = watermark_font
-        self.watermark_font_size: str = watermark_font_size
-        self.watermark_color: str = watermark_color
-        self.watermark_opacity: str = watermark_opacity
-        self.page_width: Union[str, int] = page_width
-        self.page_height: Union[str, int] = page_height
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
         self.remove_last_page: bool = remove_last_page
@@ -486,13 +431,10 @@ All of them are optional, which is why passing an instance of this class in an O
         self.page_height: Union[str, int] = page_height
         self.page_format: str = page_format
         self.merge: bool = merge
-        self.page_margin: Union[int, dict] = page_margin
+        self.split: bool = split
+        self.identify_form_fields: bool = identify_form_fields
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
-        self._landscape: bool = landscape
-        self.identify_form_fields: bool = identify_form_fields
-        self.split: bool = split
-        self.remove_last_page = remove_last_page
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Get the string representation of these PDF options.
@@ -543,8 +485,8 @@ All of them are optional, which is why passing an instance of this class in an O
             result[&#34;output_watermark_font&#34;] = self.watermark_font
         if self.watermark_opacity is not None:
             result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
-        if self.watermark_font_size is not None:
-            result[&#34;output_watermark_size&#34;] = self.watermark_font_size
+        if self.watermark_size is not None:
+            result[&#34;output_watermark_size&#34;] = self.watermark_size
         if self.lock_form is not None:
             result[&#34;lock_form&#34;] = self.lock_form
         if self.copies is not None:
@@ -563,19 +505,15 @@ All of them are optional, which is why passing an instance of this class in an O
             result[&#34;output_page_format&#34;] = self.page_format
         if self.merge is not None:
             result[&#34;output_merge&#34;] = self.merge
-        if self._landscape is not None:
-            # For Cloud Office Print versions later than 21.1.1, output_page_orientation will also be supported
-            result[&#34;page_orientation&#34;] = self.page_orientation
+        if self.split is not None:
+            result[&#34;output_split&#34;] = self.split
+        if self.identify_form_fields is not None:
+            result[&#34;identify_form_fields&#34;] = self.identify_form_fields
         if self.sign_certificate is not None:
             result[&#34;output_sign_certificate&#34;] = self.sign_certificate
         if self.sign_certificate_password is not None:
-            result[&#39;output_sign_certificate_password&#39;] = self.sign_certificate_password
-        if self.identify_form_fields is not None:
-            result[&#34;identify_form_fields&#34;] = self.identify_form_fields
-        if self.split is not None:
-            result[&#39;output_split&#39;] = self.split
-        if self.remove_last_page is not None:
-            result[&#39;output_remove_last_page&#39;] = self.remove_last_page
+            result[&#34;output_sign_certificate_password&#34;] = self.sign_certificate_password
+
         return result
 
     def set_watermark(
@@ -708,8 +646,8 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_watermark_font&#34;] = self.watermark_font
     if self.watermark_opacity is not None:
         result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
-    if self.watermark_font_size is not None:
-        result[&#34;output_watermark_size&#34;] = self.watermark_font_size
+    if self.watermark_size is not None:
+        result[&#34;output_watermark_size&#34;] = self.watermark_size
     if self.lock_form is not None:
         result[&#34;lock_form&#34;] = self.lock_form
     if self.copies is not None:
@@ -728,19 +666,15 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_page_format&#34;] = self.page_format
     if self.merge is not None:
         result[&#34;output_merge&#34;] = self.merge
-    if self._landscape is not None:
-        # For Cloud Office Print versions later than 21.1.1, output_page_orientation will also be supported
-        result[&#34;page_orientation&#34;] = self.page_orientation
+    if self.split is not None:
+        result[&#34;output_split&#34;] = self.split
+    if self.identify_form_fields is not None:
+        result[&#34;identify_form_fields&#34;] = self.identify_form_fields
     if self.sign_certificate is not None:
         result[&#34;output_sign_certificate&#34;] = self.sign_certificate
     if self.sign_certificate_password is not None:
-        result[&#39;output_sign_certificate_password&#39;] = self.sign_certificate_password
-    if self.identify_form_fields is not None:
-        result[&#34;identify_form_fields&#34;] = self.identify_form_fields
-    if self.split is not None:
-        result[&#39;output_split&#39;] = self.split
-    if self.remove_last_page is not None:
-        result[&#39;output_remove_last_page&#39;] = self.remove_last_page
+        result[&#34;output_sign_certificate_password&#34;] = self.sign_certificate_password
+
     return result</code></pre>
 </details>
 </dd>
