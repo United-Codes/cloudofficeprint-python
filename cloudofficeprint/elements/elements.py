@@ -940,7 +940,7 @@ class ExcelInsert(Element):
     def __init__(self,
                  name: str,
                  value: str,
-                #  isPreview: bool = None,
+                 #  isPreview: bool = None,
                  icon: str = None,
                  fromRow: int = None,
                  fromCol: Union[str, int] = None,
@@ -1062,22 +1062,22 @@ class SheetProtection(Element):
                  ):
         """
         Args:
-            name: (str): The name for the sheet protection tag.
-            value: (str): Value for the tag; this is used as password
-            autoFilter: (str): lock auto filter in sheet.
-            deleteColumns: (bool): lock delete columns in sheet.
-            deleteRows: (bool): lock delete rows in sheet.
-            formatCells: (bool): lock format cells.
-            formatColumns: (bool): lock format columns.
-            formatRows: (bool): lock format rows.
-            insertColumns: (bool): lock insert columns.
-            insertHyperlinks: (bool): lock insert hyperlinks.
-            insertRows: (bool): lock insert rows.
-            password: (str): password to lock with.
-            pivotTables: (bool): lock pivot tables.
-            selectLockedCells: (bool): lock select locked cells.
-            selectUnlockedCells: (bool): lock select unlocked cells.
-            sort: (bool): lock sort.
+            name (str): The name for the sheet protection tag.
+            value (str): Value for the tag; this is used as password
+            autoFilter (str): lock auto filter in sheet.
+            deleteColumns (bool): lock delete columns in sheet.
+            deleteRows (bool): lock delete rows in sheet.
+            formatCells (bool): lock format cells.
+            formatColumns (bool): lock format columns.
+            formatRows (bool): lock format rows.
+            insertColumns (bool): lock insert columns.
+            insertHyperlinks (bool): lock insert hyperlinks.
+            insertRows (bool): lock insert rows.
+            password (str): password to lock with.
+            pivotTables (bool): lock pivot tables.
+            selectLockedCells (bool): lock select locked cells.
+            selectUnlockedCells (bool): lock select unlocked cells.
+            sort (bool): lock sort.
         """
         super().__init__(name)
         self.value = value
@@ -1134,6 +1134,113 @@ class SheetProtection(Element):
         if self.sort is not None:
             result[self.name+'_allow_sort'] = self.sort
         return result
+
+
+class ValidateCell(Element):
+    """
+    It is possible to insert cell validation in excel using validate tag as {validate validateTag} (validate keyword followed by tagName)
+    """
+
+    def __init__(self,
+                 name: str,
+                 ignoreBlank: bool = None,
+                 allow: str = None,
+                 value1: str = None,
+                 value2: str = None,
+                 inCellDropdown: bool = None,
+                 data: str = None,
+                 showInputMessage: bool = None,
+                 inputTitle: str = None,
+                 inputMessage: str = None,
+                 showErrorAlert: bool = None,
+                 errorStyle: str = None,
+                 errorTitle: str = None,
+                 errorMessage: str = None,
+                 ):
+        """Available option while using validate cell are ( ignoreBlank, allow, value1, value2, inCellDropdown, data, showInputMessage, inputTitle, inputMessage, showErrorAlert, errorStyle, errorTitle,errorMessage )
+
+        Args:
+            name (string, optional): Name of the validate tag. For {validate tagName}, tagName is name for this element. 
+            ignoreBlank (bool, optional): Set it to false for not allowing empty values in cell. The value is true by default.
+            allow (string, optional): Type of data used for validation. Available options are (anyValue, whole, decimal, list, date, time, textLength, custom). Please use camelCase to insert value for allow attribute.
+            value1 (string, optional): Value to compare with.
+            value2 (string, optional): Value to compare with.<br>
+            <i>Note:
+                These two options <strong>(_value1, _value2)</strong> can be used for any allow/type of validation that require values for comparison, in such case use <strong>"_value1"</strong> attribute as the first value to be passed and <strong>"_value2"</strong> attribute as the 2nd value.<br><br>
+                Some allow type of validation require only one value to compare; in such case use <strong>"_value1"</strong> attribute.<br><br>
+                For ex :<br>
+                If allow type of validation is date and you have to check in between two dates.<br>
+                Then you could use <strong>"_value1"</strong> attribute as start date and <strong>"_value2"</strong> attribute as end date.<br><br>
+                If allow type of validation is whole and you have to check for value less than 100.<br>
+                Then you could use <strong>"_value1"</strong> for that value and do not use "<strong>_value2".</strong><br><br>
+                While using time and date as allow type validation, please provide date/time with correct formatting.<br>
+                for time: <strong>hours:minutes:seconds</strong> i.e hours , minutes, seconds separated by colon (:)<br>
+                    ex : 14:30:00 for 2:30 pm<br><br>
+                for date: <strong>month/day/year</strong> i.e day, month , year separated by forward slash(/)<br>
+                    ex : 02/07/2023 for Feb 7 2023.<br><br>
+                for list: you could use normal string with elements separated by comma(,).<br>
+                    ex : "first, second, third" for list of three elements.<br></i>
+            inCellDropdown (bool, optional): Set it to false for not showing dropdown button while validation allow type is list. It is true by default for list allow type.
+            data (string, optional): Type of comparison to be done for the cell value. Available values are (lessThanOrEqual, notBetween, equal, notEqual, greaterThan, greaterThan, lessThan, greaterThanOrEqual, lessThanOrEqual). Default value is "between". Please use camelCase for the value as shown in examples.
+            showInputMessage (bool, optional): Set it to false to hide message shown when the cell to validate is being selected. The value for it is true by default.
+            inputTitle (string, optional): Title of message to be shown when cell to validate is selected.
+            inputMessage (string, optional): Message to be shown when cell to validate is selected.
+            showErrorAlert (bool, optional): Set it to false, if you want to hide error alert once cell validation fails. The value is true by default.
+            errorStyle (string, optional): Type of error style when cell validation fails. The value is stop by default. Available options are(stop,waring, Information).
+            errorTitle (string, optional): Title of error to be shown when cell validation fails.
+            errorMessage (string, optional): Message of error to be shown when cell validation fails.
+        """
+        super().__init__(name)
+        self.ignoreBlank = ignoreBlank
+        self.allow = allow
+        self.value1 = value1
+        self.value2 = value2
+        self.inCellDropdown = inCellDropdown
+        self.data = data
+        self.showInputMessage = showInputMessage
+        self.inputTitle = inputTitle
+        self.inputMessage = inputMessage
+        self.showErrorAlert = showErrorAlert
+        self.errorStyle = errorStyle
+        self.errorTitle = errorTitle
+        self.errorMessage = errorMessage
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{validate " + self.name + "}"})
+
+    @property
+    def as_dict(self) -> Dict:
+        result = {}
+        if self.ignoreBlank is not None:
+            result[self.name + '_ignore_blank'] = self.ignoreBlank
+        if self.allow is not None:
+            result[self.name + '_allow'] = self.allow
+        if self.value1 is not None:
+            result[self.name + '_value1'] = self.value1
+        if self.value2 is not None:
+            result[self.name + '_value2'] = self.value2
+        if self.inCellDropdown is not None:
+            result[self.name + '_in_cell_dropdown'] = self.inCellDropdown
+        if self.data is not None:
+            result[self.name + '_data'] = self.data
+        if self.showInputMessage is not None:
+            result[self.name + '_show_input_message'] = self.showInputMessage
+        if self.inputTitle is not None:
+            result[self.name + '_input_title'] = self.inputTitle
+        if self.inputMessage is not None:
+            result[self.name + '_input_message'] = self.inputMessage
+        if self.showErrorAlert is not None:
+            result[self.name + '_show_error_alert'] = self.showErrorAlert
+        if self.errorStyle is not None:
+            result[self.name + '_error_style'] = self.errorStyle
+        if self.errorTitle is not None:
+            result[self.name + '_error_title'] = self.errorTitle
+        if self.errorMessage is not None:
+            result[self.name + '_error_message'] = self.errorMessage
+        return result
+
+
 class Link(Property):
     """The class for the link/target tags.
     This tags allows you to place a link to a target in the same document.
@@ -1248,7 +1355,8 @@ class ElementCollection(list, Element):
         Args:
             element_name (str): the name of the element that needs to be removed
         """
-        self.remove(next(element for element in self if element.name == element_name))
+        self.remove(
+            next(element for element in self if element.name == element_name))
 
     @property
     def as_dict(self) -> Dict:
