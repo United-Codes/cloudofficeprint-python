@@ -347,6 +347,25 @@ def test_excel_insert_element():
     }
     assert insertExcelElement.as_dict == insertExcelElement_expected
     
+def test_cell_validation():
+    cellValidate = cop.elements.ValidateCell("tagName",True,"whole","0","100",False,"between",True,"Instructions","Insert a number between 0 and 100",True,"warning","Error Occurred","Number Out of Bound")
+    expectedCellValidation = {
+        "tagName_ignore_blank" : True,
+        "tagName_allow" : "whole",
+        "tagName_value1" : "0",
+        "tagName_value2" : "100",
+        "tagName_in_cell_dropdown" : False,
+        "tagName_data" : "between",
+        "tagName_show_input_message" : True,
+        "tagName_input_title" : "Instructions",
+        "tagName_input_message" : "Insert a number between 0 and 100",
+        "tagName_show_error_alert" : True,
+        "tagName_error_style" : "warning",
+        "tagName_error_title" : "Error Occurred",
+        "tagName_error_message" : "Number Out of Bound"
+    }
+    assert cellValidate.as_dict == expectedCellValidation
+    
 
 def run():
     test_property()
@@ -366,6 +385,7 @@ def run():
     test_insert_element()
     test_embed_element()
     test_excel_insert_element()
+    test_cell_validation()
     # COP charts get tested in test_charts.py
 
 
