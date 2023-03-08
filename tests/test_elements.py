@@ -293,9 +293,79 @@ def test_freeze_element():
         value="C10",
     )
     freezeElement_expected = {
-        'freeze_element_name' : "C10"
+        'freeze_element_name': "C10"
     }
     assert freezeElement.as_dict == freezeElement_expected
+
+def test_protect_element():
+    protectElement = cop.elements.SheetProtection('protect_tag_name', 'password', True, False, True,
+                                           'YES', False, True, False, True, 'YES', 'other passord', True, False, True, 'YES')
+    protectElementExpected = {
+        "protect_tag_name": "password",
+        "protect_tag_name_allow_auto_filter": True,
+        "protect_tag_name_allow_delete_columns": False,
+        "protect_tag_name_allow_delete_rows": True,
+        "protect_tag_name_allow_format_cells": "YES",
+        "protect_tag_name_allow_format_columns": False,
+        "protect_tag_name_allow_format_rows": True,
+        "protect_tag_name_allow_insert_columns": False,
+        "protect_tag_name_allow_insert_hyperlinks": True,
+        "protect_tag_name_allow_insert_rows": "YES",
+        "protect_tag_name_password": "other passord",
+        "protect_tag_name_allow_pivot_tables": True,
+        "protect_tag_name_allow_select_locked_cells": False,
+        "protect_tag_name_allow_select_unlocked_cells": True,
+        "protect_tag_name_allow_sort": "YES"
+    }
+    assert protectElement.as_dict == protectElementExpected
+
+def test_insert_element():
+    insertElement = cop.elements.Insert("fileToInsert","base64EncodedValue")
+    insertElement_expected = {
+        "fileToInsert":"base64EncodedValue",
+    }
+    assert insertElement.as_dict == insertElement_expected
+
+def test_embed_element():
+    embedElement = cop.elements.Embed("fileToEmbed","base64EncodedValue")
+    embedElement_expected = {
+        "fileToEmbed":"base64EncodedValue"
+    }
+    assert embedElement.as_dict == embedElement_expected
+
+def test_excel_insert_element():
+    insertExcelElement = cop.elements.ExcelInsert('fileToInsert',"base64EncodedFile","base64icon",None,3,'2px','3px',None,3,'2px','50px')
+    insertExcelElement_expected = {
+        "fileToInsert":"base64EncodedFile",
+        "fileToInsert_icon":"base64icon",
+        "fileToInsert_fromCol":3,
+        "fileToInsert_fromRowOff":"2px",
+        "fileToInsert_fromColOff":"3px",
+        "fileToInsert_toCol":3,
+        "fileToInsert_toRowOff":'2px',
+        "fileToInsert_toColOff":"50px"
+    }
+    assert insertExcelElement.as_dict == insertExcelElement_expected
+    
+def test_cell_validation():
+    cellValidate = cop.elements.ValidateCell("tagName",True,"whole","0","100",False,"between",True,"Instructions","Insert a number between 0 and 100",True,"warning","Error Occurred","Number Out of Bound")
+    expectedCellValidation = {
+        "tagName_ignore_blank" : True,
+        "tagName_allow" : "whole",
+        "tagName_value1" : "0",
+        "tagName_value2" : "100",
+        "tagName_in_cell_dropdown" : False,
+        "tagName_data" : "between",
+        "tagName_show_input_message" : True,
+        "tagName_input_title" : "Instructions",
+        "tagName_input_message" : "Insert a number between 0 and 100",
+        "tagName_show_error_alert" : True,
+        "tagName_error_style" : "warning",
+        "tagName_error_title" : "Error Occurred",
+        "tagName_error_message" : "Number Out of Bound"
+    }
+    assert cellValidate.as_dict == expectedCellValidation
+    
 
 def run():
     test_property()
@@ -311,6 +381,11 @@ def run():
     test_text_box()
     test_element_collection()
     test_freeze_element()
+    test_protect_element()
+    test_insert_element()
+    test_embed_element()
+    test_excel_insert_element()
+    test_cell_validation()
     # COP charts get tested in test_charts.py
 
 
