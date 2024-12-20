@@ -40,7 +40,38 @@ class CellStyleDocx(CellStyle):
     """Cell styling settings for docx templates"""
 
     def __init__(
-        self, cell_background_color: str = None, width: Union[int, str] = None
+        self, 
+        cell_background_color: str = None, 
+        width: Union[int, str] = None, 
+        preserve_total_width_of_table: str = None,
+        border: str = None,
+        border_top: str = None,
+        border_bottom: str = None,
+        border_left: str = None,
+        border_right: str = None,
+        border_diagonal_down: str = None,
+        border_diagonal_up: str = None,
+        border_color: str = None,
+        border_top_color: str = None,
+        border_bottom_color: str = None,
+        border_left_color: str = None,
+        border_right_color: str = None,
+        border_diagonal_up_color: str = None,
+        border_diagonal_down_color: str = None,
+        border_size:  Union[int, str] = None,
+        border_top_size:  Union[int, str] = None,
+        border_bottom_size:  Union[int, str] = None,
+        border_left_size:  Union[int, str] = None,
+        border_right_size:  Union[int, str] = None,
+        border_diagonal_up_size:  Union[int, str] = None,
+        border_diagonal_down_size:  Union[int, str] = None,
+        border_space:  Union[int, str] = None,
+        border_top_space:  Union[int, str] = None,
+        border_bottom_space:  Union[int, str] = None,
+        border_left_space:  Union[int, str] = None,
+        border_right_space:  Union[int, str] = None,
+        border_diagonal_up_space:  Union[int, str] = None,
+        border_diagonal_down_space:  Union[int, str] = None,    
     ):
         """
         Args:
@@ -50,16 +81,101 @@ class CellStyleDocx(CellStyle):
         super().__init__()
         self.cell_background_color: str = cell_background_color
         self.width: Union[int, str] = width
-
+        self.preserve_total_width_of_table: str = preserve_total_width_of_table
+        self.border: str = border
+        self.border_top: str = border_top
+        self.border_bottom: str = border_bottom
+        self.border_left: str = border_left
+        self.border_right: str = border_right
+        self.border_diagonal_down: str = border_diagonal_down
+        self.border_diagonal_up: str = border_diagonal_up
+        self.border_color: str = border_color
+        self.border_top_color: str = border_top_color
+        self.border_bottom_color: str = border_bottom_color
+        self.border_left_color: str = border_left_color
+        self.border_right_color: str = border_right_color
+        self.border_diagonal_up_color: str = border_diagonal_up_color
+        self.border_diagonal_down_color: str = border_diagonal_down_color
+        self.border_size: Union[int, str] = border_size
+        self.border_top_size: Union[int, str] = border_top_size
+        self.border_bottom_size: Union[int, str] = border_bottom_size
+        self.border_left_size: Union[int, str] = border_left_size
+        self.border_right_size: Union[int, str] = border_right_size
+        self.border_diagonal_up_size: Union[int, str] = border_diagonal_up_size
+        self.border_diagonal_down_size: Union[int, str] = border_diagonal_down_size
+        self.border_space: Union[int, str] = border_space
+        self.border_top_space: Union[int, str] = border_top_space
+        self.border_bottom_space: Union[int, str] = border_bottom_space
+        self.border_left_space: Union[int, str] = border_left_space
+        self.border_right_space: Union[int, str] = border_right_space
+        self.border_diagonal_up_space: Union[int, str] = border_diagonal_up_space
+        self.border_diagonal_down_space: Union[int, str] = border_diagonal_down_space
+        
     @property
     def _dict_suffixes(self):
         result = super()._dict_suffixes
-
         if self.cell_background_color is not None:
             result["_cell_background_color"] = self.cell_background_color
         if self.width is not None:
             result["_width"] = self.width
-
+        if self.preserve_total_width_of_table is not None:
+            result["_preserve_total_width_of_table"] = self.preserve_total_width_of_table
+        if self.border is not None:
+            result["_border"] = self.border
+        if self.border_top is not None:
+            result["_border_top"] = self.border_top
+        if self.border_bottom is not None:
+            result["_border_bottom"] = self.border_bottom
+        if self.border_left is not None:
+            result["_border_left"] = self.border_left
+        if self.border_right is not None:
+            result["_border_right"] = self.border_right
+        if self.border_diagonal_down is not None:
+            result["_border_diagonal_down"] = self.border_diagonal_down
+        if self.border_diagonal_up is not None:
+            result["_border_diagonal_up"] = self.border_diagonal_up
+        if self.border_color is not None:
+            result["_border_color"] = self.border_color
+        if self.border_top_color is not None:
+            result["_border_top_color"] = self.border_top_color
+        if self.border_bottom_color is not None:
+            result["_border_bottom_color"] = self.border_bottom_color
+        if self.border_left_color is not None:
+            result["_border_left_color"] = self.border_left_color
+        if self.border_right_color is not None:
+            result["_border_right_color"] = self.border_right_color
+        if self.border_diagonal_up_color is not None:
+            result["_border_diagonal_up_color"] = self.border_diagonal_up_color
+        if self.border_diagonal_down_color is not None:
+            result["_border_diagonal_down_color"] = self.border_diagonal_down_color
+        if self.border_size is not None:
+            result["_border_size"] = self.border_size
+        if self.border_top_size is not None:
+            result["_border_top_size"] = self.border_top_size
+        if self.border_bottom_size is not None:
+            result["_border_bottom_size"] = self.border_bottom_size
+        if self.border_left_size is not None:
+            result["_border_left_size"] = self.border_left_size
+        if self.border_right_size is not None:
+            result["_border_right_size"] = self.border_right_size
+        if self.border_diagonal_up_size is not None:
+            result["_border_diagonal_up_size"] = self.border_diagonal_up_size
+        if self.border_diagonal_down_size is not None:
+            result["_border_diagonal_down_size"] = self.border_diagonal_down_size
+        if self.border_space is not None:
+            result["_border_space"] = self.border_space
+        if self.border_top_space is not None:
+            result["_border_top_space"] = self.border_top_space
+        if self.border_bottom_space is not None:
+            result["_border_bottom_space"] = self.border_bottom_space
+        if self.border_left_space is not None:
+            result["_border_left_space"] = self.border_left_space
+        if self.border_right_space is not None:
+            result["_border_right_space"] = self.border_right_space
+        if self.border_diagonal_up_space is not None:
+            result["_border_diagonal_up_space"] = self.border_diagonal_up_space
+        if self.border_diagonal_down_space is not None:
+            result["_border_diagonal_down_space"] = self.border_diagonal_down_space
         return result
 
 

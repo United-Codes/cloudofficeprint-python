@@ -1,6 +1,9 @@
 # Install cloudofficeprint using  pip install cloudofficeprint
 #Import the cloudofficeprint libary.
-from ... import cloudofficeprint as cop
+import sys
+sys.path.insert(0, "PATH_TO_COP_DIR")
+import cloudofficeprint as cop
+
 # Main object that holds the data
 collection = cop.elements.ElementCollection()
 # Create the title element and add it to the element collection
@@ -42,6 +45,36 @@ styled_prop = cop.elements.StyledProperty(
     )
 collection.add(styled_prop)
 
+docx_column1_cell_style = cop.elements.CellStyleDocx(
+        cell_background_color='red',
+        border_color='0d72c7',
+        border_top='double',
+        border_top_size=20,
+        border_left='dotDash',
+        border_bottom_color='yellow',
+        border_left_size='38'
+    )
+docx_column1_table_style_property = cop.elements.CellStyleProperty(
+        name='column1',
+        value='DemoCustomerName',
+        cell_style=docx_column1_cell_style
+    )
+collection.add(docx_column1_table_style_property)
+
+docx_column2_cell_style = cop.elements.CellStyleDocx(
+        border_right_space=15,
+        border_diagonal_down='single',
+        border_diagonal_down_size=10,
+        border_diagonal_up='single',
+        border_diagonal_up_color='#0d72c7'
+    )
+docx_column2_table_style_property = cop.elements.CellStyleProperty(
+        name='column2',
+        value='DemoCustomerName',
+        cell_style=docx_column2_cell_style
+    )
+collection.add(docx_column2_table_style_property)
+
 # ------------------watermark----------
 watermark = cop.elements.Watermark(
         name='watermark_name',
@@ -66,8 +99,8 @@ server = cop.config.Server(
 printjob = cop.PrintJob(
     data=collection,
     server=server,
-    template=cop.Resource.from_local_file("./data/template.docx"),
+    template=cop.Resource.from_local_file("D:/UC/cloudofficeprint-python/BeginerGuide/UsingElements/data/template.docx"),
 )
 # Execute print job and save response to file
 response = printjob.execute()
-response.to_file("output/output")
+response.to_file("D:/UC/cloudofficeprint-python/BeginerGuide/UsingElements/output/output.docx")
