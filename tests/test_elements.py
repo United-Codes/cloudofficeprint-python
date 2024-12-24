@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "PATH_TO_COP_DIR")
+sys.path.insert(0, "D:/UC/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -374,6 +374,12 @@ def test_insert_element():
     }
     assert insertElement.as_dict == insertElement_expected
 
+def test_remove_txt_box():
+    remove = cop.elements.Remove('greetings', False)
+    remove_expected = {
+        "greetings":False
+    }
+    assert remove.as_dict == remove_expected
 def test_embed_element():
     embedElement = cop.elements.Embed("fileToEmbed","base64EncodedValue")
     embedElement_expected = {
@@ -436,6 +442,7 @@ def run():
     # test_embed_element()
     # test_excel_insert_element()
     # test_cell_validation()
+    test_remove_txt_box
     # COP charts get tested in test_charts.py
 
 

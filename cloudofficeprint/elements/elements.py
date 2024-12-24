@@ -1039,7 +1039,7 @@ class Insert(Property):
         Args:
             name (str): The name for the insert tag.
             value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
-            The documnet can be docx, pptx, xlsx, or pdf documents.
+            The document can be docx, pptx, xlsx, or pdf documents.
         """
         super().__init__(name, value)
 
@@ -1047,6 +1047,22 @@ class Insert(Property):
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{?insert " + self.name + "}"})
 
+class Remove(Property):
+    """Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 
+    the value of toShow is false or undefined, the entire shape will be removed from the slide.
+    """
+    def __init__(self, name: str, value:  Union[bool, str]):
+        """
+        Args:
+            name (str): The name for the remove tag.
+            value (bool or string): False (to remove the shape / text-box) or string/True
+            The document should be, pptx.
+        """
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{ " + self.name + "?" + "}"})
 
 class ExcelInsert(Element):
     """Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
