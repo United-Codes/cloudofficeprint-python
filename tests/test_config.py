@@ -1,8 +1,11 @@
+import sys
+sys.path.insert(0, "D:/UC/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
 def test_pdf_options():
     """Test class PDFOptions in combination with OutputConfig"""
+    
     pdf_opts = cop.config.PDFOptions(
         even_page=True,
         merge_making_even=False,
@@ -27,11 +30,12 @@ def test_pdf_options():
         identify_form_fields=True,
         sign_certificate="test_sign_certificate",
         sign_certificate_password="test_certificate_password",
+        convert_to_pdfa = "1b",
     )
     pdf_opts.set_watermark("new_watermark", "grey", "Arial", 51, 32)
     pdf_opts.set_page_margin_at(6, "top")
     pdf_opts.page_orientation = "portrait"
-    conf = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    conf = cop.config.OutputConfig(filetype="pdf", converter="openoffice", pdf_options=pdf_opts)
     conf_expected = {
         "output_even_page": True,
         "output_merge_making_even": False,
@@ -46,7 +50,7 @@ def test_pdf_options():
         "output_watermark_size": 32,
         "output_type": "pdf",
         "output_encoding": "raw",
-        "output_converter": "libreoffice",
+        "output_converter": "openoffice",
         "output_page_width": 500,
         "output_page_height": 500,
         "lock_form": True,
@@ -62,6 +66,7 @@ def test_pdf_options():
         "output_merge": False,
         "output_sign_certificate": "test_sign_certificate",
         "output_sign_certificate_password": "test_certificate_password",
+        "output_convert_to_pdfa": "1b",
         "identify_form_fields": True,
         "output_split": True,
     }
@@ -264,11 +269,11 @@ def test_request_option():
 
 def run():
     test_pdf_options()
-    test_csv_options()
-    test_printer()
-    test_cloud_access_tokens()
-    test_commands()
-    test_route_paths()
+    # test_csv_options()
+    # test_printer()
+    # test_cloud_access_tokens()
+    # test_commands()
+    # test_route_paths()
 
 
 if __name__ == "__main__":
