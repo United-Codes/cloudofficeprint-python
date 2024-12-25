@@ -30,6 +30,7 @@ def test_pdf_options():
         identify_form_fields=True,
         sign_certificate="test_sign_certificate",
         sign_certificate_password="test_certificate_password",
+        sign_certificate_txt="text in english",
         convert_to_pdfa = "1b",
     )
     pdf_opts.set_watermark("new_watermark", "grey", "Arial", 51, 32)
@@ -66,6 +67,7 @@ def test_pdf_options():
         "output_merge": False,
         "output_sign_certificate": "test_sign_certificate",
         "output_sign_certificate_password": "test_certificate_password",
+        "output_sign_certificate_txt": "text in english",
         "output_convert_to_pdfa": "1b",
         "identify_form_fields": True,
         "output_split": True,

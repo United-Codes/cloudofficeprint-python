@@ -36,6 +36,7 @@ class PDFOptions:
         identify_form_fields: bool = None,
         sign_certificate: str = None,
         sign_certificate_password: str = None,
+        sign_certificate_txt: str = None,
         convert_to_pdfa: str = None,
         
     ):
@@ -64,6 +65,7 @@ class PDFOptions:
             identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
+            sign_certificate_txt (str, optional) Add custom text in any language to the signature field
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
         """
         self.even_page: bool = even_page
@@ -89,6 +91,7 @@ class PDFOptions:
         self.identify_form_fields: bool = identify_form_fields
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
+        self.sign_certificate_txt: str = sign_certificate_txt
         self.convert_to_pdfa: str = convert_to_pdfa
 
     def __str__(self) -> str:
@@ -168,6 +171,8 @@ class PDFOptions:
             result["output_sign_certificate"] = self.sign_certificate
         if self.sign_certificate_password is not None:
             result["output_sign_certificate_password"] = self.sign_certificate_password
+        if self.sign_certificate_txt is not None:
+            result["output_sign_certificate_txt"] = self.sign_certificate_txt
         if self.convert_to_pdfa is not None:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
 
