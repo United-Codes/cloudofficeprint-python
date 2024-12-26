@@ -24,6 +24,7 @@ class PDFOptions:
         watermark_font: str = None,
         watermark_opacity: int = None,
         watermark_size: int = None,
+        watermark_rotation: int = None,
         lock_form: bool = None,
         copies: int = None,
         page_margin: Union[int, dict] = None,
@@ -53,6 +54,7 @@ class PDFOptions:
             watermark_font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
             watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             watermark_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.
@@ -79,6 +81,7 @@ class PDFOptions:
         self.watermark_font: str = watermark_font
         self.watermark_opacity: int = watermark_opacity
         self.watermark_size: int = watermark_size
+        self.watermark_rotation: int = watermark_rotation
         self.lock_form: bool = lock_form
         self.copies: int = copies
         self.page_margin: Union[int, dict] = page_margin
@@ -145,6 +148,8 @@ class PDFOptions:
             result["output_watermark_opacity"] = self.watermark_opacity
         if self.watermark_size is not None:
             result["output_watermark_size"] = self.watermark_size
+        if self.watermark_rotation is not None:
+            result["output_watermark_rotation"] = self.watermark_rotation
         if self.lock_form is not None:
             result["lock_form"] = self.lock_form
         if self.copies is not None:
@@ -185,6 +190,7 @@ class PDFOptions:
         font: str = None,
         opacity: int = None,
         size: int = None,
+        rotation: int = None,
     ):
         """Set watermark
 
@@ -197,12 +203,14 @@ class PDFOptions:
             font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
             opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
         """
         self.watermark = text
         self.watermark_color = color
         self.watermark_font = font
         self.watermark_opacity = opacity
         self.watermark_size = size
+        self.watermark_rotation = rotation
 
     def set_page_margin_at(self, value: int, position: str = None):
         """Set page_margin

@@ -33,7 +33,7 @@ def test_pdf_options():
         sign_certificate_txt="text in english",
         convert_to_pdfa = "1b",
     )
-    pdf_opts.set_watermark("new_watermark", "grey", "Arial", 51, 32)
+    pdf_opts.set_watermark("new_watermark", "grey", "Arial", 51, 32, 45)
     pdf_opts.set_page_margin_at(6, "top")
     pdf_opts.page_orientation = "portrait"
     conf = cop.config.OutputConfig(filetype="pdf", converter="openoffice", pdf_options=pdf_opts)
@@ -49,6 +49,7 @@ def test_pdf_options():
         "output_watermark_font": "Arial",
         "output_watermark_opacity": 51,
         "output_watermark_size": 32,
+        "output_watermark_rotation": 45,
         "output_type": "pdf",
         "output_encoding": "raw",
         "output_converter": "openoffice",
