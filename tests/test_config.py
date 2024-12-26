@@ -36,7 +36,7 @@ def test_pdf_options():
     pdf_opts.set_watermark("new_watermark", "grey", "Arial", 51, 32, 45)
     pdf_opts.set_page_margin_at(6, "top")
     pdf_opts.page_orientation = "portrait"
-    conf = cop.config.OutputConfig(filetype="pdf", converter="openoffice", pdf_options=pdf_opts)
+    conf = cop.config.OutputConfig(filetype="pdf", converter="openoffice", page_number_start_at="5", pdf_options=pdf_opts)
     conf_expected = {
         "output_even_page": True,
         "output_merge_making_even": False,
@@ -53,6 +53,7 @@ def test_pdf_options():
         "output_type": "pdf",
         "output_encoding": "raw",
         "output_converter": "openoffice",
+        "output_page_number_start_at": "5",
         "output_page_width": 500,
         "output_page_height": 500,
         "lock_form": True,
@@ -272,11 +273,11 @@ def test_request_option():
 
 def run():
     test_pdf_options()
-    # test_csv_options()
-    # test_printer()
-    # test_cloud_access_tokens()
-    # test_commands()
-    # test_route_paths()
+    test_csv_options()
+    test_printer()
+    test_cloud_access_tokens()
+    test_commands()
+    test_route_paths()
 
 
 if __name__ == "__main__":

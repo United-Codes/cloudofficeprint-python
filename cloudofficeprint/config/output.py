@@ -22,6 +22,7 @@ class OutputConfig:
                  prepend_per_page: bool = None,
                  output_polling: bool = None,
                  secret_key: str = None,
+                 page_number_start_at: str = None,
                  request_option: requestOptions = None):
         """If the parameters are not provided default value will be used.
 
@@ -37,6 +38,7 @@ class OutputConfig:
             output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
             secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.
             request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
+            page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -48,6 +50,7 @@ class OutputConfig:
         self.prepend_per_page = prepend_per_page
         self.output_polling = output_polling
         self.secret_key = secret_key
+        self.page_number_start_at = page_number_start_at
         self.request_option = request_option
 
     @property
@@ -89,6 +92,8 @@ class OutputConfig:
             result['output_polling'] = self.output_polling
         if self.secret_key is not None:
             result['secret_key'] = self.secret_key
+        if self.page_number_start_at is not None:
+            result['output_page_number_start_at'] = self.page_number_start_at
         if self.request_option is not None:
             result['request_option'] = self.request_option.as_dict
         return result
