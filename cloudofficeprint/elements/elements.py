@@ -1063,6 +1063,25 @@ class Remove(Property):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{ " + self.name + "?" + "}"})
+    
+
+class HideSlide(Property):
+    """Allows hiding a slide.
+    LIMITATION using _hide for slide hide is that it can only be used for hiding slides during generation(!slideGeneration)
+    """
+    def __init__(self, name: str, value: bool):
+        """
+        Args:
+            name (str): The name of slide to hide.
+            value (bool): True (to hide) or False
+            The document should be, pptx.
+        """
+        super().__init__(name, value)
+    
+    @property
+    def as_dict(self) -> Dict:
+        result = {self.name + "_hide": self.value}
+        return result
 
 class ExcelInsert(Element):
     """Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.

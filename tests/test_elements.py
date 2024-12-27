@@ -380,6 +380,16 @@ def test_remove_txt_box():
         "greetings":False
     }
     assert remove.as_dict == remove_expected
+    
+def test_hide_slide_pptx():
+    remove = cop.elements.HideSlide('product', True)
+    remove_expected = {
+        "product_hide": True
+    }
+    # for debug
+    # print("Actual output of remove.as_dict:", remove.as_dict)
+    assert remove.as_dict == remove_expected
+    
 def test_embed_element():
     embedElement = cop.elements.Embed("fileToEmbed","base64EncodedValue")
     embedElement_expected = {
@@ -442,7 +452,8 @@ def run():
     # test_embed_element()
     # test_excel_insert_element()
     # test_cell_validation()
-    test_remove_txt_box
+    test_remove_txt_box()
+    test_hide_slide_pptx()
     # COP charts get tested in test_charts.py
 
 
