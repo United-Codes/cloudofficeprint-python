@@ -149,9 +149,14 @@ def test_autoLink():
     autoLink = cop.elements.AutoLink(
         name='autoLink',
         value='sample text with hyperlinks',
+        font_color='red',
+        underline_color='#ffffffff'
     )
     autoLink_expected = {
-        'autoLink': 'sample text with hyperlinks'
+        'autoLink': 'sample text with hyperlinks',
+        'autoLink_font_color': 'red',
+        'autoLink_underline_color': '#ffffffff'
+        
     }
     assert autoLink.as_dict == autoLink_expected
 
@@ -160,11 +165,15 @@ def test_hyperlink():
     hyperlink = cop.elements.Hyperlink(
         name='hyperlink',
         url='url',
-        text='hyperlink_text'
+        text='hyperlink_text',
+        font_color='red',
+        underline_color='#ffffffff'
     )
     hyperlink_expected = {
         'hyperlink': 'url',
-        'hyperlink_text': 'hyperlink_text'
+        'hyperlink_text': 'hyperlink_text',
+        'hyperlink_text_font_color': 'red',
+        'hyperlink_text_underline_color': '#ffffffff'
     }
     assert hyperlink.as_dict == hyperlink_expected
 

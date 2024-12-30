@@ -484,21 +484,36 @@ class AutoLink(Property):
     """ This tag allows you to insert text into the document detecting links. 
     """
 
-    def __init__(self, name: str, value: str):
+    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None):
         """
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
+            font_color (str, optional): The font color of autolink.
+            underline_color (str, optional): The underline color of autolink.
         """
         super().__init__(name, value)
+        self.value: str = value
+        self.font_color: str = font_color
+        self.underline_color: str = underline_color
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{*auto " + self.name + "}"})
+    
+    @property
+    def as_dict(self) -> Dict:
+        result = {self.name: self.value}
+
+        if self.font_color is not None:
+            result[self.name + "_font_color"] = self.font_color
+        if self.underline_color is not None:
+            result[self.name + "_underline_color"] = self.underline_color
+        return result
 
 
 class Hyperlink(Element):
-    def __init__(self, name: str, url: str, text: str = None):
+    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None):
         """
         Args:
             name (str): The name for this element.
@@ -508,6 +523,8 @@ class Hyperlink(Element):
         super().__init__(name)
         self.url: str = url
         self.text: str = text
+        self.font_color: str = font_color
+        self.underline_color: str = underline_color
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -519,6 +536,10 @@ class Hyperlink(Element):
 
         if self.text is not None:
             result[self.name + "_text"] = self.text
+        if  (self.text is not None) and (self.font_color is not None):
+            result[self.text + "_font_color"] = self.font_color
+        if (self.text is not None) and (self.underline_color is not None):
+            result[self.text + "_underline_color"] = self.underline_color
 
         return result
 
