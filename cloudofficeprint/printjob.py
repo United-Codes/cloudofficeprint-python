@@ -40,6 +40,7 @@ class PrintJob:
         subtemplates: Dict[str, Resource] = {},
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
+        attachments : List[Resource] = [],
         cop_verbose: bool = False,
     ):
         """
@@ -51,6 +52,7 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            attachments  (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         """
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
@@ -60,6 +62,7 @@ class PrintJob:
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.attachments: List[Resource] = attachments
         self.cop_verbose: bool = cop_verbose
 
     def execute(self) -> Response:
@@ -227,6 +230,10 @@ class PrintJob:
         if len(self.append_files) > 0:
             result["append_files"] = [
                 file.secondary_file_dict for file in self.append_files
+            ]
+        if len(self.attachments) > 0:
+            result["attachments"] = [
+                file.secondary_file_dict for file in self.attachments
             ]
 
         if len(self.subtemplates) > 0:

@@ -39,6 +39,8 @@ class PDFOptions:
         sign_certificate_password: str = None,
         sign_certificate_txt: str = None,
         convert_to_pdfa: str = None,
+        attachment_name: str = None,
+        convert_attachment_to_json: bool = None,
         
     ):
         """
@@ -69,6 +71,8 @@ class PDFOptions:
             sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
             sign_certificate_txt (str, optional) Add custom text in any language to the signature field
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
+            attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
+            convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
         """
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
@@ -96,6 +100,9 @@ class PDFOptions:
         self.sign_certificate_password: str = sign_certificate_password
         self.sign_certificate_txt: str = sign_certificate_txt
         self.convert_to_pdfa: str = convert_to_pdfa
+        self.attachment_name: str = attachment_name
+        self.convert_attachment_to_json: bool = convert_attachment_to_json
+        
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.
@@ -180,6 +187,10 @@ class PDFOptions:
             result["output_sign_certificate_txt"] = self.sign_certificate_txt
         if self.convert_to_pdfa is not None:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
+        if self.attachment_name is not None:
+            result["output_attachment_name"] = self.attachment_name
+        if self.convert_attachment_to_json is not None:
+            result["output_convert_attachment_to_json"] = self.convert_attachment_to_json
 
         return result
 
