@@ -484,18 +484,20 @@ class AutoLink(Property):
     """ This tag allows you to insert text into the document detecting links. 
     """
 
-    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None):
+    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
         """
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
             font_color (str, optional): The font color of autolink.
             underline_color (str, optional): The underline color of autolink.
+            preserve_tag_style (str or bool, optional): take the styling of hyperlink text defined in the template (blue and underlined by default).
         """
         super().__init__(name, value)
         self.value: str = value
         self.font_color: str = font_color
         self.underline_color: str = underline_color
+        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -509,22 +511,28 @@ class AutoLink(Property):
             result[self.name + "_font_color"] = self.font_color
         if self.underline_color is not None:
             result[self.name + "_underline_color"] = self.underline_color
+        if self.preserve_tag_style is not None:
+            result[self.name + "_preserve_tag_style"] = self.preserve_tag_style
         return result
 
 
 class Hyperlink(Element):
-    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None):
+    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
         """
         Args:
             name (str): The name for this element.
             url (str): The URL for the hyperlink.
             text (str, optional): The text for the hyperlink. Defaults to None.
+            font_color (str, optional): The font color of text for hyperlink.
+            underline_color (str, optional): The underline color of text for hyperlink.
+            preserve_tag_style (str or bool, optional): take the styling of hyperlink text defined in the template (blue and underlined by default).
         """
         super().__init__(name)
         self.url: str = url
         self.text: str = text
         self.font_color: str = font_color
         self.underline_color: str = underline_color
+        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -540,6 +548,8 @@ class Hyperlink(Element):
             result[self.text + "_font_color"] = self.font_color
         if (self.text is not None) and (self.underline_color is not None):
             result[self.text + "_underline_color"] = self.underline_color
+        if (self.preserve_tag_style is not None):
+            result[self.name + "_preserve_tag_style"] = self.preserve_tag_style
 
         return result
 

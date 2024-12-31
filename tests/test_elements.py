@@ -150,12 +150,14 @@ def test_autoLink():
         name='autoLink',
         value='sample text with hyperlinks',
         font_color='red',
-        underline_color='#ffffffff'
+        underline_color='#ffffffff',
+        preserve_tag_style = True
     )
     autoLink_expected = {
         'autoLink': 'sample text with hyperlinks',
         'autoLink_font_color': 'red',
-        'autoLink_underline_color': '#ffffffff'
+        'autoLink_underline_color': '#ffffffff',
+        'autoLink_preserve_tag_style': True
         
     }
     assert autoLink.as_dict == autoLink_expected
@@ -167,13 +169,15 @@ def test_hyperlink():
         url='url',
         text='hyperlink_text',
         font_color='red',
-        underline_color='#ffffffff'
+        underline_color='#ffffffff',
+        preserve_tag_style = 'yes'
     )
     hyperlink_expected = {
         'hyperlink': 'url',
         'hyperlink_text': 'hyperlink_text',
         'hyperlink_text_font_color': 'red',
-        'hyperlink_text_underline_color': '#ffffffff'
+        'hyperlink_text_underline_color': '#ffffffff',
+        'hyperlink_preserve_tag_style': 'yes'
     }
     assert hyperlink.as_dict == hyperlink_expected
 
