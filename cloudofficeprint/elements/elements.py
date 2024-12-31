@@ -210,6 +210,11 @@ class CellStyleXlsx(CellStyle):
         text_h_alignment: str = None,
         text_v_alignment: str = None,
         text_rotation: Union[int, str] = None,
+        wrap_text: bool = False,
+        width: Union[int, str] = None,
+        height: Union[int, str] = None,
+        max_characters : Union[int, str] = None,
+        height_scaling : Union[int, str] = None,
     ):
         """
         Args:
@@ -239,6 +244,11 @@ class CellStyleXlsx(CellStyle):
             text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
             text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
             text_rotation (Union[int, str], optional): rotation of text value from 0-90 degrees. Defaults to None.
+            wrap_text (bool, optional): set to true for wrap text. The default is false.
+            width (Union[int, str],  optional): provide a custom width to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
+            height (Union[int, str],  optional): provide custom height to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
+            max_characters (Union[int, str],  optional): provide width for the cell.
+            height_scaling (Union[int, str], optional):  adjusts cell height for consistent rendering.
         """
         super().__init__()
         self.cell_locked: bool = cell_locked
@@ -267,6 +277,14 @@ class CellStyleXlsx(CellStyle):
         self.text_h_alignment: str = text_h_alignment
         self.text_v_alignment: str = text_v_alignment
         self.text_rotation: Union[int, str] = text_rotation
+        self.wrap_text: bool = wrap_text
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+        self.max_characters: Union[int, str] = max_characters 
+        self.height_scaling: Union[int, str] = height_scaling
+        
+        
+        
 
     @property
     def _dict_suffixes(self):
@@ -324,6 +342,16 @@ class CellStyleXlsx(CellStyle):
             result["_text_v_alignment"] = self.text_v_alignment
         if self.text_rotation is not None:
             result["_text_rotation"] = self.text_rotation
+        if self.wrap_text is not None:
+            result["_wrap_text"] = self.wrap_text
+        if self.width is not None:
+            result["_width"] = self.width
+        if self.height is not None:
+            result["_height"] = self.height
+        if self.max_characters is not None:
+            result["_max_characters"] = self.max_characters
+        if self.height_scaling is not None:
+            result["_height_scaling"] = self.height_scaling
 
         return result
 

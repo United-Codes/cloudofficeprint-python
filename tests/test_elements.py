@@ -106,7 +106,12 @@ def test_cell_style_property_xlsx():
         border_diagonal_color='#ff0000',
         text_h_alignment='center',
         text_v_alignment='justify',
-        text_rotation=45
+        text_rotation=45,
+        wrap_text=True,
+        width='auto',
+        height=40,
+        max_characters=60,
+        height_scaling=0.75
     )
     style_property = cop.elements.CellStyleProperty(
         name='name',
@@ -140,7 +145,12 @@ def test_cell_style_property_xlsx():
         'name_border_diagonal_color': '#ff0000',
         'name_text_h_alignment': 'center',
         'name_text_v_alignment': 'justify',
-        'name_text_rotation': 45
+        'name_text_rotation': 45,
+        'name_wrap_text': True,
+        'name_width': 'auto',
+        'name_height': 40,
+        'name_max_characters': 60,
+        'name_height_scaling': 0.75
     }
     assert style_property.as_dict == style_property_expected
 
