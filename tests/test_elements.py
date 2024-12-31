@@ -13,6 +13,29 @@ def test_property():
         'name': 'value'
     }
     assert prop.as_dict == prop_expected
+    
+def test_html():
+    """Test for Html property."""
+    html_prop = cop.elements.Html(
+        name='name',
+        value='<!DOCTYPE html> <html> <body> <h2>An ordered HTML list</h2> <ol> <li value=\"2\">Coffee</li> <li>Tea</li> <li>Milk</li> </ol> </body> </html>',
+        custom_table_style='CustomTableAOP',
+        ordered_list_style='1',
+        unordered_list_style='2',
+        use_tag_style=False,
+        ignore_cell_margin=True,
+        ignore_empty_p=False,
+    )
+    html_prop_expected = {
+        'name': '<!DOCTYPE html> <html> <body> <h2>An ordered HTML list</h2> <ol> <li value=\"2\">Coffee</li> <li>Tea</li> <li>Milk</li> </ol> </body> </html>',
+        'name_custom_table_style': 'CustomTableAOP',
+        'name_ordered_list_style': '1',
+        'name_unordered_list_style': '2',
+        'name_use_tag_style': False,
+        'name_ignore_cell_margin': True,
+        'name_ignore_empty_p': False
+    }
+    assert html_prop.as_dict == html_prop_expected
 
 
 def test_cell_style_property_docx():

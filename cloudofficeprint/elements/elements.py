@@ -467,18 +467,56 @@ class CellStyleProperty(Property):
 
 
 class Html(Property):
-    def __init__(self, name: str, value: str):
+    def __init__(
+        self, name: str,
+        value: str, 
+        custom_table_style: str, 
+        unordered_list_style: Union[str, int], 
+        ordered_list_style: Union[str, int], 
+        use_tag_style: bool, 
+        ignore_cell_margin: bool, 
+        ignore_empty_p: bool
+    ):
         """
         Args:
             name (str): The name for this property.
             value (str): The value for this property.
+            custom_table_style (str): Specify custom table style
+            unordered_list_style (str): create and customize ordered list
+            ordered_list_style (str): create and customize unordered
+            use_tag_style (bool):  use the styling from the template instead of default Word styling
+            ignore_cell_margin (bool):  ignore empty paragraphs within HTML content
+            ignore_empty_p (bool):  ignore the cell margins in an HTML table cell when the text content is large
         """
         super().__init__(name, value)
-
+        self.custom_table_style: str = custom_table_style
+        self.unordered_list_style: Union[str, int] = unordered_list_style
+        self.ordered_list_style: Union[str, int] = ordered_list_style
+        self.use_tag_style: bool = use_tag_style
+        self.ignore_cell_margin: bool = ignore_cell_margin
+        self.ignore_empty_p: bool = ignore_empty_p
+       
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{_" + self.name + "}"})
+    
+    @property
+    def as_dict(self) -> Dict:
+        result = {self.name: self.value}
 
+        if self.custom_table_style is not None:
+            result[self.name + "_custom_table_style"] = self.custom_table_style
+        if self.unordered_list_style is not None:
+            result[self.name + "_unordered_list_style"] = self.unordered_list_style
+        if self.ordered_list_style is not None:
+            result[self.name + "_ordered_list_style"] = self.ordered_list_style
+        if self.use_tag_style is not None:
+            result[self.name + "_use_tag_style"] = self.use_tag_style
+        if self.ignore_cell_margin is not None:
+            result[self.name + "_ignore_cell_margin"] = self.ignore_cell_margin
+        if self.ignore_empty_p is not None:
+            result[self.name + "_ignore_empty_p"] = self.ignore_empty_p
+        return result
 
 class RightToLeft(Property):
     def __init__(self, name: str, value: str):
