@@ -193,7 +193,10 @@ class ChartOptions():
                  background_opacity: int = None,
                  title: str = None,
                  title_style: ChartTextStyle = None,
-                 grid: bool = None):
+                 grid: bool = None,
+                 holeSize: int = None,
+                 firstSliceAngle: int = None
+                 ):
         """
         Args:
             x_axis (ChartAxisOptions, optional): The options for the x-axis. Defaults to None.
@@ -210,6 +213,8 @@ class ChartOptions():
             title (str, optional): The title of the chart. Defaults to None.
             title_style (ChartTextStyle, optional): The styling for the title of the chart. Defaults to None.
             grid (bool, optional): Whether or not the chart should have a grid. Defaults to None.
+            holeSize (int, optional): hole size for doughnut chart (0 - 100).
+            firstSLiceAngle (int , optional): angle of first slice for dough chart (0 - 320). Must be specified for holeSize option to work 
         """
         self._legend_options: dict = None
         self._data_labels_options: dict = None
@@ -226,6 +231,8 @@ class ChartOptions():
         self.title: str = title
         self.title_style: ChartTextStyle = title_style
         self.grid: bool = grid
+        self.holeSize: int = holeSize
+        self.firstSliceAngle: int = firstSliceAngle 
 
     def set_legend(self, position: str = 'r', style: ChartTextStyle = None):
         """Setter for the legend of the chart.
@@ -325,6 +332,10 @@ class ChartOptions():
             result["titleStyle"] = self.title_style.as_dict
         if self.grid is not None:
             result["grid"] = self.grid
+        if self.firstSliceAngle is not None:
+            result["firstSliceAngle"] = self.firstSliceAngle
+        if self.holeSize is not None:
+            result["holeSize"] = self.holeSize
         if self._legend_options is not None:
             result["legend"] = self._legend_options
         if self._data_labels_options is not None:

@@ -1,4 +1,7 @@
+import sys
+sys.path.insert(0, "D:/UC/cloudofficeprint-python")
 import cloudofficeprint as cop
+
 
 """This file contains tests for all the possible charts"""
 
@@ -78,7 +81,9 @@ def test_chart_options():
             color='red',
             font='Arial'
         ),
-        grid=True
+        grid=True,
+        firstSliceAngle=45,
+        holeSize=50
     )
     options.set_legend(
         position='l',
@@ -197,6 +202,8 @@ def test_chart_options():
             'font': 'Arial',
         },
         'grid': True,
+        'firstSliceAngle': 45,
+        'holeSize': 50,
         'legend': {
             'showLegend': True,
             'position': 'l',
