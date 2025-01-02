@@ -231,7 +231,7 @@ def test_chart_options():
 
 
 def test_chart_line():
-    """Test for LineChart. Also serves as a test for RadarChart (RadarSeries is equivalent to LineSeries)"""
+    """Test for LineChart. Also serves as a test for RadarChart and LineStackedChart (RadarSeries is equivalent to LineSeries)"""
     line1 = cop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
@@ -450,7 +450,7 @@ def test_chart_pie():
 
 
 def test_chart_area():
-    """Test for AreaChart"""
+    """Test for AreaChart and AreaStacked"""
     area1 = cop.elements.AreaSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),

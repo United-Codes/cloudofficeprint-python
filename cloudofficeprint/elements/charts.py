@@ -671,7 +671,7 @@ class StockSeries(Series):
 
 # better to have a series for every possible chart for future-proofing, in case their options diverge later
 BarSeries = BarStackedSeries = BarStackedPercentSeries = ColumnSeries = ColumnStackedSeries = ColumnStackedPercentSeries = ScatterSeries = XYSeries
-RadarSeries = LineSeries
+RadarSeries = LineStackedSeries = LineSeries
 
 
 class Chart(Element, ABC):
@@ -730,6 +730,26 @@ class LineChart(Chart):
         return self._get_dict({
             "lines": [line.as_dict for line in self.lines],
             "type": "line"
+        })
+        
+class LineStackedChart(Chart):
+    """Class for a line chart"""
+
+    def __init__(self, name: str, lines: Tuple[Union[LineStackedSeries, XYSeries]], options: ChartOptions = None):
+        """
+        Args:
+            name (str): The name of the chart.
+            lines (Tuple[Union[LineStackedSeries, XYSeries]]): Iterable of line series.
+            options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
+        """
+        super().__init__(name, options)
+        self.lines: Tuple[Union[LineStackedSeries, XYSeries]] = lines
+
+    @property
+    def as_dict(self) -> Dict:
+        return self._get_dict({
+            "lines": [line.as_dict for line in self.lines],
+            "type": "lineStacked"
         })
 
 
@@ -962,6 +982,25 @@ class AreaChart(Chart):
         return self._get_dict({
             "areas": [area.as_dict for area in self.areas],
             "type": "area"
+        })
+class AreaStackedChart(Chart):
+    """Class for an area stacked chart"""
+
+    def __init__(self, name: str, areas: Tuple[Union[AreaSeries, XYSeries]], options: ChartOptions = None):
+        """
+        Args:
+            name (str): The name of the chart.
+            areas (Tuple[Union[AreaSeries, XYSeries]]): Iterable of area series.
+            options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
+        """
+        super().__init__(name, options)
+        self.areas: Tuple[Union[AreaSeries, XYSeries]] = areas
+
+    @property
+    def as_dict(self) -> Dict:
+        return self._get_dict({
+            "areas": [area.as_dict for area in self.areas],
+            "type": "areaStacked"
         })
 
 
