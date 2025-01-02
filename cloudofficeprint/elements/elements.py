@@ -483,8 +483,8 @@ class Html(Property):
             value (str): The value for this property.
             custom_table_style (str): Specify custom table style
             unordered_list_style (str): create and customize ordered list
-            ordered_list_style (str): create and customize unordered
-            use_tag_style (bool):  use the styling from the template instead of default Word styling
+            ordered_list_style (str): create and customize unordered list
+            use_tag_style (bool): use the styling from the template instead of default Word styling
             ignore_cell_margin (bool):  ignore empty paragraphs within HTML content
             ignore_empty_p (bool):  ignore the cell margins in an HTML table cell when the text content is large
         """
