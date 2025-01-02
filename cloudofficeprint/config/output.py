@@ -37,7 +37,7 @@ class OutputConfig:
             append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
             prepend_per_page (bool, optional): Ability to prepend file after each page of output. Defaults to None.
             output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
-            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.
+            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (used with output polling). Defaults to None.
             request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
             page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
             update_toc (bool, optional): Update table of contents of Word document.

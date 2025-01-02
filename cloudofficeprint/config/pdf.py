@@ -41,6 +41,7 @@ class PDFOptions:
         convert_to_pdfa: str = None,
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
+        insert_barcode: bool = None,
         
     ):
         """
@@ -73,6 +74,7 @@ class PDFOptions:
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
+            insert_barcode (bool, optional): To insert barcode in pdf
         """
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
@@ -102,6 +104,7 @@ class PDFOptions:
         self.convert_to_pdfa: str = convert_to_pdfa
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
+        self.insert_barcode: bool = insert_barcode
         
 
     def __str__(self) -> str:
@@ -191,6 +194,8 @@ class PDFOptions:
             result["output_attachment_name"] = self.attachment_name
         if self.convert_attachment_to_json is not None:
             result["output_convert_attachment_to_json"] = self.convert_attachment_to_json
+        if self.insert_barcode is not None:
+            result["output_insert_barcode"] = self.insert_barcode
 
         return result
 

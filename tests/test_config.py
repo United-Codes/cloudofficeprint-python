@@ -33,6 +33,7 @@ def test_pdf_options():
         sign_certificate_txt="text in english",
         convert_to_pdfa = "1b",
         convert_attachment_to_json= True,
+        insert_barcode= True,
     )
     pdf_opts.set_watermark("new_watermark", "grey", "Arial", 51, 32, 45)
     pdf_opts.set_page_margin_at(6, "top")
@@ -74,6 +75,7 @@ def test_pdf_options():
         "output_sign_certificate_txt": "text in english",
         "output_convert_to_pdfa": "1b",
         "output_convert_attachment_to_json": True,
+        "output_insert_barcode": True,
         "identify_form_fields": True,
         "output_split": True,
     }
