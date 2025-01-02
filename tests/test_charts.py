@@ -83,7 +83,8 @@ def test_chart_options():
         ),
         grid=True,
         firstSliceAngle=45,
-        holeSize=50
+        holeSize=50,
+        enableAreaTransparency =True
     )
     options.set_legend(
         position='l',
@@ -204,6 +205,7 @@ def test_chart_options():
         'grid': True,
         'firstSliceAngle': 45,
         'holeSize': 50,
+        'enableAreaTransparency': True,
         'legend': {
             'showLegend': True,
             'position': 'l',

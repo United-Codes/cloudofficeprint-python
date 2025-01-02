@@ -195,7 +195,8 @@ class ChartOptions():
                  title_style: ChartTextStyle = None,
                  grid: bool = None,
                  holeSize: int = None,
-                 firstSliceAngle: int = None
+                 firstSliceAngle: int = None,
+                 enableAreaTransparency: bool = None
                  ):
         """
         Args:
@@ -214,7 +215,8 @@ class ChartOptions():
             title_style (ChartTextStyle, optional): The styling for the title of the chart. Defaults to None.
             grid (bool, optional): Whether or not the chart should have a grid. Defaults to None.
             holeSize (int, optional): hole size for doughnut chart (0 - 100).
-            firstSLiceAngle (int , optional): angle of first slice for dough chart (0 - 320). Must be specified for holeSize option to work 
+            firstSLiceAngle (int , optional): angle of first slice for dough chart (0 - 320). Must be specified for holeSize option to work
+            enableAreaTransparency (bool, option): whether to make area chart transparent.
         """
         self._legend_options: dict = None
         self._data_labels_options: dict = None
@@ -233,6 +235,7 @@ class ChartOptions():
         self.grid: bool = grid
         self.holeSize: int = holeSize
         self.firstSliceAngle: int = firstSliceAngle 
+        self.enableAreaTransparency: bool = enableAreaTransparency 
 
     def set_legend(self, position: str = 'r', style: ChartTextStyle = None):
         """Setter for the legend of the chart.
@@ -336,6 +339,8 @@ class ChartOptions():
             result["firstSliceAngle"] = self.firstSliceAngle
         if self.holeSize is not None:
             result["holeSize"] = self.holeSize
+        if self.enableAreaTransparency is not None:
+            result["enableAreaTransparency"] = self.enableAreaTransparency
         if self._legend_options is not None:
             result["legend"] = self._legend_options
         if self._data_labels_options is not None:
