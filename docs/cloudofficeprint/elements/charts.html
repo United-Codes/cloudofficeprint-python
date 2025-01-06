@@ -986,7 +986,7 @@ def as_dict(self) -&gt; Dict:
             title_style (ChartTextStyle, optional): The styling for the title of the chart. Defaults to None.
             grid (bool, optional): Whether or not the chart should have a grid. Defaults to None.
             holeSize (int, optional): Hole size for doughnut chart (0-100).
-            firstSLiceAngle (int , optional): Angle of first slice for dough chart (0-320). Must be specified for holeSize option to work
+            firstSLiceAngle (int , optional): Angle of first slice for dough chart (0-360). Must be specified for holeSize option to work
             enableAreaTransparency (bool, option): Whether to make area chart transparent.
         &#34;&#34;&#34;
         self._legend_options: dict = None
@@ -1151,7 +1151,7 @@ In the latter case, the alpha channel in backgroundColor is used. Defaults to No
 <dt><strong><code>holeSize</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>Hole size for doughnut chart (0-100).</dd>
 <dt><strong><code>firstSLiceAngle</code></strong> :&ensp;<code>int</code> , optional</dt>
-<dd>Angle of first slice for dough chart (0-320). Must be specified for holeSize option to work</dd>
+<dd>Angle of first slice for dough chart (0-360). Must be specified for holeSize option to work</dd>
 <dt><strong><code>enableAreaTransparency</code></strong> :&ensp;<code>bool, option</code></dt>
 <dd>Whether to make area chart transparent.</dd>
 </dl></div>

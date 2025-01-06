@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+sys.path.insert(0, "PATH_TO_COP_DIRn")
 import cloudofficeprint as cop
 
 

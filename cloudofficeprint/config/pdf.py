@@ -42,6 +42,7 @@ class PDFOptions:
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
         insert_barcode: bool = None,
+        page_number_start_at: str = None,
         
     ):
         """
@@ -74,7 +75,8 @@ class PDFOptions:
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
-            insert_barcode (bool, optional): To insert barcode in pdf
+            insert_barcode (bool, optional): To insert barcode in pdf.
+            page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
         """
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
@@ -105,6 +107,7 @@ class PDFOptions:
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
         self.insert_barcode: bool = insert_barcode
+        self.page_number_start_at = page_number_start_at
         
 
     def __str__(self) -> str:
@@ -196,6 +199,8 @@ class PDFOptions:
             result["output_convert_attachment_to_json"] = self.convert_attachment_to_json
         if self.insert_barcode is not None:
             result["output_insert_barcode"] = self.insert_barcode
+        if self.page_number_start_at is not None:
+            result['output_page_number_start_at'] = self.page_number_start_at
 
         return result
 

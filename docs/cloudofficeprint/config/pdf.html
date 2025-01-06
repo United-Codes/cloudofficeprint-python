@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>even_page: bool = None,<br>merge_making_even: bool = None,<br>remove_last_page: bool = None,<br>modify_password: str = None,<br>read_password: str = None,<br>password_protection_flag: int = None,<br>watermark: str = None,<br>watermark_color: str = None,<br>watermark_font: str = None,<br>watermark_opacity: int = None,<br>watermark_size: int = None,<br>watermark_rotation: int = None,<br>lock_form: bool = None,<br>copies: int = None,<br>page_margin: int | dict = None,<br>landscape: bool = None,<br>page_width: str | int = None,<br>page_height: str | int = None,<br>page_format: str = None,<br>merge: bool = None,<br>split: bool = None,<br>identify_form_fields: bool = None,<br>sign_certificate: str = None,<br>sign_certificate_password: str = None,<br>sign_certificate_txt: str = None,<br>convert_to_pdfa: str = None,<br>attachment_name: str = None,<br>convert_attachment_to_json: bool = None,<br>insert_barcode: bool = None)</span>
+<span>(</span><span>even_page: bool = None,<br>merge_making_even: bool = None,<br>remove_last_page: bool = None,<br>modify_password: str = None,<br>read_password: str = None,<br>password_protection_flag: int = None,<br>watermark: str = None,<br>watermark_color: str = None,<br>watermark_font: str = None,<br>watermark_opacity: int = None,<br>watermark_size: int = None,<br>watermark_rotation: int = None,<br>lock_form: bool = None,<br>copies: int = None,<br>page_margin: int | dict = None,<br>landscape: bool = None,<br>page_width: str | int = None,<br>page_height: str | int = None,<br>page_format: str = None,<br>merge: bool = None,<br>split: bool = None,<br>identify_form_fields: bool = None,<br>sign_certificate: str = None,<br>sign_certificate_password: str = None,<br>sign_certificate_txt: str = None,<br>convert_to_pdfa: str = None,<br>attachment_name: str = None,<br>convert_attachment_to_json: bool = None,<br>insert_barcode: bool = None,<br>page_number_start_at: str = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -93,6 +93,7 @@ el.replaceWith(d);
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
         insert_barcode: bool = None,
+        page_number_start_at: str = None,
         
     ):
         &#34;&#34;&#34;
@@ -125,7 +126,8 @@ el.replaceWith(d);
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
-            insert_barcode (bool, optional): To insert barcode in pdf
+            insert_barcode (bool, optional): To insert barcode in pdf.
+            page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
         &#34;&#34;&#34;
         self.even_page: bool = even_page
         self.merge_making_even: bool = merge_making_even
@@ -156,6 +158,7 @@ el.replaceWith(d);
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
         self.insert_barcode: bool = insert_barcode
+        self.page_number_start_at = page_number_start_at
         
 
     def __str__(self) -&gt; str:
@@ -247,6 +250,8 @@ el.replaceWith(d);
             result[&#34;output_convert_attachment_to_json&#34;] = self.convert_attachment_to_json
         if self.insert_barcode is not None:
             result[&#34;output_insert_barcode&#34;] = self.insert_barcode
+        if self.page_number_start_at is not None:
+            result[&#39;output_page_number_start_at&#39;] = self.page_number_start_at
 
         return result
 
@@ -402,7 +407,9 @@ All of them are optional, which is why passing an instance of this class in an O
 <dt><strong><code>convert_attachment_to_json</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.</dd>
 <dt><strong><code>insert_barcode</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>To insert barcode in pdf</dd>
+<dd>To insert barcode in pdf.</dd>
+<dt><strong><code>page_number_start_at</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Provide start of the page number. Defaults to None.</dd>
 </dl></div>
 <h3>Instance variables</h3>
 <dl>
@@ -481,6 +488,8 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_convert_attachment_to_json&#34;] = self.convert_attachment_to_json
     if self.insert_barcode is not None:
         result[&#34;output_insert_barcode&#34;] = self.insert_barcode
+    if self.page_number_start_at is not None:
+        result[&#39;output_page_number_start_at&#39;] = self.page_number_start_at
 
     return result</code></pre>
 </details>

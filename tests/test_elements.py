@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+sys.path.insert(0, "PATH_TO_COP_DIR")
 import cloudofficeprint as cop
 
 
@@ -500,11 +500,11 @@ def run():
     test_text_box()
     test_element_collection()
     test_freeze_element()
-    # test_protect_element()
+    test_protect_element()
     test_insert_element()
-    # test_embed_element()
-    # test_excel_insert_element()
-    # test_cell_validation()
+    test_embed_element()
+    test_excel_insert_element()
+    test_cell_validation()
     test_remove_txt_box()
     test_hide_slide_pptx()
     # COP charts get tested in test_charts.py

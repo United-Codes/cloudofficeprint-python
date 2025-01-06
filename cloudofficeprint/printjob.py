@@ -40,8 +40,8 @@ class PrintJob:
         subtemplates: Dict[str, Resource] = {},
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
-        attachments : List[Resource] = [],
         cop_verbose: bool = False,
+        attachments : List[Resource] = [],
     ):
         """
         Args:
@@ -52,8 +52,8 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
-            attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
+            attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
         """
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
         self.server: Server = server
@@ -62,8 +62,8 @@ class PrintJob:
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
-        self.attachments: List[Resource] = attachments
         self.cop_verbose: bool = cop_verbose
+        self.attachments: List[Resource] = attachments
 
     def execute(self) -> Response:
         """Execute this print job.

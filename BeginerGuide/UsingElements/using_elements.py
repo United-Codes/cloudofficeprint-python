@@ -1,7 +1,7 @@
 # Install cloudofficeprint using  pip install cloudofficeprint
 #Import the cloudofficeprint libary.
 import sys
-sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+sys.path.insert(0, "PATH_TO_COP_DIR")
 import cloudofficeprint as cop
 
 # Main object that holds the data

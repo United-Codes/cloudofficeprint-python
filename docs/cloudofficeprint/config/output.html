@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.config.output.OutputConfig"><code class="flex name class">
 <span>class <span class="ident">OutputConfig</span></span>
-<span>(</span><span>filetype: str = None,<br>encoding: str = 'raw',<br>converter: str = 'libreoffice',<br>cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None,<br>server_directory: str = None,<br>pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None,<br>append_per_page: bool = None,<br>prepend_per_page: bool = None,<br>output_polling: bool = None,<br>secret_key: str = None,<br>page_number_start_at: str = None,<br>update_toc: bool = None,<br>request_option: <a title="cloudofficeprint.config.request_option.requestOptions" href="request_option.html#cloudofficeprint.config.request_option.requestOptions">requestOptions</a> = None)</span>
+<span>(</span><span>filetype: str = None,<br>encoding: str = 'raw',<br>converter: str = 'libreoffice',<br>cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None,<br>server_directory: str = None,<br>pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None,<br>append_per_page: bool = None,<br>prepend_per_page: bool = None,<br>output_polling: bool = None,<br>secret_key: str = None,<br>update_toc: bool = None,<br>request_option: <a title="cloudofficeprint.config.request_option.requestOptions" href="request_option.html#cloudofficeprint.config.request_option.requestOptions">requestOptions</a> = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -72,7 +72,6 @@ el.replaceWith(d);
                  prepend_per_page: bool = None,
                  output_polling: bool = None,
                  secret_key: str = None,
-                 page_number_start_at: str = None,
                  update_toc: bool = None,
                  request_option: requestOptions = None):
         &#34;&#34;&#34;If the parameters are not provided default value will be used.
@@ -89,7 +88,6 @@ el.replaceWith(d);
             output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
             secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (used with output polling). Defaults to None.
             request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
-            page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
             update_toc (bool, optional): Update table of contents of Word document.
         &#34;&#34;&#34;
         self.filetype: str = filetype
@@ -102,7 +100,6 @@ el.replaceWith(d);
         self.prepend_per_page = prepend_per_page
         self.output_polling = output_polling
         self.secret_key = secret_key
-        self.page_number_start_at = page_number_start_at
         self.update_toc = update_toc
         self.request_option = request_option
 
@@ -145,8 +142,6 @@ el.replaceWith(d);
             result[&#39;output_polling&#39;] = self.output_polling
         if self.secret_key is not None:
             result[&#39;secret_key&#39;] = self.secret_key
-        if self.page_number_start_at is not None:
-            result[&#39;output_page_number_start_at&#39;] = self.page_number_start_at
         if self.update_toc is not None:
             result[&#39;update_toc&#39;] = self.update_toc
         if self.request_option is not None:
@@ -204,8 +199,6 @@ el.replaceWith(d);
 <dd>A secret key can be specified to encrypt the file stored on the server (used with output polling). Defaults to None.</dd>
 <dt><strong><code>request_option</code></strong> :&ensp;<code>requestOptions</code>, optional</dt>
 <dd>AOP makes a call to the given option with response/output of the current request. Defaults to None.</dd>
-<dt><strong><code>page_number_start_at</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>Provide start of the page number. Defaults to None.</dd>
 <dt><strong><code>update_toc</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Update table of contents of Word document.</dd>
 </dl></div>
@@ -245,8 +238,6 @@ def as_dict(self) -&gt; Dict:
         result[&#39;output_polling&#39;] = self.output_polling
     if self.secret_key is not None:
         result[&#39;secret_key&#39;] = self.secret_key
-    if self.page_number_start_at is not None:
-        result[&#39;output_page_number_start_at&#39;] = self.page_number_start_at
     if self.update_toc is not None:
         result[&#39;update_toc&#39;] = self.update_toc
     if self.request_option is not None:
