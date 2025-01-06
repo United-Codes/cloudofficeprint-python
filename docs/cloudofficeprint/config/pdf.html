@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>even_page: bool = None,<br>merge_making_even: bool = None,<br>remove_last_page: bool = None,<br>modify_password: str = None,<br>read_password: str = None,<br>password_protection_flag: int = None,<br>watermark: str = None,<br>watermark_color: str = None,<br>watermark_font: str = None,<br>watermark_opacity: int = None,<br>watermark_size: int = None,<br>watermark_rotation: int = None,<br>lock_form: bool = None,<br>copies: int = None,<br>page_margin: int | dict = None,<br>landscape: bool = None,<br>page_width: str | int = None,<br>page_height: str | int = None,<br>page_format: str = None,<br>merge: bool = None,<br>split: bool = None,<br>identify_form_fields: bool = None,<br>sign_certificate: str = None,<br>sign_certificate_password: str = None,<br>sign_certificate_txt: str = None,<br>convert_to_pdfa: str = None,<br>attachment_name: str = None,<br>convert_attachment_to_json: bool = None,<br>insert_barcode: bool = None,<br>page_number_start_at: str = None)</span>
+<span>(</span><span>even_page: bool = None,<br>merge_making_even: bool = None,<br>remove_last_page: bool = None,<br>modify_password: str = None,<br>read_password: str = None,<br>password_protection_flag: int = None,<br>watermark: str = None,<br>watermark_color: str = None,<br>watermark_font: str = None,<br>watermark_opacity: int = None,<br>watermark_size: int = None,<br>lock_form: bool = None,<br>copies: int = None,<br>page_margin: int | dict = None,<br>landscape: bool = None,<br>page_width: str | int = None,<br>page_height: str | int = None,<br>page_format: str = None,<br>merge: bool = None,<br>split: bool = None,<br>identify_form_fields: bool = None,<br>sign_certificate: str = None,<br>sign_certificate_password: str = None,<br>sign_certificate_txt: str = None,<br>watermark_rotation: int = None,<br>convert_to_pdfa: str = None,<br>attachment_name: str = None,<br>convert_attachment_to_json: bool = None,<br>insert_barcode: bool = None,<br>page_number_start_at: str = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -75,7 +75,6 @@ el.replaceWith(d);
         watermark_font: str = None,
         watermark_opacity: int = None,
         watermark_size: int = None,
-        watermark_rotation: int = None,
         lock_form: bool = None,
         copies: int = None,
         page_margin: Union[int, dict] = None,
@@ -89,6 +88,7 @@ el.replaceWith(d);
         sign_certificate: str = None,
         sign_certificate_password: str = None,
         sign_certificate_txt: str = None,
+        watermark_rotation: int = None,
         convert_to_pdfa: str = None,
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
@@ -109,7 +109,6 @@ el.replaceWith(d);
             watermark_font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of &#34;Arial&#34;. Defaults to None.
             watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             watermark_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
-            watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { &#34;top&#34;: int, &#34;bottom&#34;: int, &#34;left&#34;: int, &#34;right&#34;: int } or just an int to be used on all sides. Defaults to None.
@@ -123,6 +122,7 @@ el.replaceWith(d);
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
             sign_certificate_txt (str, optional): Add custom text in any language to the signature field
+            watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
@@ -140,7 +140,6 @@ el.replaceWith(d);
         self.watermark_font: str = watermark_font
         self.watermark_opacity: int = watermark_opacity
         self.watermark_size: int = watermark_size
-        self.watermark_rotation: int = watermark_rotation
         self.lock_form: bool = lock_form
         self.copies: int = copies
         self.page_margin: Union[int, dict] = page_margin
@@ -154,6 +153,7 @@ el.replaceWith(d);
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
         self.sign_certificate_txt: str = sign_certificate_txt
+        self.watermark_rotation: int = watermark_rotation
         self.convert_to_pdfa: str = convert_to_pdfa
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
@@ -372,8 +372,6 @@ All of them are optional, which is why passing an instance of this class in an O
 <dd>Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.</dd>
 <dt><strong><code>watermark_size</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.</dd>
-<dt><strong><code>watermark_rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.</dd>
 <dt><strong><code>lock_form</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Locks / flattens the forms in the PDF. Defaults to None.</dd>
 <dt><strong><code>copies</code></strong> :&ensp;<code>int</code>, optional</dt>
@@ -400,6 +398,8 @@ All of them are optional, which is why passing an instance of this class in an O
 <dd>If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.</dd>
 <dt><strong><code>sign_certificate_txt</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Add custom text in any language to the signature field</dd>
+<dt><strong><code>watermark_rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.</dd>
 <dt><strong><code>convert_to_pdfa</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.</dd>
 <dt><strong><code>attachment_name</code></strong> :&ensp;<code>str</code>, optional</dt>

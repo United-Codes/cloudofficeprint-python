@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.elements.elements.AutoLink"><code class="flex name class">
 <span>class <span class="ident">AutoLink</span></span>
-<span>(</span><span>name: str,<br>value: str,<br>font_color: str = None,<br>underline_color: str = None,<br>preserve_tag_style: str | bool = None)</span>
+<span>(</span><span>name: str, value: str)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -59,36 +59,18 @@ el.replaceWith(d);
     &#34;&#34;&#34; This tag allows you to insert text into the document detecting links. 
     &#34;&#34;&#34;
 
-    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+    def __init__(self, name: str, value: str):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
-            font_color (str, optional): The font color of autolink.
-            underline_color (str, optional): The underline color of autolink.
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
         &#34;&#34;&#34;
         super().__init__(name, value)
         self.value: str = value
-        self.font_color: str = font_color
-        self.underline_color: str = underline_color
-        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
-        return frozenset({&#34;{*auto &#34; + self.name + &#34;}&#34;})
-    
-    @property
-    def as_dict(self) -&gt; Dict:
-        result = {self.name: self.value}
-
-        if self.font_color is not None:
-            result[self.name + &#34;_font_color&#34;] = self.font_color
-        if self.underline_color is not None:
-            result[self.name + &#34;_underline_color&#34;] = self.underline_color
-        if self.preserve_tag_style is not None:
-            result[self.name + &#34;_preserve_tag_style&#34;] = self.preserve_tag_style
-        return result</code></pre>
+        return frozenset({&#34;{*auto &#34; + self.name + &#34;}&#34;})</code></pre>
 </details>
 <div class="desc"><p>This tag allows you to insert text into the document detecting links. </p>
 <h2 id="args">Args</h2>
@@ -97,12 +79,6 @@ el.replaceWith(d);
 <dd>The name for this element.</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>The value of the autoLink.</dd>
-<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The font color of autolink.</dd>
-<dt><strong><code>underline_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The underline color of autolink.</dd>
-<dt><strong><code>preserve_tag_style</code></strong> :&ensp;<code>str</code> or <code>bool</code>, optional</dt>
-<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default).</dd>
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1293,6 +1269,7 @@ optional</dt>
 <li><a title="cloudofficeprint.elements.elements.ElementCollection" href="#cloudofficeprint.elements.elements.ElementCollection">ElementCollection</a></li>
 <li><a title="cloudofficeprint.elements.elements.ExcelInsert" href="#cloudofficeprint.elements.elements.ExcelInsert">ExcelInsert</a></li>
 <li><a title="cloudofficeprint.elements.elements.Hyperlink" href="#cloudofficeprint.elements.elements.Hyperlink">Hyperlink</a></li>
+<li><a title="cloudofficeprint.elements.elements.PptxHyperlink" href="#cloudofficeprint.elements.elements.PptxHyperlink">PptxHyperlink</a></li>
 <li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
 <li><a title="cloudofficeprint.elements.elements.SheetProtection" href="#cloudofficeprint.elements.elements.SheetProtection">SheetProtection</a></li>
 <li><a title="cloudofficeprint.elements.elements.TableOfContents" href="#cloudofficeprint.elements.elements.TableOfContents">TableOfContents</a></li>
@@ -2260,7 +2237,7 @@ LIMITATION: using _hide for slide hide is that it can only be used for hiding sl
 </dd>
 <dt id="cloudofficeprint.elements.elements.Hyperlink"><code class="flex name class">
 <span>class <span class="ident">Hyperlink</span></span>
-<span>(</span><span>name: str,<br>url: str,<br>text: str = None,<br>font_color: str = None,<br>underline_color: str = None,<br>preserve_tag_style: str | bool = None)</span>
+<span>(</span><span>name: str, url: str, text: str = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -2268,22 +2245,16 @@ LIMITATION: using _hide for slide hide is that it can only be used for hiding sl
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Hyperlink(Element):
-    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+    def __init__(self, name: str, url: str, text: str = None):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             url (str): The URL for the hyperlink.
             text (str, optional): The text for the hyperlink. Defaults to None.
-            font_color (str, optional): The font color of text for hyperlink.
-            underline_color (str, optional): The underline color of text for hyperlink.
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
         &#34;&#34;&#34;
         super().__init__(name)
         self.url: str = url
         self.text: str = text
-        self.font_color: str = font_color
-        self.underline_color: str = underline_color
-        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
@@ -2295,13 +2266,7 @@ LIMITATION: using _hide for slide hide is that it can only be used for hiding sl
 
         if self.text is not None:
             result[self.name + &#34;_text&#34;] = self.text
-        if  (self.text is not None) and (self.font_color is not None):
-            result[self.text + &#34;_font_color&#34;] = self.font_color
-        if (self.text is not None) and (self.underline_color is not None):
-            result[self.text + &#34;_underline_color&#34;] = self.underline_color
-        if (self.preserve_tag_style is not None):
-            result[self.name + &#34;_preserve_tag_style&#34;] = self.preserve_tag_style
-
+        
         return result</code></pre>
 </details>
 <div class="desc"><p>The abstract base class for elements.</p>
@@ -2313,12 +2278,6 @@ LIMITATION: using _hide for slide hide is that it can only be used for hiding sl
 <dd>The URL for the hyperlink.</dd>
 <dt><strong><code>text</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>The text for the hyperlink. Defaults to None.</dd>
-<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The font color of text for hyperlink.</dd>
-<dt><strong><code>underline_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The underline color of text for hyperlink.</dd>
-<dt><strong><code>preserve_tag_style</code></strong> :&ensp;<code>str</code> or <code>bool</code>, optional</dt>
-<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default).</dd>
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -2575,6 +2534,165 @@ If set to True (default) it will create a pagebreak.</dd>
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.PptxAutoLink"><code class="flex name class">
+<span>class <span class="ident">PptxAutoLink</span></span>
+<span>(</span><span>name: str,<br>value: str,<br>font_color: str = None,<br>underline_color: str = None,<br>preserve_tag_style: str | bool = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PptxAutoLink(Property):
+    &#34;&#34;&#34;Inside PPTX it is possible to specify font color underline color for AutoLinks.
+    This class offers additional options specifically designed for use in PPTX files compared to standard AutoLink class
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            value (str): The value of the autoLink.
+            font_color (str, optional): The font color of autolink.
+            underline_color (str, optional): The underline color of autolink.
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+        self.value: str = value
+        self.font_color: str = font_color
+        self.underline_color: str = underline_color
+        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{*auto &#34; + self.name + &#34;}&#34;})
+    
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {self.name: self.value}
+
+        if self.font_color is not None:
+            result[self.name + &#34;_font_color&#34;] = self.font_color
+        if self.underline_color is not None:
+            result[self.name + &#34;_underline_color&#34;] = self.underline_color
+        if self.preserve_tag_style is not None:
+            result[self.name + &#34;_preserve_tag_style&#34;] = self.preserve_tag_style
+        return result</code></pre>
+</details>
+<div class="desc"><p>Inside PPTX it is possible to specify font color underline color for AutoLinks.
+This class offers additional options specifically designed for use in PPTX files compared to standard AutoLink class</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>The value of the autoLink.</dd>
+<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font color of autolink.</dd>
+<dt><strong><code>underline_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The underline color of autolink.</dd>
+<dt><strong><code>preserve_tag_style</code></strong> :&ensp;<code>str</code> or <code>bool</code>, optional</dt>
+<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default).</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.elements.PptxHyperlink"><code class="flex name class">
+<span>class <span class="ident">PptxHyperlink</span></span>
+<span>(</span><span>name: str,<br>url: str,<br>text: str = None,<br>font_color: str = None,<br>underline_color: str = None,<br>preserve_tag_style: str | bool = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PptxHyperlink(Element):
+    &#34;&#34;&#34;Inside PPTX it is possible to specify font color underline color for HyperLinks.
+     This class offers additional options specifically designed for use in PPTX files compared to standard HyperLink class
+    &#34;&#34;&#34;
+    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element.
+            url (str): The URL for the hyperlink.
+            text (str, optional): The text for the hyperlink. Defaults to None.
+            font_color (str, optional): The font color of text for hyperlink.
+            underline_color (str, optional): The underline color of text for hyperlink.
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
+        &#34;&#34;&#34;
+        super().__init__(name)
+        self.url: str = url
+        self.text: str = text
+        self.font_color: str = font_color
+        self.underline_color: str = underline_color
+        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{*&#34; + self.name + &#34;}&#34;})
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {self.name: self.url}
+
+        if self.text is not None:
+            result[self.name + &#34;_text&#34;] = self.text
+        if  (self.text is not None) and (self.font_color is not None):
+            result[self.text + &#34;_font_color&#34;] = self.font_color
+        if (self.text is not None) and (self.underline_color is not None):
+            result[self.text + &#34;_underline_color&#34;] = self.underline_color
+        if (self.preserve_tag_style is not None):
+            result[self.name + &#34;_preserve_tag_style&#34;] = self.preserve_tag_style
+
+        return result</code></pre>
+</details>
+<div class="desc"><p>Inside PPTX it is possible to specify font color underline color for HyperLinks.
+This class offers additional options specifically designed for use in PPTX files compared to standard HyperLink class</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL for the hyperlink.</dd>
+<dt><strong><code>text</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The text for the hyperlink. Defaults to None.</dd>
+<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The font color of text for hyperlink.</dd>
+<dt><strong><code>underline_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The underline color of text for hyperlink.</dd>
+<dt><strong><code>preserve_tag_style</code></strong> :&ensp;<code>str</code> or <code>bool</code>, optional</dt>
+<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default).</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.Property"><code class="flex name class">
 <span>class <span class="ident">Property</span></span>
 <span>(</span><span>name: str, value: str)</span>
@@ -2638,6 +2756,7 @@ but this can be of any type, for example a dict.</dd>
 <li><a title="cloudofficeprint.elements.elements.Link" href="#cloudofficeprint.elements.elements.Link">Link</a></li>
 <li><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
 <li><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></li>
+<li><a title="cloudofficeprint.elements.elements.PptxAutoLink" href="#cloudofficeprint.elements.elements.PptxAutoLink">PptxAutoLink</a></li>
 <li><a title="cloudofficeprint.elements.elements.Raw" href="#cloudofficeprint.elements.elements.Raw">Raw</a></li>
 <li><a title="cloudofficeprint.elements.elements.Remove" href="#cloudofficeprint.elements.elements.Remove">Remove</a></li>
 <li><a title="cloudofficeprint.elements.elements.RightToLeft" href="#cloudofficeprint.elements.elements.RightToLeft">RightToLeft</a></li>
@@ -3704,6 +3823,12 @@ the value of toShow is false or undefined, the entire shape will be removed from
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.PptxAutoLink" href="#cloudofficeprint.elements.elements.PptxAutoLink">PptxAutoLink</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.elements.PptxHyperlink" href="#cloudofficeprint.elements.elements.PptxHyperlink">PptxHyperlink</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></code></h4>

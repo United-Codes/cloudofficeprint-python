@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.config.output.OutputConfig"><code class="flex name class">
 <span>class <span class="ident">OutputConfig</span></span>
-<span>(</span><span>filetype: str = None,<br>encoding: str = 'raw',<br>converter: str = 'libreoffice',<br>cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None,<br>server_directory: str = None,<br>pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None,<br>append_per_page: bool = None,<br>prepend_per_page: bool = None,<br>output_polling: bool = None,<br>secret_key: str = None,<br>update_toc: bool = None,<br>request_option: <a title="cloudofficeprint.config.request_option.requestOptions" href="request_option.html#cloudofficeprint.config.request_option.requestOptions">requestOptions</a> = None)</span>
+<span>(</span><span>filetype: str = None,<br>encoding: str = 'raw',<br>converter: str = 'libreoffice',<br>cloud_access_token: <a title="cloudofficeprint.config.cloud.CloudAccessToken" href="cloud.html#cloudofficeprint.config.cloud.CloudAccessToken">CloudAccessToken</a> = None,<br>server_directory: str = None,<br>pdf_options: <a title="cloudofficeprint.config.pdf.PDFOptions" href="pdf.html#cloudofficeprint.config.pdf.PDFOptions">PDFOptions</a> = None,<br>append_per_page: bool = None,<br>prepend_per_page: bool = None,<br>output_polling: bool = None,<br>secret_key: str = None,<br>request_option: <a title="cloudofficeprint.config.request_option.requestOptions" href="request_option.html#cloudofficeprint.config.request_option.requestOptions">requestOptions</a> = None,<br>update_toc: bool = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -72,8 +72,8 @@ el.replaceWith(d);
                  prepend_per_page: bool = None,
                  output_polling: bool = None,
                  secret_key: str = None,
-                 update_toc: bool = None,
-                 request_option: requestOptions = None):
+                 request_option: requestOptions = None,
+                update_toc: bool = None):
         &#34;&#34;&#34;If the parameters are not provided default value will be used.
 
         Args:
@@ -100,8 +100,8 @@ el.replaceWith(d);
         self.prepend_per_page = prepend_per_page
         self.output_polling = output_polling
         self.secret_key = secret_key
-        self.update_toc = update_toc
         self.request_option = request_option
+        self.update_toc = update_toc
 
     @property
     def json(self) -&gt; str:
