@@ -579,6 +579,24 @@ class AutoLink(Property):
     """ This tag allows you to insert text into the document detecting links. 
     """
 
+    def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for this element.
+            value (str): The value of the autoLink.
+        """
+        super().__init__(name, value)
+        self.value: str = value
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{*auto " + self.name + "}"})
+    
+class PptxAutoLink(Property):
+    """Inside PPTX it is possible to specify font color underline color for AutoLinks.
+    This class offers additional options specifically designed for use in PPTX files compared to standard AutoLink class
+    """
+
     def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
         """
         Args:
@@ -609,9 +627,35 @@ class AutoLink(Property):
         if self.preserve_tag_style is not None:
             result[self.name + "_preserve_tag_style"] = self.preserve_tag_style
         return result
-
-
+    
 class Hyperlink(Element):
+    def __init__(self, name: str, url: str, text: str = None):
+        """
+        Args:
+            name (str): The name for this element.
+            url (str): The URL for the hyperlink.
+            text (str, optional): The text for the hyperlink. Defaults to None.
+        """
+        super().__init__(name)
+        self.url: str = url
+        self.text: str = text
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{*" + self.name + "}"})
+
+    @property
+    def as_dict(self) -> Dict:
+        result = {self.name: self.url}
+
+        if self.text is not None:
+            result[self.name + "_text"] = self.text
+        
+        return result
+class PptxHyperlink(Element):
+    """Inside PPTX it is possible to specify font color underline color for HyperLinks.
+     This class offers additional options specifically designed for use in PPTX files compared to standard HyperLink class
+    """
     def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
         """
         Args:

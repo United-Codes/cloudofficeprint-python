@@ -1,10 +1,10 @@
 import sys
-sys.path.insert(0, "PATH_TO_COP_DIR")
+sys.path.insert(0, "D:/UC/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
 def test_property():
-    """Test for Property. Also serves as a test for Html, RightToLeft, FootNote, Raw, Formula, PageBreak and MarkdownContent."""
+    """Test for Property. Also serves as a test for AutoLink, Html, RightToLeft, FootNote, Raw, Formula, PageBreak and MarkdownContent."""
     prop = cop.elements.Property(
         name='name',
         value='value'
@@ -178,8 +178,8 @@ def test_cell_style_property_xlsx():
     assert style_property.as_dict == style_property_expected
 
 
-def test_autoLink():
-    autoLink = cop.elements.AutoLink(
+def test_pptx_autoLink():
+    autoLink = cop.elements.PptxAutoLink(
         name='autoLink',
         value='sample text with hyperlinks',
         font_color='red',
@@ -196,8 +196,8 @@ def test_autoLink():
     assert autoLink.as_dict == autoLink_expected
 
 
-def test_hyperlink():
-    hyperlink = cop.elements.Hyperlink(
+def test_pptx_hyperlink():
+    hyperlink = cop.elements.PptxHyperlink(
         name='hyperlink',
         url='url',
         text='hyperlink_text',
@@ -490,8 +490,8 @@ def run():
     test_cell_style_property_docx_preserve_width()
     test_cell_style_border_property_docx()
     test_cell_style_property_xlsx()
-    test_autoLink()
-    test_hyperlink()
+    test_pptx_autoLink()
+    test_pptx_hyperlink()
     test_table_of_content()
     test_span()
     test_styled_property()

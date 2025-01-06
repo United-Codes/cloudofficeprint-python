@@ -22,8 +22,8 @@ class OutputConfig:
                  prepend_per_page: bool = None,
                  output_polling: bool = None,
                  secret_key: str = None,
-                 update_toc: bool = None,
-                 request_option: requestOptions = None):
+                 request_option: requestOptions = None,
+                update_toc: bool = None):
         """If the parameters are not provided default value will be used.
 
         Args:
@@ -50,8 +50,8 @@ class OutputConfig:
         self.prepend_per_page = prepend_per_page
         self.output_polling = output_polling
         self.secret_key = secret_key
-        self.update_toc = update_toc
         self.request_option = request_option
+        self.update_toc = update_toc
 
     @property
     def json(self) -> str:

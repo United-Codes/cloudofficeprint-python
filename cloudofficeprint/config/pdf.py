@@ -24,7 +24,6 @@ class PDFOptions:
         watermark_font: str = None,
         watermark_opacity: int = None,
         watermark_size: int = None,
-        watermark_rotation: int = None,
         lock_form: bool = None,
         copies: int = None,
         page_margin: Union[int, dict] = None,
@@ -38,6 +37,7 @@ class PDFOptions:
         sign_certificate: str = None,
         sign_certificate_password: str = None,
         sign_certificate_txt: str = None,
+        watermark_rotation: int = None,
         convert_to_pdfa: str = None,
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
@@ -58,7 +58,6 @@ class PDFOptions:
             watermark_font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
             watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             watermark_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
-            watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.
@@ -72,6 +71,7 @@ class PDFOptions:
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
             sign_certificate_txt (str, optional): Add custom text in any language to the signature field
+            watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
@@ -89,7 +89,6 @@ class PDFOptions:
         self.watermark_font: str = watermark_font
         self.watermark_opacity: int = watermark_opacity
         self.watermark_size: int = watermark_size
-        self.watermark_rotation: int = watermark_rotation
         self.lock_form: bool = lock_form
         self.copies: int = copies
         self.page_margin: Union[int, dict] = page_margin
@@ -103,6 +102,7 @@ class PDFOptions:
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
         self.sign_certificate_txt: str = sign_certificate_txt
+        self.watermark_rotation: int = watermark_rotation
         self.convert_to_pdfa: str = convert_to_pdfa
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
