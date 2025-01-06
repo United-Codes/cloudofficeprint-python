@@ -214,9 +214,9 @@ class ChartOptions():
             title (str, optional): The title of the chart. Defaults to None.
             title_style (ChartTextStyle, optional): The styling for the title of the chart. Defaults to None.
             grid (bool, optional): Whether or not the chart should have a grid. Defaults to None.
-            holeSize (int, optional): hole size for doughnut chart (0 - 100).
-            firstSLiceAngle (int , optional): angle of first slice for dough chart (0 - 320). Must be specified for holeSize option to work
-            enableAreaTransparency (bool, option): whether to make area chart transparent.
+            holeSize (int, optional): Hole size for doughnut chart (0-100).
+            firstSLiceAngle (int , optional): Angle of first slice for dough chart (0-360). Must be specified for holeSize option to work
+            enableAreaTransparency (bool, option): Whether to make area chart transparent.
         """
         self._legend_options: dict = None
         self._data_labels_options: dict = None

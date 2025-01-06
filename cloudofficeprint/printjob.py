@@ -52,7 +52,7 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
-            attachments  (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
+            attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         """
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data

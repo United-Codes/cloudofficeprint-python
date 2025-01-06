@@ -1,7 +1,7 @@
 # Install cloudofficeprint using  pip install cloudofficeprint
 #Import the cloudofficeprint libary.
 import sys
-sys.path.insert(0, "PATH_TO_COP_DIR")
+sys.path.insert(0, "D:/UC/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 # Main object that holds the data
@@ -48,11 +48,7 @@ collection.add(styled_prop)
 docx_column1_cell_style = cop.elements.CellStyleDocx(
         cell_background_color='red',
         border_color='0d72c7',
-        border_top='double',
-        border_top_size=20,
-        border_left='dotDash',
-        border_bottom_color='yellow',
-        border_left_size='38'
+        border_top='double'
     )
 docx_column1_table_style_property = cop.elements.CellStyleProperty(
         name='column1',
@@ -62,7 +58,6 @@ docx_column1_table_style_property = cop.elements.CellStyleProperty(
 collection.add(docx_column1_table_style_property)
 
 docx_column2_cell_style = cop.elements.CellStyleDocx(
-        border_right_space=15,
         border_diagonal_down='single',
         border_diagonal_down_size=10,
         border_diagonal_up='single',

@@ -2,18 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.10.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
 <title>cloudofficeprint API documentation</title>
-<meta name="description" content="This Python package provides a programmatic interface with a [Cloud Office Print](https://www.cloudofficeprint.com) server …" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<meta name="description" content="This Python package provides a programmatic interface with a [Cloud Office Print](https://www.cloudofficeprint.com) server …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
 </head>
 <body>
 <main>
@@ -91,123 +105,6 @@ except cop.exceptions.COPError as err:
 </code></pre>
 <h3 id="further-information">Further information</h3>
 <p>For further information, such as where to find our examples, we refer to our README.md file on our <a href="https://github.com/United-Codes/cloudofficeprint-python/">Github page</a>.</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">&#34;&#34;&#34;
-This Python package provides a programmatic interface with a [Cloud Office Print](https://www.cloudofficeprint.com) server.
-
-## Usage
-The examples below call this package cop.
-```python
-import cloudofficeprint as cop
-```
-
-### Templates
-Templates are represented by `Resource`. The simplest way to obtain a `Resource` is to load from a local path.
-```python
-template = cop.Resource.from_local_file(&#34;./path/to/template.docx&#34;)
-```
-
-### Render elements
-Most render elements encapsulate the data for a single tag. An `elements.ElementCollection` is an element which represents a collection of elements.
-
-Combining a simple line chart and some text tags:
-```python
-line = cop.elements.LineChart(
-    &#34;linechart&#34;,
-    cop.elements.LineSeries([1, 2, 3, 4], [1, 2, 3, 4], color=&#34;green&#34;),
-    cop.elements.XYSeries([1, 2, 3, 4], [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;])
-)
-
-text_tag = cop.elements.Property(&#34;tag-name&#34;, &#34;Hello, world!&#34;)
-# or multiple at once using ElementCollection.from_mapping
-# and supplying the dictionary representation directly
-text_tags = cop.elements.ElementCollection.from_mapping({
-    &#34;another-tag&#34;: &#34;Foo&#34;,
-    &#34;one-more-tag&#34;: &#34;Bar&#34;
-})
-
-combined_data = cop.elements.ElementCollection()
-combined_data.add(line)
-combined_data.add(text_tag)
-combined_data.add_all(text_tags)
-```
-
-### The server
-A Cloud Office Print server is configured as a `config.Server`. It takes a url and an optional `config.ServerConfig` which allows for various server configuration options. If you&#39;re using Cloud Office Print Cloud edition, you will need to use this to declare your API key.
-
-```python
-server = cop.config.Server(
-    &#34;http://server.url.com/&#34;,
-    cop.config.ServerConfig(api_key = &#34;YOUR_API_KEY&#34;)
-)
-```
-
-### Print job
-`PrintJob` combines template, data, server and an optional output configuration (`config.OutputConfig`) and can execute itself on the Cloud Office Print server. An example using the variables declared above:
-
-```python
-printjob = cop.PrintJob(combined_data, server, template)
-printjob.execute()
-```
-
-A print job can be executed asynchronously as well.
-
-```python
-import asyncio
-coroutine = printjob.execute_async()
-# simply await your result when you need it
-result = await coroutine
-```
-
-### Full JSON available
-If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server for you (requests are made using [requests](https://requests.readthedocs.io/en/master/)).
-```python
-json_data = open(&#34;./path/to/data.json&#34;, &#34;r&#34;).read()
-cop.PrintJob.execute_full_json(
-        json_data, server
-    ).to_file(&#34;./test/from_full_json_output&#34;)
-```
-
-### Server errors
-In case the Cloud Office Print server returns an error, `PrintJob` will throw one as well.
-You can catch it and get either its user-readable message or an encoded stack trace that can be passed to Cloud Office Print support.
-```python
-try:
-    # execute some previously constructed printjob
-    printjob.execute()
-except cop.exceptions.COPError as err:
-    print(&#34;Cloud Office Print error! &#34; + err.user_message)
-    print(err.encoded_message)
-    ...
-```
-
-### Further information
-For further information, such as where to find our examples, we refer to our README.md file on our [Github page](https://github.com/United-Codes/cloudofficeprint-python/).
-&#34;&#34;&#34;
-
-from . import exceptions, config, elements, own_utils
-
-from .printjob import PrintJob
-from .resource import Resource
-from .template import Template
-from .response import Response
-
-# specify what is imported on &#34;from cloudofficeprint import *&#34;
-# but that shouldn&#39;t really be used anyway
-__all__ = [
-    &#34;exceptions&#34;,
-    &#34;config&#34;,
-    &#34;elements&#34;,
-    &#34;own_utils&#34;,
-    &#34;PrintJob&#34;,
-    &#34;Resource&#34;,
-    &#34;Template&#34;,
-    &#34;Response&#34;,
-]</code></pre>
-</details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
@@ -255,31 +152,9 @@ __all__ = [
 <dl>
 <dt id="cloudofficeprint.PrintJob"><code class="flex name class">
 <span>class <span class="ident">PrintJob</span></span>
-<span>(</span><span>data: Union[<a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>, Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>], <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>], server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>, template: Union[<a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a>, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = None, output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;, subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {}, prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [], cop_verbose: bool = False)</span>
+<span>(</span><span>data: <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a> | Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>] | <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>,<br>server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>,<br>template: <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a> | <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a> = None,<br>output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;,<br>subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {},<br>prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>attachments: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>cop_verbose: bool = False)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>A print job for a Cloud Office Print server.</p>
-<p>This class contains all configuration options, resources, render elements &hellip;
-and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficeprint.PrintJob.execute">PrintJob.execute()</a></code> method to combine all these and send a request to the Cloud Office Print server.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>data</code></strong> :&ensp;<code>Union[Element, Mapping[str, Element], RESTSource]</code></dt>
-<dd>This is either: An <code>Element</code> (e.g. an <code>ElementCollection</code>); A mapping, containing file names as keys and an <code>Element</code> as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it "file0".</dd>
-<dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
-<dd>Server to be used for this print job.</dd>
-<dt><strong><code>template</code></strong> :&ensp;<code>Union[<a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a>, <a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code></dt>
-<dd>Template to use for this print job.</dd>
-<dt><strong><code>output_config</code></strong> :&ensp;<code>OutputConfig</code>, optional</dt>
-<dd>Output configuration to be used for this print job. Defaults to <code>OutputConfig</code>().</dd>
-<dt><strong><code>subtemplates</code></strong> :&ensp;<code>Dict[str, <a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
-<dd>Subtemplates for this print job, accessible (in docx) through <code>{?include subtemplate_dict_key}</code>. Defaults to {}.</dd>
-<dt><strong><code>prepend_files</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
-<dd>Files to prepend to the output file. Defaults to [].</dd>
-<dt><strong><code>append_files</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
-<dd>Files to append to the output file. Defaults to [].</dd>
-<dt><strong><code>cop_verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Whether or not verbose mode should be activated. Defaults to False.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -300,6 +175,7 @@ and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficepri
         subtemplates: Dict[str, Resource] = {},
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
+        attachments : List[Resource] = [],
         cop_verbose: bool = False,
     ):
         &#34;&#34;&#34;
@@ -311,6 +187,7 @@ and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficepri
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
         &#34;&#34;&#34;
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
@@ -320,6 +197,7 @@ and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficepri
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.attachments: List[Resource] = attachments
         self.cop_verbose: bool = cop_verbose
 
     def execute(self) -&gt; Response:
@@ -488,6 +366,10 @@ and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficepri
             result[&#34;append_files&#34;] = [
                 file.secondary_file_dict for file in self.append_files
             ]
+        if len(self.attachments) &gt; 0:
+            result[&#34;attachments&#34;] = [
+                file.secondary_file_dict for file in self.attachments
+            ]
 
         if len(self.subtemplates) &gt; 0:
             result[&#34;templates&#34;] = [
@@ -502,25 +384,36 @@ and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficepri
 
         return result</code></pre>
 </details>
+<div class="desc"><p>A print job for a Cloud Office Print server.</p>
+<p>This class contains all configuration options, resources, render elements &hellip;
+and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficeprint.PrintJob.execute">PrintJob.execute()</a></code> method to combine all these and send a request to the Cloud Office Print server.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>Union[Element, Mapping[str, Element], RESTSource]</code></dt>
+<dd>This is either: An <code>Element</code> (e.g. an <code>ElementCollection</code>); A mapping, containing file names as keys and an <code>Element</code> as data. Multiple files will be produced from the different datas, the result is a zip file containing them. In the first case, no output file name is specified and the server will name it "file0".</dd>
+<dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
+<dd>Server to be used for this print job.</dd>
+<dt><strong><code>template</code></strong> :&ensp;<code>Union[<a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a>, <a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code></dt>
+<dd>Template to use for this print job.</dd>
+<dt><strong><code>output_config</code></strong> :&ensp;<code>OutputConfig</code>, optional</dt>
+<dd>Output configuration to be used for this print job. Defaults to <code>OutputConfig</code>().</dd>
+<dt><strong><code>subtemplates</code></strong> :&ensp;<code>Dict[str, <a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
+<dd>Subtemplates for this print job, accessible (in docx) through <code>{?include subtemplate_dict_key}</code>. Defaults to {}.</dd>
+<dt><strong><code>prepend_files</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
+<dd>Files to prepend to the output file. Defaults to [].</dd>
+<dt><strong><code>append_files</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
+<dd>Files to append to the output file. Defaults to [].</dd>
+<dt><strong><code>attachments</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
+<dd>Files to attach to the pdf file. Defaults to []. The file must be PDF.</dd>
+<dt><strong><code>cop_verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not verbose mode should be activated. Defaults to False.</dd>
+</dl></div>
 <h3>Static methods</h3>
 <dl>
 <dt id="cloudofficeprint.PrintJob.execute_full_json"><code class="name flex">
-<span>def <span class="ident">execute_full_json</span></span>(<span>json_data: str, server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+<span>def <span class="ident">execute_full_json</span></span>(<span>json_data: str,<br>server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>json_data</code></strong> :&ensp;<code>str</code></dt>
-<dd>full JSON data that needs to be sent to a Cloud Office Print server</dd>
-<dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
-<dd><code>Server</code>-object</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code></dt>
-<dd><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code>-object</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -546,12 +439,7 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
     )
     return PrintJob._handle_response(response)</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.PrintJob.execute_full_json_async"><code class="name flex">
-<span>async def <span class="ident">execute_full_json_async</span></span>(<span>json_data: str, server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Async version of <code>Printjob.execute_full_json</code></p>
+<div class="desc"><p>If you already have the JSON to be sent to the server (not just the data, but the entire JSON body including your API key and template), this package will wrap the request to the server.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>json_data</code></strong> :&ensp;<code>str</code></dt>
@@ -564,6 +452,11 @@ def execute_full_json(json_data: str, server: Server) -&gt; Response:
 <dt><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code></dt>
 <dd><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code>-object</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.PrintJob.execute_full_json_async"><code class="name flex">
+<span>async def <span class="ident">execute_full_json_async</span></span>(<span>json_data: str,<br>server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -593,18 +486,25 @@ async def execute_full_json_async(json_data: str, server: Server) -&gt; Response
     )
     return PrintJob._handle_response(response)</code></pre>
 </details>
+<div class="desc"><p>Async version of <code>Printjob.execute_full_json</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_data</code></strong> :&ensp;<code>str</code></dt>
+<dd>full JSON data that needs to be sent to a Cloud Office Print server</dd>
+<dt><strong><code>server</code></strong> :&ensp;<code>Server</code></dt>
+<dd><code>Server</code>-object</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code></dt>
+<dd><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code>-object</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
 <dl>
-<dt id="cloudofficeprint.PrintJob.as_dict"><code class="name">var <span class="ident">as_dict</span> : Dict</code></dt>
+<dt id="cloudofficeprint.PrintJob.as_dict"><code class="name">prop <span class="ident">as_dict</span> : Dict</code></dt>
 <dd>
-<div class="desc"><p>Return the dict representation of this print job.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>Dict</code></dt>
-<dd>dict representation of this print job</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -657,6 +557,10 @@ def as_dict(self) -&gt; Dict:
         result[&#34;append_files&#34;] = [
             file.secondary_file_dict for file in self.append_files
         ]
+    if len(self.attachments) &gt; 0:
+        result[&#34;attachments&#34;] = [
+            file.secondary_file_dict for file in self.attachments
+        ]
 
     if len(self.subtemplates) &gt; 0:
         result[&#34;templates&#34;] = [
@@ -671,16 +575,15 @@ def as_dict(self) -&gt; Dict:
 
     return result</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.PrintJob.json"><code class="name">var <span class="ident">json</span> : str</code></dt>
-<dd>
-<div class="desc"><p>JSON equivalent of the dict representation of this print job.
-This representation is isomorphic to the dict representation <code>Printjob.as_dict</code>.</p>
+<div class="desc"><p>Return the dict representation of this print job.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>str</code></dt>
-<dd>JSON equivalent of the dict representation of this print job</dd>
+<dt><code>Dict</code></dt>
+<dd>dict representation of this print job</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.PrintJob.json"><code class="name">prop <span class="ident">json</span> : str</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -695,6 +598,13 @@ def json(self) -&gt; str:
     &#34;&#34;&#34;
     return json.dumps(self.as_dict)</code></pre>
 </details>
+<div class="desc"><p>JSON equivalent of the dict representation of this print job.
+This representation is isomorphic to the dict representation <code>Printjob.as_dict</code>.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>JSON equivalent of the dict representation of this print job</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -703,12 +613,6 @@ def json(self) -&gt; str:
 <span>def <span class="ident">execute</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Execute this print job.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code></dt>
-<dd><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code>-object</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -733,17 +637,17 @@ def json(self) -&gt; str:
             self.template.update_hash(template_hash)
     return self._handle_response(response)</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.PrintJob.execute_async"><code class="name flex">
-<span>async def <span class="ident">execute_async</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Async version of <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficeprint.PrintJob.execute">PrintJob.execute()</a></code></p>
+<div class="desc"><p>Execute this print job.</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code></dt>
 <dd><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code>-object</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.PrintJob.execute_async"><code class="name flex">
+<span>async def <span class="ident">execute_async</span></span>(<span>self) ‑> <a title="cloudofficeprint.response.Response" href="response.html#cloudofficeprint.response.Response">Response</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -772,23 +676,20 @@ def json(self) -&gt; str:
             self.template.update_hash(template_hash)
     return PrintJob._handle_response(response)</code></pre>
 </details>
+<div class="desc"><p>Async version of <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficeprint.PrintJob.execute">PrintJob.execute()</a></code></p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code></dt>
+<dd><code><a title="cloudofficeprint.Response" href="#cloudofficeprint.Response">Response</a></code>-object</dd>
+</dl></div>
 </dd>
 </dl>
 </dd>
 <dt id="cloudofficeprint.Resource"><code class="flex name class">
 <span>class <span class="ident">Resource</span></span>
-<span>(</span><span>data: Union[str, bytes] = None, filetype: str = None)</span>
+<span>(</span><span>data: str | bytes = None, filetype: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The abstract base class for the resources.</p>
-<p>Create a new Resource.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>data</code></strong> :&ensp;<code>Union[str, bytes]</code>, optional</dt>
-<dd>the data for this Resource. Defaults to None.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>the file type of this Resource. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -944,6 +845,15 @@ def json(self) -&gt; str:
         &#34;&#34;&#34;
         return HTMLResource(htmlstring, landscape)</code></pre>
 </details>
+<div class="desc"><p>The abstract base class for the resources.</p>
+<p>Create a new Resource.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>Union[str, bytes]</code>, optional</dt>
+<dd>the data for this Resource. Defaults to None.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>the file type of this Resource. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>abc.ABC</li>
@@ -962,19 +872,6 @@ def json(self) -&gt; str:
 <span>def <span class="ident">from_base64</span></span>(<span>base64string: str, filetype: str) ‑> <a title="cloudofficeprint.resource.Base64Resource" href="resource.html#cloudofficeprint.resource.Base64Resource">Base64Resource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a Base64Resource from a base64 string.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>base64string</code></strong> :&ensp;<code>str</code></dt>
-<dd>the base64 encoded representation of a file.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file type (extension).</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>Base64Resource</code></dt>
-<dd>the created Base64Resource.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -992,25 +889,24 @@ def from_base64(base64string: str, filetype: str) -&gt; &#34;Base64Resource&#34;
     &#34;&#34;&#34;
     return Base64Resource(base64string, filetype)</code></pre>
 </details>
+<div class="desc"><p>Create a Base64Resource from a base64 string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>base64string</code></strong> :&ensp;<code>str</code></dt>
+<dd>the base64 encoded representation of a file.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file type (extension).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Base64Resource</code></dt>
+<dd>the created Base64Resource.</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Resource.from_html"><code class="name flex">
 <span>def <span class="ident">from_html</span></span>(<span>htmlstring: str, landscape: bool = False) ‑> <a title="cloudofficeprint.resource.HTMLResource" href="resource.html#cloudofficeprint.resource.HTMLResource">HTMLResource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create an HTMLResource with html data in plain text.
-Landscape is not supported for prepend/append sources, only for template resources.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>htmlstring</code></strong> :&ensp;<code>str</code></dt>
-<dd>the html content.</dd>
-<dt><strong><code>landscape</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>whether or not to use the landscape option. Defaults to False.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>HTMLResource</code></dt>
-<dd>the created HTMLResource.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1029,24 +925,25 @@ def from_html(htmlstring: str, landscape: bool = False) -&gt; &#34;HTMLResource&
     &#34;&#34;&#34;
     return HTMLResource(htmlstring, landscape)</code></pre>
 </details>
+<div class="desc"><p>Create an HTMLResource with html data in plain text.
+Landscape is not supported for prepend/append sources, only for template resources.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>htmlstring</code></strong> :&ensp;<code>str</code></dt>
+<dd>the html content.</dd>
+<dt><strong><code>landscape</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>whether or not to use the landscape option. Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>HTMLResource</code></dt>
+<dd>the created HTMLResource.</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Resource.from_local_file"><code class="name flex">
 <span>def <span class="ident">from_local_file</span></span>(<span>local_path: str) ‑> <a title="cloudofficeprint.resource.Base64Resource" href="resource.html#cloudofficeprint.resource.Base64Resource">Base64Resource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a Base64Resource with the contents of a local file.
-The filetype is determined by the extension of the file.</p>
-<p>Throws IOError if it can't read the file.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>local_path</code></strong> :&ensp;<code>str</code></dt>
-<dd>the path to local file.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>Base64Resource</code></dt>
-<dd>the created Base64Resource.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1069,24 +966,24 @@ def from_local_file(local_path: str) -&gt; &#34;Base64Resource&#34;:
         type_utils.path_to_extension(local_path),
     )</code></pre>
 </details>
+<div class="desc"><p>Create a Base64Resource with the contents of a local file.
+The filetype is determined by the extension of the file.</p>
+<p>Throws IOError if it can't read the file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>local_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>the path to local file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Base64Resource</code></dt>
+<dd>the created Base64Resource.</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Resource.from_raw"><code class="name flex">
 <span>def <span class="ident">from_raw</span></span>(<span>raw_data: bytes, filetype: str) ‑> <a title="cloudofficeprint.resource.RawResource" href="resource.html#cloudofficeprint.resource.RawResource">RawResource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a RawResource from raw file data.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_data</code></strong> :&ensp;<code>bytes</code></dt>
-<dd>the raw data as a <a href="https://docs.python.org/3/glossary.html#term-bytes-like-object">bytes-like object</a>.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file type (extension).</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>RawResource</code></dt>
-<dd>the created RawResource.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1104,23 +1001,24 @@ def from_raw(raw_data: bytes, filetype: str) -&gt; &#34;RawResource&#34;:
     &#34;&#34;&#34;
     return RawResource(raw_data, filetype)</code></pre>
 </details>
+<div class="desc"><p>Create a RawResource from raw file data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_data</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>the raw data as a <a href="https://docs.python.org/3/glossary.html#term-bytes-like-object">bytes-like object</a>.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file type (extension).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>RawResource</code></dt>
+<dd>the created RawResource.</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Resource.from_server_path"><code class="name flex">
 <span>def <span class="ident">from_server_path</span></span>(<span>path: str) ‑> <a title="cloudofficeprint.resource.ServerPathResource" href="resource.html#cloudofficeprint.resource.ServerPathResource">ServerPathResource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a ServerPathResource targeting a file on the server.
-The filetype is determined by the extension of the file.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
-<dd>the location of target file on the server.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>ServerPathResource</code></dt>
-<dd>the created ServerPathResource.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1138,24 +1036,23 @@ def from_server_path(path: str) -&gt; &#34;ServerPathResource&#34;:
     &#34;&#34;&#34;
     return ServerPathResource(path)</code></pre>
 </details>
+<div class="desc"><p>Create a ServerPathResource targeting a file on the server.
+The filetype is determined by the extension of the file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>the location of target file on the server.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ServerPathResource</code></dt>
+<dd>the created ServerPathResource.</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Resource.from_url"><code class="name flex">
 <span>def <span class="ident">from_url</span></span>(<span>url: str, filetype: str) ‑> <a title="cloudofficeprint.resource.URLResource" href="resource.html#cloudofficeprint.resource.URLResource">URLResource</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create an URLResource targeting the file at a given URL.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file URL.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file type (extension).</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>URLResource</code></dt>
-<dd>the created URLResource.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1173,17 +1070,25 @@ def from_url(url: str, filetype: str) -&gt; &#34;URLResource&#34;:
     &#34;&#34;&#34;
     return URLResource(url, filetype)</code></pre>
 </details>
+<div class="desc"><p>Create an URLResource targeting the file at a given URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file URL.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file type (extension).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>URLResource</code></dt>
+<dd>the created URLResource.</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
 <dl>
-<dt id="cloudofficeprint.Resource.mimetype"><code class="name">var <span class="ident">mimetype</span> : str</code></dt>
+<dt id="cloudofficeprint.Resource.mimetype"><code class="name">prop <span class="ident">mimetype</span> : str</code></dt>
 <dd>
-<div class="desc"><h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>the mime type of the Resource</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1196,14 +1101,14 @@ def mimetype(self) -&gt; str:
     &#34;&#34;&#34;
     return type_utils.extension_to_mimetype(self.filetype)</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Resource.secondary_file_dict"><code class="name">var <span class="ident">secondary_file_dict</span> : Dict</code></dt>
-<dd>
 <div class="desc"><h2 id="returns">Returns</h2>
 <dl>
-<dt><code>Dict</code></dt>
-<dd>the dictionarty representation of this resource as a secondary file (prepend, append, insert, as subtemplate).</dd>
+<dt><code>str</code></dt>
+<dd>the mime type of the Resource</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Resource.secondary_file_dict"><code class="name">prop <span class="ident">secondary_file_dict</span> : Dict</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1217,14 +1122,14 @@ def secondary_file_dict(self) -&gt; Dict:
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Resource.secondary_file_json"><code class="name">var <span class="ident">secondary_file_json</span> : str</code></dt>
-<dd>
 <div class="desc"><h2 id="returns">Returns</h2>
 <dl>
-<dt><code>str</code></dt>
-<dd>the JSON representation of this Resource.</dd>
+<dt><code>Dict</code></dt>
+<dd>the dictionarty representation of this resource as a secondary file (prepend, append, insert, as subtemplate).</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Resource.secondary_file_json"><code class="name">prop <span class="ident">secondary_file_json</span> : str</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1237,14 +1142,14 @@ def secondary_file_json(self) -&gt; str:
     &#34;&#34;&#34;
     return json.dumps(self.secondary_file_dict)</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Resource.template_dict"><code class="name">var <span class="ident">template_dict</span> : Dict</code></dt>
-<dd>
 <div class="desc"><h2 id="returns">Returns</h2>
 <dl>
-<dt><code>Dict</code></dt>
-<dd>the dictionary representation of this Resource.</dd>
+<dt><code>str</code></dt>
+<dd>the JSON representation of this Resource.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Resource.template_dict"><code class="name">prop <span class="ident">template_dict</span> : Dict</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1258,14 +1163,14 @@ def template_dict(self) -&gt; Dict:
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Resource.template_json"><code class="name">var <span class="ident">template_json</span> : str</code></dt>
-<dd>
 <div class="desc"><h2 id="returns">Returns</h2>
 <dl>
-<dt><code>str</code></dt>
-<dd>the JSON representation of this Resource.</dd>
+<dt><code>Dict</code></dt>
+<dd>the dictionary representation of this Resource.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Resource.template_json"><code class="name">prop <span class="ident">template_json</span> : str</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1278,6 +1183,11 @@ def template_json(self) -&gt; str:
     &#34;&#34;&#34;
     return json.dumps(self.template_dict)</code></pre>
 </details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>the JSON representation of this Resource.</dd>
+</dl></div>
 </dd>
 </dl>
 </dd>
@@ -1286,14 +1196,6 @@ def template_json(self) -&gt; str:
 <span>(</span><span>response: requests.models.Response)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The Response class serves as a container for and interface with the Cloud Office Print server's response to a printjob request.</p>
-<p>The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.</p>
-<p>You should never need to construct a Response manually.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>response</code></strong> :&ensp;<code>requests.Response</code></dt>
-<dd>Response object from the requests package</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1381,18 +1283,18 @@ def template_json(self) -&gt; str:
         outfile.write(self.binary)
         outfile.close()</code></pre>
 </details>
+<div class="desc"><p>The Response class serves as a container for and interface with the Cloud Office Print server's response to a printjob request.</p>
+<p>The Cloud Office Print server can also throw an error, in which case you will be dealing with a cloudofficeprint.exceptions.COPError instead of this class.</p>
+<p>You should never need to construct a Response manually.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>response</code></strong> :&ensp;<code>requests.Response</code></dt>
+<dd>Response object from the requests package</dd>
+</dl></div>
 <h3>Instance variables</h3>
 <dl>
-<dt id="cloudofficeprint.Response.binary"><code class="name">var <span class="ident">binary</span> : bytes</code></dt>
+<dt id="cloudofficeprint.Response.binary"><code class="name">prop <span class="ident">binary</span> : bytes</code></dt>
 <dd>
-<div class="desc"><p>Binary representation of the output file.</p>
-<p>Response.to_file can be used to output to a file,
-alternatively, use this property to do something else with the binary data.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>bytes</code></dt>
-<dd>response file as binary</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1409,15 +1311,17 @@ def binary(self) -&gt; bytes:
     &#34;&#34;&#34;
     return self._bytes</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Response.filetype"><code class="name">var <span class="ident">filetype</span> : str</code></dt>
-<dd>
-<div class="desc"><p>File type (extension) of this response. E.g. "docx".</p>
+<div class="desc"><p>Binary representation of the output file.</p>
+<p>Response.to_file can be used to output to a file,
+alternatively, use this property to do something else with the binary data.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>str</code></dt>
-<dd>file type of this response</dd>
+<dt><code>bytes</code></dt>
+<dd>response file as binary</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Response.filetype"><code class="name">prop <span class="ident">filetype</span> : str</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1431,15 +1335,15 @@ def filetype(self) -&gt; str:
     &#34;&#34;&#34;
     return type_utils.mimetype_to_extension(self.mimetype)</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Response.mimetype"><code class="name">var <span class="ident">mimetype</span> : str</code></dt>
-<dd>
-<div class="desc"><p>Mime type of this response.</p>
+<div class="desc"><p>File type (extension) of this response. E.g. "docx".</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>str</code></dt>
-<dd>mime type of this response</dd>
+<dd>file type of this response</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Response.mimetype"><code class="name">prop <span class="ident">mimetype</span> : str</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1453,6 +1357,12 @@ def mimetype(self) -&gt; str:
     &#34;&#34;&#34;
     return self._mimetype</code></pre>
 </details>
+<div class="desc"><p>Mime type of this response.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>mime type of this response</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -1461,16 +1371,6 @@ def mimetype(self) -&gt; str:
 <span>def <span class="ident">to_file</span></span>(<span>self, path: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Write the response to a file at the given path without extension.</p>
-<p>If the given file path does not contain an extension,
-the correct path is automatically added from the response data.
-That is how this method is intended to be used.
-You should only specify the extension in the path if you have some reason to specify the extension manually.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
-<dd>path without extension</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1495,23 +1395,21 @@ You should only specify the extension in the path if you have some reason to spe
     outfile.write(self.binary)
     outfile.close()</code></pre>
 </details>
+<div class="desc"><p>Write the response to a file at the given path without extension.</p>
+<p>If the given file path does not contain an extension,
+the correct path is automatically added from the response data.
+That is how this method is intended to be used.
+You should only specify the extension in the path if you have some reason to specify the extension manually.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>path without extension</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Response.to_string"><code class="name flex">
 <span>def <span class="ident">to_string</span></span>(<span>self) ‑> str</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return the string representation of this buffer.
-Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>err</code></dt>
-<dd>raise error is bytes cannot be decoded in utf-8</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>string representation of this buffer</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1534,29 +1432,26 @@ Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
         To get the bytes of the response, use the property &#39;binary&#39; instead.&#34;&#34;&#34;)
         raise err</code></pre>
 </details>
+<div class="desc"><p>Return the string representation of this buffer.
+Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>err</code></dt>
+<dd>raise error is bytes cannot be decoded in utf-8</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>string representation of this buffer</dd>
+</dl></div>
 </dd>
 </dl>
 </dd>
 <dt id="cloudofficeprint.Template"><code class="flex name class">
 <span>class <span class="ident">Template</span></span>
-<span>(</span><span>resource: <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None)</span>
+<span>(</span><span>resource: <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The Template class</p>
-<p>Create a new Template.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>resource</code></strong> :&ensp;<code><a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a></code></dt>
-<dd>the resource of this template.</dd>
-<dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>the starting delimiter used in the template.</dd>
-<dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>the starting delimiter used in the template.</dd>
-<dt><strong><code>should_hash</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>whether the template should be hashed on the server.</dd>
-<dt><strong><code>template_hash</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>the hash of the template.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1837,19 +1732,12 @@ Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
             template_hash,
         )</code></pre>
 </details>
-<h3>Static methods</h3>
-<dl>
-<dt id="cloudofficeprint.Template.from_base64"><code class="name flex">
-<span>def <span class="ident">from_base64</span></span>(<span>base64string: str, filetype: str, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a Template with a Base64Resource from a base64 string.</p>
+<div class="desc"><p>The Template class</p>
+<p>Create a new Template.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>base64string</code></strong> :&ensp;<code>str</code></dt>
-<dd>the base64 encoded representation of a file.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file type (extension).</dd>
+<dt><strong><code>resource</code></strong> :&ensp;<code><a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a></code></dt>
+<dd>the resource of this template.</dd>
 <dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the starting delimiter used in the template.</dd>
 <dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -1858,12 +1746,13 @@ Useful if the server returns a JSON (e.g. for output_type 'count_tags').</p>
 <dd>whether the template should be hashed on the server.</dd>
 <dt><strong><code>template_hash</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the hash of the template.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
-<dd>the created Template.</dd>
 </dl></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="cloudofficeprint.Template.from_base64"><code class="name flex">
+<span>def <span class="ident">from_base64</span></span>(<span>base64string: str,<br>filetype: str,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1898,18 +1787,13 @@ def from_base64(
         template_hash,
     )</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.from_html"><code class="name flex">
-<span>def <span class="ident">from_html</span></span>(<span>htmlstring: str, landscape: bool = False, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a Template with a HTMLResource with html data in plain text.</p>
+<div class="desc"><p>Create a Template with a Base64Resource from a base64 string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>htmlstring</code></strong> :&ensp;<code>str</code></dt>
-<dd>the html content.</dd>
-<dt><strong><code>landscape</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>whether or not to use the landscape option. Defaults to False.</dd>
+<dt><strong><code>base64string</code></strong> :&ensp;<code>str</code></dt>
+<dd>the base64 encoded representation of a file.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file type (extension).</dd>
 <dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the starting delimiter used in the template.</dd>
 <dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -1924,6 +1808,11 @@ def from_base64(
 <dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
 <dd>the created Template.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.from_html"><code class="name flex">
+<span>def <span class="ident">from_html</span></span>(<span>htmlstring: str,<br>landscape: bool = False,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1958,18 +1847,13 @@ def from_html(
         template_hash,
     )</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.from_local_file"><code class="name flex">
-<span>def <span class="ident">from_local_file</span></span>(<span>local_path: str, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a Template with a Base64Resource with the contents of a local file.
-The filetype is determined by the extension of the file.</p>
-<p>Throws IOError if it can't read the file.</p>
+<div class="desc"><p>Create a Template with a HTMLResource with html data in plain text.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>local_path</code></strong> :&ensp;<code>str</code></dt>
-<dd>the path to local file.</dd>
+<dt><strong><code>htmlstring</code></strong> :&ensp;<code>str</code></dt>
+<dd>the html content.</dd>
+<dt><strong><code>landscape</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>whether or not to use the landscape option. Defaults to False.</dd>
 <dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the starting delimiter used in the template.</dd>
 <dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -1984,6 +1868,11 @@ The filetype is determined by the extension of the file.</p>
 <dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
 <dd>the created Template.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.from_local_file"><code class="name flex">
+<span>def <span class="ident">from_local_file</span></span>(<span>local_path: str,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2019,18 +1908,13 @@ def from_local_file(
         template_hash,
     )</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.from_raw"><code class="name flex">
-<span>def <span class="ident">from_raw</span></span>(<span>raw_data: bytes, filetype: str, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a Template with a RawResource from raw file data.</p>
+<div class="desc"><p>Create a Template with a Base64Resource with the contents of a local file.
+The filetype is determined by the extension of the file.</p>
+<p>Throws IOError if it can't read the file.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>raw_data</code></strong> :&ensp;<code>bytes</code></dt>
-<dd>the raw data as a <a href="https://docs.python.org/3/glossary.html#term-bytes-like-object">bytes-like object</a>.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file type (extension).</dd>
+<dt><strong><code>local_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>the path to local file.</dd>
 <dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the starting delimiter used in the template.</dd>
 <dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -2045,6 +1929,11 @@ def from_local_file(
 <dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
 <dd>the created Template.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.from_raw"><code class="name flex">
+<span>def <span class="ident">from_raw</span></span>(<span>raw_data: bytes,<br>filetype: str,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2079,17 +1968,13 @@ def from_raw(
         template_hash,
     )</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.from_server_path"><code class="name flex">
-<span>def <span class="ident">from_server_path</span></span>(<span>path: str, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a Template with a ServerPathResource targeting a file on the server.
-The filetype is determined by the extension of the file.</p>
+<div class="desc"><p>Create a Template with a RawResource from raw file data.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
-<dd>the location of target file on the server.</dd>
+<dt><strong><code>raw_data</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>the raw data as a <a href="https://docs.python.org/3/glossary.html#term-bytes-like-object">bytes-like object</a>.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file type (extension).</dd>
 <dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the starting delimiter used in the template.</dd>
 <dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -2104,6 +1989,11 @@ The filetype is determined by the extension of the file.</p>
 <dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
 <dd>the created Template.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.from_server_path"><code class="name flex">
+<span>def <span class="ident">from_server_path</span></span>(<span>path: str,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2137,18 +2027,12 @@ def from_server_path(
         template_hash,
     )</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.from_url"><code class="name flex">
-<span>def <span class="ident">from_url</span></span>(<span>url: str, filetype: str, start_delimiter: str = None, end_delimiter: str = None, should_hash: bool = None, template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a Template with a URLResource targeting the file at a given url.</p>
+<div class="desc"><p>Create a Template with a ServerPathResource targeting a file on the server.
+The filetype is determined by the extension of the file.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file URL.</dd>
-<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>the file type (extension).</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>the location of target file on the server.</dd>
 <dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>the starting delimiter used in the template.</dd>
 <dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
@@ -2163,6 +2047,11 @@ def from_server_path(
 <dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
 <dd>the created Template.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.from_url"><code class="name flex">
+<span>def <span class="ident">from_url</span></span>(<span>url: str,<br>filetype: str,<br>start_delimiter: str = None,<br>end_delimiter: str = None,<br>should_hash: bool = None,<br>template_hash: str = None) ‑> <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a></span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2197,17 +2086,33 @@ def from_url(
         template_hash,
     )</code></pre>
 </details>
+<div class="desc"><p>Create a Template with a URLResource targeting the file at a given url.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file URL.</dd>
+<dt><strong><code>filetype</code></strong> :&ensp;<code>str</code></dt>
+<dd>the file type (extension).</dd>
+<dt><strong><code>start_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>the starting delimiter used in the template.</dd>
+<dt><strong><code>end_delimiter</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>the starting delimiter used in the template.</dd>
+<dt><strong><code>should_hash</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>whether the template should be hashed on the server.</dd>
+<dt><strong><code>template_hash</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>the hash of the template.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="cloudofficeprint.Template" href="#cloudofficeprint.Template">Template</a></code></dt>
+<dd>the created Template.</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
 <dl>
-<dt id="cloudofficeprint.Template.mimetype"><code class="name">var <span class="ident">mimetype</span> : str</code></dt>
+<dt id="cloudofficeprint.Template.mimetype"><code class="name">prop <span class="ident">mimetype</span> : str</code></dt>
 <dd>
-<div class="desc"><h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>the mime type of the Resource</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2220,14 +2125,14 @@ def mimetype(self) -&gt; str:
     &#34;&#34;&#34;
     return self.resource.mimetype</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.template_dict"><code class="name">var <span class="ident">template_dict</span> : Dict</code></dt>
-<dd>
 <div class="desc"><h2 id="returns">Returns</h2>
 <dl>
-<dt><code>Dict</code></dt>
-<dd>the dictionary representation of this Resource.</dd>
+<dt><code>str</code></dt>
+<dd>the mime type of the Resource</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.template_dict"><code class="name">prop <span class="ident">template_dict</span> : Dict</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2259,14 +2164,14 @@ def template_dict(self) -&gt; Dict:
         dict[&#34;template_hash&#34;] = self.template_hash
     return dict</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.Template.template_json"><code class="name">var <span class="ident">template_json</span> : str</code></dt>
-<dd>
 <div class="desc"><h2 id="returns">Returns</h2>
 <dl>
-<dt><code>str</code></dt>
-<dd>the JSON representation of this Resource.</dd>
+<dt><code>Dict</code></dt>
+<dd>the dictionary representation of this Resource.</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.Template.template_json"><code class="name">prop <span class="ident">template_json</span> : str</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2279,6 +2184,11 @@ def template_json(self) -&gt; str:
     &#34;&#34;&#34;
     return json.dumps(self.template_dict)</code></pre>
 </details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>the JSON representation of this Resource.</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -2287,12 +2197,6 @@ def template_json(self) -&gt; str:
 <span>def <span class="ident">reset_hash</span></span>(<span>self, should_hash: bool = True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Reset the stored hash of the template.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>should_hash</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>whether the template should be hashed on the server. Defaults to True.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2306,18 +2210,17 @@ def template_json(self) -&gt; str:
     self.template_hash = None
     self.should_hash = should_hash</code></pre>
 </details>
+<div class="desc"><p>Reset the stored hash of the template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>should_hash</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>whether the template should be hashed on the server. Defaults to True.</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.Template.update_hash"><code class="name flex">
 <span>def <span class="ident">update_hash</span></span>(<span>self, template_hash: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Update the Template to store a hash.
-On the next request to the server, the file data will not be sent, only the hash of the template.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>template_hash</code></strong> :&ensp;<code>str</code></dt>
-<dd>the hash of the template.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2332,6 +2235,13 @@ On the next request to the server, the file data will not be sent, only the hash
     self.template_hash = template_hash
     self.should_hash = False</code></pre>
 </details>
+<div class="desc"><p>Update the Template to store a hash.
+On the next request to the server, the file data will not be sent, only the hash of the template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>template_hash</code></strong> :&ensp;<code>str</code></dt>
+<dd>the hash of the template.</dd>
+</dl></div>
 </dd>
 </dl>
 </dd>
@@ -2339,7 +2249,6 @@ On the next request to the server, the file data will not be sent, only the hash
 </section>
 </article>
 <nav id="sidebar">
-<h1>Index</h1>
 <div class="toc">
 <ul>
 <li><a href="#usage">Usage</a><ul>
@@ -2428,7 +2337,7 @@ On the next request to the server, the file data will not be sent, only the hash
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
 </footer>
 </body>
 </html>

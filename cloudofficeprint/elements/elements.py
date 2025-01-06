@@ -77,6 +77,35 @@ class CellStyleDocx(CellStyle):
         Args:
             cell_background_color (str, optional): The background color of the cell. Defaults to None.
             width (Union[int, str], optional): The width of the cell. Defaults to None.
+            preserve_total_width_of_table (str, optional): Keeps table width constant by redistributing removed column's width to others.
+            border (str, optional): Applies the specified border style to all table edges (top, bottom, left, right).
+            border_top (str, optional): Applies the specified border style to the top edge of the table.
+            border_bottom (str, optional): Applies the specified border style to the bottom edge of the table.
+            border_left (str, optional): Applies the specified border style to the left edge of the table.
+            border_right (str, optional): Applies the specified border style to the right edge of the table.
+            border_diagonal_down (str, optional): Applies the specified border style to the diagonal line going from the top-left to the bottom-right corner.
+            border_diagonal_up (str, optional): Applies the specified border style to the diagonal line going from the bottom-left to the top-right corner.
+            border_color (str, optional): Sets the color of the borders (top, bottom, left, right).
+            border_top_color (str, optional): Sets the color of the top border.
+            border_bottom_color (str, optional): Sets the color of the bottom border.
+            border_left_color (str, optional): Sets the color of the left border.
+            border_right_color (str, optional): Sets the color of the right border.
+            border_diagonal_up_color (str, optional): Sets the color of the diagonal up border.
+            border_diagonal_down_color (str, optional): Sets the color of the diagonal down border.
+            border_size (Union[int, str], optional): Sets the width of the borders (top, bottom, left, right) in points.
+            border_top_size (Union[int, str], optional): Sets the width of the top border in points.
+            border_bottom_size (Union[int, str], optional): Sets the width of the bottom border in points.
+            border_left_size (Union[int, str], optional): Sets the width of the left border in points.
+            border_right_size (Union[int, str], optional): Sets the width of the right border in points.
+            border_diagonal_up_size (Union[int, str], optional): Sets the width of the diagonal up border in points.
+            border_diagonal_down_size (Union[int, str], optional): Sets the width of the diagonal down border in points.
+            border_space (Union[int, str], optional): Sets the spacing between the content and borders (top, bottom, left, right) in points.
+            border_top_space (Union[int, str], optional): Sets the spacing between the content and the top border in points.
+            border_bottom_space (Union[int, str], optional): Sets the spacing between the content and the bottom border in points.
+            border_left_space (Union[int, str], optional): Sets the spacing between the content and the left border in points.
+            border_right_space (Union[int, str], optional): Sets the spacing between the content and the right border in points.
+            border_diagonal_up_space (Union[int, str], optional): Sets the spacing between the content and the diagonal up border in points.
+            border_diagonal_down_space (Union[int, str], optional): Sets the spacing between the content and the diagonal down border in points.
         """
         super().__init__()
         self.cell_background_color: str = cell_background_color
@@ -243,12 +272,12 @@ class CellStyleXlsx(CellStyle):
             border_diagonal_color (str, optional): hex color e.g: #000000. Defaults to None.
             text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
             text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
-            text_rotation (Union[int, str], optional): rotation of text value from 0-90 degrees. Defaults to None.
-            wrap_text (bool, optional): set to true for wrap text. The default is false.
-            width (Union[int, str],  optional): provide a custom width to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
-            height (Union[int, str],  optional): provide custom height to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
-            max_characters (Union[int, str],  optional): provide width for the cell.
-            height_scaling (Union[int, str], optional):  adjusts cell height for consistent rendering.
+            text_rotation (Union[int, str], optional): Rotation of text value from 0-90 degrees. Defaults to None.
+            wrap_text (bool, optional): Set to true for wrap text. The default is false.
+            width (Union[int, str],  optional): Provide a custom width to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
+            height (Union[int, str],  optional): Provide custom height to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
+            max_characters (Union[int, str],  optional): Provide width for the cell.
+            height_scaling (Union[int, str], optional):  Adjusts cell height for consistent rendering.
         """
         super().__init__()
         self.cell_locked: bool = cell_locked
@@ -482,11 +511,11 @@ class Html(Property):
             name (str): The name for this property.
             value (str): The value for this property.
             custom_table_style (str): Specify custom table style
-            unordered_list_style (str): create and customize ordered list
-            ordered_list_style (str): create and customize unordered list
-            use_tag_style (bool): use the styling from the template instead of default Word styling
-            ignore_cell_margin (bool):  ignore empty paragraphs within HTML content
-            ignore_empty_p (bool):  ignore the cell margins in an HTML table cell when the text content is large
+            unordered_list_style (str): Create and customize ordered list
+            ordered_list_style (str): Create and customize unordered list
+            use_tag_style (bool): Use the styling from the template instead of default Word styling
+            ignore_cell_margin (bool):  Ignore empty paragraphs within HTML content
+            ignore_empty_p (bool):  Ignore the cell margins in an HTML table cell when the text content is large
         """
         super().__init__(name, value)
         self.custom_table_style: str = custom_table_style
@@ -557,7 +586,7 @@ class AutoLink(Property):
             value (str): The value of the autoLink.
             font_color (str, optional): The font color of autolink.
             underline_color (str, optional): The underline color of autolink.
-            preserve_tag_style (str or bool, optional): take the styling of hyperlink text defined in the template (blue and underlined by default).
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
         """
         super().__init__(name, value)
         self.value: str = value
@@ -591,7 +620,7 @@ class Hyperlink(Element):
             text (str, optional): The text for the hyperlink. Defaults to None.
             font_color (str, optional): The font color of text for hyperlink.
             underline_color (str, optional): The underline color of text for hyperlink.
-            preserve_tag_style (str or bool, optional): take the styling of hyperlink text defined in the template (blue and underlined by default).
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
         """
         super().__init__(name)
         self.url: str = url
@@ -1164,7 +1193,7 @@ class Remove(Property):
 
 class HideSlide(Property):
     """Allows hiding a slide.
-    LIMITATION using _hide for slide hide is that it can only be used for hiding slides during generation(!slideGeneration)
+    LIMITATION: using _hide for slide hide is that it can only be used for hiding slides during generation(!slideGeneration)
     """
     def __init__(self, name: str, value: bool):
         """

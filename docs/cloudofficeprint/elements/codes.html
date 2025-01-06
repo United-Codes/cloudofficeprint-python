@@ -2,18 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.10.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
 <title>cloudofficeprint.elements.codes API documentation</title>
-<meta name="description" content="" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
 </head>
 <body>
 <main>
@@ -22,663 +36,6 @@
 <h1 class="title">Module <code>cloudofficeprint.elements.codes</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">from abc import ABC
-from typing import Dict, FrozenSet, Union
-from .elements import Element
-
-
-class Code(Element, ABC):
-    &#34;&#34;&#34;The abstract base class for QR-codes and barcodes&#34;&#34;&#34;
-
-    def __init__(self, name: str, data: str, type: str):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.
-        &#34;&#34;&#34;
-        super().__init__(name)
-        self.data: str = data
-        self.type: str = type
-
-    @property
-    def available_tags(self) -&gt; FrozenSet[str]:
-        return frozenset({&#34;{|&#34; + self.name + &#34;}&#34;})
-
-    @property
-    def _dict_suffixes(self) -&gt; Dict:
-        &#34;&#34;&#34;Get the suffixes that need to be appended to the keys of the dict representation of this Code object.
-
-        Returns:
-            Dict: the suffixes that need to be appended to the keys of the dict representation of this Code object
-        &#34;&#34;&#34;
-        result = {}
-
-        if self.type is not None:
-            result[&#34;_type&#34;] = self.type
-
-        return result
-
-    @property
-    def as_dict(self) -&gt; Dict:
-        result = {
-            self.name: self.data
-        }
-
-        for suffix, value in self._dict_suffixes.items():
-            result[self.name + suffix] = value
-
-        return result
-
-
-class BarCode(Code):
-    &#34;&#34;&#34;This class is a subclass of Code and is used to generate a barcode element&#34;&#34;&#34;
-
-    def __init__(
-        self,
-        name: str,
-        data: str,
-        type: str,
-        height: int = None,
-        width: int = None,
-        errorcorrectlevel: str = None,
-        url: str = None,
-        rotation: int = None,
-        background_color: str = None,
-        padding_width: int = None,
-        padding_height: int = None,
-        extra_options: str = None
-    ):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.
-            height (int, optional): The height for the generated code. The default is 200 for QR, 50 for the rest. Defaults to None.
-            width (int, optional): The width for the generated code. The default is 200. Defaults to None.
-            errorcorrectlevel (str, optional): The level of which the QR code should be recoverable. The options are:
-                &#34;L&#34; (up to 7% damage)
-                &#34;M&#34; (up to 15% damage)
-                &#34;Q&#34; (up to 25% damage)
-                &#34;H&#34; (up to 30% damage). Defaults to None.
-            url (str, optional): The URL to hyperlink to when the barcode/qrcode is clicked. Defaults to None.
-            rotation (int, optional): The rotation angle of the barcode/qrcode (in degrees, counterclockwise). Defaults to None.
-            background_color (str, optional): The background color for the barcode/qrcode. default: white/ffffff.
-                You can provide a hex value; html named colors like red, white, purple; rgb(255, 0, 0) or any other css supported format. Defaults to None.
-            padding_width (int, optional): The width padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.
-            padding_height (int, optional): The height padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.
-            extra_options (str, optional): If you want to include extra options like including barcode text on the bottom. 
-                The options should be space separated and should be followed by a &#34;=&#34; and their value.
-                E.g.: &#34;includetext guardwhitespace guardwidth=3 guardheight=3&#34;.
-                Please visit https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference for all the options. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, data, type)
-        self.height: int = height
-        self.width: int = width
-        self.errorcorrectlevel: str = errorcorrectlevel
-        self.url: str = url
-        self.rotation: int = rotation
-        self.background_color: str = background_color
-        self.padding_width: int = padding_width
-        self.padding_height: int = padding_height
-        self.extra_options: str = extra_options
-
-    @property
-    def _dict_suffixes(self) -&gt; Dict:
-        result = super()._dict_suffixes
-
-        if self.height is not None:
-            result[&#39;_height&#39;] = self.height
-        if self.width is not None:
-            result[&#39;_width&#39;] = self.width
-        if self.errorcorrectlevel is not None:
-            result[&#39;_errorcorrectlevel&#39;] = self.errorcorrectlevel
-        if self.url is not None:
-            result[&#39;_url&#39;] = self.url
-        if self.rotation is not None:
-            result[&#39;_rotation&#39;] = self.rotation
-        if self.background_color is not None:
-            result[&#39;_background_color&#39;] = self.background_color
-        if self.padding_width is not None:
-            result[&#39;_padding_width&#39;] = self.padding_width
-        if self.padding_height is not None:
-            result[&#39;_padding_height&#39;] = self.padding_height
-        if self.extra_options is not None:
-            result[&#39;_extra_options&#39;] = self.extra_options
-
-        return result
-
-
-class QRCode(Code):
-    &#34;&#34;&#34;This class is a subclass of Code and serves as a superclass for the different types of QR-codes&#34;&#34;&#34;
-
-    def __init__(self, name: str, data: str, type: str):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            data (str): The data for this Code object.
-            type (str): For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.
-        &#34;&#34;&#34;
-        super().__init__(name, data, type)
-
-        self.dotscale: float = None
-        self.logo: str = None
-        self.background_image: str = None
-        self.color_dark: str = None
-        self.color_light: str = None
-        self.logo_width: Union[str, int] = None
-        self.logo_height: Union[str, int] = None
-        self.logo_background_color: str = None
-        self.quiet_zone: int = None
-        self.quiet_zone_color: str = None
-        self.background_image_alpha: float = None
-        self.po_color: str = None
-        self.pi_color: str = None
-        self.po_tl_color: str = None
-        self.pi_tl_color: str = None
-        self.po_tr_color: str = None
-        self.pi_tr_color: str = None
-        self.po_bl_color: str = None
-        self.pi_bl_color: str = None
-        self.timing_v_color: str = None
-        self.timing_h_color: str = None
-        self.timing_color: str = None
-        self.auto_color: bool = None
-        self.auto_color_dark: str = None
-        self.auto_color_light: str = None
-
-    def set_dotscale(self, dotscale: float):
-        &#34;&#34;&#34;
-        Args:
-            dotscale (float): For body block, must be greater than 0, less than or equal to 1. default is 1&#34;&#34;&#34;
-        self.dotscale = dotscale
-
-    def set_logo(self, logo: str):
-        &#34;&#34;&#34;
-        Args:
-            logo (str): Logo Image (At center of QR)&#34;&#34;&#34;
-        self.logo = logo
-
-    def set_background_image(self, background_image: str):
-        &#34;&#34;&#34;
-        Args:
-            background_image (str): Background Image&#34;&#34;&#34;
-        self.background_image = background_image
-
-    def set_color_dark(self, color_dark: str):
-        &#34;&#34;&#34;
-        Args:
-            color_dark (str): Dark color of the QR code&#34;&#34;&#34;
-        self.color_dark = color_dark
-
-    def set_color_light(self, color_light: str):
-        &#34;&#34;&#34;
-        Args:
-            color_light (str): Light color of the QR code&#34;&#34;&#34;
-        self.color_light = color_light
-
-    def set_logo_width(self, logo_width: Union[str, int]):
-        &#34;&#34;&#34;
-        Args:
-            logo_width (str): Width of logo&#34;&#34;&#34;
-        self.logo_width = logo_width
-
-    def set_logo_height(self, logo_height: Union[str, int]):
-        &#34;&#34;&#34;
-        Args:
-            logo_height (str): Height of logo&#34;&#34;&#34;
-        self.logo_height = logo_height
-
-    def set_logo_background_color(self, logo_background_color: str):
-        &#34;&#34;&#34;
-        Args:
-            logo_background_color (str): Background color of the QR code&#34;&#34;&#34;
-        self.logo_background_color = logo_background_color
-
-    def set_quiet_zone(self, quiet_zone: int):
-        &#34;&#34;&#34;
-        Args:
-            quiet_zone (int): For padding around QR code&#34;&#34;&#34;
-        self.quiet_zone = quiet_zone
-
-    def set_quiet_zone_color(self, quiet_zone_color: str):
-        &#34;&#34;&#34;
-        Args:
-            quiet_zone_color (str): Color of padding area&#34;&#34;&#34;
-        self.quiet_zone_color = quiet_zone_color
-
-    def set_background_image_alpha(self, background_image_alpha: float):
-        &#34;&#34;&#34;
-        Args:
-            background_image_alpha (float): Background image transparency, value between 0 and 1. default is 1&#34;&#34;&#34;
-        self.background_image_alpha = background_image_alpha
-
-    def set_po_color(self, po_color: str):
-        &#34;&#34;&#34;
-        Args:
-            po_color (str): Global Position Outer color. if not set, the defaut is `colorDark`&#34;&#34;&#34;
-        self.po_color = po_color
-
-    def set_pi_color(self, pi_color: str):
-        &#34;&#34;&#34;
-        Args:
-            pi_color (str): Global Position Inner color. if not set, the defaut is `colorDark`&#34;&#34;&#34;
-        self.pi_color = pi_color
-
-    def set_po_tl_color(self, po_tl_color: str):
-        &#34;&#34;&#34;
-        Args:
-            po_tl_color (str): Position Outer color - Top Left&#34;&#34;&#34;
-        self.po_tl_color = po_tl_color
-
-    def set_pi_tl_color(self, pi_tl_color: str):
-        &#34;&#34;&#34;
-        Args:
-            pi_tl_color (str): Position Inner color - Top Left&#34;&#34;&#34;
-        self.pi_tl_color = pi_tl_color
-
-    def set_po_tr_color(self, po_tr_color: str):
-        &#34;&#34;&#34;
-        Args:
-            po_tr_color (str): Position Outer color - Top Right&#34;&#34;&#34;
-        self.po_tr_color = po_tr_color
-
-    def set_pi_tr_color(self, pi_tr_color: str):
-        &#34;&#34;&#34;
-        Args:
-            pi_tr_color (str): Position Inner color - Top Right&#34;&#34;&#34;
-        self.pi_tr_color = pi_tr_color
-
-    def set_po_bl_color(self, po_bl_color: str):
-        &#34;&#34;&#34;
-        Args:
-            po_bl_color (str): Position Outer color - Bottom Left&#34;&#34;&#34;
-        self.po_bl_color = po_bl_color
-
-    def set_pi_bl_color(self, pi_bl_color: str):
-        &#34;&#34;&#34;
-        Args:
-            pi_bl_color (str): Position Inner color - Bottom Left&#34;&#34;&#34;
-        self.pi_bl_color = pi_bl_color
-
-    def set_timing_v_color(self, timing_v_color: str):
-        &#34;&#34;&#34;
-        Args:
-            timing_v_color (str): Vertical timing color&#34;&#34;&#34;
-        self.timing_v_color = timing_v_color
-
-    def set_timing_h_color(self, timing_h_color: str):
-        &#34;&#34;&#34;
-        Args:
-            timing_h_color (str): Horizontal timing color&#34;&#34;&#34;
-        self.timing_h_color = timing_h_color
-
-    def set_timing_color(self, timing_color: str):
-        &#34;&#34;&#34;
-        Args:
-            timing_color (str): Global Timing color&#34;&#34;&#34;
-        self.timing_color = timing_color
-
-    def set_auto_color(self, auto_color: bool):
-        &#34;&#34;&#34;
-        Args:
-            auto_color (bool): Automatic color adjustment (for data block) (default is false) (set to false if using background images)&#34;&#34;&#34;
-        self.auto_color = auto_color
-
-    def set_auto_color_dark(self, auto_color_dark: str):
-        &#34;&#34;&#34;
-        Args:
-            auto_color_dark (str): Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)&#34;&#34;&#34;
-        self.auto_color_dark = auto_color_dark
-
-    def set_auto_color_light(self, auto_color_light: str):
-        &#34;&#34;&#34;
-        Args:
-            auto_color_light (str): Automatic color: light CSS color (only required when qr_auto_color is set true)&#34;&#34;&#34;
-        self.auto_color_light = auto_color_light
-
-    @property
-    def _dict_suffixes(self) -&gt; Dict:
-        result = super()._dict_suffixes
-
-        if self.dotscale is not None:
-            result[&#39;_qr_dotscale&#39;] = self.dotscale
-        if self.logo is not None:
-            result[&#39;_qr_logo&#39;] = self.logo
-        if self.background_image is not None:
-            result[&#39;_qr_background_image&#39;] = self.background_image
-        if self.color_dark is not None:
-            result[&#39;_qr_color_dark&#39;] = self.color_dark
-        if self.color_light is not None:
-            result[&#39;_qr_color_light&#39;] = self.color_light
-        if self.logo_width is not None:
-            result[&#39;_qr_logo_width&#39;] = self.logo_width
-        if self.logo_height is not None:
-            result[&#39;_qr_logo_height&#39;] = self.logo_height
-        if self.logo_background_color is not None:
-            result[&#39;_qr_logo_background_color&#39;] = self.logo_background_color
-        if self.quiet_zone is not None:
-            result[&#39;_qr_quiet_zone&#39;] = self.quiet_zone
-        if self.quiet_zone_color is not None:
-            result[&#39;_qr_quiet_zone_color&#39;] = self.quiet_zone_color
-        if self.background_image_alpha is not None:
-            result[&#39;_qr_background_image_alpha&#39;] = self.background_image_alpha
-        if self.po_color is not None:
-            result[&#39;_qr_po_color&#39;] = self.po_color
-        if self.pi_color is not None:
-            result[&#39;_qr_pi_color&#39;] = self.pi_color
-        if self.po_tl_color is not None:
-            result[&#39;_qr_po_tl_color&#39;] = self.po_tl_color
-        if self.pi_tl_color is not None:
-            result[&#39;_qr_pi_tl_color&#39;] = self.pi_tl_color
-        if self.po_tr_color is not None:
-            result[&#39;_qr_po_tr_color&#39;] = self.po_tr_color
-        if self.pi_tr_color is not None:
-            result[&#39;_qr_pi_tr_color&#39;] = self.pi_tr_color
-        if self.po_bl_color is not None:
-            result[&#39;_qr_po_bl_color&#39;] = self.po_bl_color
-        if self.pi_bl_color is not None:
-            result[&#39;_qr_pi_bl_color&#39;] = self.pi_bl_color
-        if self.timing_v_color is not None:
-            result[&#39;_qr_timing_v_color&#39;] = self.timing_v_color
-        if self.timing_h_color is not None:
-            result[&#39;_qr_timing_h_color&#39;] = self.timing_h_color
-        if self.timing_color is not None:
-            result[&#39;_qr_timing_color&#39;] = self.timing_color
-        if self.auto_color is not None:
-            result[&#39;_qr_auto_color&#39;] = self.auto_color
-        if self.auto_color_dark is not None:
-            result[&#39;_qr_auto_color_dark&#39;] = self.auto_color_dark
-        if self.auto_color_light is not None:
-            result[&#39;_qr_auto_color_light&#39;] = self.auto_color_light
-
-        return result
-
-
-class WiFiQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate a WiFi QR-code element&#34;&#34;&#34;
-
-    def __init__(
-        self,
-        name: str,
-        ssid: str,
-        wifi_encryption: str,
-        wifi_password: str = None,
-        wifi_hidden: bool = None
-    ):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name of this Code object (Cloud Office Print tag)
-            ssid (str): The ssid of the WiFi
-            wifi_encryption (str): The encryption type
-            wifi_password (str, optional): The WiFi password Defaults to None.
-            wifi_hidden (bool, optional): Whether or not the WiFi is hidden. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, ssid, &#39;qr_wifi&#39;)
-        self.wifi_password: str = wifi_password
-        self.wifi_encryption: str = wifi_encryption
-        self.wifi_hidden: bool = wifi_hidden
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.wifi_password is not None:
-            result[&#39;_wifi_password&#39;] = self.wifi_password
-        if self.wifi_encryption is not None:
-            result[&#39;_wifi_encryption&#39;] = self.wifi_encryption
-        if self.wifi_hidden is not None:
-            result[&#39;_wifi_hidden&#39;] = self.wifi_hidden
-
-        return result
-
-
-class TelephoneNumberQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate a telephone number QR-code element&#34;&#34;&#34;
-
-    def __init__(self, name: str, number: str):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name of this Code object (Cloud Office Print tag)
-            number (str): The telephone number
-        &#34;&#34;&#34;
-        super().__init__(name, number, &#39;qr_telephone&#39;)
-
-
-class EmailQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate an email QR-code element&#34;&#34;&#34;
-
-    def __init__(
-        self,
-        name: str,
-        receiver: str,
-        cc: str = None,
-        bcc: str = None,
-        subject: str = None,
-        body: str = None
-    ):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name of this Code object (Cloud Office Print tag)
-            receiver (str): The receiver of the email
-            cc (str, optional): The cc for the email. Defaults to None.
-            bcc (str, optional): The bcc for the email. Defaults to None.
-            subject (str, optional): The subject for the email. Defaults to None.
-            body (str, optional): The body of the email. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, receiver, &#39;qr_email&#39;)
-        self.cc: str = cc
-        self.bcc: str = bcc
-        self.subject: str = subject
-        self.body: str = body
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.cc is not None:
-            result[&#39;_email_cc&#39;] = self.cc
-        if self.bcc is not None:
-            result[&#39;_email_bcc&#39;] = self.bcc
-        if self.subject is not None:
-            result[&#39;_email_subject&#39;] = self.subject
-        if self.body is not None:
-            result[&#39;_email_body&#39;] = self.body
-
-        return result
-
-
-class SMSQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate an SMS QR-code element&#34;&#34;&#34;
-
-    def __init__(self, name: str, receiver: str, sms_body: str = None):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name of this Code object (Cloud Office Print tag)
-            receiver (str): The telephone number for the receiver of the sms
-            sms_body (str, optional): The body of the sms. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, receiver, &#39;qr_sms&#39;)
-        self.sms_body: str = sms_body
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.sms_body is not None:
-            result[&#39;_sms_body&#39;] = self.sms_body
-
-        return result
-
-
-class URLQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate a URL QR-code element&#34;&#34;&#34;
-
-    def __init__(self, name: str, url: str):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name of this Code object (Cloud Office Print tag)
-            url (str): The URL
-        &#34;&#34;&#34;
-        super().__init__(name, url, &#39;qr_url&#39;)
-
-
-class VCardQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate a vCard QR-code element&#34;&#34;&#34;
-
-    def __init__(self, name: str, first_name: str, last_name: str = None, email: str = None, website: str = None):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            first_name (str): The first name.
-            last_name (str, optional): The last name. Defaults to None.
-            email (str, optional): The email. Defaults to None.
-            website (str, optional): The website. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, first_name, &#39;qr_vcard&#39;)
-        self.last_name: str = last_name
-        self.email: str = email
-        self.website: str = website
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.last_name is not None:
-            result[&#39;_vcard_last_name&#39;] = self.last_name
-        if self.email is not None:
-            result[&#39;_vcard_email&#39;] = self.email
-        if self.website is not None:
-            result[&#39;_vcard_website&#39;] = self.website
-
-        return result
-
-
-class MeCardQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate a MeCard QR-code element&#34;&#34;&#34;
-
-    def __init__(
-        self,
-        name: str,
-        first_name: str,
-        last_name: str = None,
-        nickname: str = None,
-        email: str = None,
-        contact_primary: str = None,
-        contact_secondary: str = None,
-        contact_tertiary: str = None,
-        website: str = None,
-        birthday: str = None,
-        notes: str = None
-    ):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            first_name (str): The first name.
-            last_name (str, optional): The last name. Defaults to None.
-            nickname (str, optional): The nickname. Defaults to None.
-            email (str, optional): The email. Defaults to None.
-            contact_primary (str, optional): The primary contact. Defaults to None.
-            contact_secondary (str, optional): The secondary contact. Defaults to None.
-            contact_tertiary (str, optional): The tertiary contact. Defaults to None.
-            website (str, optional): The website. Defaults to None.
-            birthday (str, optional): The birthday. Defaults to None.
-            notes (str, optional): The notes. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, first_name, &#39;qr_me_card&#39;)
-        self.last_name: str = last_name
-        self.nickname: str = nickname
-        self.email: str = email
-        self.contact_primary: str = contact_primary
-        self.contact_secondary: str = contact_secondary
-        self.contact_tertiary: str = contact_tertiary
-        self.website: str = website
-        self.birthday: str = birthday
-        self.notes: str = notes
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.last_name is not None:
-            result[&#39;_me_card_last_name&#39;] = self.last_name
-        if self.nickname is not None:
-            result[&#39;_me_card_nickname&#39;] = self.nickname
-        if self.email is not None:
-            result[&#39;_me_card_email&#39;] = self.email
-        if self.contact_primary is not None:
-            result[&#39;_me_card_contact_primary&#39;] = self.contact_primary
-        if self.contact_secondary is not None:
-            result[&#39;_me_card_contact_secondary&#39;] = self.contact_secondary
-        if self.contact_tertiary is not None:
-            result[&#39;_me_card_contact_tertiary&#39;] = self.contact_tertiary
-        if self.website is not None:
-            result[&#39;_me_card_website&#39;] = self.website
-        if self.birthday is not None:
-            result[&#39;_me_card_birthday&#39;] = self.birthday
-        if self.notes is not None:
-            result[&#39;_me_card_notes&#39;] = self.notes
-
-        return result
-
-
-class GeolocationQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate a geolocation QR-code element&#34;&#34;&#34;
-
-    def __init__(self, name: str, latitude: str, longitude: str = None, altitude: str = None):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            latitude (str): The latitude.
-            longitude (str, optional): The longitude. Defaults to None.
-            altitude (str, optional): The altitude. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, latitude, &#39;qr_geolocation&#39;)
-        self.longitude: str = longitude
-        self.altitude: str = altitude
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.longitude is not None:
-            result[&#39;_geolocation_longitude&#39;] = self.longitude
-        if self.altitude is not None:
-            result[&#39;_geolocation_altitude&#39;] = self.altitude
-
-        return result
-
-
-class EventQRCode(QRCode):
-    &#34;&#34;&#34;This class is a subclass of QRCode and is used to generate an event QR-code element&#34;&#34;&#34;
-
-    def __init__(self, name: str, summary: str, startdate: str = None, enddate: str = None):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this Code object (Cloud Office Print tag).
-            summary (str): The summary.
-            startdate (str, optional): The start date. Defaults to None.
-            enddate (str, optional): The end date. Defaults to None.
-        &#34;&#34;&#34;
-        super().__init__(name, summary, &#39;qr_event&#39;)
-        self.startdate: str = startdate
-        self.enddate: str = enddate
-
-    @property
-    def _dict_suffixes(self):
-        result = super()._dict_suffixes
-
-        if self.startdate is not None:
-            result[&#39;_event_startdate&#39;] = self.startdate
-        if self.enddate is not None:
-            result[&#39;_event_enddate&#39;] = self.enddate
-
-        return result</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -691,45 +48,9 @@ class EventQRCode(QRCode):
 <dl>
 <dt id="cloudofficeprint.elements.codes.BarCode"><code class="flex name class">
 <span>class <span class="ident">BarCode</span></span>
-<span>(</span><span>name: str, data: str, type: str, height: int = None, width: int = None, errorcorrectlevel: str = None, url: str = None, rotation: int = None, background_color: str = None, padding_width: int = None, padding_height: int = None, extra_options: str = None)</span>
+<span>(</span><span>name: str,<br>data: str,<br>type: str,<br>height: int = None,<br>width: int = None,<br>errorcorrectlevel: str = None,<br>url: str = None,<br>rotation: int = None,<br>background_color: str = None,<br>padding_width: int = None,<br>padding_height: int = None,<br>extra_options: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of Code and is used to generate a barcode element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
-<dd>The data for this Code object.</dd>
-<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.</dd>
-<dt><strong><code>height</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>The height for the generated code. The default is 200 for QR, 50 for the rest. Defaults to None.</dd>
-<dt><strong><code>width</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>The width for the generated code. The default is 200. Defaults to None.</dd>
-<dt><strong><code>errorcorrectlevel</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The level of which the QR code should be recoverable. The options are:
-"L" (up to 7% damage)
-"M" (up to 15% damage)
-"Q" (up to 25% damage)
-"H" (up to 30% damage). Defaults to None.</dd>
-<dt><strong><code>url</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The URL to hyperlink to when the barcode/qrcode is clicked. Defaults to None.</dd>
-<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>The rotation angle of the barcode/qrcode (in degrees, counterclockwise). Defaults to None.</dd>
-<dt><strong><code>background_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The background color for the barcode/qrcode. default: white/ffffff.
-You can provide a hex value; html named colors like red, white, purple; rgb(255, 0, 0) or any other css supported format. Defaults to None.</dd>
-<dt><strong><code>padding_width</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>The width padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.</dd>
-<dt><strong><code>padding_height</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>The height padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.</dd>
-<dt><strong><code>extra_options</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>If you want to include extra options like including barcode text on the bottom.
-The options should be space separated and should be followed by a "=" and their value.
-E.g.: "includetext guardwhitespace guardwidth=3 guardheight=3".
-Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference">https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference</a> for all the options. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -811,6 +132,42 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of Code and is used to generate a barcode element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
+<dd>The data for this Code object.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The height for the generated code. The default is 200 for QR, 50 for the rest. Defaults to None.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The width for the generated code. The default is 200. Defaults to None.</dd>
+<dt><strong><code>errorcorrectlevel</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The level of which the QR code should be recoverable. The options are:
+"L" (up to 7% damage)
+"M" (up to 15% damage)
+"Q" (up to 25% damage)
+"H" (up to 30% damage). Defaults to None.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The URL to hyperlink to when the barcode/qrcode is clicked. Defaults to None.</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The rotation angle of the barcode/qrcode (in degrees, counterclockwise). Defaults to None.</dd>
+<dt><strong><code>background_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The background color for the barcode/qrcode. default: white/ffffff.
+You can provide a hex value; html named colors like red, white, purple; rgb(255, 0, 0) or any other css supported format. Defaults to None.</dd>
+<dt><strong><code>padding_width</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The width padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.</dd>
+<dt><strong><code>padding_height</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The height padding of the inserted qrcode/barcode. default 10. In pixels. Defaults to None.</dd>
+<dt><strong><code>extra_options</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>If you want to include extra options like including barcode text on the bottom.
+The options should be space separated and should be followed by a "=" and their value.
+E.g.: "includetext guardwhitespace guardwidth=3 guardheight=3".
+Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference">https://github.com/bwipp/postscriptbarcode/wiki/Symbologies-Reference</a> for all the options. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.Code" href="#cloudofficeprint.elements.codes.Code">Code</a></li>
@@ -833,16 +190,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, data: str, type: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The abstract base class for QR-codes and barcodes</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
-<dd>The data for this Code object.</dd>
-<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -890,6 +237,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>The abstract base class for QR-codes and barcodes</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
+<dd>The data for this Code object.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></li>
@@ -913,25 +270,9 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 </dd>
 <dt id="cloudofficeprint.elements.codes.EmailQRCode"><code class="flex name class">
 <span>class <span class="ident">EmailQRCode</span></span>
-<span>(</span><span>name: str, receiver: str, cc: str = None, bcc: str = None, subject: str = None, body: str = None)</span>
+<span>(</span><span>name: str,<br>receiver: str,<br>cc: str = None,<br>bcc: str = None,<br>subject: str = None,<br>body: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate an email QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name of this Code object (Cloud Office Print tag)</dd>
-<dt><strong><code>receiver</code></strong> :&ensp;<code>str</code></dt>
-<dd>The receiver of the email</dd>
-<dt><strong><code>cc</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The cc for the email. Defaults to None.</dd>
-<dt><strong><code>bcc</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The bcc for the email. Defaults to None.</dd>
-<dt><strong><code>subject</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The subject for the email. Defaults to None.</dd>
-<dt><strong><code>body</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The body of the email. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -978,6 +319,22 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate an email QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of this Code object (Cloud Office Print tag)</dd>
+<dt><strong><code>receiver</code></strong> :&ensp;<code>str</code></dt>
+<dd>The receiver of the email</dd>
+<dt><strong><code>cc</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The cc for the email. Defaults to None.</dd>
+<dt><strong><code>bcc</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The bcc for the email. Defaults to None.</dd>
+<dt><strong><code>subject</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The subject for the email. Defaults to None.</dd>
+<dt><strong><code>body</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The body of the email. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -1026,18 +383,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, summary: str, startdate: str = None, enddate: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate an event QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>summary</code></strong> :&ensp;<code>str</code></dt>
-<dd>The summary.</dd>
-<dt><strong><code>startdate</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The start date. Defaults to None.</dd>
-<dt><strong><code>enddate</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The end date. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1068,6 +413,18 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate an event QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>summary</code></strong> :&ensp;<code>str</code></dt>
+<dd>The summary.</dd>
+<dt><strong><code>startdate</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The start date. Defaults to None.</dd>
+<dt><strong><code>enddate</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The end date. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -1116,18 +473,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, latitude: str, longitude: str = None, altitude: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate a geolocation QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>latitude</code></strong> :&ensp;<code>str</code></dt>
-<dd>The latitude.</dd>
-<dt><strong><code>longitude</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The longitude. Defaults to None.</dd>
-<dt><strong><code>altitude</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The altitude. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1158,6 +503,18 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate a geolocation QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>latitude</code></strong> :&ensp;<code>str</code></dt>
+<dd>The latitude.</dd>
+<dt><strong><code>longitude</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The longitude. Defaults to None.</dd>
+<dt><strong><code>altitude</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The altitude. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -1203,35 +560,9 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 </dd>
 <dt id="cloudofficeprint.elements.codes.MeCardQRCode"><code class="flex name class">
 <span>class <span class="ident">MeCardQRCode</span></span>
-<span>(</span><span>name: str, first_name: str, last_name: str = None, nickname: str = None, email: str = None, contact_primary: str = None, contact_secondary: str = None, contact_tertiary: str = None, website: str = None, birthday: str = None, notes: str = None)</span>
+<span>(</span><span>name: str,<br>first_name: str,<br>last_name: str = None,<br>nickname: str = None,<br>email: str = None,<br>contact_primary: str = None,<br>contact_secondary: str = None,<br>contact_tertiary: str = None,<br>website: str = None,<br>birthday: str = None,<br>notes: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate a MeCard QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>first_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The first name.</dd>
-<dt><strong><code>last_name</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The last name. Defaults to None.</dd>
-<dt><strong><code>nickname</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The nickname. Defaults to None.</dd>
-<dt><strong><code>email</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The email. Defaults to None.</dd>
-<dt><strong><code>contact_primary</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The primary contact. Defaults to None.</dd>
-<dt><strong><code>contact_secondary</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The secondary contact. Defaults to None.</dd>
-<dt><strong><code>contact_tertiary</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The tertiary contact. Defaults to None.</dd>
-<dt><strong><code>website</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The website. Defaults to None.</dd>
-<dt><strong><code>birthday</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The birthday. Defaults to None.</dd>
-<dt><strong><code>notes</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The notes. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1303,6 +634,32 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate a MeCard QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>first_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The first name.</dd>
+<dt><strong><code>last_name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The last name. Defaults to None.</dd>
+<dt><strong><code>nickname</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The nickname. Defaults to None.</dd>
+<dt><strong><code>email</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The email. Defaults to None.</dd>
+<dt><strong><code>contact_primary</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The primary contact. Defaults to None.</dd>
+<dt><strong><code>contact_secondary</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The secondary contact. Defaults to None.</dd>
+<dt><strong><code>contact_tertiary</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The tertiary contact. Defaults to None.</dd>
+<dt><strong><code>website</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The website. Defaults to None.</dd>
+<dt><strong><code>birthday</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The birthday. Defaults to None.</dd>
+<dt><strong><code>notes</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The notes. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -1351,16 +708,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, data: str, type: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of Code and serves as a superclass for the different types of QR-codes</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
-<dd>The data for this Code object.</dd>
-<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1610,6 +957,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of Code and serves as a superclass for the different types of QR-codes</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
+<dd>The data for this Code object.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>For the different types of QR-codes and barcodes, we refer to the Cloud Office Print documentation.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.Code" href="#cloudofficeprint.elements.codes.Code">Code</a></li>
@@ -1634,11 +991,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>def <span class="ident">set_auto_color</span></span>(<span>self, auto_color: bool)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>auto_color</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Automatic color adjustment (for data block) (default is false) (set to false if using background images)</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1649,16 +1001,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         auto_color (bool): Automatic color adjustment (for data block) (default is false) (set to false if using background images)&#34;&#34;&#34;
     self.auto_color = auto_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>auto_color</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Automatic color adjustment (for data block) (default is false) (set to false if using background images)</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_auto_color_dark"><code class="name flex">
 <span>def <span class="ident">set_auto_color_dark</span></span>(<span>self, auto_color_dark: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>auto_color_dark</code></strong> :&ensp;<code>str</code></dt>
-<dd>Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1669,16 +1021,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         auto_color_dark (str): Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)&#34;&#34;&#34;
     self.auto_color_dark = auto_color_dark</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>auto_color_dark</code></strong> :&ensp;<code>str</code></dt>
+<dd>Automatic color: dark CSS color (only required when qr_auto_color is set true) (dark color prefered, otherwise may lead to undetectable QR)</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_auto_color_light"><code class="name flex">
 <span>def <span class="ident">set_auto_color_light</span></span>(<span>self, auto_color_light: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>auto_color_light</code></strong> :&ensp;<code>str</code></dt>
-<dd>Automatic color: light CSS color (only required when qr_auto_color is set true)</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1689,16 +1041,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         auto_color_light (str): Automatic color: light CSS color (only required when qr_auto_color is set true)&#34;&#34;&#34;
     self.auto_color_light = auto_color_light</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>auto_color_light</code></strong> :&ensp;<code>str</code></dt>
+<dd>Automatic color: light CSS color (only required when qr_auto_color is set true)</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_background_image"><code class="name flex">
 <span>def <span class="ident">set_background_image</span></span>(<span>self, background_image: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>background_image</code></strong> :&ensp;<code>str</code></dt>
-<dd>Background Image</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1709,16 +1061,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         background_image (str): Background Image&#34;&#34;&#34;
     self.background_image = background_image</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>background_image</code></strong> :&ensp;<code>str</code></dt>
+<dd>Background Image</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_background_image_alpha"><code class="name flex">
 <span>def <span class="ident">set_background_image_alpha</span></span>(<span>self, background_image_alpha: float)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>background_image_alpha</code></strong> :&ensp;<code>float</code></dt>
-<dd>Background image transparency, value between 0 and 1. default is 1</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1729,16 +1081,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         background_image_alpha (float): Background image transparency, value between 0 and 1. default is 1&#34;&#34;&#34;
     self.background_image_alpha = background_image_alpha</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>background_image_alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>Background image transparency, value between 0 and 1. default is 1</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_color_dark"><code class="name flex">
 <span>def <span class="ident">set_color_dark</span></span>(<span>self, color_dark: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>color_dark</code></strong> :&ensp;<code>str</code></dt>
-<dd>Dark color of the QR code</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1749,16 +1101,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         color_dark (str): Dark color of the QR code&#34;&#34;&#34;
     self.color_dark = color_dark</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>color_dark</code></strong> :&ensp;<code>str</code></dt>
+<dd>Dark color of the QR code</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_color_light"><code class="name flex">
 <span>def <span class="ident">set_color_light</span></span>(<span>self, color_light: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>color_light</code></strong> :&ensp;<code>str</code></dt>
-<dd>Light color of the QR code</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1769,16 +1121,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         color_light (str): Light color of the QR code&#34;&#34;&#34;
     self.color_light = color_light</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>color_light</code></strong> :&ensp;<code>str</code></dt>
+<dd>Light color of the QR code</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_dotscale"><code class="name flex">
 <span>def <span class="ident">set_dotscale</span></span>(<span>self, dotscale: float)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>dotscale</code></strong> :&ensp;<code>float</code></dt>
-<dd>For body block, must be greater than 0, less than or equal to 1. default is 1</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1789,16 +1141,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         dotscale (float): For body block, must be greater than 0, less than or equal to 1. default is 1&#34;&#34;&#34;
     self.dotscale = dotscale</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dotscale</code></strong> :&ensp;<code>float</code></dt>
+<dd>For body block, must be greater than 0, less than or equal to 1. default is 1</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_logo"><code class="name flex">
 <span>def <span class="ident">set_logo</span></span>(<span>self, logo: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>logo</code></strong> :&ensp;<code>str</code></dt>
-<dd>Logo Image (At center of QR)</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1809,16 +1161,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         logo (str): Logo Image (At center of QR)&#34;&#34;&#34;
     self.logo = logo</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>logo</code></strong> :&ensp;<code>str</code></dt>
+<dd>Logo Image (At center of QR)</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_logo_background_color"><code class="name flex">
 <span>def <span class="ident">set_logo_background_color</span></span>(<span>self, logo_background_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>logo_background_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Background color of the QR code</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1829,16 +1181,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         logo_background_color (str): Background color of the QR code&#34;&#34;&#34;
     self.logo_background_color = logo_background_color</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.elements.codes.QRCode.set_logo_height"><code class="name flex">
-<span>def <span class="ident">set_logo_height</span></span>(<span>self, logo_height: Union[str, int])</span>
-</code></dt>
-<dd>
 <div class="desc"><h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>logo_height</code></strong> :&ensp;<code>str</code></dt>
-<dd>Height of logo</dd>
+<dt><strong><code>logo_background_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Background color of the QR code</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.elements.codes.QRCode.set_logo_height"><code class="name flex">
+<span>def <span class="ident">set_logo_height</span></span>(<span>self, logo_height: str | int)</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1849,16 +1201,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         logo_height (str): Height of logo&#34;&#34;&#34;
     self.logo_height = logo_height</code></pre>
 </details>
-</dd>
-<dt id="cloudofficeprint.elements.codes.QRCode.set_logo_width"><code class="name flex">
-<span>def <span class="ident">set_logo_width</span></span>(<span>self, logo_width: Union[str, int])</span>
-</code></dt>
-<dd>
 <div class="desc"><h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>logo_width</code></strong> :&ensp;<code>str</code></dt>
-<dd>Width of logo</dd>
+<dt><strong><code>logo_height</code></strong> :&ensp;<code>str</code></dt>
+<dd>Height of logo</dd>
 </dl></div>
+</dd>
+<dt id="cloudofficeprint.elements.codes.QRCode.set_logo_width"><code class="name flex">
+<span>def <span class="ident">set_logo_width</span></span>(<span>self, logo_width: str | int)</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1869,16 +1221,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         logo_width (str): Width of logo&#34;&#34;&#34;
     self.logo_width = logo_width</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>logo_width</code></strong> :&ensp;<code>str</code></dt>
+<dd>Width of logo</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_pi_bl_color"><code class="name flex">
 <span>def <span class="ident">set_pi_bl_color</span></span>(<span>self, pi_bl_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>pi_bl_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Position Inner color - Bottom Left</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1889,16 +1241,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         pi_bl_color (str): Position Inner color - Bottom Left&#34;&#34;&#34;
     self.pi_bl_color = pi_bl_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pi_bl_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Position Inner color - Bottom Left</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_pi_color"><code class="name flex">
 <span>def <span class="ident">set_pi_color</span></span>(<span>self, pi_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>pi_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Global Position Inner color. if not set, the defaut is <code>colorDark</code></dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1909,16 +1261,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         pi_color (str): Global Position Inner color. if not set, the defaut is `colorDark`&#34;&#34;&#34;
     self.pi_color = pi_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pi_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Global Position Inner color. if not set, the defaut is <code>colorDark</code></dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_pi_tl_color"><code class="name flex">
 <span>def <span class="ident">set_pi_tl_color</span></span>(<span>self, pi_tl_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>pi_tl_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Position Inner color - Top Left</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1929,16 +1281,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         pi_tl_color (str): Position Inner color - Top Left&#34;&#34;&#34;
     self.pi_tl_color = pi_tl_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pi_tl_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Position Inner color - Top Left</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_pi_tr_color"><code class="name flex">
 <span>def <span class="ident">set_pi_tr_color</span></span>(<span>self, pi_tr_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>pi_tr_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Position Inner color - Top Right</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1949,16 +1301,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         pi_tr_color (str): Position Inner color - Top Right&#34;&#34;&#34;
     self.pi_tr_color = pi_tr_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pi_tr_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Position Inner color - Top Right</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_po_bl_color"><code class="name flex">
 <span>def <span class="ident">set_po_bl_color</span></span>(<span>self, po_bl_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>po_bl_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Position Outer color - Bottom Left</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1969,16 +1321,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         po_bl_color (str): Position Outer color - Bottom Left&#34;&#34;&#34;
     self.po_bl_color = po_bl_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>po_bl_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Position Outer color - Bottom Left</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_po_color"><code class="name flex">
 <span>def <span class="ident">set_po_color</span></span>(<span>self, po_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>po_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Global Position Outer color. if not set, the defaut is <code>colorDark</code></dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1989,16 +1341,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         po_color (str): Global Position Outer color. if not set, the defaut is `colorDark`&#34;&#34;&#34;
     self.po_color = po_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>po_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Global Position Outer color. if not set, the defaut is <code>colorDark</code></dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_po_tl_color"><code class="name flex">
 <span>def <span class="ident">set_po_tl_color</span></span>(<span>self, po_tl_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>po_tl_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Position Outer color - Top Left</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2009,16 +1361,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         po_tl_color (str): Position Outer color - Top Left&#34;&#34;&#34;
     self.po_tl_color = po_tl_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>po_tl_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Position Outer color - Top Left</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_po_tr_color"><code class="name flex">
 <span>def <span class="ident">set_po_tr_color</span></span>(<span>self, po_tr_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>po_tr_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Position Outer color - Top Right</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2029,16 +1381,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         po_tr_color (str): Position Outer color - Top Right&#34;&#34;&#34;
     self.po_tr_color = po_tr_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>po_tr_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Position Outer color - Top Right</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_quiet_zone"><code class="name flex">
 <span>def <span class="ident">set_quiet_zone</span></span>(<span>self, quiet_zone: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>quiet_zone</code></strong> :&ensp;<code>int</code></dt>
-<dd>For padding around QR code</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2049,16 +1401,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         quiet_zone (int): For padding around QR code&#34;&#34;&#34;
     self.quiet_zone = quiet_zone</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>quiet_zone</code></strong> :&ensp;<code>int</code></dt>
+<dd>For padding around QR code</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_quiet_zone_color"><code class="name flex">
 <span>def <span class="ident">set_quiet_zone_color</span></span>(<span>self, quiet_zone_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>quiet_zone_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Color of padding area</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2069,16 +1421,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         quiet_zone_color (str): Color of padding area&#34;&#34;&#34;
     self.quiet_zone_color = quiet_zone_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>quiet_zone_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Color of padding area</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_timing_color"><code class="name flex">
 <span>def <span class="ident">set_timing_color</span></span>(<span>self, timing_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>timing_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Global Timing color</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2089,16 +1441,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         timing_color (str): Global Timing color&#34;&#34;&#34;
     self.timing_color = timing_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>timing_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Global Timing color</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_timing_h_color"><code class="name flex">
 <span>def <span class="ident">set_timing_h_color</span></span>(<span>self, timing_h_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>timing_h_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Horizontal timing color</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2109,16 +1461,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         timing_h_color (str): Horizontal timing color&#34;&#34;&#34;
     self.timing_h_color = timing_h_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>timing_h_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Horizontal timing color</dd>
+</dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.codes.QRCode.set_timing_v_color"><code class="name flex">
 <span>def <span class="ident">set_timing_v_color</span></span>(<span>self, timing_v_color: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>timing_v_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Vertical timing color</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2129,6 +1481,11 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         timing_v_color (str): Vertical timing color&#34;&#34;&#34;
     self.timing_v_color = timing_v_color</code></pre>
 </details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>timing_v_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Vertical timing color</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -2147,16 +1504,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, receiver: str, sms_body: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate an SMS QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name of this Code object (Cloud Office Print tag)</dd>
-<dt><strong><code>receiver</code></strong> :&ensp;<code>str</code></dt>
-<dd>The telephone number for the receiver of the sms</dd>
-<dt><strong><code>sms_body</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The body of the sms. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2183,6 +1530,16 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate an SMS QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of this Code object (Cloud Office Print tag)</dd>
+<dt><strong><code>receiver</code></strong> :&ensp;<code>str</code></dt>
+<dd>The telephone number for the receiver of the sms</dd>
+<dt><strong><code>sms_body</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The body of the sms. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -2231,14 +1588,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, number: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate a telephone number QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name of this Code object (Cloud Office Print tag)</dd>
-<dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
-<dd>The telephone number</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2254,6 +1603,14 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         &#34;&#34;&#34;
         super().__init__(name, number, &#39;qr_telephone&#39;)</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate a telephone number QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of this Code object (Cloud Office Print tag)</dd>
+<dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
+<dd>The telephone number</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -2302,14 +1659,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 <span>(</span><span>name: str, url: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate a URL QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name of this Code object (Cloud Office Print tag)</dd>
-<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
-<dd>The URL</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2325,6 +1674,14 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
         &#34;&#34;&#34;
         super().__init__(name, url, &#39;qr_url&#39;)</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate a URL QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of this Code object (Cloud Office Print tag)</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -2370,23 +1727,9 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 </dd>
 <dt id="cloudofficeprint.elements.codes.VCardQRCode"><code class="flex name class">
 <span>class <span class="ident">VCardQRCode</span></span>
-<span>(</span><span>name: str, first_name: str, last_name: str = None, email: str = None, website: str = None)</span>
+<span>(</span><span>name: str,<br>first_name: str,<br>last_name: str = None,<br>email: str = None,<br>website: str = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate a vCard QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this Code object (Cloud Office Print tag).</dd>
-<dt><strong><code>first_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The first name.</dd>
-<dt><strong><code>last_name</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The last name. Defaults to None.</dd>
-<dt><strong><code>email</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The email. Defaults to None.</dd>
-<dt><strong><code>website</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The website. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2421,6 +1764,20 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate a vCard QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this Code object (Cloud Office Print tag).</dd>
+<dt><strong><code>first_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The first name.</dd>
+<dt><strong><code>last_name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The last name. Defaults to None.</dd>
+<dt><strong><code>email</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The email. Defaults to None.</dd>
+<dt><strong><code>website</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The website. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -2466,23 +1823,9 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 </dd>
 <dt id="cloudofficeprint.elements.codes.WiFiQRCode"><code class="flex name class">
 <span>class <span class="ident">WiFiQRCode</span></span>
-<span>(</span><span>name: str, ssid: str, wifi_encryption: str, wifi_password: str = None, wifi_hidden: bool = None)</span>
+<span>(</span><span>name: str,<br>ssid: str,<br>wifi_encryption: str,<br>wifi_password: str = None,<br>wifi_hidden: bool = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is a subclass of QRCode and is used to generate a WiFi QR-code element</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name of this Code object (Cloud Office Print tag)</dd>
-<dt><strong><code>ssid</code></strong> :&ensp;<code>str</code></dt>
-<dd>The ssid of the WiFi</dd>
-<dt><strong><code>wifi_encryption</code></strong> :&ensp;<code>str</code></dt>
-<dd>The encryption type</dd>
-<dt><strong><code>wifi_password</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The WiFi password Defaults to None.</dd>
-<dt><strong><code>wifi_hidden</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Whether or not the WiFi is hidden. Defaults to None.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2524,6 +1867,20 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 
         return result</code></pre>
 </details>
+<div class="desc"><p>This class is a subclass of QRCode and is used to generate a WiFi QR-code element</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of this Code object (Cloud Office Print tag)</dd>
+<dt><strong><code>ssid</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ssid of the WiFi</dd>
+<dt><strong><code>wifi_encryption</code></strong> :&ensp;<code>str</code></dt>
+<dd>The encryption type</dd>
+<dt><strong><code>wifi_password</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The WiFi password Defaults to None.</dd>
+<dt><strong><code>wifi_hidden</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the WiFi is hidden. Defaults to None.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.codes.QRCode" href="#cloudofficeprint.elements.codes.QRCode">QRCode</a></li>
@@ -2571,7 +1928,6 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 </section>
 </article>
 <nav id="sidebar">
-<h1>Index</h1>
 <div class="toc">
 <ul></ul>
 </div>
@@ -2652,7 +2008,7 @@ Please visit <a href="https://github.com/bwipp/postscriptbarcode/wiki/Symbologie
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
 </footer>
 </body>
 </html>

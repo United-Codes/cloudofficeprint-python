@@ -26,6 +26,8 @@ line2 = cop.elements.LineSeries(
     '2px',
     'sysDash'
 )
+
+# To make line stacked chart you can simply use cop.elements.LineStackedChart
 line_chart = cop.elements.LineChart(
     'line_chart_name',
     (line1, line2)
