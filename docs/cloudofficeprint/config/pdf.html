@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.config.pdf.PDFOptions"><code class="flex name class">
 <span>class <span class="ident">PDFOptions</span></span>
-<span>(</span><span>even_page: bool = None,<br>merge_making_even: bool = None,<br>remove_last_page: bool = None,<br>modify_password: str = None,<br>read_password: str = None,<br>password_protection_flag: int = None,<br>watermark: str = None,<br>watermark_color: str = None,<br>watermark_font: str = None,<br>watermark_opacity: int = None,<br>watermark_size: int = None,<br>lock_form: bool = None,<br>copies: int = None,<br>page_margin: int | dict = None,<br>landscape: bool = None,<br>page_width: str | int = None,<br>page_height: str | int = None,<br>page_format: str = None,<br>merge: bool = None,<br>split: bool = None,<br>identify_form_fields: bool = None,<br>sign_certificate: str = None,<br>sign_certificate_password: str = None,<br>sign_certificate_txt: str = None,<br>watermark_rotation: int = None,<br>convert_to_pdfa: str = None,<br>attachment_name: str = None,<br>convert_attachment_to_json: bool = None,<br>insert_barcode: bool = None,<br>page_number_start_at: str = None)</span>
+<span>(</span><span>read_password: str = None,<br>watermark: str = None,<br>watermark_font_size: int = None,<br>watermark_opacity: int = None,<br>watermark_color: str = None,<br>watermark_font: str = None,<br>page_width: str | int = None,<br>page_height: str | int = None,<br>even_page: bool = None,<br>merge_making_even: bool = None,<br>modify_password: str = None,<br>password_protection_flag: int = None,<br>lock_form: bool = None,<br>copies: int = None,<br>page_margin: int | dict = None,<br>landscape: bool = None,<br>page_format: str = None,<br>merge: bool = None,<br>sign_certificate: str = None,<br>sign_certificate_password: str = None,<br>identify_form_fields: bool = None,<br>split: bool = None,<br>remove_last_page: bool = None,<br>sign_certificate_txt: str = None,<br>watermark_rotation: int = None,<br>convert_to_pdfa: str = None,<br>attachment_name: str = None,<br>convert_attachment_to_json: bool = None,<br>insert_barcode: bool = None,<br>page_number_start_at: str = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -64,29 +64,29 @@ el.replaceWith(d);
 
     def __init__(
         self,
-        even_page: bool = None,
-        merge_making_even: bool = None,
-        remove_last_page: bool = None,
-        modify_password: str = None,
-        read_password: str = None,
-        password_protection_flag: int = None,
+         read_password: str = None,
         watermark: str = None,
+        watermark_font_size: int = None,
+        watermark_opacity: int = None,
         watermark_color: str = None,
         watermark_font: str = None,
-        watermark_opacity: int = None,
-        watermark_size: int = None,
+        page_width: Union[str, int] = None,
+        page_height: Union[str, int] = None,
+        even_page: bool = None,
+        merge_making_even: bool = None,
+        modify_password: str = None,
+        password_protection_flag: int = None,
         lock_form: bool = None,
         copies: int = None,
         page_margin: Union[int, dict] = None,
         landscape: bool = None,
-        page_width: Union[str, int] = None,
-        page_height: Union[str, int] = None,
         page_format: str = None,
         merge: bool = None,
-        split: bool = None,
-        identify_form_fields: bool = None,
         sign_certificate: str = None,
         sign_certificate_password: str = None,
+        identify_form_fields: bool = None,
+        split: bool = None,
+        remove_last_page: bool = None,
         sign_certificate_txt: str = None,
         watermark_rotation: int = None,
         convert_to_pdfa: str = None,
@@ -98,29 +98,29 @@ el.replaceWith(d);
     ):
         &#34;&#34;&#34;
         Args:
-            even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
-            merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
-            remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
-            modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
-            password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
             watermark (str, optional): Requires PDF output, generates a diagonal custom watermark on every page of the PDF file. Defaults to None.
+            watermark_font_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             watermark_color (str, optional): Requires PDF output, specifies the font of the watermark specified, with a default of &#34;black&#34;. Defaults to None.
             watermark_font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of &#34;Arial&#34;. Defaults to None.
-            watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
-            watermark_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
+            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
+            even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
+            merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
+            modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
+            password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { &#34;top&#34;: int, &#34;bottom&#34;: int, &#34;left&#34;: int, &#34;right&#34;: int } or just an int to be used on all sides. Defaults to None.
             landscape (bool, optional): Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default). Defaults to None.
-            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
-            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             page_format (str, optional): Only for HTML to PDF. The page format: &#34;a4&#34; (default) or &#34;letter&#34;. Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
-            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
-            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
+            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
+            remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
             sign_certificate_txt (str, optional): Add custom text in any language to the signature field
             watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
@@ -129,29 +129,29 @@ el.replaceWith(d);
             insert_barcode (bool, optional): To insert barcode in pdf.
             page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
         &#34;&#34;&#34;
-        self.even_page: bool = even_page
-        self.merge_making_even: bool = merge_making_even
-        self.remove_last_page: bool = remove_last_page
-        self.modify_password: str = modify_password
         self.read_password: str = read_password
-        self.password_protection_flag: int = password_protection_flag
         self.watermark: str = watermark
+        self.watermark_font_size: int = watermark_font_size
+        self.watermark_opacity: int = watermark_opacity
         self.watermark_color: str = watermark_color
         self.watermark_font: str = watermark_font
-        self.watermark_opacity: int = watermark_opacity
-        self.watermark_size: int = watermark_size
+        self.page_width: Union[str, int] = page_width
+        self.page_height: Union[str, int] = page_height
+        self.even_page: bool = even_page
+        self.modify_password: str = modify_password
+        self.merge_making_even: bool = merge_making_even
+        self.password_protection_flag: int = password_protection_flag
         self.lock_form: bool = lock_form
         self.copies: int = copies
         self.page_margin: Union[int, dict] = page_margin
         self._landscape: bool = landscape
-        self.page_width: Union[str, int] = page_width
-        self.page_height: Union[str, int] = page_height
         self.page_format: str = page_format
         self.merge: bool = merge
-        self.split: bool = split
-        self.identify_form_fields: bool = identify_form_fields
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
+        self.identify_form_fields: bool = identify_form_fields
+        self.split: bool = split
+        self.remove_last_page: bool = remove_last_page
         self.sign_certificate_txt: str = sign_certificate_txt
         self.watermark_rotation: int = watermark_rotation
         self.convert_to_pdfa: str = convert_to_pdfa
@@ -210,8 +210,8 @@ el.replaceWith(d);
             result[&#34;output_watermark_font&#34;] = self.watermark_font
         if self.watermark_opacity is not None:
             result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
-        if self.watermark_size is not None:
-            result[&#34;output_watermark_size&#34;] = self.watermark_size
+        if self.watermark_font_size is not None:
+            result[&#34;output_watermark_size&#34;] = self.watermark_font_size
         if self.watermark_rotation is not None:
             result[&#34;output_watermark_rotation&#34;] = self.watermark_rotation
         if self.lock_form is not None:
@@ -281,7 +281,7 @@ el.replaceWith(d);
         self.watermark_color = color
         self.watermark_font = font
         self.watermark_opacity = opacity
-        self.watermark_size = size
+        self.watermark_font_size = size
         self.watermark_rotation = rotation
 
     def set_page_margin_at(self, value: int, position: str = None):
@@ -350,28 +350,30 @@ el.replaceWith(d);
 All of them are optional, which is why passing an instance of this class in an OutputConfig is also optional.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>even_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.</dd>
-<dt><strong><code>merge_making_even</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Merge each given document making even paged. Defaults to None.</dd>
-<dt><strong><code>remove_last_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Remove the last page from the given PDF document. Defaults to None.</dd>
-<dt><strong><code>modify_password</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The password needed to modify the PDF. Defaults to None.</dd>
 <dt><strong><code>read_password</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>The password needed to open the PDF. Defaults to None.</dd>
-<dt><strong><code>password_protection_flag</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. <a href="https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption">More info</a>. Defaults to None.</dd>
 <dt><strong><code>watermark</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Requires PDF output, generates a diagonal custom watermark on every page of the PDF file. Defaults to None.</dd>
+<dt><strong><code>watermark_font_size</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.</dd>
+<dt><strong><code>watermark_opacity</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.</dd>
 <dt><strong><code>watermark_color</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Requires PDF output, specifies the font of the watermark specified, with a default of "black". Defaults to None.</dd>
 <dt><strong><code>watermark_font</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.</dd>
-<dt><strong><code>watermark_opacity</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.</dd>
-<dt><strong><code>watermark_size</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.</dd>
+<dt><strong><code>page_width</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
+<dd>Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.</dd>
+<dt><strong><code>page_height</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
+<dd>Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.</dd>
+<dt><strong><code>even_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.</dd>
+<dt><strong><code>merge_making_even</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Merge each given document making even paged. Defaults to None.</dd>
+<dt><strong><code>modify_password</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The password needed to modify the PDF. Defaults to None.</dd>
+<dt><strong><code>password_protection_flag</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. <a href="https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption">More info</a>. Defaults to None.</dd>
 <dt><strong><code>lock_form</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Locks / flattens the forms in the PDF. Defaults to None.</dd>
 <dt><strong><code>copies</code></strong> :&ensp;<code>int</code>, optional</dt>
@@ -380,22 +382,20 @@ All of them are optional, which is why passing an instance of this class in an O
 <dd>Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.</dd>
 <dt><strong><code>landscape</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default). Defaults to None.</dd>
-<dt><strong><code>page_width</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
-<dd>Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.</dd>
-<dt><strong><code>page_height</code></strong> :&ensp;<code>Union[str, int]</code>, optional</dt>
-<dd>Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.</dd>
 <dt><strong><code>page_format</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Only for HTML to PDF. The page format: "a4" (default) or "letter". Defaults to None.</dd>
 <dt><strong><code>merge</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.</dd>
-<dt><strong><code>split</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.</dd>
-<dt><strong><code>identify_form_fields</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
 <dt><strong><code>sign_certificate</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.</dd>
 <dt><strong><code>sign_certificate_password</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.</dd>
+<dt><strong><code>identify_form_fields</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.</dd>
+<dt><strong><code>split</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.</dd>
+<dt><strong><code>remove_last_page</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Remove the last page from the given PDF document. Defaults to None.</dd>
 <dt><strong><code>sign_certificate_txt</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>Add custom text in any language to the signature field</dd>
 <dt><strong><code>watermark_rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
@@ -448,8 +448,8 @@ def as_dict(self) -&gt; Dict:
         result[&#34;output_watermark_font&#34;] = self.watermark_font
     if self.watermark_opacity is not None:
         result[&#34;output_watermark_opacity&#34;] = self.watermark_opacity
-    if self.watermark_size is not None:
-        result[&#34;output_watermark_size&#34;] = self.watermark_size
+    if self.watermark_font_size is not None:
+        result[&#34;output_watermark_size&#34;] = self.watermark_font_size
     if self.watermark_rotation is not None:
         result[&#34;output_watermark_rotation&#34;] = self.watermark_rotation
     if self.lock_form is not None:
@@ -633,7 +633,7 @@ def page_orientation(self) -&gt; str:
     self.watermark_color = color
     self.watermark_font = font
     self.watermark_opacity = opacity
-    self.watermark_size = size
+    self.watermark_font_size = size
     self.watermark_rotation = rotation</code></pre>
 </details>
 <div class="desc"><p>Set watermark</p>
