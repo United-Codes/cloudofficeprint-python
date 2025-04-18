@@ -1216,6 +1216,27 @@ class Insert(Property):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{?insert " + self.name + "}"})
+    
+    #pdfinclude
+class PdfInclude(Property):
+    """Inside Word and PowerPoint and Excel documents, the tag {?include pdf } can be used to include files like Word, Excel, Powerpoint and PDF documents.
+    Please use `ExcelInsert` element to insert in excel with more flexibility.
+    """
+
+    def __init__(self, name: str, value: str):
+        """
+        Args:
+            name (str): The name for the insert tag.
+            value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+            The document can be docx, pptx, xlsx, or pdf documents.
+        """
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?pdfinclude " + self.name + "}"})
+    
+
 
 class Remove(Property):
     """Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 

@@ -1,5 +1,6 @@
 import sys
-sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+# sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -420,6 +421,15 @@ def test_insert_element():
     }
     assert insertElement.as_dict == insertElement_expected
 
+# testing pdfincude
+def test_pdfinclude_element():
+    includeElement = cop.elements.PdfInclude("fileToInclude","base64EncodedValue")
+    includeElement_expected = {
+        "fileToInclude":"base64EncodedValue",
+    }
+    print("Actual output of includeElement.as_dict:", includeElement.as_dict)
+    assert includeElement.as_dict == includeElement_expected
+
 def test_remove_txt_box():
     remove = cop.elements.Remove('greetings', False)
     remove_expected = {
@@ -507,6 +517,7 @@ def run():
     test_cell_validation()
     test_remove_txt_box()
     test_hide_slide_pptx()
+    test_pdfinclude_element()
     # COP charts get tested in test_charts.py
 
 
