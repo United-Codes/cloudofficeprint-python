@@ -40,6 +40,7 @@ class PrintJob:
         subtemplates: Dict[str, Resource] = {},
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
+        compare_files: List[Resource] = [],
         cop_verbose: bool = False,
         attachments : List[Resource] = [],
     ):
@@ -52,6 +53,7 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            compare_files (List[Resource], optional): Files to compare with the output file. Defaults to [].
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
             attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
         """
@@ -62,6 +64,7 @@ class PrintJob:
         self.subtemplates: Dict[str, Resource] = subtemplates
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.compare_files: List[Resource] = compare_files
         self.cop_verbose: bool = cop_verbose
         self.attachments: List[Resource] = attachments
 
@@ -231,6 +234,12 @@ class PrintJob:
             result["append_files"] = [
                 file.secondary_file_dict for file in self.append_files
             ]
+        
+        if len(self.compare_files) > 0:
+            result["compare_files"] = [
+                file.secondary_file_dict for file in self.compare_files
+        ]
+            
         if len(self.attachments) > 0:
             result["attachments"] = [
                 file.secondary_file_dict for file in self.attachments

@@ -1,8 +1,26 @@
 # import cloudofficeprint as cop
 
 import sys
-sys.path.insert(0, "PATH_TO_COP_DIR")
+sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
 import cloudofficeprint as cop
+
+
+
+def compare_dicts(dict1, dict2, path=""):
+    """
+    Recursively compare two dictionaries and log differences.
+    """
+    for key in dict1.keys():
+        if key not in dict2:
+            print(f"Key '{path + key}' found in dict1 but not in dict2.")
+        else:
+            if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+                # Recursively compare nested dictionaries
+                compare_dicts(dict1[key], dict2[key], path + key + ".")
+            elif dict1[key] != dict2[key]:
+                print(f"Difference at '{path + key}':")
+
+
 
 
 def test_printjob():
@@ -31,51 +49,34 @@ def test_printjob():
         server=server,
         template=template,
         output_config=output_conf,
-        subtemplates={"sub1": resource, "sub2": resource},
-        prepend_files=[resource],
-        append_files=[resource],
+        compare_files=[resource, template.resource]
     )
 
     printjob_expected = {
+        "tool": "python",
+        "python_sdk_version": cop.printjob.STATIC_OPTS["python_sdk_version"],
         "api_key": server.config.api_key,
-        "append_files": [
-            {
-                "file_content": resource_base64,
-                "file_source": "base64",
-                "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            }
-        ],
-        "files": [{"data": {"textTag1": "test_text_tag1"}}],
         "output": {
             "output_converter": "libreoffice",
             "output_encoding": "raw",
             "output_type": "pdf",
         },
-        "prepend_files": [
+        "compare_files": [
             {
                 "file_content": resource_base64,
                 "file_source": "base64",
                 "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            }
-        ],
-        "template": {"file": template_base64, "template_type": "docx"},
-        "tool": "python",
-        "templates": [
-            {
-                "file_content": resource_base64,
-                "file_source": "base64",
-                "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                "name": "sub1",
             },
             {
-                "file_content": resource_base64,
+                "file_content": template_base64,
                 "file_source": "base64",
                 "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                "name": "sub2",
             },
         ],
-        "python_sdk_version": cop.printjob.STATIC_OPTS["python_sdk_version"],
+        "files": [{"data": {"textTag1": "test_text_tag1"}}],
+        "template": {"file": template_base64, "template_type": "docx"}
     }
+
 
     assert printjob.as_dict == printjob_expected
     # printjob.execute().to_file("tests/data/prepend_append_subtemplate_test") # Works as expected
