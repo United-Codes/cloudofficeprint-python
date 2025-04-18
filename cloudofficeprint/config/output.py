@@ -23,7 +23,8 @@ class OutputConfig:
                  output_polling: bool = None,
                  secret_key: str = None,
                  request_option: requestOptions = None,
-                update_toc: bool = None):
+                 update_toc: bool = None,
+                 output_locale: str = None,):
         """If the parameters are not provided default value will be used.
 
         Args:
@@ -52,6 +53,7 @@ class OutputConfig:
         self.secret_key = secret_key
         self.request_option = request_option
         self.update_toc = update_toc
+        self.output_locale: str = output_locale
 
     @property
     def json(self) -> str:
@@ -94,6 +96,8 @@ class OutputConfig:
             result['secret_key'] = self.secret_key
         if self.update_toc is not None:
             result['update_toc'] = self.update_toc
+        if self.output_locale is not None:
+            result["output_locale"] = self.output_locale
         if self.request_option is not None:
             result['request_option'] = self.request_option.as_dict
         return result

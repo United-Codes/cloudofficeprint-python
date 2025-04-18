@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -274,6 +274,17 @@ def test_request_option():
     }
     assert config.as_dict == config_expected
 
+def test_output_locale_option():
+    """test output locale option"""
+    config = cop.config.OutputConfig(output_locale='nepali')
+    config_expected= {
+        'output_locale': 'nepali',
+        'output_encoding': 'raw',
+        'output_converter': 'libreoffice',
+        # 'output_polling': None,
+    }
+    assert config.as_dict == config_expected
+
 
 def run():
     test_pdf_options()
@@ -282,6 +293,8 @@ def run():
     test_cloud_access_tokens()
     test_commands()
     test_route_paths()
+    test_output_locale_option() 
+    print ("all tests passed")
 
 
 if __name__ == "__main__":
