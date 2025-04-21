@@ -153,6 +153,68 @@ class PDFImage(PDFInsertObject):
             result["image_max_width"] = self.max_width
 
         return result
+    
+class PDFComment(PDFInsertObject):
+    """A free‑text comment (annotation) on a PDF page."""
+    def __init__(self,
+                 text: str,
+                 x: int,
+                 y: int,
+                 page: Union[int, str] = "all",
+                #  rotation: int = None,
+                 bold: bool = None,
+                 italic: bool = None,
+                 font: str = None,
+                 font_color: str = None,
+                 font_size: int = None):
+        """
+        Args:
+            text (str): Text to insert.
+            x (int): X component of this object's position.
+            y (int): Y component of this object's position.
+            page (Union[int, str], optional): Page to include this object on. Either "all" or an integer. Defaults to "all".
+            rotation (int, optional): Text rotation in degrees. Defaults to None.
+            bold (bool, optional): Whether or not the text should be in bold. Defaults to None.
+            italic (bool, optional): Whether or not the text should be in italic. Defaults to None.
+            font (str, optional): The text font name. Defaults to None.
+            font_color (str, optional): The text font color, CSS notation. Defaults to None.
+            font_size (int, optional): The text font size. Defaults to None.
+        """
+        super().__init__(x, y, page)
+        self.text: str = text
+        # self.rotation: int = rotation
+        self.bold: bool = bold
+        self.italic: bool = italic
+        self.font: str = font
+        self.font_color: str = font_color
+        self.font_size: int = font_size
+
+    @staticmethod
+    def _identifier() -> str:
+        return "AOP_PDF_COMMENTS"
+
+    @property
+    def _inner_dict(self) -> Dict:
+        result = {
+            "text": self.text,
+            "x": self.x,
+            "y": self.y
+        }
+
+        # if self.rotation is not None:
+        #     result["rotation"] = self.rotation
+        if self.bold is not None:
+            result["bold"] = self.bold
+        if self.italic is not None:
+            result["italic"] = self.italic
+        if self.font is not None:
+            result["font"] = self.font
+        if self.font_color is not None:
+            result["font_color"] = self.font_color
+        if self.font_size is not None:
+            result["font_size"] = self.font_size
+
+        return result
 
 class PDFTexts(Element):
     """Group of PDF texts as an `Element`.
@@ -242,3 +304,30 @@ class PDFFormData(Element):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset()
+    
+class PDFComments(Element):
+    """Group multiple PDFComment instances into one Element."""
+    def __init__(self, comments: Iterable[PDFComment]):
+        """
+        Args:
+            comments (Iterable[PDFComment]): An iterable consisting of `PDFComment`-objects.
+        """
+        super().__init__(PDFComment._identifier())
+        # self.comments = comments
+        self.comments: Iterable[PDFComment] = comments
+
+
+    @property
+    def as_dict(self) -> Dict:
+        result = {}
+        for txt in self.comments:
+           
+            if str(txt.page) in result:
+                result[str(txt.page)].append(txt._inner_dict)
+            else:
+                result[str(txt.page)] = [txt._inner_dict]
+        return {self.name: [result]}
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset()
+   

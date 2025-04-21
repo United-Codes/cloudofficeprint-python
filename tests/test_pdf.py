@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -226,11 +228,116 @@ def test_cop_pdf_forms():
     assert form.as_dict == form_expected
 
 
+def test_cop_pdf_comments():
+    """Test cop_pdf_comments element"""
+    comment1_1 = cop.elements.PDFComment(
+        text="First text to be shown in first page",
+        x=50,
+        y=50,
+        page=1,
+        bold=False,
+        italic=True,
+        font='Arial',
+        font_color='blue',
+        font_size=12
+    )
+    comment1_2 = cop.elements.PDFComment(
+        text="Second text to be shown in first page",
+        x=150,
+        y=50,
+        page=1,
+        bold=False,
+        italic=False,
+        font='Arial',
+        font_color='red',
+        font_size=10
+    )
+    
+    comment2 = cop.elements.PDFComment(
+        text="First text to be shown in second page",
+        x=50,
+        y=50,
+        page=2,
+         bold=True,
+        italic=True,
+        font='Times new roman',
+        font_color='#FF00FF',
+        font_size=15
+    )
+    comment_all = cop.elements.PDFComment(
+        text="Page Commenting here",
+        x=0,
+        y=0,
+        bold=True,
+        italic=False,
+        font='Arial',
+        font_color='red',
+        font_size=20
+    )
+    pdf_comments = cop.elements.PDFComments(
+        (comment1_1, comment1_2, comment2, comment_all)
+    )
+
+    pdf_comments_expected = {
+        "AOP_PDF_COMMENTS": [
+            {
+                "1": [
+                    {
+                        "text": "First text to be shown in first page",
+                        "x": 50,
+                        "y": 50,
+                        "bold": False,
+                        "italic": True,
+                        "font": "Arial",
+                        "font_color": "blue",
+                        "font_size": 12
+                    },
+                    {
+                        "text": "Second text to be shown in first page",
+                        "x": 150,
+                        "y": 50,
+                        "bold": False,
+                        "italic": False,
+                        "font": "Arial",
+                        "font_color": "red",
+                        "font_size": 10
+                    }
+                ],
+                "2": [
+                    {
+                        "text": "First text to be shown in second page",
+                        "x": 50,
+                        "y": 50,
+                        "bold": True,
+                        "italic": True,
+                        "font": "Times new roman",
+                        "font_color": "#FF00FF",
+                        "font_size": 15
+                    }
+                ],
+                "all": [
+                    {
+                        "text": "Page Commenting here",
+                        "x": 0,
+                        "y": 0,
+                        "bold": True,
+                        "italic": False,
+                        "font": "Arial",
+                        "font_color": "red",
+                        "font_size": 20
+                    }
+                ]
+            }
+        ]
+    }
+
+    assert pdf_comments.as_dict == pdf_comments_expected
+
 def run():
     test_cop_pdf_texts()
     test_cop_pdf_images()
     test_cop_pdf_forms()
-
+    test_cop_pdf_comments()
 
 if __name__ == '__main__':
     run()
