@@ -281,9 +281,20 @@ def test_output_locale_option():
         'output_locale': 'nepali',
         'output_encoding': 'raw',
         'output_converter': 'libreoffice',
-        # 'output_polling': None,
     }
     assert config.as_dict == config_expected
+
+def test_password_encryption():
+    """test output_read_password option"""
+    config = cop.config.OutputConfig(output_read_password="aop_pass")
+    config_expected = {
+        "output_read_password": "aop_pass",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+    }
+    assert config.as_dict == config_expected
+    # print(config.as_dict)
+
 
 
 def run():
@@ -294,7 +305,7 @@ def run():
     test_commands()
     test_route_paths()
     test_output_locale_option() 
-    print ("all tests passed")
+    test_password_encryption()
 
 
 if __name__ == "__main__":

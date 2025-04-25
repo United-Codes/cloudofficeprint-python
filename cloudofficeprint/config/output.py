@@ -24,7 +24,9 @@ class OutputConfig:
                  secret_key: str = None,
                  request_option: requestOptions = None,
                  update_toc: bool = None,
-                 output_locale: str = None,):
+                 output_locale: str = None,
+                 output_read_password: str = None,
+                 ):
         """If the parameters are not provided default value will be used.
 
         Args:
@@ -40,7 +42,8 @@ class OutputConfig:
             secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (used with output polling). Defaults to None.
             request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
             update_toc (bool, optional): Update table of contents of Word document.
-        """
+            output_locale (str, optional): Locale/language setting for output formatting (e.g. "nep", "en_us"). Defaults to None.
+            output_read_password (str, optional): Password to encrypt and protect the output document (PDF, DOCX, etc.).        """
         self.filetype: str = filetype
         self.converter: str = converter
         self.cloud_access_token: CloudAccessToken = cloud_access_token
@@ -54,6 +57,7 @@ class OutputConfig:
         self.request_option = request_option
         self.update_toc = update_toc
         self.output_locale: str = output_locale
+        self.output_read_password: str = output_read_password
 
     @property
     def json(self) -> str:
@@ -98,6 +102,8 @@ class OutputConfig:
             result['update_toc'] = self.update_toc
         if self.output_locale is not None:
             result["output_locale"] = self.output_locale
+        if self.output_read_password is not None:
+            result["output_read_password"] = self.output_read_password
         if self.request_option is not None:
             result['request_option'] = self.request_option.as_dict
         return result
