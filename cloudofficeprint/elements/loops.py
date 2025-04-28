@@ -157,3 +157,20 @@ class ForEachTableRow(ForEach):
             "{=" + name + "}",
             "{/" + name + "}"
         }
+       
+class ForEachMergeCells(ForEach):
+    """Loop where table cells are vertically merged across rows during looping.
+    Only supported in Word templates with {##...} {/...} syntax."""
+
+    def __init__(self, name: str, content: Iterable[Element]):
+        """
+        Args:
+            name (str): The name for this element (Cloud Office Print tag with merge cells).
+            content (Iterable[Element]): An iterable containing the elements for this loop element.
+        """
+        super().__init__(name, content)
+        self._tags = {
+            "{##" + name + "}",
+            "{/" + name + "}"
+        }
+

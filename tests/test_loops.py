@@ -1,3 +1,6 @@
+import sys
+# sys.path.insert(0, "D:/UC/cloudofficeprint-python")
+sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -261,9 +264,97 @@ def test_for_each_sheet():
     assert loop2.as_dict == loop_expected
 
 
+def test_for_each_merge_cells():
+    element1 = cop.elements.ElementCollection.from_mapping(
+        {
+            "department": "Engineering",
+            "employees": [
+                {
+                    "name": "John Smith",
+                    "project": "Website Redesign",
+                    "status": "In Progress"
+                },
+                {
+                    "name": "Emily Johnson",
+                    "project": "API Development",
+                    "status": "Completed"
+                },
+                {
+                    "name": "Michael Brown",
+                    "project": "Mobile App",
+                    "status": "Planning"
+                }
+            ]
+        }
+    )
+    element2 = cop.elements.ElementCollection.from_mapping(
+        {
+            "department": "Marketing",
+            "employees": [
+                {
+                    "name": "Sarah Wilson",
+                    "project": "Brand Campaign",
+                    "status": "In Progress"
+                },
+                {
+                    "name": "David Thompson",
+                    "project": "Market Research",
+                    "status": "Not Started"
+                }
+            ]
+        }
+    )
+    loop = cop.elements.ForEachMergeCells(
+        name='departments',
+        content=(element1, element2)
+    )
+
+    expected = {
+        "departments": [
+            {
+                "department": "Engineering",
+                "employees": [
+                    {
+                        "name": "John Smith",
+                        "project": "Website Redesign",
+                        "status": "In Progress"
+                    },
+                    {
+                        "name": "Emily Johnson",
+                        "project": "API Development",
+                        "status": "Completed"
+                    },
+                    {
+                        "name": "Michael Brown",
+                        "project": "Mobile App",
+                        "status": "Planning"
+                    }
+                ]
+            },
+            {
+                "department": "Marketing",
+                "employees": [
+                    {
+                        "name": "Sarah Wilson",
+                        "project": "Brand Campaign",
+                        "status": "In Progress"
+                    },
+                    {
+                        "name": "David Thompson",
+                        "project": "Market Research",
+                        "status": "Not Started"
+                    }
+                ]
+            }
+        ]
+    }
+
+    assert loop.as_dict == expected
+
 def run():
     test_for_each()
     test_for_each_sheet()
+    test_for_each_merge_cells()
 
 
 if __name__ == '__main__':
