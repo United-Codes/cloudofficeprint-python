@@ -16,7 +16,9 @@ class Image(Element):
                  transparency: Union[int, str]=None,
                  url: str=None,
                  width: Union[int, str]=None,
-                 height: Union[int, str]=None):
+                 height: Union[int, str] = None,
+                 density: int = None
+                 ):
         """
         Args:
             name (str): The name of the image element.
@@ -35,6 +37,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
         """
         super().__init__(name)
         self.source: str = source
@@ -47,6 +50,10 @@ class Image(Element):
         self.url: str = url
         self.width: Union[int, str] = width
         self.height: Union[int, str] = height
+        if density is not None and density > 1200:
+            self.density = 1200
+        else:
+            self.density = density
 
     @property
     def alt_text(self) -> str:
@@ -133,6 +140,8 @@ class Image(Element):
             result["_width"] = self.width
         if self.height is not None:
             result["_height"] = self.height
+        if self.density is not None:
+            result["_density"] = self.density
 
         return result
 
@@ -158,7 +167,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -> 'Image':
         """Generate an Image object from a local file.
 
@@ -179,6 +189,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
 
         Returns:
             Image: the generated Image object from a local file
@@ -195,6 +206,7 @@ class Image(Element):
             url,
             width,
             height,
+            min(density, 1200) if density is not None else None
         )
 
     @staticmethod
@@ -209,7 +221,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -> 'Image':
         """Generate an Image object from raw data.
 
@@ -230,6 +243,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
 
         Returns:
             Image: the generated Image object from raw data
@@ -246,6 +260,7 @@ class Image(Element):
             url,
             width,
             height,
+            density,
         )
 
     @staticmethod
@@ -260,7 +275,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -> 'Image':
         """Generate an Image object from a base64 string.
 
@@ -281,6 +297,8 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
+
 
         Returns:
             Image: the generated Image object from a base64 string
@@ -297,6 +315,7 @@ class Image(Element):
             url,
             width,
             height,
+            min(density, 1200) if density is not None else None
         )
 
     @staticmethod
@@ -311,7 +330,8 @@ class Image(Element):
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -> 'Image':
         """Generate an Image object from a URL.
 
@@ -332,6 +352,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
 
         Returns:
             Image: the generated Image object from a URL
@@ -348,4 +369,5 @@ class Image(Element):
             url,
             width,
             height,
+            min(density, 1200) if density is not None else None
         )
