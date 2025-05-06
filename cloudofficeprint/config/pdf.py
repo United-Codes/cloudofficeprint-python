@@ -13,7 +13,7 @@ class PDFOptions:
 
     def __init__(
         self,
-         read_password: str = None,
+        read_password: str = None,
         watermark: str = None,
         watermark_font_size: int = None,
         watermark_opacity: int = None,
@@ -43,7 +43,9 @@ class PDFOptions:
         convert_attachment_to_json: bool = None,
         insert_barcode: bool = None,
         page_number_start_at: str = None,
-        
+        batch_selector: str = None,
+        batch_size: int = None,
+        batch_condition: str = None
     ):
         """
         Args:
@@ -77,6 +79,9 @@ class PDFOptions:
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
             insert_barcode (bool, optional): To insert barcode in pdf.
             page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
+            batch_selector (str, optional): Specifies the hierarchy of keys to split data into batches. Defaults to None.
+            batch_size (int, optional): Number of batches or files to split into. Defaults to None.
+            batch_condition (str, optional): Condition to determine batch allocation. Defaults to Non
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -108,6 +113,9 @@ class PDFOptions:
         self.convert_attachment_to_json: bool = convert_attachment_to_json
         self.insert_barcode: bool = insert_barcode
         self.page_number_start_at = page_number_start_at
+        self.batch_selector : str = batch_selector
+        self.batch_size: int = batch_size
+        self.batch_condition : str = batch_condition
         
 
     def __str__(self) -> str:
@@ -201,7 +209,12 @@ class PDFOptions:
             result["output_insert_barcode"] = self.insert_barcode
         if self.page_number_start_at is not None:
             result['output_page_number_start_at'] = self.page_number_start_at
-
+        if self.batch_selector is not None:
+            result["output_batch_selector"] = self.batch_selector
+        if self.batch_size is not None:
+            result["output_batch_size"] = self.batch_size
+        if self.batch_condition is not None:
+            result["output_batch_condition"] = self.batch_condition
         return result
 
     def set_watermark(

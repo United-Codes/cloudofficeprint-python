@@ -295,6 +295,20 @@ def test_password_encryption():
     }
     assert config.as_dict == config_expected
     # print(config.as_dict)
+def test_cop_pdf_batching():
+    """ Test pdf batching """
+    pdf_opts = cop.config.PDFOptions (merge=True, batch_selector ="orders:products", batch_size = 3,batch_condition="unit_price > 110? \"Expensive\" : unit_price < 80 ? \"Cheap\" : \"Medium\"" )
+ 
+    conf = cop.config.OutputConfig(filetype="pdf",pdf_options=pdf_opts)
+    conf_expected = {
+        'output_encoding': 'raw', 
+        'output_converter': 'libreoffice',
+        'output_type': 'pdf', 
+        'output_merge': True, 
+        'output_batch_selector': 'orders:products', 
+        'output_batch_size': 3, 'output_batch_condition': 'unit_price > 110? "Expensive" : unit_price < 80 ? "Cheap" : "Medium"'
+} 
+    assert conf.as_dict == conf_expected
 
 
 
@@ -307,6 +321,7 @@ def run():
     test_route_paths()
     test_output_locale_option() 
     test_password_encryption()
+    test_cop_pdf_batching()
 
 
 if __name__ == "__main__":
