@@ -210,11 +210,11 @@ class PDFOptions:
         if self.page_number_start_at is not None:
             result['output_page_number_start_at'] = self.page_number_start_at
         if self.batch_selector is not None:
-            result["output_batch_selector"] = self.batch_selector
+            result["batch_selector"] = self.batch_selector
         if self.batch_size is not None:
-            result["output_batch_size"] = self.batch_size
+            result["batch_size"] = self.batch_size
         if self.batch_condition is not None:
-            result["output_batch_condition"] = self.batch_condition
+            result["batch_condition"] = self.batch_condition
         return result
 
     def set_watermark(
