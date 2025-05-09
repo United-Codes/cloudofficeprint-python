@@ -97,6 +97,7 @@ from .printjob import PrintJob
 from .resource import Resource
 from .template import Template
 from .response import Response
+from .transformation import TransformationFunction
 
 # specify what is imported on "from cloudofficeprint import *"
 # but that shouldn't really be used anyway
@@ -109,4 +110,5 @@ __all__ = [
     "Resource",
     "Template",
     "Response",
+    "transformation",
 ]

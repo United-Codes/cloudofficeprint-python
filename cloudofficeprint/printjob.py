@@ -6,7 +6,7 @@ import requests
 import asyncio
 import json
 
-from typing import Union, List, Dict, Mapping
+from typing import Union, List, Dict, Mapping, Optional
 from functools import partial
 from pprint import pprint
 
@@ -16,6 +16,7 @@ from .exceptions import COPError
 from .resource import Resource
 from .template import Template
 from .response import Response
+from .transformation import TransformationFunction
 
 STATIC_OPTS = {
     "tool": "python",
@@ -43,6 +44,7 @@ class PrintJob:
         compare_files: List[Resource] = [],
         cop_verbose: bool = False,
         attachments : List[Resource] = [],
+        transformation_function: Optional[TransformationFunction] = None,
     ):
         """
         Args:
@@ -62,6 +64,7 @@ class PrintJob:
         self.output_config: OutputConfig = output_config
         self.template: Union[Template, Resource] = template
         self.subtemplates: Dict[str, Resource] = subtemplates
+        self.transformation_function = transformation_function
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
         self.compare_files: List[Resource] = compare_files
@@ -251,7 +254,10 @@ class PrintJob:
                 for name, file in self.subtemplates.items()
             ]
 
-        # If verbose mode is activated, print the result to the terminal
+        if self.transformation_function is not None:
+         result["transformation_function"] = self.transformation_function.as_dict()
+         
+
         if self.cop_verbose:
             print("The JSON data that is sent to the Cloud Office Print server:\n")
             pprint(result)
