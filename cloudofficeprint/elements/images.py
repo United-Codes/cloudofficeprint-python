@@ -37,7 +37,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
-            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
+            density (int):The density to use for svg to png conversion.
         """
         super().__init__(name)
         self.source: str = source
@@ -189,7 +189,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
-            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
+            density (int): The density to use for svg to png conversion.
 
         Returns:
             Image: the generated Image object from a local file
@@ -243,8 +243,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
-            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
-
+            density (int): The density to use for svg to png conversion.
         Returns:
             Image: the generated Image object from raw data
         """
@@ -297,7 +296,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
-            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
+            density (int):The density to use for svg to png conversion.
 
 
         Returns:
@@ -352,7 +351,7 @@ class Image(Element):
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
-            density (int): The density of the image in DPI (dots per inch). This is used for printing purposes.
+            density (int):The density to use for svg to png conversion.
 
         Returns:
             Image: the generated Image object from a URL
