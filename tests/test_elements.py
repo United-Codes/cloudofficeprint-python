@@ -432,7 +432,7 @@ def test_pdfinclude_element():
     assert includeElement.as_dict == includeElement_expected
 
 def test_remove_txt_box():
-    remove = cop.elements.Remove('greetings', False)
+    remove = cop.elements.PptxShapeRemove('greetings', False)
     remove_expected = {
         "greetings":False
     }

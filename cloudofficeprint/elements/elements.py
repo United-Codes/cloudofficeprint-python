@@ -1237,7 +1237,7 @@ class PdfInclude(Property):
     
 
 
-class Remove(Property):
+class PptxShapeRemove(Property):
     """Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 
     the value of toShow is false or undefined, the entire shape will be removed from the slide.
     """
