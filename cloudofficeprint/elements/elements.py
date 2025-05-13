@@ -597,20 +597,19 @@ class PptxAutoLink(Property):
     This class offers additional options specifically designed for use in PPTX files compared to standard AutoLink class
     """
 
-    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+    def __init__(self, name: str, value: str):
         """
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
-            font_color (str, optional): The font color of autolink.
-            underline_color (str, optional): The underline color of autolink.
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
+            font_color (str, optional): The font color of autolink (optional).
+            underline_color (str, optional): The underline color of autolink (optional).
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default) (optional).
         """
         super().__init__(name, value)
-        self.value: str = value
-        self.font_color: str = font_color
-        self.underline_color: str = underline_color
-        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
+        self.font_color:     Union[str, None] = None  
+        self.underline_color: Union[str, None] = None
+        self.preserve_tag_style: Union[str, bool, None] = None
 
     @property
     def available_tags(self) -> FrozenSet[str]:

@@ -182,11 +182,11 @@ def test_cell_style_property_xlsx():
 def test_pptx_autoLink():
     autoLink = cop.elements.PptxAutoLink(
         name='autoLink',
-        value='sample text with hyperlinks',
-        font_color='red',
-        underline_color='#ffffffff',
-        preserve_tag_style = True
+        value='sample text with hyperlinks'
     )
+    autoLink.font_color = 'red'
+    autoLink.underline_color = '#ffffffff'
+    autoLink.preserve_tag_style = True
     autoLink_expected = {
         'autoLink': 'sample text with hyperlinks',
         'autoLink_font_color': 'red',
@@ -195,6 +195,7 @@ def test_pptx_autoLink():
         
     }
     assert autoLink.as_dict == autoLink_expected
+
 
 
 def test_pptx_hyperlink():
