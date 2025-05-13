@@ -655,22 +655,22 @@ class PptxHyperlink(Element):
     """Inside PPTX it is possible to specify font color underline color for HyperLinks.
      This class offers additional options specifically designed for use in PPTX files compared to standard HyperLink class
     """
-    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+    def __init__(self, name: str, url: str):
         """
         Args:
             name (str): The name for this element.
             url (str): The URL for the hyperlink.
-            text (str, optional): The text for the hyperlink. Defaults to None.
-            font_color (str, optional): The font color of text for hyperlink.
-            underline_color (str, optional): The underline color of text for hyperlink.
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
+            text (str, optional): The text for the hyperlink. Defaults to None. ( optional)
+            font_color (str, optional): The font color of text for hyperlink. ( optional)
+            underline_color (str, optional): The underline color of text for hyperlink. ( optional)
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default). ( optional)
         """
         super().__init__(name)
         self.url: str = url
-        self.text: str = text
-        self.font_color: str = font_color
-        self.underline_color: str = underline_color
-        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
+        self.text: Union[str, None] = None
+        self.font_color: Union[str, None] = None
+        self.underline_color: Union[str, None] = None
+        self.preserve_tag_style: Union[str, bool, None] = None
 
     @property
     def available_tags(self) -> FrozenSet[str]:

@@ -201,12 +201,13 @@ def test_pptx_autoLink():
 def test_pptx_hyperlink():
     hyperlink = cop.elements.PptxHyperlink(
         name='hyperlink',
-        url='url',
-        text='hyperlink_text',
-        font_color='red',
-        underline_color='#ffffffff',
-        preserve_tag_style = 'yes'
+        url='url'
     )
+    hyperlink.text = 'hyperlink_text'
+    hyperlink.font_color = 'red'
+    hyperlink.underline_color = '#ffffffff'
+    hyperlink.preserve_tag_style = 'yes'
+
     hyperlink_expected = {
         'hyperlink': 'url',
         'hyperlink_text': 'hyperlink_text',
