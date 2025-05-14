@@ -449,11 +449,12 @@ def test_hide_slide_pptx():
     assert remove.as_dict == remove_expected
     
 def test_distribute():
-    remove = cop.elements.Distribute('product_b', True)
-    remove_expected = {
-        "product_b__distribute": True
+    dist = cop.elements.ForEachInline(name='product_b', content=[], distribute=True)
+    dist_expected = {
+       "product_b": [], 
+        "product_b_distribute": True
     }
-    assert remove.as_dict == remove_expected
+    assert dist.as_dict == dist_expected
     
 def test_embed_element():
     embedElement = cop.elements.Embed("fileToEmbed","base64EncodedValue")
