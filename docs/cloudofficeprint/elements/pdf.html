@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.5">
+<meta name="generator" content="pdoc3 0.11.6">
 <title>cloudofficeprint.elements.pdf API documentation</title>
 <meta name="description" content="">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
@@ -46,6 +46,164 @@ el.replaceWith(d);
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
+<dt id="cloudofficeprint.elements.pdf.PDFComment"><code class="flex name class">
+<span>class <span class="ident">PDFComment</span></span>
+<span>(</span><span>text: str,<br>x: int,<br>y: int,<br>page: str | int = 'all',<br>bold: bool = None,<br>italic: bool = None,<br>font: str = None,<br>font_color: str = None,<br>font_size: int = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PDFComment(PDFInsertObject):
+    &#34;&#34;&#34;A free‑text comment (annotation) on a PDF page.&#34;&#34;&#34;
+    def __init__(self,
+                 text: str,
+                 x: int,
+                 y: int,
+                 page: Union[int, str] = &#34;all&#34;,
+                #  rotation: int = None,
+                 bold: bool = None,
+                 italic: bool = None,
+                 font: str = None,
+                 font_color: str = None,
+                 font_size: int = None):
+        &#34;&#34;&#34;
+        Args:
+            text (str): Text to insert.
+            x (int): X component of this object&#39;s position.
+            y (int): Y component of this object&#39;s position.
+            page (Union[int, str], optional): Page to include this object on. Either &#34;all&#34; or an integer. Defaults to &#34;all&#34;.
+            rotation (int, optional): Text rotation in degrees. Defaults to None.
+            bold (bool, optional): Whether or not the text should be in bold. Defaults to None.
+            italic (bool, optional): Whether or not the text should be in italic. Defaults to None.
+            font (str, optional): The text font name. Defaults to None.
+            font_color (str, optional): The text font color, CSS notation. Defaults to None.
+            font_size (int, optional): The text font size. Defaults to None.
+        &#34;&#34;&#34;
+        super().__init__(x, y, page)
+        self.text: str = text
+        # self.rotation: int = rotation
+        self.bold: bool = bold
+        self.italic: bool = italic
+        self.font: str = font
+        self.font_color: str = font_color
+        self.font_size: int = font_size
+
+    @staticmethod
+    def _identifier() -&gt; str:
+        return &#34;AOP_PDF_COMMENTS&#34;
+
+    @property
+    def _inner_dict(self) -&gt; Dict:
+        result = {
+            &#34;text&#34;: self.text,
+            &#34;x&#34;: self.x,
+            &#34;y&#34;: self.y
+        }
+
+        # if self.rotation is not None:
+        #     result[&#34;rotation&#34;] = self.rotation
+        if self.bold is not None:
+            result[&#34;bold&#34;] = self.bold
+        if self.italic is not None:
+            result[&#34;italic&#34;] = self.italic
+        if self.font is not None:
+            result[&#34;font&#34;] = self.font
+        if self.font_color is not None:
+            result[&#34;font_color&#34;] = self.font_color
+        if self.font_size is not None:
+            result[&#34;font_size&#34;] = self.font_size
+
+        return result</code></pre>
+</details>
+<div class="desc"><p>A free‑text comment (annotation) on a PDF page.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
+<dd>Text to insert.</dd>
+<dt><strong><code>x</code></strong> :&ensp;<code>int</code></dt>
+<dd>X component of this object's position.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>int</code></dt>
+<dd>Y component of this object's position.</dd>
+<dt><strong><code>page</code></strong> :&ensp;<code>Union[int, str]</code>, optional</dt>
+<dd>Page to include this object on. Either "all" or an integer. Defaults to "all".</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Text rotation in degrees. Defaults to None.</dd>
+<dt><strong><code>bold</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text should be in bold. Defaults to None.</dd>
+<dt><strong><code>italic</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not the text should be in italic. Defaults to None.</dd>
+<dt><strong><code>font</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The text font name. Defaults to None.</dd>
+<dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The text font color, CSS notation. Defaults to None.</dd>
+<dt><strong><code>font_size</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The text font size. Defaults to None.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.pdf.PDFInsertObject" href="#cloudofficeprint.elements.pdf.PDFInsertObject">PDFInsertObject</a></li>
+<li>abc.ABC</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.pdf.PDFComments"><code class="flex name class">
+<span>class <span class="ident">PDFComments</span></span>
+<span>(</span><span>comments: Iterable[<a title="cloudofficeprint.elements.pdf.PDFComment" href="#cloudofficeprint.elements.pdf.PDFComment">PDFComment</a>])</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PDFComments(Element):
+    &#34;&#34;&#34;Group multiple PDFComment instances into one Element.&#34;&#34;&#34;
+    def __init__(self, comments: Iterable[PDFComment]):
+        &#34;&#34;&#34;
+        Args:
+            comments (Iterable[PDFComment]): An iterable consisting of `PDFComment`-objects.
+        &#34;&#34;&#34;
+        super().__init__(PDFComment._identifier())
+        # self.comments = comments
+        self.comments: Iterable[PDFComment] = comments
+
+
+    @property
+    def as_dict(self) -&gt; Dict:
+        result = {}
+        for txt in self.comments:
+           
+            if str(txt.page) in result:
+                result[str(txt.page)].append(txt._inner_dict)
+            else:
+                result[str(txt.page)] = [txt._inner_dict]
+        return {self.name: [result]}
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset()</code></pre>
+</details>
+<div class="desc"><p>Group multiple PDFComment instances into one Element.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>comments</code></strong> :&ensp;<code>Iterable[<a title="cloudofficeprint.elements.pdf.PDFComment" href="#cloudofficeprint.elements.pdf.PDFComment">PDFComment</a>]</code></dt>
+<dd>An iterable consisting of <code><a title="cloudofficeprint.elements.pdf.PDFComment" href="#cloudofficeprint.elements.pdf.PDFComment">PDFComment</a></code>-objects.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="elements.html#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="elements.html#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Element.json" href="elements.html#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.pdf.PDFFormData"><code class="flex name class">
 <span>class <span class="ident">PDFFormData</span></span>
 <span>(</span><span>form_data: Mapping[str, str | bool])</span>
@@ -319,6 +477,7 @@ Element name is fixed and important to the server, so multiple will just overwri
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
+<li><a title="cloudofficeprint.elements.pdf.PDFComment" href="#cloudofficeprint.elements.pdf.PDFComment">PDFComment</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFImage" href="#cloudofficeprint.elements.pdf.PDFImage">PDFImage</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFText" href="#cloudofficeprint.elements.pdf.PDFText">PDFText</a></li>
 </ul>
@@ -502,6 +661,12 @@ Element name is fixed and important to the server, so multiple will just overwri
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
+<h4><code><a title="cloudofficeprint.elements.pdf.PDFComment" href="#cloudofficeprint.elements.pdf.PDFComment">PDFComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.pdf.PDFComments" href="#cloudofficeprint.elements.pdf.PDFComments">PDFComments</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.pdf.PDFFormData" href="#cloudofficeprint.elements.pdf.PDFFormData">PDFFormData</a></code></h4>
 </li>
 <li>
@@ -525,7 +690,7 @@ Element name is fixed and important to the server, so multiple will just overwri
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
 </footer>
 </body>
 </html>

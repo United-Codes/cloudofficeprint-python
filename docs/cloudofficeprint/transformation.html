@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
-<title>cloudofficeprint.own_utils.type_utils API documentation</title>
+<title>cloudofficeprint.transformation API documentation</title>
 <meta name="description" content="">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
@@ -33,7 +33,7 @@ el.replaceWith(d);
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>cloudofficeprint.own_utils.type_utils</code></h1>
+<h1 class="title">Module <code>cloudofficeprint.transformation</code></h1>
 </header>
 <section id="section-intro">
 </section>
@@ -42,109 +42,124 @@ el.replaceWith(d);
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="cloudofficeprint.own_utils.type_utils.extension_to_mimetype"><code class="name flex">
-<span>def <span class="ident">extension_to_mimetype</span></span>(<span>ext: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def extension_to_mimetype(ext: str) -&gt; str:
-    &#34;&#34;&#34;Map an extension / file type to a mime type.
-
-    Args:
-        ext (str): extension
-
-    Returns:
-        str: mime type corresponding to the extension
-    &#34;&#34;&#34;
-    # append &#34;a.&#34; because mimetypes can handle a format like &#34;filename.extension&#34;, but not just &#34;extension&#34;
-    return mimetypes.guess_type(f&#34;a.{ext}&#34;)[0]</code></pre>
-</details>
-<div class="desc"><p>Map an extension / file type to a mime type.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>ext</code></strong> :&ensp;<code>str</code></dt>
-<dd>extension</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>mime type corresponding to the extension</dd>
-</dl></div>
-</dd>
-<dt id="cloudofficeprint.own_utils.type_utils.mimetype_to_extension"><code class="name flex">
-<span>def <span class="ident">mimetype_to_extension</span></span>(<span>mimetype: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def mimetype_to_extension(mimetype: str) -&gt; str:
-    &#34;&#34;&#34;Map a mime type to an extension / file type.
-
-    Args:
-        mimetype (str): mime type
-
-    Returns:
-        str: file type / extension corresponding to the mime type
-    &#34;&#34;&#34;
-    # mimetypes returns a string in &#34;.extension&#34;, so we strip off the first character
-    return mimetypes.guess_extension(mimetype)[1:]</code></pre>
-</details>
-<div class="desc"><p>Map a mime type to an extension / file type.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>mimetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>mime type</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>file type / extension corresponding to the mime type</dd>
-</dl></div>
-</dd>
-<dt id="cloudofficeprint.own_utils.type_utils.path_to_extension"><code class="name flex">
-<span>def <span class="ident">path_to_extension</span></span>(<span>file_path: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def path_to_extension(file_path: str) -&gt; str:
-    &#34;&#34;&#34;Cut off the extension from a file path.
-
-    Example: &#34;/path/to/file.docx&#34; -&gt; &#34;docx&#34;
-
-    Args:
-        file_path (str): file path to handle
-
-    Returns:
-        str: the file&#39;s type / extension
-    &#34;&#34;&#34;
-    return path.splitext(file_path)[1][1:]</code></pre>
-</details>
-<div class="desc"><p>Cut off the extension from a file path.</p>
-<p>Example: "/path/to/file.docx" -&gt; "docx"</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>file_path</code></strong> :&ensp;<code>str</code></dt>
-<dd>file path to handle</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>the file's type / extension</dd>
-</dl></div>
-</dd>
-</dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="cloudofficeprint.transformation.TransformationFunction"><code class="flex name class">
+<span>class <span class="ident">TransformationFunction</span></span>
+<span>(</span><span>js_code: str | None = None, filename: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TransformationFunction:
+    &#34;&#34;&#34;
+   Represents a transformation function for Cloud Office Print (AOP).
+    Args:
+        js_code (str, optional): Inline JavaScript code for transformation.
+        filename (str, optional): Filename from AOP&#39;s `assets/transformation_function/` directory.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        js_code: Optional[str] = None,
+        filename: Optional[str] = None
+    ):
+        self._js_code: Optional[str] = None
+        self._filename: Optional[str] = None
+
+        if js_code is not None:
+            self.js_code = js_code
+        if filename is not None:
+            self.filename = filename
+
+    @property
+    def js_code(self) -&gt; Optional[str]:
+        return self._js_code
+
+    @js_code.setter
+    def js_code(self, code: str):
+        if self._filename is not None:
+            raise ValueError(&#34;Cannot set js_code when filename is already set&#34;)
+        if not isinstance(code, str) or not code.strip():
+            raise ValueError(&#34;js_code must be a non‑empty string&#34;)
+        self._js_code = code
+
+    @property
+    def filename(self) -&gt; Optional[str]:
+        return self._filename
+
+    @filename.setter
+    def filename(self, name: str):
+        if self._js_code is not None:
+            raise ValueError(&#34;Cannot set filename when js_code is already set&#34;)
+        if not isinstance(name, str) or not name.lower().endswith(&#34;.js&#34;):
+            raise ValueError(&#34;Filename must be a string ending with &#39;.js&#39;&#34;)
+        if &#34;/&#34; in name or &#34;\\&#34; in name:
+            raise ValueError(&#34;Filename must not include any path separators&#34;)
+        self._filename = name
+
+    def as_dict(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;
+        Return the transformation_function
+        &#34;&#34;&#34;
+        return self._js_code or self._filename</code></pre>
+</details>
+<div class="desc"><p>Represents a transformation function for Cloud Office Print (AOP).
+Args:
+js_code (str, optional): Inline JavaScript code for transformation.
+filename (str, optional): Filename from AOP's <code>assets/transformation_function/</code> directory.</p></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="cloudofficeprint.transformation.TransformationFunction.filename"><code class="name">prop <span class="ident">filename</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def filename(self) -&gt; Optional[str]:
+    return self._filename</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="cloudofficeprint.transformation.TransformationFunction.js_code"><code class="name">prop <span class="ident">js_code</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def js_code(self) -&gt; Optional[str]:
+    return self._js_code</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="cloudofficeprint.transformation.TransformationFunction.as_dict"><code class="name flex">
+<span>def <span class="ident">as_dict</span></span>(<span>self) ‑> str | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def as_dict(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;
+    Return the transformation_function
+    &#34;&#34;&#34;
+    return self._js_code or self._filename</code></pre>
+</details>
+<div class="desc"><p>Return the transformation_function</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -154,14 +169,19 @@ el.replaceWith(d);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="cloudofficeprint.own_utils" href="index.html">cloudofficeprint.own_utils</a></code></li>
+<li><code><a title="cloudofficeprint" href="index.html">cloudofficeprint</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-functions">Functions</a></h3>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="cloudofficeprint.transformation.TransformationFunction" href="#cloudofficeprint.transformation.TransformationFunction">TransformationFunction</a></code></h4>
 <ul class="">
-<li><code><a title="cloudofficeprint.own_utils.type_utils.extension_to_mimetype" href="#cloudofficeprint.own_utils.type_utils.extension_to_mimetype">extension_to_mimetype</a></code></li>
-<li><code><a title="cloudofficeprint.own_utils.type_utils.mimetype_to_extension" href="#cloudofficeprint.own_utils.type_utils.mimetype_to_extension">mimetype_to_extension</a></code></li>
-<li><code><a title="cloudofficeprint.own_utils.type_utils.path_to_extension" href="#cloudofficeprint.own_utils.type_utils.path_to_extension">path_to_extension</a></code></li>
+<li><code><a title="cloudofficeprint.transformation.TransformationFunction.as_dict" href="#cloudofficeprint.transformation.TransformationFunction.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.transformation.TransformationFunction.filename" href="#cloudofficeprint.transformation.TransformationFunction.filename">filename</a></code></li>
+<li><code><a title="cloudofficeprint.transformation.TransformationFunction.js_code" href="#cloudofficeprint.transformation.TransformationFunction.js_code">js_code</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

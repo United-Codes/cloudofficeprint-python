@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.5">
+<meta name="generator" content="pdoc3 0.11.6">
 <title>cloudofficeprint.elements.images API documentation</title>
 <meta name="description" content="">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
@@ -48,7 +48,7 @@ el.replaceWith(d);
 <dl>
 <dt id="cloudofficeprint.elements.images.Image"><code class="flex name class">
 <span>class <span class="ident">Image</span></span>
-<span>(</span><span>name: str,<br>source: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None)</span>
+<span>(</span><span>name: str,<br>source: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None,<br>density: int = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -69,7 +69,9 @@ el.replaceWith(d);
                  transparency: Union[int, str]=None,
                  url: str=None,
                  width: Union[int, str]=None,
-                 height: Union[int, str]=None):
+                 height: Union[int, str] = None,
+                 density: int = None
+                 ):
         &#34;&#34;&#34;
         Args:
             name (str): The name of the image element.
@@ -88,6 +90,7 @@ el.replaceWith(d);
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int):The density to use for svg to png conversion.
         &#34;&#34;&#34;
         super().__init__(name)
         self.source: str = source
@@ -100,6 +103,10 @@ el.replaceWith(d);
         self.url: str = url
         self.width: Union[int, str] = width
         self.height: Union[int, str] = height
+        if density is not None and density &gt; 1200:
+            self.density = 1200
+        else:
+            self.density = density
 
     @property
     def alt_text(self) -&gt; str:
@@ -186,6 +193,8 @@ el.replaceWith(d);
             result[&#34;_width&#34;] = self.width
         if self.height is not None:
             result[&#34;_height&#34;] = self.height
+        if self.density is not None:
+            result[&#34;_density&#34;] = self.density
 
         return result
 
@@ -211,7 +220,8 @@ el.replaceWith(d);
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a local file.
 
@@ -232,6 +242,7 @@ el.replaceWith(d);
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int): The density to use for svg to png conversion.
 
         Returns:
             Image: the generated Image object from a local file
@@ -248,6 +259,7 @@ el.replaceWith(d);
             url,
             width,
             height,
+            min(density, 1200) if density is not None else None
         )
 
     @staticmethod
@@ -262,7 +274,8 @@ el.replaceWith(d);
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from raw data.
 
@@ -283,7 +296,7 @@ el.replaceWith(d);
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
-
+            density (int): The density to use for svg to png conversion.
         Returns:
             Image: the generated Image object from raw data
         &#34;&#34;&#34;
@@ -299,6 +312,7 @@ el.replaceWith(d);
             url,
             width,
             height,
+            density,
         )
 
     @staticmethod
@@ -313,7 +327,8 @@ el.replaceWith(d);
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a base64 string.
 
@@ -334,6 +349,8 @@ el.replaceWith(d);
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int):The density to use for svg to png conversion.
+
 
         Returns:
             Image: the generated Image object from a base64 string
@@ -350,6 +367,7 @@ el.replaceWith(d);
             url,
             width,
             height,
+            min(density, 1200) if density is not None else None
         )
 
     @staticmethod
@@ -364,7 +382,8 @@ el.replaceWith(d);
             transparency: Union[int, str]=None,
             url: str=None,
             width: Union[int, str]=None,
-            height: Union[int, str]=None
+            height: Union[int, str]=None,
+            density: int = None
         ) -&gt; &#39;Image&#39;:
         &#34;&#34;&#34;Generate an Image object from a URL.
 
@@ -385,6 +404,7 @@ el.replaceWith(d);
             url (str): The URL to load when the image is clicked.
             width (Union[int, str]): The width of the image (for non-proportional scaling).
             height (Union[int, str]): The height of the image (for non-proportional scaling).
+            density (int):The density to use for svg to png conversion.
 
         Returns:
             Image: the generated Image object from a URL
@@ -401,6 +421,7 @@ el.replaceWith(d);
             url,
             width,
             height,
+            min(density, 1200) if density is not None else None
         )</code></pre>
 </details>
 <div class="desc"><p>The class for image elements.</p>
@@ -433,7 +454,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
-</dl></div>
+</dl>
+<p>density (int):The density to use for svg to png conversion.</p></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></li>
@@ -442,7 +464,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <h3>Static methods</h3>
 <dl>
 <dt id="cloudofficeprint.elements.images.Image.from_base64"><code class="name flex">
-<span>def <span class="ident">from_base64</span></span>(<span>name: str,<br>base64str: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_base64</span></span>(<span>name: str,<br>base64str: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None,<br>density: int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -461,7 +483,8 @@ def from_base64(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        density: int = None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from a base64 string.
 
@@ -482,6 +505,8 @@ def from_base64(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        density (int):The density to use for svg to png conversion.
+
 
     Returns:
         Image: the generated Image object from a base64 string
@@ -498,6 +523,7 @@ def from_base64(
         url,
         width,
         height,
+        min(density, 1200) if density is not None else None
     )</code></pre>
 </details>
 <div class="desc"><p>Generate an Image object from a base64 string.</p>
@@ -531,6 +557,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
 </dl>
+<p>density (int):The density to use for svg to png conversion.</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></code></dt>
@@ -538,7 +565,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 </dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_file"><code class="name flex">
-<span>def <span class="ident">from_file</span></span>(<span>name: str,<br>path: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_file</span></span>(<span>name: str,<br>path: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None,<br>density: int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -557,7 +584,8 @@ def from_file(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        density: int = None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from a local file.
 
@@ -578,6 +606,7 @@ def from_file(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        density (int): The density to use for svg to png conversion.
 
     Returns:
         Image: the generated Image object from a local file
@@ -594,6 +623,7 @@ def from_file(
         url,
         width,
         height,
+        min(density, 1200) if density is not None else None
     )</code></pre>
 </details>
 <div class="desc"><p>Generate an Image object from a local file.</p>
@@ -626,6 +656,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>density</code></strong> :&ensp;<code>int</code></dt>
+<dd>The density to use for svg to png conversion.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -634,7 +666,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 </dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_raw"><code class="name flex">
-<span>def <span class="ident">from_raw</span></span>(<span>name: str,<br>data: bytes,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_raw</span></span>(<span>name: str,<br>data: bytes,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None,<br>density: int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -653,7 +685,8 @@ def from_raw(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        density: int = None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from raw data.
 
@@ -674,7 +707,7 @@ def from_raw(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
-
+        density (int): The density to use for svg to png conversion.
     Returns:
         Image: the generated Image object from raw data
     &#34;&#34;&#34;
@@ -690,6 +723,7 @@ def from_raw(
         url,
         width,
         height,
+        density,
     )</code></pre>
 </details>
 <div class="desc"><p>Generate an Image object from raw data.</p>
@@ -722,6 +756,8 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dd>The width of the image (for non-proportional scaling).</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
+<dt><strong><code>density</code></strong> :&ensp;<code>int</code></dt>
+<dd>The density to use for svg to png conversion.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -730,7 +766,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 </dl></div>
 </dd>
 <dt id="cloudofficeprint.elements.images.Image.from_url"><code class="name flex">
-<span>def <span class="ident">from_url</span></span>(<span>name: str,<br>url_source: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
+<span>def <span class="ident">from_url</span></span>(<span>name: str,<br>url_source: str,<br>max_width: str | int = None,<br>max_height: str | int = None,<br>alt_text: str = None,<br>wrap_text: str = None,<br>rotation: int = None,<br>transparency: str | int = None,<br>url: str = None,<br>width: str | int = None,<br>height: str | int = None,<br>density: int = None) ‑> <a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -749,7 +785,8 @@ def from_url(
         transparency: Union[int, str]=None,
         url: str=None,
         width: Union[int, str]=None,
-        height: Union[int, str]=None
+        height: Union[int, str]=None,
+        density: int = None
     ) -&gt; &#39;Image&#39;:
     &#34;&#34;&#34;Generate an Image object from a URL.
 
@@ -770,6 +807,7 @@ def from_url(
         url (str): The URL to load when the image is clicked.
         width (Union[int, str]): The width of the image (for non-proportional scaling).
         height (Union[int, str]): The height of the image (for non-proportional scaling).
+        density (int):The density to use for svg to png conversion.
 
     Returns:
         Image: the generated Image object from a URL
@@ -786,6 +824,7 @@ def from_url(
         url,
         width,
         height,
+        min(density, 1200) if density is not None else None
     )</code></pre>
 </details>
 <div class="desc"><p>Generate an Image object from a URL.</p>
@@ -819,6 +858,7 @@ In Front of Text : In order to use this property, wrap option should be "front".
 <dt><strong><code>height</code></strong> :&ensp;<code>Union[int, str]</code></dt>
 <dd>The height of the image (for non-proportional scaling).</dd>
 </dl>
+<p>density (int):The density to use for svg to png conversion.</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code><a title="cloudofficeprint.elements.images.Image" href="#cloudofficeprint.elements.images.Image">Image</a></code></dt>
@@ -939,7 +979,7 @@ def wrap_text(self) -&gt; str:
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
 </footer>
 </body>
 </html>

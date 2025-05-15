@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.5">
+<meta name="generator" content="pdoc3 0.11.6">
 <title>cloudofficeprint API documentation</title>
 <meta name="description" content="This Python package provides a programmatic interface with a [Cloud Office Print](https://www.cloudofficeprint.com) server …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
@@ -141,6 +141,10 @@ except cop.exceptions.COPError as err:
 <dd>
 <div class="desc"></div>
 </dd>
+<dt><code class="name"><a title="cloudofficeprint.transformation" href="transformation.html">cloudofficeprint.transformation</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 </dl>
 </section>
 <section>
@@ -152,7 +156,7 @@ except cop.exceptions.COPError as err:
 <dl>
 <dt id="cloudofficeprint.PrintJob"><code class="flex name class">
 <span>class <span class="ident">PrintJob</span></span>
-<span>(</span><span>data: <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a> | Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>] | <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>,<br>server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>,<br>template: <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a> | <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a> = None,<br>output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;,<br>subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {},<br>prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>cop_verbose: bool = False,<br>attachments: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [])</span>
+<span>(</span><span>data: <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a> | Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements/elements.html#cloudofficeprint.elements.elements.Element">Element</a>] | <a title="cloudofficeprint.elements.rest_source.RESTSource" href="elements/rest_source.html#cloudofficeprint.elements.rest_source.RESTSource">RESTSource</a>,<br>server: <a title="cloudofficeprint.config.server.Server" href="config/server.html#cloudofficeprint.config.server.Server">Server</a>,<br>template: <a title="cloudofficeprint.template.Template" href="template.html#cloudofficeprint.template.Template">Template</a> | <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a> = None,<br>output_config: <a title="cloudofficeprint.config.output.OutputConfig" href="config/output.html#cloudofficeprint.config.output.OutputConfig">OutputConfig</a> = &lt;cloudofficeprint.config.output.OutputConfig object&gt;,<br>subtemplates: Dict[str, <a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = {},<br>prepend_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>append_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>compare_files: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>cop_verbose: bool = False,<br>attachments: List[<a title="cloudofficeprint.resource.Resource" href="resource.html#cloudofficeprint.resource.Resource">Resource</a>] = [],<br>transformation_function: <a title="cloudofficeprint.transformation.TransformationFunction" href="transformation.html#cloudofficeprint.transformation.TransformationFunction">TransformationFunction</a> | None = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -175,8 +179,10 @@ except cop.exceptions.COPError as err:
         subtemplates: Dict[str, Resource] = {},
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
+        compare_files: List[Resource] = [],
         cop_verbose: bool = False,
         attachments : List[Resource] = [],
+        transformation_function: Optional[TransformationFunction] = None,
     ):
         &#34;&#34;&#34;
         Args:
@@ -187,6 +193,7 @@ except cop.exceptions.COPError as err:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
+            compare_files (List[Resource], optional): Files to compare with the output file. Defaults to [].
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
             attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
         &#34;&#34;&#34;
@@ -195,8 +202,10 @@ except cop.exceptions.COPError as err:
         self.output_config: OutputConfig = output_config
         self.template: Union[Template, Resource] = template
         self.subtemplates: Dict[str, Resource] = subtemplates
+        self.transformation_function = transformation_function
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
+        self.compare_files: List[Resource] = compare_files
         self.cop_verbose: bool = cop_verbose
         self.attachments: List[Resource] = attachments
 
@@ -366,6 +375,12 @@ except cop.exceptions.COPError as err:
             result[&#34;append_files&#34;] = [
                 file.secondary_file_dict for file in self.append_files
             ]
+        
+        if len(self.compare_files) &gt; 0:
+            result[&#34;compare_files&#34;] = [
+                file.secondary_file_dict for file in self.compare_files
+        ]
+            
         if len(self.attachments) &gt; 0:
             result[&#34;attachments&#34;] = [
                 file.secondary_file_dict for file in self.attachments
@@ -377,7 +392,10 @@ except cop.exceptions.COPError as err:
                 for name, file in self.subtemplates.items()
             ]
 
-        # If verbose mode is activated, print the result to the terminal
+        if self.transformation_function is not None:
+         result[&#34;transformation_function&#34;] = self.transformation_function.as_dict()
+         
+
         if self.cop_verbose:
             print(&#34;The JSON data that is sent to the Cloud Office Print server:\n&#34;)
             pprint(result)
@@ -403,6 +421,8 @@ and the <code><a title="cloudofficeprint.PrintJob.execute" href="#cloudofficepri
 <dd>Files to prepend to the output file. Defaults to [].</dd>
 <dt><strong><code>append_files</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
 <dd>Files to append to the output file. Defaults to [].</dd>
+<dt><strong><code>compare_files</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
+<dd>Files to compare with the output file. Defaults to [].</dd>
 <dt><strong><code>cop_verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether or not verbose mode should be activated. Defaults to False.</dd>
 <dt><strong><code>attachments</code></strong> :&ensp;<code>List[<a title="cloudofficeprint.Resource" href="#cloudofficeprint.Resource">Resource</a>]</code>, optional</dt>
@@ -557,6 +577,12 @@ def as_dict(self) -&gt; Dict:
         result[&#34;append_files&#34;] = [
             file.secondary_file_dict for file in self.append_files
         ]
+    
+    if len(self.compare_files) &gt; 0:
+        result[&#34;compare_files&#34;] = [
+            file.secondary_file_dict for file in self.compare_files
+    ]
+        
     if len(self.attachments) &gt; 0:
         result[&#34;attachments&#34;] = [
             file.secondary_file_dict for file in self.attachments
@@ -568,7 +594,10 @@ def as_dict(self) -&gt; Dict:
             for name, file in self.subtemplates.items()
         ]
 
-    # If verbose mode is activated, print the result to the terminal
+    if self.transformation_function is not None:
+     result[&#34;transformation_function&#34;] = self.transformation_function.as_dict()
+     
+
     if self.cop_verbose:
         print(&#34;The JSON data that is sent to the Cloud Office Print server:\n&#34;)
         pprint(result)
@@ -2274,6 +2303,7 @@ On the next request to the server, the file data will not be sent, only the hash
 <li><code><a title="cloudofficeprint.resource" href="resource.html">cloudofficeprint.resource</a></code></li>
 <li><code><a title="cloudofficeprint.response" href="response.html">cloudofficeprint.response</a></code></li>
 <li><code><a title="cloudofficeprint.template" href="template.html">cloudofficeprint.template</a></code></li>
+<li><code><a title="cloudofficeprint.transformation" href="transformation.html">cloudofficeprint.transformation</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
@@ -2337,7 +2367,7 @@ On the next request to the server, the file data will not be sent, only the hash
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
 </footer>
 </body>
 </html>

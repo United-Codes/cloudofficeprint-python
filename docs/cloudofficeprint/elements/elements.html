@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.5">
+<meta name="generator" content="pdoc3 0.11.6">
 <title>cloudofficeprint.elements.elements API documentation</title>
 <meta name="description" content="">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
@@ -1130,58 +1130,6 @@ optional</dt>
 </li>
 </ul>
 </dd>
-<dt id="cloudofficeprint.elements.elements.Distribute"><code class="flex name class">
-<span>class <span class="ident">Distribute</span></span>
-<span>(</span><span>name: str, value: bool)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Distribute(Property):
-    &#34;&#34;&#34;Allows to distribute the data evenly among the columns in horizontal loop
-    &#34;&#34;&#34;
-    def __init__(self, name: str, value: bool):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name of data.
-            value (bool): True (to hide) or False
-            The document should be, docx.
-        &#34;&#34;&#34;
-        super().__init__(name, value)
-    
-    @property
-    def as_dict(self) -&gt; Dict:
-        result = {self.name + &#34;_distribute&#34;: self.value}
-        return result</code></pre>
-</details>
-<div class="desc"><p>Allows to distribute the data evenly among the columns in horizontal loop</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name of data.</dd>
-<dt><strong><code>value</code></strong> :&ensp;<code>bool</code></dt>
-<dd>True (to hide) or False</dd>
-</dl>
-<p>The document should be, docx.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
-<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
-<li>abc.ABC</li>
-</ul>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
-<ul class="hlist">
-<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
-<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
-<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
-</ul>
-</li>
-</ul>
-</dd>
 <dt id="cloudofficeprint.elements.elements.Element"><code class="flex name class">
 <span>class <span class="ident">Element</span></span>
 <span>(</span><span>name: str)</span>
@@ -1275,8 +1223,12 @@ optional</dt>
 <li><a title="cloudofficeprint.elements.elements.TableOfContents" href="#cloudofficeprint.elements.elements.TableOfContents">TableOfContents</a></li>
 <li><a title="cloudofficeprint.elements.elements.TextBox" href="#cloudofficeprint.elements.elements.TextBox">TextBox</a></li>
 <li><a title="cloudofficeprint.elements.elements.ValidateCell" href="#cloudofficeprint.elements.elements.ValidateCell">ValidateCell</a></li>
+<li><a title="cloudofficeprint.elements.form.Checkbox" href="form.html#cloudofficeprint.elements.form.Checkbox">Checkbox</a></li>
+<li><a title="cloudofficeprint.elements.form.RadioButton" href="form.html#cloudofficeprint.elements.form.RadioButton">RadioButton</a></li>
+<li><a title="cloudofficeprint.elements.form.Textbox" href="form.html#cloudofficeprint.elements.form.Textbox">Textbox</a></li>
 <li><a title="cloudofficeprint.elements.images.Image" href="images.html#cloudofficeprint.elements.images.Image">Image</a></li>
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="loops.html#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
+<li><a title="cloudofficeprint.elements.pdf.PDFComments" href="pdf.html#cloudofficeprint.elements.pdf.PDFComments">PDFComments</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFFormData" href="pdf.html#cloudofficeprint.elements.pdf.PDFFormData">PDFFormData</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFImages" href="pdf.html#cloudofficeprint.elements.pdf.PDFImages">PDFImages</a></li>
 <li><a title="cloudofficeprint.elements.pdf.PDFTexts" href="pdf.html#cloudofficeprint.elements.pdf.PDFTexts">PDFTexts</a></li>
@@ -2320,7 +2272,9 @@ LIMITATION: using _hide for slide hide is that it can only be used for hiding sl
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
-        return frozenset({&#34;{?insert &#34; + self.name + &#34;}&#34;})</code></pre>
+        return frozenset({&#34;{?insert &#34; + self.name + &#34;}&#34;})
+    
+    #pdfinclude</code></pre>
 </details>
 <div class="desc"><p>Inside Word and PowerPoint and Excel documents, the tag {?insert fileToInsert} can be used to insert files like Word, Excel, Powerpoint and PDF documents.
 Please use <code><a title="cloudofficeprint.elements.elements.ExcelInsert" href="#cloudofficeprint.elements.elements.ExcelInsert">ExcelInsert</a></code> element to insert in excel with more flexibility.</p>
@@ -2534,9 +2488,63 @@ If set to True (default) it will create a pagebreak.</dd>
 </li>
 </ul>
 </dd>
+<dt id="cloudofficeprint.elements.elements.PdfInclude"><code class="flex name class">
+<span>class <span class="ident">PdfInclude</span></span>
+<span>(</span><span>name: str, value: str)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PdfInclude(Property):
+    &#34;&#34;&#34;Inside Word and PowerPoint and Excel documents, the tag {?include pdf } can be used to include files like Word, Excel, Powerpoint and PDF documents.
+    Please use `ExcelInsert` element to insert in excel with more flexibility.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the insert tag.
+            value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
+            The document can be docx, pptx, xlsx, or pdf documents.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{?pdfinclude &#34; + self.name + &#34;}&#34;})</code></pre>
+</details>
+<div class="desc"><p>Inside Word and PowerPoint and Excel documents, the tag {?include pdf } can be used to include files like Word, Excel, Powerpoint and PDF documents.
+Please use <code><a title="cloudofficeprint.elements.elements.ExcelInsert" href="#cloudofficeprint.elements.elements.ExcelInsert">ExcelInsert</a></code> element to insert in excel with more flexibility.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the insert tag.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>Base64 encoded document that needs to be inserted in output docx or pptx.</dd>
+</dl>
+<p>The document can be docx, pptx, xlsx, or pdf documents.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="cloudofficeprint.elements.elements.PptxAutoLink"><code class="flex name class">
 <span>class <span class="ident">PptxAutoLink</span></span>
-<span>(</span><span>name: str,<br>value: str,<br>font_color: str = None,<br>underline_color: str = None,<br>preserve_tag_style: str | bool = None)</span>
+<span>(</span><span>name: str, value: str)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -2548,20 +2556,19 @@ If set to True (default) it will create a pagebreak.</dd>
     This class offers additional options specifically designed for use in PPTX files compared to standard AutoLink class
     &#34;&#34;&#34;
 
-    def __init__(self, name: str, value: str, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+    def __init__(self, name: str, value: str):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
-            font_color (str, optional): The font color of autolink.
-            underline_color (str, optional): The underline color of autolink.
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
+            font_color (str, optional): The font color of autolink (optional).
+            underline_color (str, optional): The underline color of autolink (optional).
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default) (optional).
         &#34;&#34;&#34;
         super().__init__(name, value)
-        self.value: str = value
-        self.font_color: str = font_color
-        self.underline_color: str = underline_color
-        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
+        self.font_color:     Union[str, None] = None  
+        self.underline_color: Union[str, None] = None
+        self.preserve_tag_style: Union[str, bool, None] = None
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
@@ -2588,11 +2595,11 @@ This class offers additional options specifically designed for use in PPTX files
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>The value of the autoLink.</dd>
 <dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The font color of autolink.</dd>
+<dd>The font color of autolink (optional).</dd>
 <dt><strong><code>underline_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The underline color of autolink.</dd>
+<dd>The underline color of autolink (optional).</dd>
 <dt><strong><code>preserve_tag_style</code></strong> :&ensp;<code>str</code> or <code>bool</code>, optional</dt>
-<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default).</dd>
+<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default) (optional).</dd>
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -2613,7 +2620,7 @@ This class offers additional options specifically designed for use in PPTX files
 </dd>
 <dt id="cloudofficeprint.elements.elements.PptxHyperlink"><code class="flex name class">
 <span>class <span class="ident">PptxHyperlink</span></span>
-<span>(</span><span>name: str,<br>url: str,<br>text: str = None,<br>font_color: str = None,<br>underline_color: str = None,<br>preserve_tag_style: str | bool = None)</span>
+<span>(</span><span>name: str, url: str)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -2624,22 +2631,22 @@ This class offers additional options specifically designed for use in PPTX files
     &#34;&#34;&#34;Inside PPTX it is possible to specify font color underline color for HyperLinks.
      This class offers additional options specifically designed for use in PPTX files compared to standard HyperLink class
     &#34;&#34;&#34;
-    def __init__(self, name: str, url: str, text: str = None, font_color: str = None, underline_color: str = None, preserve_tag_style: Union[str, bool] = None):
+    def __init__(self, name: str, url: str):
         &#34;&#34;&#34;
         Args:
             name (str): The name for this element.
             url (str): The URL for the hyperlink.
-            text (str, optional): The text for the hyperlink. Defaults to None.
-            font_color (str, optional): The font color of text for hyperlink.
-            underline_color (str, optional): The underline color of text for hyperlink.
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
+            text (str, optional): The text for the hyperlink. Defaults to None. ( optional)
+            font_color (str, optional): The font color of text for hyperlink. ( optional)
+            underline_color (str, optional): The underline color of text for hyperlink. ( optional)
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default). ( optional)
         &#34;&#34;&#34;
         super().__init__(name)
         self.url: str = url
-        self.text: str = text
-        self.font_color: str = font_color
-        self.underline_color: str = underline_color
-        self.preserve_tag_style: Union[str, bool] = preserve_tag_style
+        self.text: Union[str, None] = None
+        self.font_color: Union[str, None] = None
+        self.underline_color: Union[str, None] = None
+        self.preserve_tag_style: Union[str, bool, None] = None
 
     @property
     def available_tags(self) -&gt; FrozenSet[str]:
@@ -2669,13 +2676,13 @@ This class offers additional options specifically designed for use in PPTX files
 <dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
 <dd>The URL for the hyperlink.</dd>
 <dt><strong><code>text</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The text for the hyperlink. Defaults to None.</dd>
+<dd>The text for the hyperlink. Defaults to None. ( optional)</dd>
 <dt><strong><code>font_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The font color of text for hyperlink.</dd>
+<dd>The font color of text for hyperlink. ( optional)</dd>
 <dt><strong><code>underline_color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>The underline color of text for hyperlink.</dd>
+<dd>The underline color of text for hyperlink. ( optional)</dd>
 <dt><strong><code>preserve_tag_style</code></strong> :&ensp;<code>str</code> or <code>bool</code>, optional</dt>
-<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default).</dd>
+<dd>Take the styling of hyperlink text defined in the template (blue and underlined by default). ( optional)</dd>
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -2689,6 +2696,59 @@ This class offers additional options specifically designed for use in PPTX files
 <li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Element.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
 <li><code><a title="cloudofficeprint.elements.elements.Element.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.elements.PptxShapeRemove"><code class="flex name class">
+<span>class <span class="ident">PptxShapeRemove</span></span>
+<span>(</span><span>name: str, value: str | bool)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PptxShapeRemove(Property):
+    &#34;&#34;&#34;Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 
+    the value of toShow is false or undefined, the entire shape will be removed from the slide.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, value:  Union[bool, str]):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for the remove tag.
+            value (bool or string): False (to remove the shape / text-box) or string/True
+            The document should be, pptx.
+        &#34;&#34;&#34;
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -&gt; FrozenSet[str]:
+        return frozenset({&#34;{ &#34; + self.name + &#34;?&#34; + &#34;}&#34;})</code></pre>
+</details>
+<div class="desc"><p>Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and
+the value of toShow is false or undefined, the entire shape will be removed from the slide.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for the remove tag.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>bool</code> or <code>string</code></dt>
+<dd>False (to remove the shape / text-box) or string/True</dd>
+</dl>
+<p>The document should be, pptx.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
 </ul>
 </li>
 </ul>
@@ -2745,7 +2805,6 @@ but this can be of any type, for example a dict.</dd>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.elements.AutoLink" href="#cloudofficeprint.elements.elements.AutoLink">AutoLink</a></li>
 <li><a title="cloudofficeprint.elements.elements.CellStyleProperty" href="#cloudofficeprint.elements.elements.CellStyleProperty">CellStyleProperty</a></li>
-<li><a title="cloudofficeprint.elements.elements.Distribute" href="#cloudofficeprint.elements.elements.Distribute">Distribute</a></li>
 <li><a title="cloudofficeprint.elements.elements.Embed" href="#cloudofficeprint.elements.elements.Embed">Embed</a></li>
 <li><a title="cloudofficeprint.elements.elements.FootNote" href="#cloudofficeprint.elements.elements.FootNote">FootNote</a></li>
 <li><a title="cloudofficeprint.elements.elements.Formula" href="#cloudofficeprint.elements.elements.Formula">Formula</a></li>
@@ -2756,9 +2815,10 @@ but this can be of any type, for example a dict.</dd>
 <li><a title="cloudofficeprint.elements.elements.Link" href="#cloudofficeprint.elements.elements.Link">Link</a></li>
 <li><a title="cloudofficeprint.elements.elements.MarkdownContent" href="#cloudofficeprint.elements.elements.MarkdownContent">MarkdownContent</a></li>
 <li><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></li>
+<li><a title="cloudofficeprint.elements.elements.PdfInclude" href="#cloudofficeprint.elements.elements.PdfInclude">PdfInclude</a></li>
 <li><a title="cloudofficeprint.elements.elements.PptxAutoLink" href="#cloudofficeprint.elements.elements.PptxAutoLink">PptxAutoLink</a></li>
+<li><a title="cloudofficeprint.elements.elements.PptxShapeRemove" href="#cloudofficeprint.elements.elements.PptxShapeRemove">PptxShapeRemove</a></li>
 <li><a title="cloudofficeprint.elements.elements.Raw" href="#cloudofficeprint.elements.elements.Raw">Raw</a></li>
-<li><a title="cloudofficeprint.elements.elements.Remove" href="#cloudofficeprint.elements.elements.Remove">Remove</a></li>
 <li><a title="cloudofficeprint.elements.elements.RightToLeft" href="#cloudofficeprint.elements.elements.RightToLeft">RightToLeft</a></li>
 <li><a title="cloudofficeprint.elements.elements.Span" href="#cloudofficeprint.elements.elements.Span">Span</a></li>
 <li><a title="cloudofficeprint.elements.elements.StyledProperty" href="#cloudofficeprint.elements.elements.StyledProperty">StyledProperty</a></li>
@@ -2806,59 +2866,6 @@ but this can be of any type, for example a dict.</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>The value for this property.</dd>
 </dl></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
-<li><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></li>
-<li>abc.ABC</li>
-</ul>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></b></code>:
-<ul class="hlist">
-<li><code><a title="cloudofficeprint.elements.elements.Property.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
-<li><code><a title="cloudofficeprint.elements.elements.Property.available_tags" href="#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
-<li><code><a title="cloudofficeprint.elements.elements.Property.json" href="#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
-</ul>
-</li>
-</ul>
-</dd>
-<dt id="cloudofficeprint.elements.elements.Remove"><code class="flex name class">
-<span>class <span class="ident">Remove</span></span>
-<span>(</span><span>name: str, value: str | bool)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Remove(Property):
-    &#34;&#34;&#34;Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 
-    the value of toShow is false or undefined, the entire shape will be removed from the slide.
-    &#34;&#34;&#34;
-    def __init__(self, name: str, value:  Union[bool, str]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for the remove tag.
-            value (bool or string): False (to remove the shape / text-box) or string/True
-            The document should be, pptx.
-        &#34;&#34;&#34;
-        super().__init__(name, value)
-
-    @property
-    def available_tags(self) -&gt; FrozenSet[str]:
-        return frozenset({&#34;{ &#34; + self.name + &#34;?&#34; + &#34;}&#34;})</code></pre>
-</details>
-<div class="desc"><p>Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and
-the value of toShow is false or undefined, the entire shape will be removed from the slide.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for the remove tag.</dd>
-<dt><strong><code>value</code></strong> :&ensp;<code>bool</code> or <code>string</code></dt>
-<dd>False (to remove the shape / text-box) or string/True</dd>
-</dl>
-<p>The document should be, pptx.</p></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></li>
@@ -3764,9 +3771,6 @@ the value of toShow is false or undefined, the entire shape will be removed from
 <h4><code><a title="cloudofficeprint.elements.elements.D3Code" href="#cloudofficeprint.elements.elements.D3Code">D3Code</a></code></h4>
 </li>
 <li>
-<h4><code><a title="cloudofficeprint.elements.elements.Distribute" href="#cloudofficeprint.elements.elements.Distribute">Distribute</a></code></h4>
-</li>
-<li>
 <h4><code><a title="cloudofficeprint.elements.elements.Element" href="#cloudofficeprint.elements.elements.Element">Element</a></code></h4>
 <ul class="">
 <li><code><a title="cloudofficeprint.elements.elements.Element.as_dict" href="#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
@@ -3825,19 +3829,22 @@ the value of toShow is false or undefined, the entire shape will be removed from
 <h4><code><a title="cloudofficeprint.elements.elements.PageBreak" href="#cloudofficeprint.elements.elements.PageBreak">PageBreak</a></code></h4>
 </li>
 <li>
+<h4><code><a title="cloudofficeprint.elements.elements.PdfInclude" href="#cloudofficeprint.elements.elements.PdfInclude">PdfInclude</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.elements.PptxAutoLink" href="#cloudofficeprint.elements.elements.PptxAutoLink">PptxAutoLink</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.PptxHyperlink" href="#cloudofficeprint.elements.elements.PptxHyperlink">PptxHyperlink</a></code></h4>
 </li>
 <li>
+<h4><code><a title="cloudofficeprint.elements.elements.PptxShapeRemove" href="#cloudofficeprint.elements.elements.PptxShapeRemove">PptxShapeRemove</a></code></h4>
+</li>
+<li>
 <h4><code><a title="cloudofficeprint.elements.elements.Property" href="#cloudofficeprint.elements.elements.Property">Property</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.Raw" href="#cloudofficeprint.elements.elements.Raw">Raw</a></code></h4>
-</li>
-<li>
-<h4><code><a title="cloudofficeprint.elements.elements.Remove" href="#cloudofficeprint.elements.elements.Remove">Remove</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.elements.RightToLeft" href="#cloudofficeprint.elements.elements.RightToLeft">RightToLeft</a></code></h4>
@@ -3869,7 +3876,7 @@ the value of toShow is false or undefined, the entire shape will be removed from
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
 </footer>
 </body>
 </html>
