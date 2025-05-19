@@ -273,7 +273,7 @@ class CellStyleXlsx(CellStyle):
             text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
             text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
             text_rotation (Union[int, str], optional): Rotation of text value from 0-90 degrees. Defaults to None.
-            wrap_text (bool, optional): Set to true for wrap text. The default is false.
+            wrap_text (bool, optional): Set to true for wrap text. When false (default )S,the property won't be included in the output.
             width (Union[int, str],  optional): Provide a custom width to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
             height (Union[int, str],  optional): Provide custom height to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
             max_characters (Union[int, str],  optional): Provide width for the cell.
@@ -371,7 +371,7 @@ class CellStyleXlsx(CellStyle):
             result["_text_v_alignment"] = self.text_v_alignment
         if self.text_rotation is not None:
             result["_text_rotation"] = self.text_rotation
-        if self.wrap_text is not None:
+        if self.wrap_text is True:
             result["_wrap_text"] = self.wrap_text
         if self.width is not None:
             result["_width"] = self.width
