@@ -199,7 +199,7 @@ def test_pptx_autoLink():
 
 
 def test_pptx_hyperlink():
-    hyperlink = cop.elements.PptxHyperlink(
+    hyperlink = cop.elements.Hyperlink(
         name='hyperlink',
         url='url'
     )
