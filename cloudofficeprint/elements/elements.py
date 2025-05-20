@@ -576,55 +576,45 @@ class FootNote(Property):
 
 
 class AutoLink(Property):
-    """ This tag allows you to insert text into the document detecting links. 
+    """ This tag allows you to insert text into the document detecting links.
+       For PPTX templates, additional styling options are available including:
+    - Custom font color for hyperlinks
+    - Custom underline color
+    - Option to preserve template styling
     """
 
-    def __init__(self, name: str, value: str):
+    def __init__(self, 
+                 name: str, 
+                 value: str,
+                 font_color: Union[str, None] = None,
+                 underline_color: Union[str, None] = None,
+                 preserve_tag_style: Union[bool, str, None] = None):
         """
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
+            font_color (str, optional): PPTX-only The font color of autolink.
+            underline_color (str, optional): The underline color of autolink.
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
         """
         super().__init__(name, value)
         self.value: str = value
+        self.font_color = font_color
+        self.underline_color = underline_color
+        self.preserve_tag_style = preserve_tag_style
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{*auto " + self.name + "}"})
-    
-class PptxAutoLink(Property):
-    """Inside PPTX it is possible to specify font color underline color for AutoLinks.
-    This class offers additional options specifically designed for use in PPTX files compared to standard AutoLink class
-    """
-
-    def __init__(self, name: str, value: str):
-        """
-        Args:
-            name (str): The name for this element.
-            value (str): The value of the autoLink.
-            font_color (str, optional): The font color of autolink (optional).
-            underline_color (str, optional): The underline color of autolink (optional).
-            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default) (optional).
-        """
-        super().__init__(name, value)
-        self.font_color:     Union[str, None] = None  
-        self.underline_color: Union[str, None] = None
-        self.preserve_tag_style: Union[str, bool, None] = None
-
     @property
-    def available_tags(self) -> FrozenSet[str]:
-        return frozenset({"{*auto " + self.name + "}"})
-    
-    @property
-    def as_dict(self) -> Dict:
-        result = {self.name: self.value}
-
+    def as_dict(self) -> Dict :
+        result ={self.name:self.value}
         if self.font_color is not None:
-            result[self.name + "_font_color"] = self.font_color
+            result[f"{self.name}_font_color"] = self.font_color
         if self.underline_color is not None:
-            result[self.name + "_underline_color"] = self.underline_color
+            result[f"{self.name}_underline_color"] = self.underline_color
         if self.preserve_tag_style is not None:
-            result[self.name + "_preserve_tag_style"] = self.preserve_tag_style
+            result[f"{self.name}_preserve_tag_style"] = self.preserve_tag_style
         return result
     
 class Hyperlink(Element):

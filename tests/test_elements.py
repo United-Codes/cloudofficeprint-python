@@ -180,7 +180,7 @@ def test_cell_style_property_xlsx():
 
 
 def test_pptx_autoLink():
-    autoLink = cop.elements.PptxAutoLink(
+    autoLink = cop.elements.AutoLink(
         name='autoLink',
         value='sample text with hyperlinks'
     )
