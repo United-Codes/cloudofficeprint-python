@@ -124,7 +124,7 @@ class ForEachInline(ForEach):
     Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
     repeats the cells defined by the rectangular boundary of the starting and closing tag."""
 
-    def __init__(self, name: str, content: Iterable[Element],distribute: bool = False):
+    def __init__(self, name: str, content: Iterable[Element], distribute: bool = False):
         """
         Args:
             name (str): The name for this element (Cloud Office Print tag).
@@ -135,11 +135,12 @@ class ForEachInline(ForEach):
             "{:" + name + "}",
             "{/" + name + "}"
         }
-        self.distribute = distribute  
-        
-    def to_dict(self):
-        data = super().to_dict()
-        data[f"{self.name}_distribute"] = self.distribute
+        self._distribute = distribute
+    @property 
+    def as_dict(self) -> Dict:
+        data = super().as_dict
+        if self._distribute:
+            data[f"{self.name}_distribute"] = True
         return data
 
 # These are the same, but they may not be forever
