@@ -491,19 +491,7 @@ def test_cell_validation():
         "tagName_error_title" : "Error Occurred",
         "tagName_error_message" : "Number Out of Bound"
     }
-    assert cellValidate.as_dict == expectedCellValidation
-
-    def test_hide_slide_pptx():
-        hide_slide = cop.elements.HideSlide('slide1', 'hide_condition')
-        # Check as_dict
-        hide_slide_expected = {
-            'slide1': 'hide_condition'
-        }
-        assert hide_slide.as_dict == hide_slide_expected
-        # Check available_tags
-        expected_tags = {f"{{hide slide1}}"}
-        assert hide_slide.available_tags == expected_tags
-    
+    assert cellValidate.as_dict == expectedCellValidation    
 
 def run():
     test_property()
