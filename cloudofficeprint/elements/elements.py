@@ -626,7 +626,7 @@ class Hyperlink(Element):
             text (str, optional): The text for the hyperlink. Defaults to None.
             font_color (str, optional): PPTX ONLY -The font color of text for hyperlink. ( optional)
             underline_color (str, optional): PPTX ONLY -The underline color of text for hyperlink. ( optional)
-            preserve_tag_style (str or bool, optional): PPTX ONLY - Take the styling of hyperlink text defined in the template (blue and underlined by default). ( optional)
+            preserve_tag_style (str or bool, optional): For PPTX & Word- Take the styling of hyperlink text defined in the template (blue and underlined by default). ( optional)
         """
         super().__init__(name)
         self.url: str = url
