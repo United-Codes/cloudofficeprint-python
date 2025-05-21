@@ -41,8 +41,8 @@ class PrintJob:
         subtemplates: Dict[str, Resource] = {},
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
-        compare_files: List[Resource] = [],
         cop_verbose: bool = False,
+        compare_files: List[Resource] = [],
         attachments : List[Resource] = [],
         transformation_function: Optional[TransformationFunction] = None,
     ):
@@ -55,8 +55,8 @@ class PrintJob:
             subtemplates (Dict[str, Resource], optional): Subtemplates for this print job, accessible (in docx) through `{?include subtemplate_dict_key}`. Defaults to {}.
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
-            compare_files (List[Resource], optional): Files to compare with the output file. Defaults to [].
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
+            compare_files (List[Resource], optional): Files to compare with the output file. Defaults to [].
             attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
         """
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
@@ -64,12 +64,12 @@ class PrintJob:
         self.output_config: OutputConfig = output_config
         self.template: Union[Template, Resource] = template
         self.subtemplates: Dict[str, Resource] = subtemplates
-        self.transformation_function = transformation_function
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
-        self.compare_files: List[Resource] = compare_files
         self.cop_verbose: bool = cop_verbose
         self.attachments: List[Resource] = attachments
+        self.compare_files: List[Resource] = compare_files
+        self.transformation_function = transformation_function
 
     def execute(self) -> Response:
         """Execute this print job.
