@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
+sys.path.insert(0, "PATH_TO_COP_DIR")
 import cloudofficeprint as cop
 
 # Create an ElementCollection to hold all form elements
@@ -62,7 +62,7 @@ server = cop.config.Server(
 )
 
 #  Load the DOCX Template 
-template = cop.Resource.from_local_file("C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/UsingForm/data/template.docx")
+template = cop.Resource.from_local_file("./data/template.docx")
 output_conf = cop.config.OutputConfig(filetype="pdf")
 
 #  Create and Run the PrintJob 
@@ -73,6 +73,6 @@ printjob = cop.PrintJob(
     output_config=output_conf,
 )
 response = printjob.execute()
-response.to_file( "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/UsingForm/output/output.pdf")
+response.to_file( "./output/output.pdf")
 
 

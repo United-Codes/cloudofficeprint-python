@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
+sys.path.insert(0,"PATH_TO_COP_DIR")
 import cloudofficeprint as cop 
 
 # Main data collection 
@@ -82,11 +82,11 @@ print_job = cop.PrintJob(
     data=collection,
     server=server,
     template=cop.Resource.from_local_file(
-        "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/UsingDistribute/data/template.docx"
+        "./data/template.docx"
     )
 )
 
 response = print_job.execute()
 response.to_file(
-    "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/UsingDistribute/output/output.docx"
+    "./output/output.docx"
 )

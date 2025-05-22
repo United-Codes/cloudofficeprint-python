@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
+sys.path.insert(0,"PATH_TO_COP_DIR")
 import cloudofficeprint as cop
 
 # Create main data structure representing the files array
@@ -109,7 +109,7 @@ server = cop.config.Server(
 )
 
 template = cop.Resource.from_local_file(
-    "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/Transformation/data/template.docx"
+    "./data/template.docx"
 )
 output_conf = cop.config.OutputConfig(filetype="pdf")
 
@@ -124,4 +124,4 @@ printjob = cop.PrintJob(
 
 response = printjob.execute()
 response.to_file(
-        "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/Transformation/output/output.pdf")
+        "./output/output.pdf")
