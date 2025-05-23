@@ -207,7 +207,58 @@ combined_chart = cop.elements.CombinedChart(
     (column_chart, line_chart),
     (bar_chart,)
 )
-collection.add(combined_chart)
+# collection.add(combined_chart)
+# ---------------line_stacked_chart
+line_stacked1 = cop.elements.LineStackedSeries(
+    ('Jan', 'Feb', 'Mar', 'Apr'),
+    (10, 25, 15, 30),
+    'Sales 2023',
+    True,
+    'diamond',
+    10,
+    'red',
+    '0.2cm',
+    'sysDashDotDot'
+)
+line_stacked2 = cop.elements.LineStackedSeries(
+    ('Jan', 'Feb', 'Mar', 'Apr'),
+    (20, 15, 35, 25),
+    'Sales 2024',
+    True,
+    'square',
+    12,
+    'blue',
+    '2px',
+    'sysDash'
+)
+
+line_stacked_chart = cop.elements.LineStackedChart(
+    'line_stacked_chart_name',
+    (line_stacked1, line_stacked2)
+)
+
+collection.add(line_stacked_chart)
+
+# ---------------area_stacked_chart------------
+area1 = cop.elements.AreaSeries(
+    ('Q1', 'Q2', 'Q3', 'Q4'),
+    (45, 60, 75, 90),
+    'Revenue 2023',
+    'green',
+    50
+)
+area2 = cop.elements.AreaSeries(
+    ('Q1', 'Q2', 'Q3', 'Q4'),
+    (55, 70, 85, 100),
+    'Revenue 2024',
+    'purple',
+    80
+)
+area_stacked_chart = cop.elements.AreaStackedChart(
+    'area_stacked_chart_name',
+    (area1, area2)
+)
+collection.add(area_stacked_chart)
 
 # configure server
 # For running on localhost you do not need api_key else replace below "YOUR_API_KEY" with your api key.
