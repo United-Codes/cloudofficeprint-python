@@ -78,7 +78,7 @@ server = cop.config.Server(
 )
 
 # Load template and create print job
-template = cop.Resource.from_local_file("C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/UsingMarkdown/data/template.docx")
+template = cop.Resource.from_local_file("./data/template.docx")
 printjob = cop.PrintJob(
     data=collection,
     server=server,
@@ -87,4 +87,4 @@ printjob = cop.PrintJob(
 
 # Execute and save
 response = printjob.execute()
-response.to_file("C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python/BeginerGuide/UsingMarkdown/output/output")
+response.to_file("./output/output")
