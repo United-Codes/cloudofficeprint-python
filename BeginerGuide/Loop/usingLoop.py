@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(0,"PATH_TO_COP_DIR")
-import cloudofficeprint as cop
+import cloudofficeprint as cop 
 
 # Create main collection
 collection = cop.elements.ElementCollection()
@@ -22,7 +22,7 @@ element2 = cop.elements.ElementCollection.from_mapping(
     }
 )
 
-# Create horizontal loop
+# Create  loop
 loop = cop.elements.loops.ForEachInline(
     name="loop_name",
     content=[element1, element2]
@@ -48,8 +48,8 @@ server = cop.config.Server(
 printjob = cop.PrintJob(
     data=collection,
     server=server,
-    template=cop.Resource.from_local_file("./data/loop_Horizontal_template.docx"),
+    template=cop.Resource.from_local_file("./data/loop_template.docx"),
 )
 # Execute and save
 response = printjob.execute()
-response.to_file("./output/output_Horizontal_loop.docx")
+response.to_file("./output/output_loop.docx")
