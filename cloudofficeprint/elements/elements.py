@@ -1232,7 +1232,29 @@ class HideSlide(Property):
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{hide " + self.name + "}"})
+      
+class HideSheets(Property):
+    """Allows hiding a sheet in Excel documents. 
+    Can be used to hide sheets based on conditions during generation.
+    The hide tag {hide condition} is replaced by nothing but will hide the sheet if the condition evaluates to true.
+    The condition can use any Angular expressions that are supported.
 
+    """
+
+    def __init__(self, name: str, condition: str):
+        """
+        Args:
+            name (str): Name/identifier for this hide condition 
+            condition (str): Angular expression that determines when to hide the sheet.
+                The document must be an Excel workbook (.xlsx)
+        """
+        super().__init__(name, condition)
+    
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{hide " + self.name + "}"})
+    
+    
 class ExcelInsert(Element):
     """Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
         Options available are:  you can provide dynamic icon and icon position.

@@ -445,6 +445,12 @@ def test_hide_slide_pptx():
             'slide1': 'hide_condition'}
     assert hide_slide.as_dict == slide_expected
     
+def test_hide_sheet_xlsx():
+    hide_sheet = cop.elements.HideSheets('sheet1', 'hide_condition')
+    slide_expected = {
+            'sheet1': 'hide_condition'}
+    assert hide_sheet.as_dict == slide_expected
+    
 def test_distribute():
     dist = cop.elements.ForEachInline(name='product_b', content=[], distribute=True)
     dist_expected = {
