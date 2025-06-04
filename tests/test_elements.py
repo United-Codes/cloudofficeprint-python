@@ -423,13 +423,17 @@ def test_insert_element():
     }
     assert insertElement.as_dict == insertElement_expected
 
-# testing pdfincude
 def test_pdfinclude_element():
-    includeElement = cop.elements.PdfInclude("fileToInclude","base64EncodedValue")
+    includeElement = cop.elements.PdfInclude( "view", "", "view.pdf", "image/png", "base64EncodedValue", "base64")
     includeElement_expected = {
-        "fileToInclude":"base64EncodedValue",
+        "view":{
+        "name":"view.pdf",
+        "mime_type":"image/png",
+        "file_content":"base64EncodedValue",
+        "file_source":"base64"
+        }
+
     }
-    print("Actual output of includeElement.as_dict:", includeElement.as_dict)
     assert includeElement.as_dict == includeElement_expected
 
 def test_remove_txt_box():

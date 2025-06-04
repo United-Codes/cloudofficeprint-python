@@ -1177,26 +1177,47 @@ class Insert(Property):
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{?insert " + self.name + "}"})
     
-    #pdfinclude
-class PdfInclude(Property):
+class PdfInclude(Element):
     """Inside Word and PowerPoint and Excel documents, the tag {?include pdf } can be used to include files like Word, Excel, Powerpoint and PDF documents.
     Please use `ExcelInsert` element to insert in excel with more flexibility.
     """
-
-    def __init__(self, name: str, value: str):
+    def __init__(self, name: str , value: str, filename: str, mime_type: str, file_content: str, file_source: str):
         """
         Args:
-            name (str): The name for the insert tag.
-            value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
-            The document can be docx, pptx, xlsx, or pdf documents.
+            name (str): The tag name referenced in templates
+            filename (str): Name of the file to include
+            mime_type (str): MIME type of the content (e.g., 'image/png')
+            file_content (str): Base64 encoded content of the file
+            file_source (str): Source type ('base64', 'local', etc.)
         """
-        super().__init__(name, value)
+        super().__init__(name)
+        self.value = value
+        self.filename = filename
+        self.mime_type = mime_type
+        self.file_content = file_content
+        self.file_source = file_source
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{?pdfinclude " + self.name + "}"})
     
 
+    @property
+    def as_dict(self) -> Dict:
+        result = {}
+        result [self.name] = {}
+
+        if self.filename is not None:
+            result [self.name]["name"] = self.filename
+        if self.mime_type is not None:
+            result [self.name]["mime_type"] = self.mime_type
+        if self.file_content is not None:
+            result [self.name]["file_content"] = self.file_content
+        if self.file_source is not None:
+            result [self.name]["file_source"] = self.file_source
+
+        return result
+        
 
 class PptxShapeRemove(Property):
     """Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 
