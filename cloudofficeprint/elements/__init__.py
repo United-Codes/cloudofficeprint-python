@@ -9,3 +9,4 @@ from .images import *
 from .loops import *
 from .pdf import *
 from .rest_source import *
+from .form import *

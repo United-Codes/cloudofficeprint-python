@@ -2,18 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.10.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
 <title>cloudofficeprint.elements.loops API documentation</title>
-<meta name="description" content="" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
 </head>
 <body>
 <main>
@@ -22,170 +36,6 @@
 <h1 class="title">Module <code>cloudofficeprint.elements.loops</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">from .elements import Element, ElementCollection, Property
-from typing import Dict, Iterable, FrozenSet, List, Union, Mapping
-
-
-class ForEach(Element):
-    &#34;&#34;&#34;The class for representing loops of elements.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Iterable[Element]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Iterable[Element]): An iterable containing the elements for this loop element.
-        &#34;&#34;&#34;
-        super().__init__(name)
-        self._content = list(content)
-        # if self._tags should be overwritten in a subclass of this one, remember to do so after calling super().__init__
-        self._tags = {
-            &#34;{#&#34; + name + &#34;}&#34;,
-            &#34;{/&#34; + name + &#34;}&#34;
-        }
-
-    @property
-    def content(self) -&gt; List[Element]:
-        &#34;&#34;&#34;Get the elements in this loop object.
-
-        Returns:
-            List[Element]: the elements in this loop object
-        &#34;&#34;&#34;
-        return self._content
-
-    @content.setter
-    def content(self, value: Iterable[Element]):
-        &#34;&#34;&#34;Setter for the content of this loop object
-
-        Args:
-            value (Iterable[Element]): an iterable consisting of elements
-        &#34;&#34;&#34;
-        self._content = value
-
-    @property
-    def available_tags(self) -&gt; FrozenSet[str]:
-        result = self._tags
-
-        for element in self.content:
-            result |= element.available_tags
-
-        return frozenset(result)
-
-    @property
-    def as_dict(self) -&gt; Dict:
-        return {
-            self.name: [element.as_dict for element in self.content]
-        }
-
-
-class Labels(ForEach):
-    &#34;&#34;&#34;Cloud Office Print also provides a way to print labels in Word documents.
-    To do so you can create a document with labels by going to Mailings options and then to Labels.
-    Fill in the tags in the address field and choose the type of label in the Label option.
-    A document can then be generated by clicking New document.
-    Currently however if labels are getting printed then we expect the document only containing labels and no other information,
-    and that the tag keys are not used more than once.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Iterable[Element]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Iterable[Element]): An iterable containing the elements for this loop element.
-        &#34;&#34;&#34;
-        super().__init__(name, content)
-        self._tags = {
-            &#34;{-&#34; + name + &#34;}&#34;
-        }
-
-
-class ForEachSlide(ForEach):
-    &#34;&#34;&#34;Loop where a slide will be repeated for each element of the loop. Only supported in PowerPoint templates.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Iterable[Element]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Iterable[Element]): An iterable containing the elements for this loop element.
-        &#34;&#34;&#34;
-        super().__init__(name, content)
-        self._tags = {
-            &#34;{!&#34; + name + &#34;}&#34;
-        }
-
-
-class ForEachSheet(ForEach):
-    &#34;&#34;&#34;Loop where a sheet will be repeated for each element of the loop. Only supported in Excel templates.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Union[Iterable[Element], Mapping[str, Element]]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Union[Iterable[Element], Mapping[str, Element]]): An iterable or mapping containing the elements for this loop element.
-        &#34;&#34;&#34;
-        # when content is a mapping, it means &#34;sheet name&#34;: content for that sheet
-        # when it&#39;s just an iterable, don&#39;t add sheet names (or users can add a Property manually)
-        if isinstance(content, Mapping):
-            new_content = []
-            for sheetname, sheetcontent in content.items():
-                # we need to add the additional sheet_name property,
-                # so we should convert the Element to an ElementCollection if needed
-                if not isinstance(sheetcontent, ElementCollection):
-                    sheetcontent = ElementCollection.element_to_element_collection(
-                        sheetcontent)
-                # adding the new property containing sheet_name
-                sheetcontent.add(Property(&#34;sheet_name&#34;, sheetname))
-                new_content.append(sheetcontent)
-            content = new_content
-        # at this point, content is always Iterable[Element]
-
-        super().__init__(name, content)
-        self._tags = {
-            &#34;{!&#34; + name + &#34;}&#34;
-        }
-
-
-class ForEachInline(ForEach):
-    &#34;&#34;&#34;Horizontal table looping for Word, Excel and CSV templates.
-    Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
-    repeats the cells defined by the rectangular boundary of the starting and closing tag.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Iterable[Element]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Iterable[Element]): An iterable containing the elements for this loop element.
-        &#34;&#34;&#34;
-        super().__init__(name, content)
-        self._tags = {
-            &#34;{:&#34; + name + &#34;}&#34;,
-            &#34;{/&#34; + name + &#34;}&#34;
-        }
-
-
-# These are the same, but they may not be forever
-# and combining them into one class breaks consistency
-ForEachHorizontal = ForEachInline
-
-
-class ForEachTableRow(ForEach):
-    &#34;&#34;&#34;This tag will merge the cells of the loop defined by the tag over the amount of elements rows. 
-    Only supported in PowerPoint templates.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Iterable[Element]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Iterable[Element]): An iterable containing the elements for this loop element.
-        &#34;&#34;&#34;
-        super().__init__(name, content)
-        self._tags = {
-            &#34;{=&#34; + name + &#34;}&#34;,
-            &#34;{/&#34; + name + &#34;}&#34;
-        }</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -198,17 +48,9 @@ class ForEachTableRow(ForEach):
 <dl>
 <dt id="cloudofficeprint.elements.loops.ForEach"><code class="flex name class">
 <span>class <span class="ident">ForEach</span></span>
-<span>(</span><span>name: str, content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The class for representing loops of elements.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this element (Cloud Office Print tag).</dd>
-<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
-<dd>An iterable containing the elements for this loop element.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -263,6 +105,14 @@ class ForEachTableRow(ForEach):
             self.name: [element.as_dict for element in self.content]
         }</code></pre>
 </details>
+<div class="desc"><p>The class for representing loops of elements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element (Cloud Office Print tag).</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
+<dd>An iterable containing the elements for this loop element.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></li>
@@ -271,6 +121,7 @@ class ForEachTableRow(ForEach):
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEachInline" href="#cloudofficeprint.elements.loops.ForEachInline">ForEachInline</a></li>
+<li><a title="cloudofficeprint.elements.loops.ForEachMergeCells" href="#cloudofficeprint.elements.loops.ForEachMergeCells">ForEachMergeCells</a></li>
 <li><a title="cloudofficeprint.elements.loops.ForEachSheet" href="#cloudofficeprint.elements.loops.ForEachSheet">ForEachSheet</a></li>
 <li><a title="cloudofficeprint.elements.loops.ForEachSlide" href="#cloudofficeprint.elements.loops.ForEachSlide">ForEachSlide</a></li>
 <li><a title="cloudofficeprint.elements.loops.ForEachTableRow" href="#cloudofficeprint.elements.loops.ForEachTableRow">ForEachTableRow</a></li>
@@ -278,14 +129,8 @@ class ForEachTableRow(ForEach):
 </ul>
 <h3>Instance variables</h3>
 <dl>
-<dt id="cloudofficeprint.elements.loops.ForEach.content"><code class="name">var <span class="ident">content</span> : List[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>]</code></dt>
+<dt id="cloudofficeprint.elements.loops.ForEach.content"><code class="name">prop <span class="ident">content</span> : List[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>]</code></dt>
 <dd>
-<div class="desc"><p>Get the elements in this loop object.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>List[Element]</code></dt>
-<dd>the elements in this loop object</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -299,6 +144,12 @@ def content(self) -&gt; List[Element]:
     &#34;&#34;&#34;
     return self._content</code></pre>
 </details>
+<div class="desc"><p>Get the elements in this loop object.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[Element]</code></dt>
+<dd>the elements in this loop object</dd>
+</dl></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -314,9 +165,36 @@ def content(self) -&gt; List[Element]:
 </dd>
 <dt id="cloudofficeprint.elements.loops.ForEachInline"><code class="flex name class">
 <span>class <span class="ident">ForEachInline</span></span>
-<span>(</span><span>name: str, content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>],<br>distribute: bool = False)</span>
 </code></dt>
 <dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForEachInline(ForEach):
+    &#34;&#34;&#34;Horizontal table looping for Word, Excel and CSV templates.
+    Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
+    repeats the cells defined by the rectangular boundary of the starting and closing tag.&#34;&#34;&#34;
+
+    def __init__(self, name: str, content: Iterable[Element],distribute: bool = False):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element (Cloud Office Print tag).
+            content (Iterable[Element]): An iterable containing the elements for this loop element.
+        &#34;&#34;&#34;
+        super().__init__(name, content)
+        self._tags = {
+            &#34;{:&#34; + name + &#34;}&#34;,
+            &#34;{/&#34; + name + &#34;}&#34;
+        }
+        self.distribute = distribute  
+        
+    def to_dict(self):
+        data = super().to_dict()
+        data[f&#34;{self.name}_distribute&#34;] = self.distribute
+        return data</code></pre>
+</details>
 <div class="desc"><p>Horizontal table looping for Word, Excel and CSV templates.
 Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
 repeats the cells defined by the rectangular boundary of the starting and closing tag.</p>
@@ -327,39 +205,63 @@ repeats the cells defined by the rectangular boundary of the starting and closin
 <dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
 <dd>An iterable containing the elements for this loop element.</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class ForEachInline(ForEach):
-    &#34;&#34;&#34;Horizontal table looping for Word, Excel and CSV templates.
-    Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
-    repeats the cells defined by the rectangular boundary of the starting and closing tag.&#34;&#34;&#34;
-
-    def __init__(self, name: str, content: Iterable[Element]):
-        &#34;&#34;&#34;
-        Args:
-            name (str): The name for this element (Cloud Office Print tag).
-            content (Iterable[Element]): An iterable containing the elements for this loop element.
-        &#34;&#34;&#34;
-        super().__init__(name, content)
-        self._tags = {
-            &#34;{:&#34; + name + &#34;}&#34;,
-            &#34;{/&#34; + name + &#34;}&#34;
-        }</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
 <li><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></li>
 <li>abc.ABC</li>
 </ul>
+<h3>Methods</h3>
+<dl>
+<dt id="cloudofficeprint.elements.loops.ForEachInline.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self):
+    data = super().to_dict()
+    data[f&#34;{self.name}_distribute&#34;] = self.distribute
+    return data</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
 </dd>
 <dt id="cloudofficeprint.elements.loops.ForEachInline"><code class="flex name class">
 <span>class <span class="ident">ForEachHorizontal</span></span>
-<span>(</span><span>name: str, content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>],<br>distribute: bool = False)</span>
 </code></dt>
 <dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForEachInline(ForEach):
+    &#34;&#34;&#34;Horizontal table looping for Word, Excel and CSV templates.
+    Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
+    repeats the cells defined by the rectangular boundary of the starting and closing tag.&#34;&#34;&#34;
+
+    def __init__(self, name: str, content: Iterable[Element],distribute: bool = False):
+        &#34;&#34;&#34;
+        Args:
+            name (str): The name for this element (Cloud Office Print tag).
+            content (Iterable[Element]): An iterable containing the elements for this loop element.
+        &#34;&#34;&#34;
+        super().__init__(name, content)
+        self._tags = {
+            &#34;{:&#34; + name + &#34;}&#34;,
+            &#34;{/&#34; + name + &#34;}&#34;
+        }
+        self.distribute = distribute  
+        
+    def to_dict(self):
+        data = super().to_dict()
+        data[f&#34;{self.name}_distribute&#34;] = self.distribute
+        return data</code></pre>
+</details>
 <div class="desc"><p>Horizontal table looping for Word, Excel and CSV templates.
 Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
 repeats the cells defined by the rectangular boundary of the starting and closing tag.</p>
@@ -370,27 +272,76 @@ repeats the cells defined by the rectangular boundary of the starting and closin
 <dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
 <dd>An iterable containing the elements for this loop element.</dd>
 </dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
+<li><a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="cloudofficeprint.elements.loops.ForEachInline.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self)</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class ForEachInline(ForEach):
-    &#34;&#34;&#34;Horizontal table looping for Word, Excel and CSV templates.
-    Note: this tag can be used to repeat only one row in Word. In Excel this works like a normal loop tag and
-    repeats the cells defined by the rectangular boundary of the starting and closing tag.&#34;&#34;&#34;
+<pre><code class="python">def to_dict(self):
+    data = super().to_dict()
+    data[f&#34;{self.name}_distribute&#34;] = self.distribute
+    return data</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></b></code>:
+<ul class="hlist">
+<li><code><a title="cloudofficeprint.elements.loops.ForEach.as_dict" href="elements.html#cloudofficeprint.elements.elements.Element.as_dict">as_dict</a></code></li>
+<li><code><a title="cloudofficeprint.elements.loops.ForEach.available_tags" href="elements.html#cloudofficeprint.elements.elements.Element.available_tags">available_tags</a></code></li>
+<li><code><a title="cloudofficeprint.elements.loops.ForEach.content" href="#cloudofficeprint.elements.loops.ForEach.content">content</a></code></li>
+<li><code><a title="cloudofficeprint.elements.loops.ForEach.json" href="elements.html#cloudofficeprint.elements.elements.Element.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="cloudofficeprint.elements.loops.ForEachMergeCells"><code class="flex name class">
+<span>class <span class="ident">ForEachMergeCells</span></span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForEachMergeCells(ForEach):
+    &#34;&#34;&#34;Loop where table cells are vertically merged across rows during looping.
+    Only supported in Word templates with {##...} {/...} syntax.&#34;&#34;&#34;
 
     def __init__(self, name: str, content: Iterable[Element]):
         &#34;&#34;&#34;
         Args:
-            name (str): The name for this element (Cloud Office Print tag).
+            name (str): The name for this element (Cloud Office Print tag with merge cells).
             content (Iterable[Element]): An iterable containing the elements for this loop element.
         &#34;&#34;&#34;
         super().__init__(name, content)
         self._tags = {
-            &#34;{:&#34; + name + &#34;}&#34;,
+            &#34;{##&#34; + name + &#34;}&#34;,
             &#34;{/&#34; + name + &#34;}&#34;
         }</code></pre>
 </details>
+<div class="desc"><p>Loop where table cells are vertically merged across rows during looping.
+Only supported in Word templates with {##&hellip;} {/&hellip;} syntax.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element (Cloud Office Print tag with merge cells).</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
+<dd>An iterable containing the elements for this loop element.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
@@ -411,17 +362,9 @@ repeats the cells defined by the rectangular boundary of the starting and closin
 </dd>
 <dt id="cloudofficeprint.elements.loops.ForEachSheet"><code class="flex name class">
 <span>class <span class="ident">ForEachSheet</span></span>
-<span>(</span><span>name: str, content: Union[Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>], Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>]])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>] | Mapping[str, <a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Loop where a sheet will be repeated for each element of the loop. Only supported in Excel templates.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this element (Cloud Office Print tag).</dd>
-<dt><strong><code>content</code></strong> :&ensp;<code>Union[Iterable[Element], Mapping[str, Element]]</code></dt>
-<dd>An iterable or mapping containing the elements for this loop element.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -456,6 +399,14 @@ repeats the cells defined by the rectangular boundary of the starting and closin
             &#34;{!&#34; + name + &#34;}&#34;
         }</code></pre>
 </details>
+<div class="desc"><p>Loop where a sheet will be repeated for each element of the loop. Only supported in Excel templates.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element (Cloud Office Print tag).</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>Union[Iterable[Element], Mapping[str, Element]]</code></dt>
+<dd>An iterable or mapping containing the elements for this loop element.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
@@ -476,17 +427,9 @@ repeats the cells defined by the rectangular boundary of the starting and closin
 </dd>
 <dt id="cloudofficeprint.elements.loops.ForEachSlide"><code class="flex name class">
 <span>class <span class="ident">ForEachSlide</span></span>
-<span>(</span><span>name: str, content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Loop where a slide will be repeated for each element of the loop. Only supported in PowerPoint templates.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this element (Cloud Office Print tag).</dd>
-<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
-<dd>An iterable containing the elements for this loop element.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -505,6 +448,14 @@ repeats the cells defined by the rectangular boundary of the starting and closin
             &#34;{!&#34; + name + &#34;}&#34;
         }</code></pre>
 </details>
+<div class="desc"><p>Loop where a slide will be repeated for each element of the loop. Only supported in PowerPoint templates.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element (Cloud Office Print tag).</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
+<dd>An iterable containing the elements for this loop element.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
@@ -525,18 +476,9 @@ repeats the cells defined by the rectangular boundary of the starting and closin
 </dd>
 <dt id="cloudofficeprint.elements.loops.ForEachTableRow"><code class="flex name class">
 <span>class <span class="ident">ForEachTableRow</span></span>
-<span>(</span><span>name: str, content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This tag will merge the cells of the loop defined by the tag over the amount of elements rows.
-Only supported in PowerPoint templates.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this element (Cloud Office Print tag).</dd>
-<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
-<dd>An iterable containing the elements for this loop element.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -557,6 +499,15 @@ Only supported in PowerPoint templates.</p>
             &#34;{/&#34; + name + &#34;}&#34;
         }</code></pre>
 </details>
+<div class="desc"><p>This tag will merge the cells of the loop defined by the tag over the amount of elements rows.
+Only supported in PowerPoint templates.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element (Cloud Office Print tag).</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
+<dd>An iterable containing the elements for this loop element.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
@@ -577,22 +528,9 @@ Only supported in PowerPoint templates.</p>
 </dd>
 <dt id="cloudofficeprint.elements.loops.Labels"><code class="flex name class">
 <span>class <span class="ident">Labels</span></span>
-<span>(</span><span>name: str, content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
+<span>(</span><span>name: str,<br>content: Iterable[<a title="cloudofficeprint.elements.elements.Element" href="elements.html#cloudofficeprint.elements.elements.Element">Element</a>])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Cloud Office Print also provides a way to print labels in Word documents.
-To do so you can create a document with labels by going to Mailings options and then to Labels.
-Fill in the tags in the address field and choose the type of label in the Label option.
-A document can then be generated by clicking New document.
-Currently however if labels are getting printed then we expect the document only containing labels and no other information,
-and that the tag keys are not used more than once.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
-<dd>The name for this element (Cloud Office Print tag).</dd>
-<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
-<dd>An iterable containing the elements for this loop element.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -616,6 +554,19 @@ and that the tag keys are not used more than once.</p>
             &#34;{-&#34; + name + &#34;}&#34;
         }</code></pre>
 </details>
+<div class="desc"><p>Cloud Office Print also provides a way to print labels in Word documents.
+To do so you can create a document with labels by going to Mailings options and then to Labels.
+Fill in the tags in the address field and choose the type of label in the Label option.
+A document can then be generated by clicking New document.
+Currently however if labels are getting printed then we expect the document only containing labels and no other information,
+and that the tag keys are not used more than once.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name for this element (Cloud Office Print tag).</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>Iterable[Element]</code></dt>
+<dd>An iterable containing the elements for this loop element.</dd>
+</dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cloudofficeprint.elements.loops.ForEach" href="#cloudofficeprint.elements.loops.ForEach">ForEach</a></li>
@@ -638,7 +589,6 @@ and that the tag keys are not used more than once.</p>
 </section>
 </article>
 <nav id="sidebar">
-<h1>Index</h1>
 <div class="toc">
 <ul></ul>
 </div>
@@ -658,9 +608,18 @@ and that the tag keys are not used more than once.</p>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.loops.ForEachInline" href="#cloudofficeprint.elements.loops.ForEachInline">ForEachInline</a></code></h4>
+<ul class="">
+<li><code><a title="cloudofficeprint.elements.loops.ForEachInline.to_dict" href="#cloudofficeprint.elements.loops.ForEachInline.to_dict">to_dict</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.loops.ForEachInline" href="#cloudofficeprint.elements.loops.ForEachInline">ForEachInline</a></code></h4>
+<ul class="">
+<li><code><a title="cloudofficeprint.elements.loops.ForEachInline.to_dict" href="#cloudofficeprint.elements.loops.ForEachInline.to_dict">to_dict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="cloudofficeprint.elements.loops.ForEachMergeCells" href="#cloudofficeprint.elements.loops.ForEachMergeCells">ForEachMergeCells</a></code></h4>
 </li>
 <li>
 <h4><code><a title="cloudofficeprint.elements.loops.ForEachSheet" href="#cloudofficeprint.elements.loops.ForEachSheet">ForEachSheet</a></code></h4>
@@ -680,7 +639,7 @@ and that the tag keys are not used more than once.</p>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
 </footer>
 </body>
 </html>

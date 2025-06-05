@@ -22,7 +22,12 @@ class OutputConfig:
                  prepend_per_page: bool = None,
                  output_polling: bool = None,
                  secret_key: str = None,
-                 request_option: requestOptions = None):
+                 request_option: requestOptions = None,
+                 update_toc: bool = None,
+                 output_locale: str = None,
+                 return_output : bool = None,
+                 output_read_password: str = None,
+                 ):
         """If the parameters are not provided default value will be used.
 
         Args:
@@ -35,8 +40,12 @@ class OutputConfig:
             append_per_page (bool, optional): Ability to append file after each page of output. Defaults to None.
             prepend_per_page (bool, optional): Ability to prepend file after each page of output. Defaults to None.
             output_polling (bool, optional): A unique link for each request is sent back, which can be used later to download the output file. Defaults to None.
-            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (ussed with output polling). Defaults to None.
+            secret_key (str, optional): A secret key can be specified to encrypt the file stored on the server (used with output polling). Defaults to None.
             request_option (requestOptions, optional):  AOP makes a call to the given option with response/output of the current request. Defaults to None.
+            update_toc (bool, optional): Update table of contents of Word document.
+            output_locale (str, optional): Locale/language setting for output formatting (e.g. "nep", "en_us"). Defaults to None.
+            output_read_password (str, optional): Password to encrypt and protect the output document (PDF, DOCX, etc).
+           return_output (bool, optional): When True, both saves files to server directory and returns the output. Defaults to None.
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -49,6 +58,10 @@ class OutputConfig:
         self.output_polling = output_polling
         self.secret_key = secret_key
         self.request_option = request_option
+        self.update_toc = update_toc
+        self.output_locale: str = output_locale
+        self.output_read_password: str = output_read_password
+        self.return_output: bool= return_output
 
     @property
     def json(self) -> str:
@@ -89,8 +102,16 @@ class OutputConfig:
             result['output_polling'] = self.output_polling
         if self.secret_key is not None:
             result['secret_key'] = self.secret_key
+        if self.update_toc is not None:
+            result['update_toc'] = self.update_toc
+        if self.output_locale is not None:
+            result["output_locale"] = self.output_locale
+        if self.output_read_password is not None:
+            result["output_read_password"] = self.output_read_password
         if self.request_option is not None:
             result['request_option'] = self.request_option.as_dict
+        if self.return_output is not None :
+            result['return_output'] = self.return_output
         return result
 
     @property

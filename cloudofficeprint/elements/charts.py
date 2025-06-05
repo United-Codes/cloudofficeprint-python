@@ -193,7 +193,11 @@ class ChartOptions():
                  background_opacity: int = None,
                  title: str = None,
                  title_style: ChartTextStyle = None,
-                 grid: bool = None):
+                 grid: bool = None,
+                 holeSize: int = None,
+                 firstSliceAngle: int = None,
+                 enableAreaTransparency: bool = None
+                 ):
         """
         Args:
             x_axis (ChartAxisOptions, optional): The options for the x-axis. Defaults to None.
@@ -210,6 +214,9 @@ class ChartOptions():
             title (str, optional): The title of the chart. Defaults to None.
             title_style (ChartTextStyle, optional): The styling for the title of the chart. Defaults to None.
             grid (bool, optional): Whether or not the chart should have a grid. Defaults to None.
+            holeSize (int, optional): Hole size for doughnut chart (0-100).
+            firstSLiceAngle (int , optional): Angle of first slice for dough chart (0-360). Must be specified for holeSize option to work
+            enableAreaTransparency (bool, option): Whether to make area chart transparent.
         """
         self._legend_options: dict = None
         self._data_labels_options: dict = None
@@ -226,6 +233,9 @@ class ChartOptions():
         self.title: str = title
         self.title_style: ChartTextStyle = title_style
         self.grid: bool = grid
+        self.holeSize: int = holeSize
+        self.firstSliceAngle: int = firstSliceAngle 
+        self.enableAreaTransparency: bool = enableAreaTransparency 
 
     def set_legend(self, position: str = 'r', style: ChartTextStyle = None):
         """Setter for the legend of the chart.
@@ -325,6 +335,12 @@ class ChartOptions():
             result["titleStyle"] = self.title_style.as_dict
         if self.grid is not None:
             result["grid"] = self.grid
+        if self.firstSliceAngle is not None:
+            result["firstSliceAngle"] = self.firstSliceAngle
+        if self.holeSize is not None:
+            result["holeSize"] = self.holeSize
+        if self.enableAreaTransparency is not None:
+            result["enableAreaTransparency"] = self.enableAreaTransparency
         if self._legend_options is not None:
             result["legend"] = self._legend_options
         if self._data_labels_options is not None:
@@ -655,7 +671,7 @@ class StockSeries(Series):
 
 # better to have a series for every possible chart for future-proofing, in case their options diverge later
 BarSeries = BarStackedSeries = BarStackedPercentSeries = ColumnSeries = ColumnStackedSeries = ColumnStackedPercentSeries = ScatterSeries = XYSeries
-RadarSeries = LineSeries
+RadarSeries = LineStackedSeries = LineSeries
 
 
 class Chart(Element, ABC):
@@ -714,6 +730,26 @@ class LineChart(Chart):
         return self._get_dict({
             "lines": [line.as_dict for line in self.lines],
             "type": "line"
+        })
+        
+class LineStackedChart(Chart):
+    """Class for a line chart"""
+
+    def __init__(self, name: str, lines: Tuple[Union[LineStackedSeries, XYSeries]], options: ChartOptions = None):
+        """
+        Args:
+            name (str): The name of the chart.
+            lines (Tuple[Union[LineStackedSeries, XYSeries]]): Iterable of line series.
+            options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
+        """
+        super().__init__(name, options)
+        self.lines: Tuple[Union[LineStackedSeries, XYSeries]] = lines
+
+    @property
+    def as_dict(self) -> Dict:
+        return self._get_dict({
+            "lines": [line.as_dict for line in self.lines],
+            "type": "lineStacked"
         })
 
 
@@ -946,6 +982,25 @@ class AreaChart(Chart):
         return self._get_dict({
             "areas": [area.as_dict for area in self.areas],
             "type": "area"
+        })
+class AreaStackedChart(Chart):
+    """Class for an area stacked chart"""
+
+    def __init__(self, name: str, areas: Tuple[Union[AreaSeries, XYSeries]], options: ChartOptions = None):
+        """
+        Args:
+            name (str): The name of the chart.
+            areas (Tuple[Union[AreaSeries, XYSeries]]): Iterable of area series.
+            options (Union[ChartOptions, dict], optional): The options for the chart. Defaults to None.
+        """
+        super().__init__(name, options)
+        self.areas: Tuple[Union[AreaSeries, XYSeries]] = areas
+
+    @property
+    def as_dict(self) -> Dict:
+        return self._get_dict({
+            "areas": [area.as_dict for area in self.areas],
+            "type": "areaStacked"
         })
 
 

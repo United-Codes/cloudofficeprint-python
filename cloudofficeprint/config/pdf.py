@@ -13,79 +13,110 @@ class PDFOptions:
 
     def __init__(
         self,
-        even_page: bool = None,
-        merge_making_even: bool = None,
-        remove_last_page: bool = None,
-        modify_password: str = None,
         read_password: str = None,
-        password_protection_flag: int = None,
         watermark: str = None,
+        watermark_font_size: int = None,
+        watermark_opacity: int = None,
         watermark_color: str = None,
         watermark_font: str = None,
-        watermark_opacity: int = None,
-        watermark_size: int = None,
+        page_width: Union[str, int] = None,
+        page_height: Union[str, int] = None,
+        even_page: bool = None,
+        merge_making_even: bool = None,
+        modify_password: str = None,
+        password_protection_flag: int = None,
         lock_form: bool = None,
         copies: int = None,
         page_margin: Union[int, dict] = None,
         landscape: bool = None,
-        page_width: Union[str, int] = None,
-        page_height: Union[str, int] = None,
         page_format: str = None,
         merge: bool = None,
-        split: bool = None,
-        identify_form_fields: bool = None,
         sign_certificate: str = None,
         sign_certificate_password: str = None,
+        identify_form_fields: bool = None,
+        split: bool = None,
+        remove_last_page: bool = None,
+        sign_certificate_txt: str = None,
+        watermark_rotation: int = None,
+        convert_to_pdfa: str = None,
+        attachment_name: str = None,
+        convert_attachment_to_json: bool = None,
+        insert_barcode: bool = None,
+        page_number_start_at: str = None,
+        batch_selector: str = None,
+        batch_size: int = None,
+        batch_condition: str = None
     ):
         """
         Args:
-            even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
-            merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
-            remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
-            modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
             read_password (str, optional): The password needed to open the PDF. Defaults to None.
-            password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
             watermark (str, optional): Requires PDF output, generates a diagonal custom watermark on every page of the PDF file. Defaults to None.
+            watermark_font_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             watermark_color (str, optional): Requires PDF output, specifies the font of the watermark specified, with a default of "black". Defaults to None.
             watermark_font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
-            watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
-            watermark_size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
+            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
+            even_page (bool, optional): If you want your output to have even pages, for example printing on both sides after merging, you can set this to be true. Defaults to None.
+            merge_making_even (bool, optional): Merge each given document making even paged. Defaults to None.
+            modify_password (str, optional): The password needed to modify the PDF. Defaults to None.
+            password_protection_flag (int, optional): Bit field explained in the PDF specs in table 3.20 in section 3.5.2, should be given as an integer. [More info](https://pdfhummus.com/post/147451287581/hummus-1058-and-pdf-writer-updates-encryption). Defaults to None.
             lock_form (bool, optional): Locks / flattens the forms in the PDF. Defaults to None.
             copies (int, optional): Repeats the output pdf for the given number of times. Defaults to None.
             page_margin (Union[int, dict], optional): Only for HTML to PDF. Margin in px. Returns either a dict containing: { "top": int, "bottom": int, "left": int, "right": int } or just an int to be used on all sides. Defaults to None.
             landscape (bool, optional): Only for HTML to PDF. If True: the orientation of the output file is landscape; else portrait (default). Defaults to None.
-            page_width (Union[str, int], optional): Only for HTML to PDF. Page width in px, mm, cm, in. No unit means px. Defaults to None.
-            page_height (Union[str, int], optional): Only for HTML to PDF. Page height in px, mm, cm, in. No unit means px. Defaults to None.
             page_format (str, optional): Only for HTML to PDF. The page format: "a4" (default) or "letter". Defaults to None.
             merge (bool, optional): If True: instead of returning back a zip file for multiple output, merge it. Defaults to None.
-            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
-            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
             sign_certificate (str, optional): Signing certificate for the output PDF (pkcs #12 .p12/.pfx) as a base64 string, URL, FTP location or a server path. The function read_file_as_base64() from file_utils.py can be used to read local .p12 or .pfx file as base64. Defaults to None.
             sign_certificate_password (str, optional): If you are signing with a password protected certificate, you can specify the password as a plain string. Defaults to None.
+            identify_form_fields (bool, optional): Identify the form fields in a PDF-form by filling the name of each field into the respective field. Defaults to None.
+            split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
+            remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
+            sign_certificate_txt (str, optional): Add custom text in any language to the signature field
+            watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
+            convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
+            attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
+            convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
+            insert_barcode (bool, optional): To insert barcode in pdf.
+            page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
+            batch_selector (str, optional): Specifies the hierarchy of keys to split data into batches. Defaults to None.
+            batch_size (int, optional): Number of batches or files to split into. Defaults to None.
+            batch_condition (str, optional): Condition to determine batch allocation. Defaults to Non
         """
-        self.even_page: bool = even_page
-        self.merge_making_even: bool = merge_making_even
-        self.remove_last_page: bool = remove_last_page
-        self.modify_password: str = modify_password
         self.read_password: str = read_password
-        self.password_protection_flag: int = password_protection_flag
         self.watermark: str = watermark
+        self.watermark_font_size: int = watermark_font_size
+        self.watermark_opacity: int = watermark_opacity
         self.watermark_color: str = watermark_color
         self.watermark_font: str = watermark_font
-        self.watermark_opacity: int = watermark_opacity
-        self.watermark_size: int = watermark_size
+        self.page_width: Union[str, int] = page_width
+        self.page_height: Union[str, int] = page_height
+        self.even_page: bool = even_page
+        self.modify_password: str = modify_password
+        self.merge_making_even: bool = merge_making_even
+        self.password_protection_flag: int = password_protection_flag
         self.lock_form: bool = lock_form
         self.copies: int = copies
         self.page_margin: Union[int, dict] = page_margin
         self._landscape: bool = landscape
-        self.page_width: Union[str, int] = page_width
-        self.page_height: Union[str, int] = page_height
         self.page_format: str = page_format
         self.merge: bool = merge
-        self.split: bool = split
-        self.identify_form_fields: bool = identify_form_fields
         self.sign_certificate: str = sign_certificate
         self.sign_certificate_password: str = sign_certificate_password
+        self.identify_form_fields: bool = identify_form_fields
+        self.split: bool = split
+        self.remove_last_page: bool = remove_last_page
+        self.sign_certificate_txt: str = sign_certificate_txt
+        self.watermark_rotation: int = watermark_rotation
+        self.convert_to_pdfa: str = convert_to_pdfa
+        self.attachment_name: str = attachment_name
+        self.convert_attachment_to_json: bool = convert_attachment_to_json
+        self.insert_barcode: bool = insert_barcode
+        self.page_number_start_at = page_number_start_at
+        self.batch_selector : str = batch_selector
+        self.batch_size: int = batch_size
+        self.batch_condition : str = batch_condition
+        
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.
@@ -136,8 +167,10 @@ class PDFOptions:
             result["output_watermark_font"] = self.watermark_font
         if self.watermark_opacity is not None:
             result["output_watermark_opacity"] = self.watermark_opacity
-        if self.watermark_size is not None:
-            result["output_watermark_size"] = self.watermark_size
+        if self.watermark_font_size is not None:
+            result["output_watermark_size"] = self.watermark_font_size
+        if self.watermark_rotation is not None:
+            result["output_watermark_rotation"] = self.watermark_rotation
         if self.lock_form is not None:
             result["lock_form"] = self.lock_form
         if self.copies is not None:
@@ -164,7 +197,24 @@ class PDFOptions:
             result["output_sign_certificate"] = self.sign_certificate
         if self.sign_certificate_password is not None:
             result["output_sign_certificate_password"] = self.sign_certificate_password
-
+        if self.sign_certificate_txt is not None:
+            result["output_sign_certificate_txt"] = self.sign_certificate_txt
+        if self.convert_to_pdfa is not None:
+            result["output_convert_to_pdfa"] = self.convert_to_pdfa
+        if self.attachment_name is not None:
+            result["output_attachment_name"] = self.attachment_name
+        if self.convert_attachment_to_json is not None:
+            result["output_convert_attachment_to_json"] = self.convert_attachment_to_json
+        if self.insert_barcode is not None:
+            result["output_insert_barcode"] = self.insert_barcode
+        if self.page_number_start_at is not None:
+            result['output_page_number_start_at'] = self.page_number_start_at
+        if self.batch_selector is not None:
+            result["batch_selector"] = self.batch_selector
+        if self.batch_size is not None:
+            result["batch_size"] = self.batch_size
+        if self.batch_condition is not None:
+            result["batch_condition"] = self.batch_condition
         return result
 
     def set_watermark(
@@ -174,6 +224,7 @@ class PDFOptions:
         font: str = None,
         opacity: int = None,
         size: int = None,
+        rotation: int = None,
     ):
         """Set watermark
 
@@ -186,12 +237,14 @@ class PDFOptions:
             font (str, optional): Requires PDF output, specifies the font of the watermark text specified, with a default of "Arial". Defaults to None.
             opacity (int, optional): Requires PDF output, specifies the opacity of the watermark text specified, should be as a percentage, i.e. 45. Defaults to None.
             size (int, optional): Requires PDF output, specifies the size of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
+            rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number in px, i.e. 45. Defaults to None.
         """
         self.watermark = text
         self.watermark_color = color
         self.watermark_font = font
         self.watermark_opacity = opacity
-        self.watermark_size = size
+        self.watermark_font_size = size
+        self.watermark_rotation = rotation
 
     def set_page_margin_at(self, value: int, position: str = None):
         """Set page_margin

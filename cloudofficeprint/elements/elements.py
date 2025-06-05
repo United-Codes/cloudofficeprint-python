@@ -40,26 +40,171 @@ class CellStyleDocx(CellStyle):
     """Cell styling settings for docx templates"""
 
     def __init__(
-        self, cell_background_color: str = None, width: Union[int, str] = None
+        self, 
+        cell_background_color: str = None, 
+        width: Union[int, str] = None, 
+        preserve_total_width_of_table: str = None,
+        border: str = None,
+        border_top: str = None,
+        border_bottom: str = None,
+        border_left: str = None,
+        border_right: str = None,
+        border_diagonal_down: str = None,
+        border_diagonal_up: str = None,
+        border_color: str = None,
+        border_top_color: str = None,
+        border_bottom_color: str = None,
+        border_left_color: str = None,
+        border_right_color: str = None,
+        border_diagonal_up_color: str = None,
+        border_diagonal_down_color: str = None,
+        border_size:  Union[int, str] = None,
+        border_top_size:  Union[int, str] = None,
+        border_bottom_size:  Union[int, str] = None,
+        border_left_size:  Union[int, str] = None,
+        border_right_size:  Union[int, str] = None,
+        border_diagonal_up_size:  Union[int, str] = None,
+        border_diagonal_down_size:  Union[int, str] = None,
+        border_space:  Union[int, str] = None,
+        border_top_space:  Union[int, str] = None,
+        border_bottom_space:  Union[int, str] = None,
+        border_left_space:  Union[int, str] = None,
+        border_right_space:  Union[int, str] = None,
+        border_diagonal_up_space:  Union[int, str] = None,
+        border_diagonal_down_space:  Union[int, str] = None,    
     ):
         """
         Args:
             cell_background_color (str, optional): The background color of the cell. Defaults to None.
             width (Union[int, str], optional): The width of the cell. Defaults to None.
+            preserve_total_width_of_table (str, optional): Keeps table width constant by redistributing removed column's width to others.
+            border (str, optional): Applies the specified border style to all table edges (top, bottom, left, right).
+            border_top (str, optional): Applies the specified border style to the top edge of the table.
+            border_bottom (str, optional): Applies the specified border style to the bottom edge of the table.
+            border_left (str, optional): Applies the specified border style to the left edge of the table.
+            border_right (str, optional): Applies the specified border style to the right edge of the table.
+            border_diagonal_down (str, optional): Applies the specified border style to the diagonal line going from the top-left to the bottom-right corner.
+            border_diagonal_up (str, optional): Applies the specified border style to the diagonal line going from the bottom-left to the top-right corner.
+            border_color (str, optional): Sets the color of the borders (top, bottom, left, right).
+            border_top_color (str, optional): Sets the color of the top border.
+            border_bottom_color (str, optional): Sets the color of the bottom border.
+            border_left_color (str, optional): Sets the color of the left border.
+            border_right_color (str, optional): Sets the color of the right border.
+            border_diagonal_up_color (str, optional): Sets the color of the diagonal up border.
+            border_diagonal_down_color (str, optional): Sets the color of the diagonal down border.
+            border_size (Union[int, str], optional): Sets the width of the borders (top, bottom, left, right) in points.
+            border_top_size (Union[int, str], optional): Sets the width of the top border in points.
+            border_bottom_size (Union[int, str], optional): Sets the width of the bottom border in points.
+            border_left_size (Union[int, str], optional): Sets the width of the left border in points.
+            border_right_size (Union[int, str], optional): Sets the width of the right border in points.
+            border_diagonal_up_size (Union[int, str], optional): Sets the width of the diagonal up border in points.
+            border_diagonal_down_size (Union[int, str], optional): Sets the width of the diagonal down border in points.
+            border_space (Union[int, str], optional): Sets the spacing between the content and borders (top, bottom, left, right) in points.
+            border_top_space (Union[int, str], optional): Sets the spacing between the content and the top border in points.
+            border_bottom_space (Union[int, str], optional): Sets the spacing between the content and the bottom border in points.
+            border_left_space (Union[int, str], optional): Sets the spacing between the content and the left border in points.
+            border_right_space (Union[int, str], optional): Sets the spacing between the content and the right border in points.
+            border_diagonal_up_space (Union[int, str], optional): Sets the spacing between the content and the diagonal up border in points.
+            border_diagonal_down_space (Union[int, str], optional): Sets the spacing between the content and the diagonal down border in points.
         """
         super().__init__()
         self.cell_background_color: str = cell_background_color
         self.width: Union[int, str] = width
-
+        self.preserve_total_width_of_table: str = preserve_total_width_of_table
+        self.border: str = border
+        self.border_top: str = border_top
+        self.border_bottom: str = border_bottom
+        self.border_left: str = border_left
+        self.border_right: str = border_right
+        self.border_diagonal_down: str = border_diagonal_down
+        self.border_diagonal_up: str = border_diagonal_up
+        self.border_color: str = border_color
+        self.border_top_color: str = border_top_color
+        self.border_bottom_color: str = border_bottom_color
+        self.border_left_color: str = border_left_color
+        self.border_right_color: str = border_right_color
+        self.border_diagonal_up_color: str = border_diagonal_up_color
+        self.border_diagonal_down_color: str = border_diagonal_down_color
+        self.border_size: Union[int, str] = border_size
+        self.border_top_size: Union[int, str] = border_top_size
+        self.border_bottom_size: Union[int, str] = border_bottom_size
+        self.border_left_size: Union[int, str] = border_left_size
+        self.border_right_size: Union[int, str] = border_right_size
+        self.border_diagonal_up_size: Union[int, str] = border_diagonal_up_size
+        self.border_diagonal_down_size: Union[int, str] = border_diagonal_down_size
+        self.border_space: Union[int, str] = border_space
+        self.border_top_space: Union[int, str] = border_top_space
+        self.border_bottom_space: Union[int, str] = border_bottom_space
+        self.border_left_space: Union[int, str] = border_left_space
+        self.border_right_space: Union[int, str] = border_right_space
+        self.border_diagonal_up_space: Union[int, str] = border_diagonal_up_space
+        self.border_diagonal_down_space: Union[int, str] = border_diagonal_down_space
+        
     @property
     def _dict_suffixes(self):
         result = super()._dict_suffixes
-
         if self.cell_background_color is not None:
             result["_cell_background_color"] = self.cell_background_color
         if self.width is not None:
             result["_width"] = self.width
-
+        if self.preserve_total_width_of_table is not None:
+            result["_preserve_total_width_of_table"] = self.preserve_total_width_of_table
+        if self.border is not None:
+            result["_border"] = self.border
+        if self.border_top is not None:
+            result["_border_top"] = self.border_top
+        if self.border_bottom is not None:
+            result["_border_bottom"] = self.border_bottom
+        if self.border_left is not None:
+            result["_border_left"] = self.border_left
+        if self.border_right is not None:
+            result["_border_right"] = self.border_right
+        if self.border_diagonal_down is not None:
+            result["_border_diagonal_down"] = self.border_diagonal_down
+        if self.border_diagonal_up is not None:
+            result["_border_diagonal_up"] = self.border_diagonal_up
+        if self.border_color is not None:
+            result["_border_color"] = self.border_color
+        if self.border_top_color is not None:
+            result["_border_top_color"] = self.border_top_color
+        if self.border_bottom_color is not None:
+            result["_border_bottom_color"] = self.border_bottom_color
+        if self.border_left_color is not None:
+            result["_border_left_color"] = self.border_left_color
+        if self.border_right_color is not None:
+            result["_border_right_color"] = self.border_right_color
+        if self.border_diagonal_up_color is not None:
+            result["_border_diagonal_up_color"] = self.border_diagonal_up_color
+        if self.border_diagonal_down_color is not None:
+            result["_border_diagonal_down_color"] = self.border_diagonal_down_color
+        if self.border_size is not None:
+            result["_border_size"] = self.border_size
+        if self.border_top_size is not None:
+            result["_border_top_size"] = self.border_top_size
+        if self.border_bottom_size is not None:
+            result["_border_bottom_size"] = self.border_bottom_size
+        if self.border_left_size is not None:
+            result["_border_left_size"] = self.border_left_size
+        if self.border_right_size is not None:
+            result["_border_right_size"] = self.border_right_size
+        if self.border_diagonal_up_size is not None:
+            result["_border_diagonal_up_size"] = self.border_diagonal_up_size
+        if self.border_diagonal_down_size is not None:
+            result["_border_diagonal_down_size"] = self.border_diagonal_down_size
+        if self.border_space is not None:
+            result["_border_space"] = self.border_space
+        if self.border_top_space is not None:
+            result["_border_top_space"] = self.border_top_space
+        if self.border_bottom_space is not None:
+            result["_border_bottom_space"] = self.border_bottom_space
+        if self.border_left_space is not None:
+            result["_border_left_space"] = self.border_left_space
+        if self.border_right_space is not None:
+            result["_border_right_space"] = self.border_right_space
+        if self.border_diagonal_up_space is not None:
+            result["_border_diagonal_up_space"] = self.border_diagonal_up_space
+        if self.border_diagonal_down_space is not None:
+            result["_border_diagonal_down_space"] = self.border_diagonal_down_space
         return result
 
 
@@ -94,6 +239,11 @@ class CellStyleXlsx(CellStyle):
         text_h_alignment: str = None,
         text_v_alignment: str = None,
         text_rotation: Union[int, str] = None,
+        wrap_text: bool = False,
+        width: Union[int, str] = None,
+        height: Union[int, str] = None,
+        max_characters : Union[int, str] = None,
+        height_scaling : Union[int, str] = None,
     ):
         """
         Args:
@@ -122,7 +272,12 @@ class CellStyleXlsx(CellStyle):
             border_diagonal_color (str, optional): hex color e.g: #000000. Defaults to None.
             text_h_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
             text_v_alignment (str, optional): [top|bottom|center|justify]. Defaults to None.
-            text_rotation (Union[int, str], optional): rotation of text value from 0-90 degrees. Defaults to None.
+            text_rotation (Union[int, str], optional): Rotation of text value from 0-90 degrees. Defaults to None.
+            wrap_text (bool, optional): Set to true for wrap text. When false (default )S,the property won't be included in the output.
+            width (Union[int, str],  optional): Provide a custom width to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
+            height (Union[int, str],  optional): Provide custom height to the cell. Supported units: inch, cm, px, pt, em, Excel Units(eu)
+            max_characters (Union[int, str],  optional): Provide width for the cell.
+            height_scaling (Union[int, str], optional):  Adjusts cell height for consistent rendering.
         """
         super().__init__()
         self.cell_locked: bool = cell_locked
@@ -151,6 +306,14 @@ class CellStyleXlsx(CellStyle):
         self.text_h_alignment: str = text_h_alignment
         self.text_v_alignment: str = text_v_alignment
         self.text_rotation: Union[int, str] = text_rotation
+        self.wrap_text: bool = wrap_text
+        self.width: Union[int, str] = width
+        self.height: Union[int, str] = height
+        self.max_characters: Union[int, str] = max_characters 
+        self.height_scaling: Union[int, str] = height_scaling
+        
+        
+        
 
     @property
     def _dict_suffixes(self):
@@ -208,6 +371,16 @@ class CellStyleXlsx(CellStyle):
             result["_text_v_alignment"] = self.text_v_alignment
         if self.text_rotation is not None:
             result["_text_rotation"] = self.text_rotation
+        if self.wrap_text is True:
+            result["_wrap_text"] = self.wrap_text
+        if self.width is not None:
+            result["_width"] = self.width
+        if self.height is not None:
+            result["_height"] = self.height
+        if self.max_characters is not None:
+            result["_max_characters"] = self.max_characters
+        if self.height_scaling is not None:
+            result["_height_scaling"] = self.height_scaling
 
         return result
 
@@ -323,18 +496,56 @@ class CellStyleProperty(Property):
 
 
 class Html(Property):
-    def __init__(self, name: str, value: str):
+    def __init__(
+        self, name: str,
+        value: str, 
+        custom_table_style: str, 
+        unordered_list_style: Union[str, int], 
+        ordered_list_style: Union[str, int], 
+        use_tag_style: bool, 
+        ignore_cell_margin: bool, 
+        ignore_empty_p: bool
+    ):
         """
         Args:
             name (str): The name for this property.
             value (str): The value for this property.
+            custom_table_style (str): Specify custom table style
+            unordered_list_style (str): Create and customize ordered list
+            ordered_list_style (str): Create and customize unordered list
+            use_tag_style (bool): Use the styling from the template instead of default Word styling
+            ignore_cell_margin (bool):  Ignore empty paragraphs within HTML content
+            ignore_empty_p (bool):  Ignore the cell margins in an HTML table cell when the text content is large
         """
         super().__init__(name, value)
-
+        self.custom_table_style: str = custom_table_style
+        self.unordered_list_style: Union[str, int] = unordered_list_style
+        self.ordered_list_style: Union[str, int] = ordered_list_style
+        self.use_tag_style: bool = use_tag_style
+        self.ignore_cell_margin: bool = ignore_cell_margin
+        self.ignore_empty_p: bool = ignore_empty_p
+       
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{_" + self.name + "}"})
+    
+    @property
+    def as_dict(self) -> Dict:
+        result = {self.name: self.value}
 
+        if self.custom_table_style is not None:
+            result[self.name + "_custom_table_style"] = self.custom_table_style
+        if self.unordered_list_style is not None:
+            result[self.name + "_unordered_list_style"] = self.unordered_list_style
+        if self.ordered_list_style is not None:
+            result[self.name + "_ordered_list_style"] = self.ordered_list_style
+        if self.use_tag_style is not None:
+            result[self.name + "_use_tag_style"] = self.use_tag_style
+        if self.ignore_cell_margin is not None:
+            result[self.name + "_ignore_cell_margin"] = self.ignore_cell_margin
+        if self.ignore_empty_p is not None:
+            result[self.name + "_ignore_empty_p"] = self.ignore_empty_p
+        return result
 
 class RightToLeft(Property):
     def __init__(self, name: str, value: str):
@@ -365,22 +576,47 @@ class FootNote(Property):
 
 
 class AutoLink(Property):
-    """ This tag allows you to insert text into the document detecting links. 
+    """ This tag allows you to insert text into the document detecting links.
+       For PPTX templates, additional styling options are available including:
+    - Custom font color for hyperlinks
+    - Custom underline color
+    - Option to preserve template styling
     """
 
-    def __init__(self, name: str, value: str):
+    def __init__(self, 
+                 name: str, 
+                 value: str,
+                 font_color: Union[str, None] = None,
+                 underline_color: Union[str, None] = None,
+                 preserve_tag_style: Union[bool, str, None] = None):
         """
         Args:
             name (str): The name for this element.
             value (str): The value of the autoLink.
+            font_color (str, optional): PPTX-only The font color of autolink.
+            underline_color (str, optional): The underline color of autolink.
+            preserve_tag_style (str or bool, optional): Take the styling of hyperlink text defined in the template (blue and underlined by default).
         """
         super().__init__(name, value)
+        self.value: str = value
+        self.font_color = font_color
+        self.underline_color = underline_color
+        self.preserve_tag_style = preserve_tag_style
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{*auto " + self.name + "}"})
-
-
+    @property
+    def as_dict(self) -> Dict :
+        result ={self.name:self.value}
+        if self.font_color is not None:
+            result[f"{self.name}_font_color"] = self.font_color
+        if self.underline_color is not None:
+            result[f"{self.name}_underline_color"] = self.underline_color
+        if self.preserve_tag_style is not None:
+            result[f"{self.name}_preserve_tag_style"] = self.preserve_tag_style
+        return result
+    
 class Hyperlink(Element):
     def __init__(self, name: str, url: str, text: str = None):
         """
@@ -388,10 +624,16 @@ class Hyperlink(Element):
             name (str): The name for this element.
             url (str): The URL for the hyperlink.
             text (str, optional): The text for the hyperlink. Defaults to None.
+            font_color (str, optional): PPTX ONLY -The font color of text for hyperlink. ( optional)
+            underline_color (str, optional): PPTX ONLY -The underline color of text for hyperlink. ( optional)
+            preserve_tag_style (str or bool, optional): For PPTX & Word- Take the styling of hyperlink text defined in the template (blue and underlined by default). ( optional)
         """
         super().__init__(name)
         self.url: str = url
-        self.text: str = text
+        self.text: Union[str, None] = None
+        self.font_color: Union[str, None] = None
+        self.underline_color: Union[str, None] = None
+        self.preserve_tag_style: Union[str, bool, None] = None
 
     @property
     def available_tags(self) -> FrozenSet[str]:
@@ -403,10 +645,14 @@ class Hyperlink(Element):
 
         if self.text is not None:
             result[self.name + "_text"] = self.text
+        if  (self.text is not None) and (self.font_color is not None):
+            result[self.text + "_font_color"] = self.font_color
+        if (self.text is not None) and (self.underline_color is not None):
+            result[self.text + "_underline_color"] = self.underline_color
+        if (self.preserve_tag_style is not None):
+            result[self.name + "_preserve_tag_style"] = self.preserve_tag_style
 
         return result
-
-
 class TableOfContents(Element):
     def __init__(
         self, name: str, title: str = None, depth: int = None, tab_leader: str = None
@@ -923,15 +1169,113 @@ class Insert(Property):
         Args:
             name (str): The name for the insert tag.
             value (str): Base64 encoded document that needs to be inserted in output docx or pptx.
-            The documnet can be docx, pptx, xlsx, or pdf documents.
+            The document can be docx, pptx, xlsx, or pdf documents.
         """
         super().__init__(name, value)
 
     @property
     def available_tags(self) -> FrozenSet[str]:
         return frozenset({"{?insert " + self.name + "}"})
+    
+class PdfInclude(Element):
+    """Inside Word and PowerPoint and Excel documents, the tag {?include pdf } can be used to include files like Word, Excel, Powerpoint and PDF documents.
+    Please use `ExcelInsert` element to insert in excel with more flexibility.
+    """
+    def __init__(self, name: str , value: str, filename: str, mime_type: str, file_content: str, file_source: str):
+        """
+        Args:
+            name (str): The tag name referenced in templates
+            filename (str): Name of the file to include
+            mime_type (str): MIME type of the content (e.g., 'image/png')
+            file_content (str): Base64 encoded content of the file
+            file_source (str): Source type ('base64', 'local', etc.)
+        """
+        super().__init__(name)
+        self.value = value
+        self.filename = filename
+        self.mime_type = mime_type
+        self.file_content = file_content
+        self.file_source = file_source
 
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{?pdfinclude " + self.name + "}"})
+    
 
+    @property
+    def as_dict(self) -> Dict:
+        result = {}
+        result [self.name] = {}
+
+        if self.filename is not None:
+            result [self.name]["name"] = self.filename
+        if self.mime_type is not None:
+            result [self.name]["mime_type"] = self.mime_type
+        if self.file_content is not None:
+            result [self.name]["file_content"] = self.file_content
+        if self.file_source is not None:
+            result [self.name]["file_source"] = self.file_source
+
+        return result
+        
+
+class PptxShapeRemove(Property):
+    """Allows the removal of an entire shape / text-box if the associated tag evaluates to false. For example, if a template slide includes a text box with the tag {toShow?} and 
+    the value of toShow is false or undefined, the entire shape will be removed from the slide.
+    """
+    def __init__(self, name: str, value:  Union[bool, str]):
+        """
+        Args:
+            name (str): The name for the remove tag.
+            value (bool or string): False (to remove the shape / text-box) or string/True
+            The document should be, pptx.
+        """
+        super().__init__(name, value)
+
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{ " + self.name + "?" + "}"})
+    
+
+class HideSlide(Property):
+    """Allows hiding a slide.
+    LIMITATION: using _hide for slide hide is that it can only be used for hiding slides during generation(!slideGeneration)
+    """
+    def __init__(self, name: str, condition : str ):
+        """
+        Args:
+            name (str): Name/identifier for this hide condition
+            condition (str): The condition to determine when to hide the slide
+            The document should be, pptx.
+        """
+        super().__init__(name, condition)
+    
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{hide " + self.name + "}"})
+      
+class HideSheets(Property):
+    """Allows hiding a sheet in Excel documents. 
+    Can be used to hide sheets based on conditions during generation.
+    The hide tag {hide condition} is replaced by nothing but will hide the sheet if the condition evaluates to true.
+    The condition can use any Angular expressions that are supported.
+
+    """
+
+    def __init__(self, name: str, condition: str):
+        """
+        Args:
+            name (str): Name/identifier for this hide condition 
+            condition (str): Angular expression that determines when to hide the sheet.
+                The document must be an Excel workbook (.xlsx)
+        """
+        super().__init__(name, condition)
+    
+    @property
+    def available_tags(self) -> FrozenSet[str]:
+        return frozenset({"{hide " + self.name + "}"})
+    
+    
 class ExcelInsert(Element):
     """Inside Excel it is posiible to insert word, powerpoint, excel and pdf file using AOP tag {?insert fileToInsert}.
         Options available are:  you can provide dynamic icon and icon position.

@@ -1,4 +1,7 @@
+import sys
+sys.path.insert(0, "PATH_TO_COP_DIR")
 import cloudofficeprint as cop
+
 
 """This file contains tests for all the possible charts"""
 
@@ -78,7 +81,10 @@ def test_chart_options():
             color='red',
             font='Arial'
         ),
-        grid=True
+        grid=True,
+        firstSliceAngle=45,
+        holeSize=50,
+        enableAreaTransparency =True
     )
     options.set_legend(
         position='l',
@@ -197,6 +203,9 @@ def test_chart_options():
             'font': 'Arial',
         },
         'grid': True,
+        'firstSliceAngle': 45,
+        'holeSize': 50,
+        'enableAreaTransparency': True,
         'legend': {
             'showLegend': True,
             'position': 'l',
@@ -222,7 +231,7 @@ def test_chart_options():
 
 
 def test_chart_line():
-    """Test for LineChart. Also serves as a test for RadarChart (RadarSeries is equivalent to LineSeries)"""
+    """Test for LineChart. Also serves as a test for RadarChart and LineStackedChart (RadarSeries is equivalent to LineSeries)"""
     line1 = cop.elements.LineSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),
@@ -441,7 +450,7 @@ def test_chart_pie():
 
 
 def test_chart_area():
-    """Test for AreaChart"""
+    """Test for AreaChart and AreaStacked"""
     area1 = cop.elements.AreaSeries(
         x=('a', 'b', 'c'),
         y=(1, 2, 3),

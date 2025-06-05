@@ -6,7 +6,7 @@ import requests
 import asyncio
 import json
 
-from typing import Union, List, Dict, Mapping
+from typing import Union, List, Dict, Mapping, Optional
 from functools import partial
 from pprint import pprint
 
@@ -16,6 +16,7 @@ from .exceptions import COPError
 from .resource import Resource
 from .template import Template
 from .response import Response
+from .transformation import TransformationFunction
 
 STATIC_OPTS = {
     "tool": "python",
@@ -41,6 +42,9 @@ class PrintJob:
         prepend_files: List[Resource] = [],
         append_files: List[Resource] = [],
         cop_verbose: bool = False,
+        compare_files: List[Resource] = [],
+        attachments : List[Resource] = [],
+        transformation_function: Optional[TransformationFunction] = None,
     ):
         """
         Args:
@@ -52,6 +56,8 @@ class PrintJob:
             prepend_files (List[Resource], optional): Files to prepend to the output file. Defaults to [].
             append_files (List[Resource], optional): Files to append to the output file. Defaults to [].
             cop_verbose (bool, optional): Whether or not verbose mode should be activated. Defaults to False.
+            compare_files (List[Resource], optional): Files to compare with the output file. Defaults to [].
+            attachments (List[Resource], optional): Files to attach to the pdf file. Defaults to []. The file must be PDF.
         """
         self.data: Union[Element, Mapping[str, Element], RESTSource] = data
         self.server: Server = server
@@ -61,6 +67,9 @@ class PrintJob:
         self.prepend_files: List[Resource] = prepend_files
         self.append_files: List[Resource] = append_files
         self.cop_verbose: bool = cop_verbose
+        self.attachments: List[Resource] = attachments
+        self.compare_files: List[Resource] = compare_files
+        self.transformation_function = transformation_function
 
     def execute(self) -> Response:
         """Execute this print job.
@@ -228,6 +237,16 @@ class PrintJob:
             result["append_files"] = [
                 file.secondary_file_dict for file in self.append_files
             ]
+        
+        if len(self.compare_files) > 0:
+            result["compare_files"] = [
+                file.secondary_file_dict for file in self.compare_files
+        ]
+            
+        if len(self.attachments) > 0:
+            result["attachments"] = [
+                file.secondary_file_dict for file in self.attachments
+            ]
 
         if len(self.subtemplates) > 0:
             result["templates"] = [
@@ -235,7 +254,10 @@ class PrintJob:
                 for name, file in self.subtemplates.items()
             ]
 
-        # If verbose mode is activated, print the result to the terminal
+        if self.transformation_function is not None:
+         result["transformation_function"] = self.transformation_function.as_dict()
+         
+
         if self.cop_verbose:
             print("The JSON data that is sent to the Cloud Office Print server:\n")
             pprint(result)
