@@ -1,6 +1,5 @@
 import sys
-# sys.path.insert(0, "PATH_TO_COP_DIR")
-sys.path.insert(0, "C:/Users/em8ee/cloudofficeprint-python")
+sys.path.insert(0, "PATH_TO_COP_DIR")
 import cloudofficeprint as cop
 
 customers = [
