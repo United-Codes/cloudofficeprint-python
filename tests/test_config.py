@@ -310,6 +310,17 @@ def test_cop_pdf_batching():
 } 
     assert conf.as_dict == conf_expected
 
+def test_output_export_sheets_option():
+    """test output_export_sheets option"""
+    config = cop.config.OutputConfig(filetype="xlsx", output_export_sheets=["Sheet1", "Sheet3"])
+    config_expected = {
+        "output_type": "xlsx",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_export_sheets": ["Sheet1", "Sheet3"],
+    }
+    assert config.as_dict == config_expected
+
 
 
 def run():
@@ -322,6 +333,7 @@ def run():
     test_output_locale_option() 
     test_password_encryption()
     test_cop_pdf_batching()
+    test_output_export_sheets_option()
 
 
 if __name__ == "__main__":
