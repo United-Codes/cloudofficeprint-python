@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
+sys.path.insert(0, "C:/Users/em8ee/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -263,7 +263,7 @@ def test_request_option():
         'output_type': 'pdf',
         'output_encoding': 'raw',
         'output_converter': 'libreoffice',
-        'output_polling': 'True',
+        'output_polling': True,
         'secret_key': 'qwertyuiop1234',
         'request_option': {
             'url': 'https://www.apexofficeprint.com/post/',
@@ -305,8 +305,8 @@ def test_cop_pdf_batching():
         'output_converter': 'libreoffice',
         'output_type': 'pdf', 
         'output_merge': True, 
-        'output_batch_selector': 'orders:products', 
-        'output_batch_size': 3, 'output_batch_condition': 'unit_price > 110? "Expensive" : unit_price < 80 ? "Cheap" : "Medium"'
+        'batch_selector': 'orders:products', 
+        'batch_size': 3, 'batch_condition': 'unit_price > 110? "Expensive" : unit_price < 80 ? "Cheap" : "Medium"'
 } 
     assert conf.as_dict == conf_expected
 
@@ -318,6 +318,23 @@ def test_output_export_sheets_option():
         "output_encoding": "raw",
         "output_converter": "libreoffice",
         "output_export_sheets": ["Sheet1", "Sheet3"],
+    }
+    assert config.as_dict == config_expected
+
+def test_image_watermark():
+    """test image watermark option"""
+    pdf_opts = cop.config.PDFOptions()
+    pdf_opts.set_image_watermark("logo_base64", 50, 45, 100, 80)
+    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    config_expected = {
+        "output_type": "pdf",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_watermark_image": "logo_base64",
+        "output_watermark_image_opacity": 50,
+        "output_watermark_image_rotation": 45,
+        "output_watermark_image_width": 100,
+        "output_watermark_image_height": 80,
     }
     assert config.as_dict == config_expected
 
@@ -334,6 +351,7 @@ def run():
     test_password_encryption()
     test_cop_pdf_batching()
     test_output_export_sheets_option()
+    test_image_watermark()
 
 
 if __name__ == "__main__":

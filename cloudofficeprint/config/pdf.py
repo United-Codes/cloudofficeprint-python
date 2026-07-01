@@ -45,7 +45,12 @@ class PDFOptions:
         page_number_start_at: str = None,
         batch_selector: str = None,
         batch_size: int = None,
-        batch_condition: str = None
+        batch_condition: str = None,
+        image_watermark: str = None,
+        image_watermark_opacity: int = None,
+        image_watermark_rotation: int = None,
+        image_watermark_width: int = None,
+        image_watermark_height: int = None
     ):
         """
         Args:
@@ -81,7 +86,12 @@ class PDFOptions:
             page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
             batch_selector (str, optional): Specifies the hierarchy of keys to split data into batches. Defaults to None.
             batch_size (int, optional): Number of batches or files to split into. Defaults to None.
-            batch_condition (str, optional): Condition to determine batch allocation. Defaults to Non
+            batch_condition (str, optional): Condition to determine batch allocation. Defaults to None.
+            image_watermark (str, optional): The image as a base64 string, URL, FTP location or server path. Defaults to None.
+            image_watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the image watermark, should be as a percentage, i.e. 45. Defaults to None.
+            image_watermark_rotation (int, optional): Requires PDF output, specifies the angle to rotate the image watermark, should be a number in degrees. Defaults to None.
+            image_watermark_width (int, optional): Requires PDF output, specifies the width of the image watermark, should be a number in px. Defaults to None.
+            image_watermark_height (int, optional): Requires PDF output, specifies the height of the image watermark, should be a number in px. Defaults to None.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -116,7 +126,12 @@ class PDFOptions:
         self.batch_selector : str = batch_selector
         self.batch_size: int = batch_size
         self.batch_condition : str = batch_condition
-        
+        self.image_watermark: str = image_watermark
+        self.image_watermark_opacity: int = image_watermark_opacity
+        self.image_watermark_rotation: int = image_watermark_rotation
+        self.image_watermark_width: int = image_watermark_width
+        self.image_watermark_height: int = image_watermark_height
+
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.
@@ -171,6 +186,16 @@ class PDFOptions:
             result["output_watermark_size"] = self.watermark_font_size
         if self.watermark_rotation is not None:
             result["output_watermark_rotation"] = self.watermark_rotation
+        if self.image_watermark is not None:
+            result["output_watermark_image"] = self.image_watermark
+        if self.image_watermark_opacity is not None:
+            result["output_watermark_image_opacity"] = self.image_watermark_opacity
+        if self.image_watermark_rotation is not None:
+            result["output_watermark_image_rotation"] = self.image_watermark_rotation
+        if self.image_watermark_width is not None:
+            result["output_watermark_image_width"] = self.image_watermark_width
+        if self.image_watermark_height is not None:
+            result["output_watermark_image_height"] = self.image_watermark_height
         if self.lock_form is not None:
             result["lock_form"] = self.lock_form
         if self.copies is not None:
@@ -245,6 +270,31 @@ class PDFOptions:
         self.watermark_opacity = opacity
         self.watermark_font_size = size
         self.watermark_rotation = rotation
+
+    def set_image_watermark(
+        self,
+        image: str = None,
+        opacity: int = None,
+        rotation: int = None,
+        width: int = None,
+        height: int = None,
+    ):
+        """Set an image watermark on every page of the PDF file.
+
+        Setting all to None will remove the image watermark.
+
+        Args:
+            image (str, optional): The image as a base64 string, URL, FTP location or server path. Defaults to None.
+            opacity (int, optional): Requires PDF output, specifies the opacity of the image watermark, should be as a percentage, i.e. 45. Defaults to None.
+            rotation (int, optional): Requires PDF output, specifies the angle to rotate the image watermark, should be a number in degrees. Defaults to None.
+            width (int, optional): Requires PDF output, specifies the width of the image watermark, should be a number in px. Defaults to None.
+            height (int, optional): Requires PDF output, specifies the height of the image watermark, should be a number in px. Defaults to None.
+        """
+        self.image_watermark = image
+        self.image_watermark_opacity = opacity
+        self.image_watermark_rotation = rotation
+        self.image_watermark_width = width
+        self.image_watermark_height = height
 
     def set_page_margin_at(self, value: int, position: str = None):
         """Set page_margin
