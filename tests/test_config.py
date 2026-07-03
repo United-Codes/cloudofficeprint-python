@@ -350,6 +350,20 @@ def test_compress_pdf():
     }
     assert config.as_dict == config_expected
 
+def test_pdf_split_options():
+    """test pdf split by page/string options"""
+    pdf_opts = cop.config.PDFOptions(split_by_page=2, split_by_string="Invoice No", split_after_string=True)
+    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    config_expected = {
+        "output_type": "pdf",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_split_by_page": 2,
+        "output_split_by_string": "Invoice No",
+        "output_split_after_string": True,
+    }
+    assert config.as_dict == config_expected
+
 
 
 def run():

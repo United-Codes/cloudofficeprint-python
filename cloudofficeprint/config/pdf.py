@@ -51,7 +51,10 @@ class PDFOptions:
         image_watermark_rotation: int = None,
         image_watermark_width: int = None,
         image_watermark_height: int = None,
-        compress_pdf: bool = None
+        compress_pdf: bool = None,
+        split_by_page: int = None,
+        split_by_string: str = None,
+        split_after_string: bool = None
     ):
         """
         Args:
@@ -94,6 +97,9 @@ class PDFOptions:
             image_watermark_width (int, optional): Requires PDF output, specifies the width of the image watermark, should be a number in px. Defaults to None.
             image_watermark_height (int, optional): Requires PDF output, specifies the height of the image watermark, should be a number in px. Defaults to None.
             compress_pdf (bool, optional): Requires PDF output, compresses the file size of the PDF. Defaults to None.
+            split_by_page (int, optional): Requires PDF output, splits the output into a file per given number of pages. Defaults to None.
+            split_by_string (str, optional): Requires PDF output, splits the output into a separate file on each page where the given string is found (e.g. "Invoice No"). Defaults to None.
+            split_after_string (bool, optional): Requires PDF output, when using split_by_string, split after the matching page instead of before it. Defaults to None.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -134,6 +140,9 @@ class PDFOptions:
         self.image_watermark_width: int = image_watermark_width
         self.image_watermark_height: int = image_watermark_height
         self.compress_pdf: bool = compress_pdf
+        self.split_by_page: int = split_by_page
+        self.split_by_string: str = split_by_string
+        self.split_after_string: bool = split_after_string
 
 
     def __str__(self) -> str:
@@ -231,6 +240,12 @@ class PDFOptions:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
         if self.compress_pdf is not None:
             result["output_compress_pdf"] = self.compress_pdf
+        if self.split_by_page is not None:
+            result["output_split_by_page"] = self.split_by_page
+        if self.split_by_string is not None:
+            result["output_split_by_string"] = self.split_by_string
+        if self.split_after_string is not None:
+            result["output_split_after_string"] = self.split_after_string
         if self.attachment_name is not None:
             result["output_attachment_name"] = self.attachment_name
         if self.convert_attachment_to_json is not None:
