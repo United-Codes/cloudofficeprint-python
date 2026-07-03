@@ -50,7 +50,8 @@ class PDFOptions:
         image_watermark_opacity: int = None,
         image_watermark_rotation: int = None,
         image_watermark_width: int = None,
-        image_watermark_height: int = None
+        image_watermark_height: int = None,
+        compress_pdf: bool = None
     ):
         """
         Args:
@@ -92,6 +93,7 @@ class PDFOptions:
             image_watermark_rotation (int, optional): Requires PDF output, specifies the angle to rotate the image watermark, should be a number in degrees. Defaults to None.
             image_watermark_width (int, optional): Requires PDF output, specifies the width of the image watermark, should be a number in px. Defaults to None.
             image_watermark_height (int, optional): Requires PDF output, specifies the height of the image watermark, should be a number in px. Defaults to None.
+            compress_pdf (bool, optional): Requires PDF output, compresses the file size of the PDF. Defaults to None.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -131,6 +133,7 @@ class PDFOptions:
         self.image_watermark_rotation: int = image_watermark_rotation
         self.image_watermark_width: int = image_watermark_width
         self.image_watermark_height: int = image_watermark_height
+        self.compress_pdf: bool = compress_pdf
 
 
     def __str__(self) -> str:
@@ -226,6 +229,8 @@ class PDFOptions:
             result["output_sign_certificate_txt"] = self.sign_certificate_txt
         if self.convert_to_pdfa is not None:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
+        if self.compress_pdf is not None:
+            result["output_compress_pdf"] = self.compress_pdf
         if self.attachment_name is not None:
             result["output_attachment_name"] = self.attachment_name
         if self.convert_attachment_to_json is not None:

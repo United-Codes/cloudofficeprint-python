@@ -338,6 +338,18 @@ def test_image_watermark():
     }
     assert config.as_dict == config_expected
 
+def test_compress_pdf():
+    """test compress pdf option"""
+    pdf_opts = cop.config.PDFOptions(compress_pdf=True)
+    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    config_expected = {
+        "output_type": "pdf",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_compress_pdf": True,
+    }
+    assert config.as_dict == config_expected
+
 
 
 def run():
