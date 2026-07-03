@@ -1,7 +1,6 @@
-# import cloudofficeprint as cop
 
 import sys
-sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
+sys.path.insert(0, "PATH TO_COP_DIR")
 import cloudofficeprint as cop
 
 

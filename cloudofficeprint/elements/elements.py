@@ -1713,6 +1713,8 @@ class ElementCollection(list, Element):
         for element in self:
             if isinstance(element, ElementCollection):
                 result.update({element.name: element.as_dict})
+            elif hasattr(element, "type"):
+                result.setdefault(element.name, []).append(element.as_dict)
             else:
                 result.update(element.as_dict)
         return result
