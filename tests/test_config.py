@@ -32,6 +32,9 @@ def test_pdf_options():
         sign_certificate_password="test_certificate_password",
         sign_certificate_txt="text in english",
         convert_to_pdfa = "1b",
+        comply_pdfa_level = "pdfa1a",
+        ua_compliant_pdf = "true",
+        validate_pdfa_level = "pdfa1a",
         convert_attachment_to_json= True,
         insert_barcode= True,
     )
@@ -74,6 +77,9 @@ def test_pdf_options():
         "output_sign_certificate_password": "test_certificate_password",
         "output_sign_certificate_txt": "text in english",
         "output_convert_to_pdfa": "1b",
+        "output_comply_pdfa_level": "pdfa1a",
+        "output_ua_compliant_pdf": "true",
+        "output_validate_pdfa_level": "pdfa1a",
         "output_convert_attachment_to_json": True,
         "output_insert_barcode": True,
         "identify_form_fields": True,
@@ -364,6 +370,18 @@ def test_pdf_split_options():
     }
     assert config.as_dict == config_expected
 
+def test_pdf_producer():
+    """test pdf producer metadata option"""
+    pdf_opts = cop.config.PDFOptions(pdf_producer="Cloud Office Print")
+    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    config_expected = {
+        "output_type": "pdf",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_pdf_producer": "Cloud Office Print",
+    }
+    assert config.as_dict == config_expected
+
 
 
 def run():
@@ -378,6 +396,8 @@ def run():
     test_cop_pdf_batching()
     test_output_export_sheets_option()
     test_image_watermark()
+    test_pdf_split_options()
+    test_pdf_producer()
 
 
 if __name__ == "__main__":

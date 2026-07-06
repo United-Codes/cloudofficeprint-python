@@ -39,6 +39,9 @@ class PDFOptions:
         sign_certificate_txt: str = None,
         watermark_rotation: int = None,
         convert_to_pdfa: str = None,
+        comply_pdfa_level: str = None,
+        ua_compliant_pdf: str = None,
+        validate_pdfa_level: str = None,
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
         insert_barcode: bool = None,
@@ -54,7 +57,8 @@ class PDFOptions:
         compress_pdf: bool = None,
         split_by_page: int = None,
         split_by_string: str = None,
-        split_after_string: bool = None
+        split_after_string: bool = None,
+        pdf_producer: str = None
     ):
         """
         Args:
@@ -84,6 +88,9 @@ class PDFOptions:
             sign_certificate_txt (str, optional): Add custom text in any language to the signature field
             watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
+            comply_pdfa_level (str, optional): For generating PDF/A format. While converting using pdfbox converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
+            ua_compliant_pdf (str, optional): For generating UA compliant PDF. While converting using pdfbox converter, specifying it will create UA compliant PDF.
+            validate_pdfa_level (str, optional): For validating PDF/A format. While converting using pdfbox converter, specifying it will validate PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
             insert_barcode (bool, optional): To insert barcode in pdf.
@@ -100,6 +107,7 @@ class PDFOptions:
             split_by_page (int, optional): Requires PDF output, splits the output into a file per given number of pages. Defaults to None.
             split_by_string (str, optional): Requires PDF output, splits the output into a separate file on each page where the given string is found (e.g. "Invoice No"). Defaults to None.
             split_after_string (bool, optional): Requires PDF output, when using split_by_string, split after the matching page instead of before it. Defaults to None.
+            pdf_producer (str, optional): Requires PDF output, sets the producer metadata tag of the PDF. Defaults to None.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -127,6 +135,9 @@ class PDFOptions:
         self.sign_certificate_txt: str = sign_certificate_txt
         self.watermark_rotation: int = watermark_rotation
         self.convert_to_pdfa: str = convert_to_pdfa
+        self.comply_pdfa_level: str = comply_pdfa_level
+        self.ua_compliant_pdf: str = ua_compliant_pdf
+        self.validate_pdfa_level: str = validate_pdfa_level
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
         self.insert_barcode: bool = insert_barcode
@@ -143,6 +154,7 @@ class PDFOptions:
         self.split_by_page: int = split_by_page
         self.split_by_string: str = split_by_string
         self.split_after_string: bool = split_after_string
+        self.pdf_producer: str = pdf_producer
 
 
     def __str__(self) -> str:
@@ -238,6 +250,12 @@ class PDFOptions:
             result["output_sign_certificate_txt"] = self.sign_certificate_txt
         if self.convert_to_pdfa is not None:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
+        if self.comply_pdfa_level is not None:
+            result["output_comply_pdfa_level"] = self.comply_pdfa_level
+        if self.ua_compliant_pdf is not None:
+            result["output_ua_compliant_pdf"] = self.ua_compliant_pdf
+        if self.validate_pdfa_level is not None:
+            result["output_validate_pdfa_level"] = self.validate_pdfa_level
         if self.compress_pdf is not None:
             result["output_compress_pdf"] = self.compress_pdf
         if self.split_by_page is not None:
@@ -246,6 +264,8 @@ class PDFOptions:
             result["output_split_by_string"] = self.split_by_string
         if self.split_after_string is not None:
             result["output_split_after_string"] = self.split_after_string
+        if self.pdf_producer is not None:
+            result["output_pdf_producer"] = self.pdf_producer
         if self.attachment_name is not None:
             result["output_attachment_name"] = self.attachment_name
         if self.convert_attachment_to_json is not None:
