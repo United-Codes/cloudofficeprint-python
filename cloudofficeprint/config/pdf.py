@@ -37,6 +37,9 @@ class PDFOptions:
         split: bool = None,
         remove_last_page: bool = None,
         sign_certificate_txt: str = None,
+        sign_certificate_field: str = None,
+        sign_certificate_background_image: str = None,
+        sign_certificate_privatekey_password: str = None,
         watermark_rotation: int = None,
         convert_to_pdfa: str = None,
         comply_pdfa_level: str = None,
@@ -89,6 +92,9 @@ class PDFOptions:
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
             remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
             sign_certificate_txt (str, optional): Add custom text in any language to the signature field
+            sign_certificate_field (str, optional): The name of the signature field to sign (an invisible signature is placed otherwise). Defaults to None.
+            sign_certificate_background_image (str, optional): Base64 encoded image used as background for the visible signature. Defaults to None.
+            sign_certificate_privatekey_password (str, optional): The private key password of the signing certificate. Defaults to None.
             watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             comply_pdfa_level (str, optional): For generating PDF/A format. While converting using pdfbox converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
@@ -139,6 +145,9 @@ class PDFOptions:
         self.split: bool = split
         self.remove_last_page: bool = remove_last_page
         self.sign_certificate_txt: str = sign_certificate_txt
+        self.sign_certificate_field: str = sign_certificate_field
+        self.sign_certificate_background_image: str = sign_certificate_background_image
+        self.sign_certificate_privatekey_password: str = sign_certificate_privatekey_password
         self.watermark_rotation: int = watermark_rotation
         self.convert_to_pdfa: str = convert_to_pdfa
         self.comply_pdfa_level: str = comply_pdfa_level
@@ -256,7 +265,13 @@ class PDFOptions:
         if self.sign_certificate_password is not None:
             result["output_sign_certificate_password"] = self.sign_certificate_password
         if self.sign_certificate_txt is not None:
-            result["output_sign_certificate_txt"] = self.sign_certificate_txt
+            result["output_sign_certificate_custom_text"] = self.sign_certificate_txt
+        if self.sign_certificate_field is not None:
+            result["output_sign_certificate_field"] = self.sign_certificate_field
+        if self.sign_certificate_background_image is not None:
+            result["output_sign_certificate_background_image"] = self.sign_certificate_background_image
+        if self.sign_certificate_privatekey_password is not None:
+            result["output_sign_certificate_privatekey_password"] = self.sign_certificate_privatekey_password
         if self.convert_to_pdfa is not None:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
         if self.comply_pdfa_level is not None:

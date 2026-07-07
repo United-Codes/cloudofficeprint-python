@@ -75,7 +75,7 @@ def test_pdf_options():
         "output_merge": False,
         "output_sign_certificate": "test_sign_certificate",
         "output_sign_certificate_password": "test_certificate_password",
-        "output_sign_certificate_txt": "text in english",
+        "output_sign_certificate_custom_text": "text in english",
         "output_convert_to_pdfa": "1b",
         "output_comply_pdfa_level": "pdfa1a",
         "output_ua_compliant": "true",
@@ -400,6 +400,30 @@ def test_pdf_metadata_dates_and_ignore_errors():
     }
     assert config.as_dict == config_expected
 
+def test_sign_certificate_options():
+    """test sign certificate options"""
+    pdf_opts = cop.config.PDFOptions(
+        sign_certificate="base64_certificate",
+        sign_certificate_password="cert_password",
+        sign_certificate_txt="Signed by COP",
+        sign_certificate_field="Signature1",
+        sign_certificate_background_image="base64_image",
+        sign_certificate_privatekey_password="privatekey_password",
+    )
+    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    config_expected = {
+        "output_type": "pdf",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_sign_certificate": "base64_certificate",
+        "output_sign_certificate_password": "cert_password",
+        "output_sign_certificate_custom_text": "Signed by COP",
+        "output_sign_certificate_field": "Signature1",
+        "output_sign_certificate_background_image": "base64_image",
+        "output_sign_certificate_privatekey_password": "privatekey_password",
+    }
+    assert config.as_dict == config_expected
+
 
 
 def run():
@@ -417,6 +441,7 @@ def run():
     test_pdf_split_options()
     test_pdf_producer()
     test_pdf_metadata_dates_and_ignore_errors()
+    test_sign_certificate_options()
 
 
 if __name__ == "__main__":
