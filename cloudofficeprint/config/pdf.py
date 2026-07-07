@@ -58,7 +58,10 @@ class PDFOptions:
         split_by_page: int = None,
         split_by_string: str = None,
         split_after_string: bool = None,
-        pdf_producer: str = None
+        pdf_producer: str = None,
+        created_date: str = None,
+        modified_date: str = None,
+        ignore_conversion_errors: bool = None
     ):
         """
         Args:
@@ -108,6 +111,9 @@ class PDFOptions:
             split_by_string (str, optional): Requires PDF output, splits the output into a separate file on each page where the given string is found (e.g. "Invoice No"). Defaults to None.
             split_after_string (bool, optional): Requires PDF output, when using split_by_string, split after the matching page instead of before it. Defaults to None.
             pdf_producer (str, optional): Requires PDF output, sets the producer metadata tag of the PDF. Defaults to None.
+            created_date (str, optional): Sets the created date metadata of the output document. Must be in ISO format (e.g. "2022-02-07T12:55:12"). Defaults to None.
+            modified_date (str, optional): Sets the modified date metadata of the output document. Must be in ISO format (e.g. "2022-02-07T12:55:12"). Defaults to None.
+            ignore_conversion_errors (bool, optional): When True, continue producing the output even if the converter reports errors. Defaults to None.
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -155,6 +161,9 @@ class PDFOptions:
         self.split_by_string: str = split_by_string
         self.split_after_string: bool = split_after_string
         self.pdf_producer: str = pdf_producer
+        self.created_date: str = created_date
+        self.modified_date: str = modified_date
+        self.ignore_conversion_errors: bool = ignore_conversion_errors
 
 
     def __str__(self) -> str:
@@ -253,7 +262,7 @@ class PDFOptions:
         if self.comply_pdfa_level is not None:
             result["output_comply_pdfa_level"] = self.comply_pdfa_level
         if self.ua_compliant_pdf is not None:
-            result["output_ua_compliant_pdf"] = self.ua_compliant_pdf
+            result["output_ua_compliant"] = self.ua_compliant_pdf
         if self.validate_pdfa_level is not None:
             result["output_validate_pdfa_level"] = self.validate_pdfa_level
         if self.compress_pdf is not None:
@@ -266,6 +275,12 @@ class PDFOptions:
             result["output_split_after_string"] = self.split_after_string
         if self.pdf_producer is not None:
             result["output_pdf_producer"] = self.pdf_producer
+        if self.created_date is not None:
+            result["output_created_date"] = self.created_date
+        if self.modified_date is not None:
+            result["output_modified_date"] = self.modified_date
+        if self.ignore_conversion_errors is not None:
+            result["output_ignore_conversion_errors"] = self.ignore_conversion_errors
         if self.attachment_name is not None:
             result["output_attachment_name"] = self.attachment_name
         if self.convert_attachment_to_json is not None:

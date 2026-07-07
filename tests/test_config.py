@@ -78,7 +78,7 @@ def test_pdf_options():
         "output_sign_certificate_txt": "text in english",
         "output_convert_to_pdfa": "1b",
         "output_comply_pdfa_level": "pdfa1a",
-        "output_ua_compliant_pdf": "true",
+        "output_ua_compliant": "true",
         "output_validate_pdfa_level": "pdfa1a",
         "output_convert_attachment_to_json": True,
         "output_insert_barcode": True,
@@ -382,6 +382,24 @@ def test_pdf_producer():
     }
     assert config.as_dict == config_expected
 
+def test_pdf_metadata_dates_and_ignore_errors():
+    """test created/modified date and ignore conversion errors options"""
+    pdf_opts = cop.config.PDFOptions(
+        created_date="2022-02-07T12:55:12",
+        modified_date="2022-02-08T09:33:00",
+        ignore_conversion_errors=True,
+    )
+    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
+    config_expected = {
+        "output_type": "pdf",
+        "output_encoding": "raw",
+        "output_converter": "libreoffice",
+        "output_created_date": "2022-02-07T12:55:12",
+        "output_modified_date": "2022-02-08T09:33:00",
+        "output_ignore_conversion_errors": True,
+    }
+    assert config.as_dict == config_expected
+
 
 
 def run():
@@ -398,6 +416,7 @@ def run():
     test_image_watermark()
     test_pdf_split_options()
     test_pdf_producer()
+    test_pdf_metadata_dates_and_ignore_errors()
 
 
 if __name__ == "__main__":
