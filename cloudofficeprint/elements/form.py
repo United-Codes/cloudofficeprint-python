@@ -1,7 +1,7 @@
 from typing import Dict, Union,Any, FrozenSet
-from .elements import Element
+from .elements import FormElement
 
-class Textbox(Element):
+class Textbox(FormElement):
     """PDF form textbox element 
 
     Args:
@@ -41,7 +41,7 @@ class Textbox(Element):
         return frozenset([f"{{?form {self.name}}}"])
 
 
-class RadioButton(Element):
+class RadioButton(FormElement):
     """PDF form radio button element 
 
     Args:
@@ -86,7 +86,7 @@ class RadioButton(Element):
     def available_tags(self) -> FrozenSet[str]:
         return frozenset([f"{{?form {self.name}}}"])
 
-class Checkbox(Element):
+class Checkbox(FormElement):
     """PDF form checkbox element 
 
     Args:
@@ -126,7 +126,7 @@ class Checkbox(Element):
         return frozenset([f"{{?form {self.name}}}"])
 
 
-class Dropdown(Element):
+class Dropdown(FormElement):
     """PDF form dropdown (non-editable combo box) element
 
     Args:
@@ -192,7 +192,7 @@ class ComboBox(Dropdown):
         self.type = "combobox"
 
 
-class ListBox(Element):
+class ListBox(FormElement):
     """PDF form listbox element. An always-visible scrollable list that supports multi-selection.
 
     Args:
@@ -241,7 +241,7 @@ class ListBox(Element):
         return frozenset([f"{{?form {self.name}}}"])
 
 
-class PushButton(Element):
+class PushButton(FormElement):
     """PDF form push button element. A clickable button widget that carries no value.
 
     Args:
@@ -282,7 +282,7 @@ class PushButton(Element):
         return frozenset([f"{{?form {self.name}}}"])
 
 
-class Password(Element):
+class Password(FormElement):
     """PDF form password element. A single-line text input that masks the entered characters.
 
     Args:
