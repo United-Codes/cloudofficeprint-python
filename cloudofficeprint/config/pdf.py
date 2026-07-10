@@ -37,34 +37,15 @@ class PDFOptions:
         split: bool = None,
         remove_last_page: bool = None,
         sign_certificate_txt: str = None,
-        sign_certificate_field: str = None,
-        sign_certificate_background_image: str = None,
-        sign_certificate_privatekey_password: str = None,
         watermark_rotation: int = None,
         convert_to_pdfa: str = None,
-        comply_pdfa_level: str = None,
-        ua_compliant_pdf: str = None,
-        validate_pdfa_level: str = None,
         attachment_name: str = None,
         convert_attachment_to_json: bool = None,
         insert_barcode: bool = None,
         page_number_start_at: str = None,
         batch_selector: str = None,
         batch_size: int = None,
-        batch_condition: str = None,
-        image_watermark: str = None,
-        image_watermark_opacity: int = None,
-        image_watermark_rotation: int = None,
-        image_watermark_width: int = None,
-        image_watermark_height: int = None,
-        compress_pdf: bool = None,
-        split_by_page: int = None,
-        split_by_string: str = None,
-        split_after_string: bool = None,
-        pdf_producer: str = None,
-        created_date: str = None,
-        modified_date: str = None,
-        ignore_conversion_errors: bool = None
+        batch_condition: str = None
     ):
         """
         Args:
@@ -92,34 +73,15 @@ class PDFOptions:
             split (bool, optional): You can specify to split a PDF in separate files. You will get one file per page in a zip file. Defaults to None.
             remove_last_page (bool, optional): Remove the last page from the given PDF document. Defaults to None.
             sign_certificate_txt (str, optional): Add custom text in any language to the signature field
-            sign_certificate_field (str, optional): The name of the signature field to sign (an invisible signature is placed otherwise). Defaults to None.
-            sign_certificate_background_image (str, optional): Base64 encoded image used as background for the visible signature. Defaults to None.
-            sign_certificate_privatekey_password (str, optional): The private key password of the signing certificate. Defaults to None.
             watermark_rotation (int, optional): Requires PDF output, specifies the angle of watermark text specified, should be a number, i.e. 45. Defaults to None.
             convert_to_pdfa (str, optional): For generating PDF/A format. While converting using openoffice converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
-            comply_pdfa_level (str, optional): For generating PDF/A format. While converting using pdfbox converter, specifying it will create PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
-            ua_compliant_pdf (str, optional): For generating UA compliant PDF. While converting using pdfbox converter, specifying it will create UA compliant PDF.
-            validate_pdfa_level (str, optional): For validating PDF/A format. While converting using pdfbox converter, specifying it will validate PDF/A format, values can be either 1b or 2b which are the variants of PDF/A specification.
             attachment_name (str, optional): To retrieve specific attachment. output_type must be get_attachments.
             convert_attachment_to_json (bool, optional): To retrieve data of the XML attachment as a JSON. output_type must be get_attachments.
             insert_barcode (bool, optional): To insert barcode in pdf.
             page_number_start_at (str, optional): Provide start of the page number. Defaults to None.
             batch_selector (str, optional): Specifies the hierarchy of keys to split data into batches. Defaults to None.
             batch_size (int, optional): Number of batches or files to split into. Defaults to None.
-            batch_condition (str, optional): Condition to determine batch allocation. Defaults to None.
-            image_watermark (str, optional): The image as a base64 string, URL, FTP location or server path. Defaults to None.
-            image_watermark_opacity (int, optional): Requires PDF output, specifies the opacity of the image watermark, should be as a percentage, i.e. 45. Defaults to None.
-            image_watermark_rotation (int, optional): Requires PDF output, specifies the angle to rotate the image watermark, should be a number in degrees. Defaults to None.
-            image_watermark_width (int, optional): Requires PDF output, specifies the width of the image watermark, should be a number in px. Defaults to None.
-            image_watermark_height (int, optional): Requires PDF output, specifies the height of the image watermark, should be a number in px. Defaults to None.
-            compress_pdf (bool, optional): Requires PDF output, compresses the file size of the PDF. Defaults to None.
-            split_by_page (int, optional): Requires PDF output, splits the output into a file per given number of pages. Defaults to None.
-            split_by_string (str, optional): Requires PDF output, splits the output into a separate file on each page where the given string is found (e.g. "Invoice No"). Defaults to None.
-            split_after_string (bool, optional): Requires PDF output, when using split_by_string, split after the matching page instead of before it. Defaults to None.
-            pdf_producer (str, optional): Requires PDF output, sets the producer metadata tag of the PDF. Defaults to None.
-            created_date (str, optional): Sets the created date metadata of the output document. Must be in ISO format (e.g. "2022-02-07T12:55:12"). Defaults to None.
-            modified_date (str, optional): Sets the modified date metadata of the output document. Must be in ISO format (e.g. "2022-02-07T12:55:12"). Defaults to None.
-            ignore_conversion_errors (bool, optional): When True, continue producing the output even if the converter reports errors. Defaults to None.
+            batch_condition (str, optional): Condition to determine batch allocation. Defaults to Non
         """
         self.read_password: str = read_password
         self.watermark: str = watermark
@@ -145,14 +107,8 @@ class PDFOptions:
         self.split: bool = split
         self.remove_last_page: bool = remove_last_page
         self.sign_certificate_txt: str = sign_certificate_txt
-        self.sign_certificate_field: str = sign_certificate_field
-        self.sign_certificate_background_image: str = sign_certificate_background_image
-        self.sign_certificate_privatekey_password: str = sign_certificate_privatekey_password
         self.watermark_rotation: int = watermark_rotation
         self.convert_to_pdfa: str = convert_to_pdfa
-        self.comply_pdfa_level: str = comply_pdfa_level
-        self.ua_compliant_pdf: str = ua_compliant_pdf
-        self.validate_pdfa_level: str = validate_pdfa_level
         self.attachment_name: str = attachment_name
         self.convert_attachment_to_json: bool = convert_attachment_to_json
         self.insert_barcode: bool = insert_barcode
@@ -160,20 +116,7 @@ class PDFOptions:
         self.batch_selector : str = batch_selector
         self.batch_size: int = batch_size
         self.batch_condition : str = batch_condition
-        self.image_watermark: str = image_watermark
-        self.image_watermark_opacity: int = image_watermark_opacity
-        self.image_watermark_rotation: int = image_watermark_rotation
-        self.image_watermark_width: int = image_watermark_width
-        self.image_watermark_height: int = image_watermark_height
-        self.compress_pdf: bool = compress_pdf
-        self.split_by_page: int = split_by_page
-        self.split_by_string: str = split_by_string
-        self.split_after_string: bool = split_after_string
-        self.pdf_producer: str = pdf_producer
-        self.created_date: str = created_date
-        self.modified_date: str = modified_date
-        self.ignore_conversion_errors: bool = ignore_conversion_errors
-
+        
 
     def __str__(self) -> str:
         """Get the string representation of these PDF options.
@@ -228,16 +171,6 @@ class PDFOptions:
             result["output_watermark_size"] = self.watermark_font_size
         if self.watermark_rotation is not None:
             result["output_watermark_rotation"] = self.watermark_rotation
-        if self.image_watermark is not None:
-            result["output_watermark_image"] = self.image_watermark
-        if self.image_watermark_opacity is not None:
-            result["output_watermark_image_opacity"] = self.image_watermark_opacity
-        if self.image_watermark_rotation is not None:
-            result["output_watermark_image_rotation"] = self.image_watermark_rotation
-        if self.image_watermark_width is not None:
-            result["output_watermark_image_width"] = self.image_watermark_width
-        if self.image_watermark_height is not None:
-            result["output_watermark_image_height"] = self.image_watermark_height
         if self.lock_form is not None:
             result["lock_form"] = self.lock_form
         if self.copies is not None:
@@ -265,37 +198,9 @@ class PDFOptions:
         if self.sign_certificate_password is not None:
             result["output_sign_certificate_password"] = self.sign_certificate_password
         if self.sign_certificate_txt is not None:
-            result["output_sign_certificate_custom_text"] = self.sign_certificate_txt
-        if self.sign_certificate_field is not None:
-            result["output_sign_certificate_field"] = self.sign_certificate_field
-        if self.sign_certificate_background_image is not None:
-            result["output_sign_certificate_background_image"] = self.sign_certificate_background_image
-        if self.sign_certificate_privatekey_password is not None:
-            result["output_sign_certificate_privatekey_password"] = self.sign_certificate_privatekey_password
+            result["output_sign_certificate_txt"] = self.sign_certificate_txt
         if self.convert_to_pdfa is not None:
             result["output_convert_to_pdfa"] = self.convert_to_pdfa
-        if self.comply_pdfa_level is not None:
-            result["output_comply_pdfa_level"] = self.comply_pdfa_level
-        if self.ua_compliant_pdf is not None:
-            result["output_ua_compliant"] = self.ua_compliant_pdf
-        if self.validate_pdfa_level is not None:
-            result["output_validate_pdfa_level"] = self.validate_pdfa_level
-        if self.compress_pdf is not None:
-            result["output_compress_pdf"] = self.compress_pdf
-        if self.split_by_page is not None:
-            result["output_split_by_page"] = self.split_by_page
-        if self.split_by_string is not None:
-            result["output_split_by_string"] = self.split_by_string
-        if self.split_after_string is not None:
-            result["output_split_after_string"] = self.split_after_string
-        if self.pdf_producer is not None:
-            result["output_pdf_producer"] = self.pdf_producer
-        if self.created_date is not None:
-            result["output_created_date"] = self.created_date
-        if self.modified_date is not None:
-            result["output_modified_date"] = self.modified_date
-        if self.ignore_conversion_errors is not None:
-            result["output_ignore_conversion_errors"] = self.ignore_conversion_errors
         if self.attachment_name is not None:
             result["output_attachment_name"] = self.attachment_name
         if self.convert_attachment_to_json is not None:
@@ -340,31 +245,6 @@ class PDFOptions:
         self.watermark_opacity = opacity
         self.watermark_font_size = size
         self.watermark_rotation = rotation
-
-    def set_image_watermark(
-        self,
-        image: str = None,
-        opacity: int = None,
-        rotation: int = None,
-        width: int = None,
-        height: int = None,
-    ):
-        """Set an image watermark on every page of the PDF file.
-
-        Setting all to None will remove the image watermark.
-
-        Args:
-            image (str, optional): The image as a base64 string, URL, FTP location or server path. Defaults to None.
-            opacity (int, optional): Requires PDF output, specifies the opacity of the image watermark, should be as a percentage, i.e. 45. Defaults to None.
-            rotation (int, optional): Requires PDF output, specifies the angle to rotate the image watermark, should be a number in degrees. Defaults to None.
-            width (int, optional): Requires PDF output, specifies the width of the image watermark, should be a number in px. Defaults to None.
-            height (int, optional): Requires PDF output, specifies the height of the image watermark, should be a number in px. Defaults to None.
-        """
-        self.image_watermark = image
-        self.image_watermark_opacity = opacity
-        self.image_watermark_rotation = rotation
-        self.image_watermark_width = width
-        self.image_watermark_height = height
 
     def set_page_margin_at(self, value: int, position: str = None):
         """Set page_margin

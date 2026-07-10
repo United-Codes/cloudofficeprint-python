@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "PATH_TO_COP_DIR")
+sys.path.insert(0, "C:/Users/em8ee/OneDrive/Documents/cloudofficeprint-python")
 import cloudofficeprint as cop
 
 
@@ -32,9 +32,6 @@ def test_pdf_options():
         sign_certificate_password="test_certificate_password",
         sign_certificate_txt="text in english",
         convert_to_pdfa = "1b",
-        comply_pdfa_level = "pdfa1a",
-        ua_compliant_pdf = "true",
-        validate_pdfa_level = "pdfa1a",
         convert_attachment_to_json= True,
         insert_barcode= True,
     )
@@ -75,11 +72,8 @@ def test_pdf_options():
         "output_merge": False,
         "output_sign_certificate": "test_sign_certificate",
         "output_sign_certificate_password": "test_certificate_password",
-        "output_sign_certificate_custom_text": "text in english",
+        "output_sign_certificate_txt": "text in english",
         "output_convert_to_pdfa": "1b",
-        "output_comply_pdfa_level": "pdfa1a",
-        "output_ua_compliant": "true",
-        "output_validate_pdfa_level": "pdfa1a",
         "output_convert_attachment_to_json": True,
         "output_insert_barcode": True,
         "identify_form_fields": True,
@@ -269,7 +263,7 @@ def test_request_option():
         'output_type': 'pdf',
         'output_encoding': 'raw',
         'output_converter': 'libreoffice',
-        'output_polling': True,
+        'output_polling': 'True',
         'secret_key': 'qwertyuiop1234',
         'request_option': {
             'url': 'https://www.apexofficeprint.com/post/',
@@ -311,118 +305,10 @@ def test_cop_pdf_batching():
         'output_converter': 'libreoffice',
         'output_type': 'pdf', 
         'output_merge': True, 
-        'batch_selector': 'orders:products', 
-        'batch_size': 3, 'batch_condition': 'unit_price > 110? "Expensive" : unit_price < 80 ? "Cheap" : "Medium"'
+        'output_batch_selector': 'orders:products', 
+        'output_batch_size': 3, 'output_batch_condition': 'unit_price > 110? "Expensive" : unit_price < 80 ? "Cheap" : "Medium"'
 } 
     assert conf.as_dict == conf_expected
-
-def test_output_export_sheets_option():
-    """test output_export_sheets option"""
-    config = cop.config.OutputConfig(filetype="xlsx", output_export_sheets=["Sheet1", "Sheet3"])
-    config_expected = {
-        "output_type": "xlsx",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_export_sheets": ["Sheet1", "Sheet3"],
-    }
-    assert config.as_dict == config_expected
-
-def test_image_watermark():
-    """test image watermark option"""
-    pdf_opts = cop.config.PDFOptions()
-    pdf_opts.set_image_watermark("logo_base64", 50, 45, 100, 80)
-    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
-    config_expected = {
-        "output_type": "pdf",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_watermark_image": "logo_base64",
-        "output_watermark_image_opacity": 50,
-        "output_watermark_image_rotation": 45,
-        "output_watermark_image_width": 100,
-        "output_watermark_image_height": 80,
-    }
-    assert config.as_dict == config_expected
-
-def test_compress_pdf():
-    """test compress pdf option"""
-    pdf_opts = cop.config.PDFOptions(compress_pdf=True)
-    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
-    config_expected = {
-        "output_type": "pdf",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_compress_pdf": True,
-    }
-    assert config.as_dict == config_expected
-
-def test_pdf_split_options():
-    """test pdf split by page/string options"""
-    pdf_opts = cop.config.PDFOptions(split_by_page=2, split_by_string="Invoice No", split_after_string=True)
-    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
-    config_expected = {
-        "output_type": "pdf",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_split_by_page": 2,
-        "output_split_by_string": "Invoice No",
-        "output_split_after_string": True,
-    }
-    assert config.as_dict == config_expected
-
-def test_pdf_producer():
-    """test pdf producer metadata option"""
-    pdf_opts = cop.config.PDFOptions(pdf_producer="Cloud Office Print")
-    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
-    config_expected = {
-        "output_type": "pdf",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_pdf_producer": "Cloud Office Print",
-    }
-    assert config.as_dict == config_expected
-
-def test_pdf_metadata_dates_and_ignore_errors():
-    """test created/modified date and ignore conversion errors options"""
-    pdf_opts = cop.config.PDFOptions(
-        created_date="2022-02-07T12:55:12",
-        modified_date="2022-02-08T09:33:00",
-        ignore_conversion_errors=True,
-    )
-    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
-    config_expected = {
-        "output_type": "pdf",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_created_date": "2022-02-07T12:55:12",
-        "output_modified_date": "2022-02-08T09:33:00",
-        "output_ignore_conversion_errors": True,
-    }
-    assert config.as_dict == config_expected
-
-def test_sign_certificate_options():
-    """test sign certificate options"""
-    pdf_opts = cop.config.PDFOptions(
-        sign_certificate="base64_certificate",
-        sign_certificate_password="cert_password",
-        sign_certificate_txt="Signed by COP",
-        sign_certificate_field="Signature1",
-        sign_certificate_background_image="base64_image",
-        sign_certificate_privatekey_password="privatekey_password",
-    )
-    config = cop.config.OutputConfig(filetype="pdf", pdf_options=pdf_opts)
-    config_expected = {
-        "output_type": "pdf",
-        "output_encoding": "raw",
-        "output_converter": "libreoffice",
-        "output_sign_certificate": "base64_certificate",
-        "output_sign_certificate_password": "cert_password",
-        "output_sign_certificate_custom_text": "Signed by COP",
-        "output_sign_certificate_field": "Signature1",
-        "output_sign_certificate_background_image": "base64_image",
-        "output_sign_certificate_privatekey_password": "privatekey_password",
-    }
-    assert config.as_dict == config_expected
 
 
 
@@ -436,12 +322,6 @@ def run():
     test_output_locale_option() 
     test_password_encryption()
     test_cop_pdf_batching()
-    test_output_export_sheets_option()
-    test_image_watermark()
-    test_pdf_split_options()
-    test_pdf_producer()
-    test_pdf_metadata_dates_and_ignore_errors()
-    test_sign_certificate_options()
 
 
 if __name__ == "__main__":

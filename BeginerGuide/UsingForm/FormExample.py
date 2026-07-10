@@ -1,48 +1,64 @@
 import sys
-sys.path.insert(0, "PATH TO_COP_DIR")
+sys.path.insert(0, "PATH_TO_COP_DIR")
 import cloudofficeprint as cop
 
 # Create an ElementCollection to hold all form elements
 collection = cop.elements.ElementCollection()
 
 # Textboxes
-collection.add(cop.elements.Textbox(name="first_name"))
-collection.add(cop.elements.Textbox(name="last_name", value="Apex R&D", height=20, width=200, multiline=True))
+first_name_collection = cop.elements.ElementCollection("first_name")
+first_name_collection.add(
+    cop.elements.Textbox(name="first_name", value="Prabin")
+)
+last_name_collection = cop.elements.ElementCollection("last_name")
+last_name_collection.add(
+    cop.elements.Textbox(
+        name="last_name",
+        value="Apex R&D",
+        width=200,
+        height=20,
+        multiline=True
+    )
+)
+collection.add(first_name_collection)
+collection.add(last_name_collection)
 
 # Radio buttons
-collection.add(cop.elements.RadioButton(name="radiolist", value="List A", text="Option A", selected=False))
-collection.add(cop.elements.RadioButton(name="radiolist", value="List b", text="List Option b", selected=True))
+radiolist_collection = cop.elements.ElementCollection("radiolist")
+radiolist_collection.add(
+    cop.elements.RadioButton(
+        name="radiolist",
+        value="List A",
+        text="List Option A",
+        selected=True
+    )
+)
+radiolist_collection.add(
+    cop.elements.RadioButton(
+        name="radiolist",
+        value="List B",
+        text="List Option B"
+    )
+)
+collection.add(radiolist_collection)
 
-# Checkbox
-collection.add(cop.elements.Checkbox(name="checkbox", value=True, text="Agree to terms"))
-
-# Dropdown and ComboBox
-collection.add(cop.elements.Dropdown(
-    "country",
-    [{"value": "US", "label": "United States"}, {"value": "BE", "label": "Belgium"}, {"value": "NP", "label": "Nepal"}],
-    "BE", 20, 200,
-))
-collection.add(cop.elements.ComboBox(
-    "city",
-    [{"value": "Ghent"}, {"value": "Kathmandu"}],
-    "Pokhara", 20, 200,
-))
-
-# ListBox
-collection.add(cop.elements.ListBox(
-    "roles",
-    [{"value": "admin", "label": "Admin"}, {"value": "user", "label": "User"}, {"value": "guest", "label": "Guest"}],
-    ["admin", "user"], True, 80, 200,
-))
-
-# Push button and password field
-collection.add(cop.elements.PushButton("submit", "Submit form", 24, 120))
-collection.add(cop.elements.Password("pw", "s3cret", 20, 200))
+# checkbox 
+checkbox_collection = cop.elements.ElementCollection("checkbox")
+checkbox_collection.add(
+    cop.elements.Checkbox(
+        name="checkbox",
+        value=True,
+        text="IsChecked",
+        height=20,
+        width=200
+    )
+)
+collection.add(checkbox_collection)
 
 #  Configure the Server 
 server = cop.config.Server(
     url="http://localhost:8010/",
-    config=cop.config.ServerConfig(api_key="YOUR_API_KEY"),
+    config=cop.config.ServerConfig(api_key="YOUR_API_KEY")  
 )
 
 #  Load the DOCX Template 
@@ -57,4 +73,6 @@ printjob = cop.PrintJob(
     output_config=output_conf,
 )
 response = printjob.execute()
-response.to_file("./output/output.pdf")
+response.to_file( "./output/output.pdf")
+
+

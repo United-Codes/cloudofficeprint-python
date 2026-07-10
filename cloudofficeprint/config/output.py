@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List
+from typing import Dict
 from .cloud import CloudAccessToken
 from .pdf import PDFOptions
 from .request_option import requestOptions
@@ -27,7 +27,6 @@ class OutputConfig:
                  output_locale: str = None,
                  return_output : bool = None,
                  output_read_password: str = None,
-                 output_export_sheets: List[str] = None,
                  ):
         """If the parameters are not provided default value will be used.
 
@@ -47,7 +46,6 @@ class OutputConfig:
             output_locale (str, optional): Locale/language setting for output formatting (e.g. "nep", "en_us"). Defaults to None.
             output_read_password (str, optional): Password to encrypt and protect the output document (PDF, DOCX, etc).
            return_output (bool, optional): When True, both saves files to server directory and returns the output. Defaults to None.
-            output_export_sheets (List[str], optional): Export specified sheets in the output file. Defaults to None
         """
         self.filetype: str = filetype
         self.converter: str = converter
@@ -64,7 +62,6 @@ class OutputConfig:
         self.output_locale: str = output_locale
         self.output_read_password: str = output_read_password
         self.return_output: bool= return_output
-        self.output_export_sheets: List[str] = output_export_sheets
 
     @property
     def json(self) -> str:
@@ -115,8 +112,6 @@ class OutputConfig:
             result['request_option'] = self.request_option.as_dict
         if self.return_output is not None :
             result['return_output'] = self.return_output
-        if self.output_export_sheets is not None:
-            result["output_export_sheets"] = self.output_export_sheets
         return result
 
     @property
