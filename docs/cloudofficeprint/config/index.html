@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
-<title>cloudofficeprint.own_utils.type_utils API documentation</title>
-<meta name="description" content="">
+<title>cloudofficeprint.config API documentation</title>
+<meta name="description" content="Module for output configurations …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -33,116 +33,45 @@ el.replaceWith(d);
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>cloudofficeprint.own_utils.type_utils</code></h1>
+<h1 class="title">Module <code>cloudofficeprint.config</code></h1>
 </header>
 <section id="section-intro">
+<p>Module for output configurations.</p>
+<p>The classes under this module encapsulate various configuration options for a print job.
+They are to be used with <code><a title="cloudofficeprint.printjob.PrintJob" href="../printjob.html#cloudofficeprint.printjob.PrintJob">PrintJob</a></code>.</p>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="cloudofficeprint.config.cloud" href="cloud.html">cloudofficeprint.config.cloud</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cloudofficeprint.config.csv" href="csv.html">cloudofficeprint.config.csv</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cloudofficeprint.config.output" href="output.html">cloudofficeprint.config.output</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cloudofficeprint.config.pdf" href="pdf.html">cloudofficeprint.config.pdf</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cloudofficeprint.config.request_option" href="request_option.html">cloudofficeprint.config.request_option</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cloudofficeprint.config.server" href="server.html">cloudofficeprint.config.server</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 </section>
 <section>
 </section>
 <section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="cloudofficeprint.own_utils.type_utils.extension_to_mimetype"><code class="name flex">
-<span>def <span class="ident">extension_to_mimetype</span></span>(<span>ext: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def extension_to_mimetype(ext: str) -&gt; str:
-    &#34;&#34;&#34;Map an extension / file type to a mime type.
-
-    Args:
-        ext (str): extension
-
-    Returns:
-        str: mime type corresponding to the extension
-    &#34;&#34;&#34;
-    # append &#34;a.&#34; because mimetypes can handle a format like &#34;filename.extension&#34;, but not just &#34;extension&#34;
-    return mimetypes.guess_type(f&#34;a.{ext}&#34;)[0]</code></pre>
-</details>
-<div class="desc"><p>Map an extension / file type to a mime type.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>ext</code></strong> :&ensp;<code>str</code></dt>
-<dd>extension</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>mime type corresponding to the extension</dd>
-</dl></div>
-</dd>
-<dt id="cloudofficeprint.own_utils.type_utils.mimetype_to_extension"><code class="name flex">
-<span>def <span class="ident">mimetype_to_extension</span></span>(<span>mimetype: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def mimetype_to_extension(mimetype: str) -&gt; str:
-    &#34;&#34;&#34;Map a mime type to an extension / file type.
-
-    Args:
-        mimetype (str): mime type
-
-    Returns:
-        str: file type / extension corresponding to the mime type
-    &#34;&#34;&#34;
-    # mimetypes returns a string in &#34;.extension&#34;, so we strip off the first character
-    return mimetypes.guess_extension(mimetype)[1:]</code></pre>
-</details>
-<div class="desc"><p>Map a mime type to an extension / file type.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>mimetype</code></strong> :&ensp;<code>str</code></dt>
-<dd>mime type</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>file type / extension corresponding to the mime type</dd>
-</dl></div>
-</dd>
-<dt id="cloudofficeprint.own_utils.type_utils.path_to_extension"><code class="name flex">
-<span>def <span class="ident">path_to_extension</span></span>(<span>file_path: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def path_to_extension(file_path: str) -&gt; str:
-    &#34;&#34;&#34;Cut off the extension from a file path.
-
-    Example: &#34;/path/to/file.docx&#34; -&gt; &#34;docx&#34;
-
-    Args:
-        file_path (str): file path to handle
-
-    Returns:
-        str: the file&#39;s type / extension
-    &#34;&#34;&#34;
-    return path.splitext(file_path)[1][1:]</code></pre>
-</details>
-<div class="desc"><p>Cut off the extension from a file path.</p>
-<p>Example: "/path/to/file.docx" -&gt; "docx"</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>file_path</code></strong> :&ensp;<code>str</code></dt>
-<dd>file path to handle</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>the file's type / extension</dd>
-</dl></div>
-</dd>
-</dl>
 </section>
 <section>
 </section>
@@ -154,14 +83,17 @@ el.replaceWith(d);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="cloudofficeprint.own_utils" href="index.html">cloudofficeprint.own_utils</a></code></li>
+<li><code><a title="cloudofficeprint" href="../index.html">cloudofficeprint</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="cloudofficeprint.own_utils.type_utils.extension_to_mimetype" href="#cloudofficeprint.own_utils.type_utils.extension_to_mimetype">extension_to_mimetype</a></code></li>
-<li><code><a title="cloudofficeprint.own_utils.type_utils.mimetype_to_extension" href="#cloudofficeprint.own_utils.type_utils.mimetype_to_extension">mimetype_to_extension</a></code></li>
-<li><code><a title="cloudofficeprint.own_utils.type_utils.path_to_extension" href="#cloudofficeprint.own_utils.type_utils.path_to_extension">path_to_extension</a></code></li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="cloudofficeprint.config.cloud" href="cloud.html">cloudofficeprint.config.cloud</a></code></li>
+<li><code><a title="cloudofficeprint.config.csv" href="csv.html">cloudofficeprint.config.csv</a></code></li>
+<li><code><a title="cloudofficeprint.config.output" href="output.html">cloudofficeprint.config.output</a></code></li>
+<li><code><a title="cloudofficeprint.config.pdf" href="pdf.html">cloudofficeprint.config.pdf</a></code></li>
+<li><code><a title="cloudofficeprint.config.request_option" href="request_option.html">cloudofficeprint.config.request_option</a></code></li>
+<li><code><a title="cloudofficeprint.config.server" href="server.html">cloudofficeprint.config.server</a></code></li>
 </ul>
 </li>
 </ul>

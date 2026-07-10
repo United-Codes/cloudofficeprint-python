@@ -13,7 +13,7 @@ rm -rf docs/cloudofficeprint
 # Generate documentation via pdoc
 echo "[3] Generating documentation with pdoc into docs/cloudofficeprint/..."
 # Make sure pdoc is installed: pip install pdoc3
-python -m pdoc --output-dir docs/ cloudofficeprint
+pdoc --html --force --output-dir docs/ cloudofficeprint
 
 # Build source (+sdist) and wheel (+bdist_wheel)
 echo "[4] Building source and wheel distributions (python setup.py sdist bdist_wheel)..."
