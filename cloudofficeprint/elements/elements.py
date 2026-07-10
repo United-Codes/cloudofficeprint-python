@@ -445,6 +445,10 @@ class Element(ABC):
         pass
 
 
+class FormElement(Element, ABC):
+    """The abstract base class for PDF form field elements."""
+
+
 class Property(Element):
     """The most basic `Element`. It simply consists of a name and a value.
 
@@ -1713,6 +1717,8 @@ class ElementCollection(list, Element):
         for element in self:
             if isinstance(element, ElementCollection):
                 result.update({element.name: element.as_dict})
+            elif isinstance(element, FormElement):
+                result.setdefault(element.name, []).append(element.as_dict)
             else:
                 result.update(element.as_dict)
         return result
